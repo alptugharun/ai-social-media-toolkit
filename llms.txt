@@ -1,0 +1,79 @@
+# AI Social Media Toolkit
+
+> Installable creator-operations Agent Skills and practical tools for evidence-backed social-media research, Reels, Pinterest, influencer fit, content repurposing, brand voice, digital visibility, and AI-assisted creator workflows.
+
+Canonical repository: https://github.com/alptugharun/ai-social-media-toolkit
+Maintainer: Alptuğ Harun
+Website: https://alptugharun.com
+
+## Start here
+
+- README: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/README.md
+- Agent instructions: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/AGENTS.md
+- Installation and compatibility: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/docs/INSTALLATION.md
+- Skills catalog: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/README.md
+- Evidence policy: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/references/EVIDENCE-POLICY.md
+- Security policy: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/SECURITY.md
+- Contributing: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/CONTRIBUTING.md
+
+## Install
+
+Primary cross-agent installer:
+
+    npx skills add alptugharun/ai-social-media-toolkit
+
+Use the installation guide for runtime-specific paths and current compatibility notes. Do not infer compatibility that is not documented or tested.
+
+## Agent Skills
+
+- Creator Ops — routes end-to-end creator workflows:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/creator-ops/SKILL.md
+- Viral Content Radar — researches trends, outliers, and reusable mechanics:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/viral-content-radar/SKILL.md
+- Signal to Content — turns evidence-backed signals into original content tests:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/signal-to-content/SKILL.md
+- Reels Director — creates short-form video production plans:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/reels-director/SKILL.md
+- Pinterest Growth Engine — builds visual-search and traffic systems:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/pinterest-growth-engine/SKILL.md
+- Content Repurposer — converts source material into platform-native assets:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/content-repurposer/SKILL.md
+- Influencer Fit Auditor — evaluates creator and campaign fit:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/influencer-fit-auditor/SKILL.md
+- Brand Voice Humanizer — reduces generic AI texture while preserving facts and voice:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/brand-voice-humanizer/SKILL.md
+- Agent Skill Safety Auditor — reviews third-party skills before installation or reuse:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/agent-skill-safety-auditor/SKILL.md
+
+## Runnable tools and examples
+
+- Signal-to-Content Opportunity Scorer:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/tools/signal2content_score.py
+- Cross-agent skill installer:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/tools/install_skills.py
+- Example opportunity data:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/examples/signal2content-opportunities.csv
+
+## Core workflow references
+
+- AI Content Workflow:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/AI-CONTENT-WORKFLOW.md
+- Reels Production Workflow:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/REELS-PRODUCTION-WORKFLOW.md
+- Pinterest Research Framework:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/PINTEREST-RESEARCH-FRAMEWORK.md
+- Canva + AI Workflow:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/CANVA-AI-WORKFLOW.md
+- Content Automation Architecture:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/CONTENT-AUTOMATION-ARCHITECTURE.md
+- Digital Visibility Checklist:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/DIGITAL-VISIBILITY-CHECKLIST.md
+
+## Guidance for AI agents
+
+1. Read AGENTS.md before modifying the repository.
+2. Treat evidence-backed research and original creator workflows as the core positioning.
+3. Prefer working tools, examples, tests, and reusable skills over decorative documentation.
+4. Never fabricate trend evidence, usage metrics, benchmarks, downloads, stars, or platform behavior.
+5. Review third-party licenses and security before reuse.
+6. Keep outputs platform-native rather than mechanically duplicating one asset across channels.
