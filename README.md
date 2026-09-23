@@ -165,7 +165,7 @@ Planned resources include:
 - [x] [Reels Production Workflow](REELS-PRODUCTION-WORKFLOW.md)
 - [x] [Content Automation Architecture](CONTENT-AUTOMATION-ARCHITECTURE.md)
 - [x] [AI Tool Comparison Resources](AI-TOOL-COMPARISON-RESOURCES.md)
-- [ ] Digital Visibility Checklist
+- [x] [Digital Visibility Checklist](DIGITAL-VISIBILITY-CHECKLIST.md)
 
 ---
 
