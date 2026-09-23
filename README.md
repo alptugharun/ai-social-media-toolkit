@@ -159,7 +159,7 @@ Planned resources include:
 
 - [x] [AI Content Workflow](AI-CONTENT-WORKFLOW.md)
 - [x] [Social Media Content System](SOCIAL-MEDIA-CONTENT-SYSTEM.md)
-- [ ] Canva + AI Workflow
+- [x] [Canva + AI Workflow](CANVA-AI-WORKFLOW.md)
 - [ ] Pinterest Research Framework
 - [ ] Prompt Engineering Framework
 - [ ] Reels Production Workflow
