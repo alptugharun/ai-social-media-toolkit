@@ -158,6 +158,7 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Influencer Fit Auditor](skills/influencer-fit-auditor/SKILL.md) | Evaluates creator partnerships and campaign fit |
 | [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) | Removes generic AI texture while preserving facts and voice |
 | [Signal to Content](skills/signal-to-content/SKILL.md) | Converts evidence-backed trends and outliers into original content tests |
+| [Comment Intelligence](skills/comment-intelligence/SKILL.md) | Mines comments for recurring questions, objections, audience language and testable content opportunities |
 | [Agent Skill Safety Auditor](skills/agent-skill-safety-auditor/SKILL.md) | Audits third-party skills before installation or reuse |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
@@ -168,11 +169,12 @@ For consistent outputs, start with the [Creator Context Template](references/CRE
 
 [Browse all Agent Skills](skills/README.md)
 
-### Working Tool
+### Working Tools
 
-The repository also includes a dependency-free [Signal to Content Opportunity Scorer](tools/signal2content_score.py) for ranking trend ideas with a transparent heuristic.
+The repository includes dependency-free utilities that turn creator research into auditable scores instead of opaque AI judgments:
 
-Example data: [signal2content-opportunities.csv](examples/signal2content-opportunities.csv)
+- [Signal to Content Opportunity Scorer](tools/signal2content_score.py) — ranks trend and content opportunities with a transparent heuristic. Example: [signal2content-opportunities.csv](examples/signal2content-opportunities.csv)
+- [Social Outlier Analyzer](tools/outlier_score.py) — compares post performance against the creator's own median baseline using views and engagement signals. Example: [social-outlier-posts.csv](examples/social-outlier-posts.csv)
 
 
 ---
