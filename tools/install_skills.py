@@ -19,6 +19,7 @@ from pathlib import Path
 TARGETS = {
     "agents": (Path(".agents") / "skills", Path.home() / ".agents" / "skills"),
     "claude": (Path(".claude") / "skills", Path.home() / ".claude" / "skills"),
+    "copilot": (Path(".github") / "skills", Path.home() / ".copilot" / "skills"),
     "codex": (Path(".codex") / "skills", Path.home() / ".codex" / "skills"),
     "gemini": (Path(".gemini") / "skills", Path.home() / ".gemini" / "skills"),
     "grok": (Path(".grok") / "skills", Path.home() / ".grok" / "skills"),
