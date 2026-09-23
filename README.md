@@ -167,6 +167,35 @@ Version 1 includes:
 - [x] [AI Tool Comparison Resources](AI-TOOL-COMPARISON-RESOURCES.md)
 - [x] [Digital Visibility Checklist](DIGITAL-VISIBILITY-CHECKLIST.md)
 
+
+---
+
+## Start Here
+
+New to the toolkit?
+
+Begin with the [Start Here Quick-Start Guide](START-HERE.md).
+
+It shows how to move from objective to framework, template, human review, publishing and measurement.
+
+---
+
+## Practical Templates
+
+Use these resources directly in your own workflow:
+
+- [Content Brief Template](templates/CONTENT-BRIEF-TEMPLATE.md)
+- [Reels Production Template](templates/REELS-PRODUCTION-TEMPLATE.md)
+- [Pinterest Research Sheet](templates/PINTEREST-RESEARCH-SHEET.csv)
+- [Reusable Prompt Template](templates/PROMPT-TEMPLATE.md)
+- [AI Tool Comparison Matrix](templates/AI-TOOL-COMPARISON-MATRIX.csv)
+- [Digital Visibility Audit Checklist](downloads/DIGITAL-VISIBILITY-AUDIT-CHECKLIST.md)
+
+### Case Study
+
+- [Building the AI Social Media Toolkit](case-studies/AI-SOCIAL-MEDIA-TOOLKIT-CASE-STUDY.md)
+
+
 ---
 
 ## Philosophy
