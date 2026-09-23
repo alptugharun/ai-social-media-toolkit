@@ -13,6 +13,7 @@ Installable creator and social-media skills for AI agents.
 | `content-repurposer` | Turns one source into platform-native assets |
 | `influencer-fit-auditor` | Evaluates creator / influencer partnerships |
 | `brand-voice-humanizer` | Restores natural brand voice |
+| `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 
 ## Compatibility
 
