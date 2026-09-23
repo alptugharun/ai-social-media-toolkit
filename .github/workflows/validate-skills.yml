@@ -4,18 +4,34 @@ on:
   push:
     paths:
       - "skills/**"
+      - "tools/**"
+      - "tests/**"
+      - "plugin.json"
+      - "gemini-extension.json"
+      - ".claude-plugin/**"
       - ".github/workflows/validate-skills.yml"
   pull_request:
     paths:
       - "skills/**"
+      - "tools/**"
+      - "tests/**"
+      - "plugin.json"
+      - "gemini-extension.json"
+      - ".claude-plugin/**"
       - ".github/workflows/validate-skills.yml"
 
 jobs:
   validate:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
       - name: Validate SKILL.md files
         shell: bash
@@ -48,6 +64,13 @@ jobs:
               echo "::error file=$file::Missing license field"
               exit 1
             fi
+
+            dir_name="$(basename "$(dirname "$file")")"
+            declared_name="$(sed -n 's/^name:[[:space:]]*//p' "$file" | head -n 1 | tr -d '"'"'"'')"
+            if [ "$declared_name" != "$dir_name" ]; then
+              echo "::error file=$file::Frontmatter name '$declared_name' must match directory '$dir_name'"
+              exit 1
+            fi
           done < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -print0)
 
           if [ "$count" -eq 0 ]; then
@@ -56,3 +79,21 @@ jobs:
           fi
 
           echo "Validated $count skill files."
+
+      - name: Validate JSON manifests
+        shell: bash
+        run: |
+          python -m json.tool plugin.json >/dev/null
+          python -m json.tool gemini-extension.json >/dev/null
+          python -m json.tool .claude-plugin/plugin.json >/dev/null
+
+      - name: Run installer tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Smoke-test installer
+        shell: bash
+        run: |
+          tmpdir="$(mktemp -d)"
+          python tools/install_skills.py             --target agents             --scope project             --project-root "$tmpdir"             --skill creator-ops
+
+          test -f "$tmpdir/.agents/skills/creator-ops/SKILL.md"
