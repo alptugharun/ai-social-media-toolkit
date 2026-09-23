@@ -163,7 +163,7 @@ Planned resources include:
 - [x] [Pinterest Research Framework](PINTEREST-RESEARCH-FRAMEWORK.md)
 - [x] [Prompt Engineering Framework](PROMPT-ENGINEERING-FRAMEWORK.md)
 - [x] [Reels Production Workflow](REELS-PRODUCTION-WORKFLOW.md)
-- [ ] Content Automation Architecture
+- [x] [Content Automation Architecture](CONTENT-AUTOMATION-ARCHITECTURE.md)
 - [ ] AI Tool Comparison Resources
 - [ ] Digital Visibility Checklist
 
