@@ -50,6 +50,12 @@ jobs:
               exit 1
             fi
 
+            frontmatter_delimiters="$(grep -c '^---$' "$file")"
+            if [ "$frontmatter_delimiters" -lt 2 ]; then
+              echo "::error file=$file::YAML frontmatter is not closed"
+              exit 1
+            fi
+
             if ! grep -q '^name:' "$file"; then
               echo "::error file=$file::Missing name field"
               exit 1
@@ -69,6 +75,27 @@ jobs:
             declared_name="$(sed -n 's/^name:[[:space:]]*//p' "$file" | head -n 1 | tr -d '"'"'"'')"
             if [ "$declared_name" != "$dir_name" ]; then
               echo "::error file=$file::Frontmatter name '$declared_name' must match directory '$dir_name'"
+              exit 1
+            fi
+
+            if [[ ! "$declared_name" =~ ^[a-z0-9]+(-[a-z0-9]+)*$ ]] || [ "${#declared_name}" -gt 64 ]; then
+              echo "::error file=$file::Skill name must be kebab-case and at most 64 characters"
+              exit 1
+            fi
+
+            description="$(sed -n 's/^description:[[:space:]]*//p' "$file" | head -n 1)"
+            description="${description%\"}"
+            description="${description#\"}"
+            description="${description%\'}"
+            description="${description#\'}"
+            if [ -z "$description" ] || [ "${#description}" -gt 1024 ]; then
+              echo "::error file=$file::Description must contain 1-1024 characters"
+              exit 1
+            fi
+
+            line_count="$(wc -l < "$file")"
+            if [ "$line_count" -gt 500 ]; then
+              echo "::error file=$file::SKILL.md exceeds the 500-line portability limit"
               exit 1
             fi
           done < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -print0)
@@ -94,6 +121,10 @@ jobs:
         shell: bash
         run: |
           tmpdir="$(mktemp -d)"
-          python tools/install_skills.py             --target agents             --scope project             --project-root "$tmpdir"             --skill creator-ops
+          python tools/install_skills.py \
+            --target agents \
+            --scope project \
+            --project-root "$tmpdir" \
+            --skill creator-ops
 
           test -f "$tmpdir/.agents/skills/creator-ops/SKILL.md"
