@@ -22,6 +22,7 @@ These skills use portable Markdown instructions and are designed for agent envir
 
 Typical compatible environments may include:
 
+- GitHub Copilot
 - Claude Code
 - Cursor
 - Codex
@@ -29,6 +30,29 @@ Typical compatible environments may include:
 - Other Agent Skills-compatible runtimes
 
 ## Installation
+
+### GitHub CLI (`gh skill`)
+
+GitHub CLI v2.90.0+ can discover and install Agent Skills across supported hosts:
+
+```bash
+gh skill install alptugharun/ai-social-media-toolkit
+```
+
+Target a specific host when needed:
+
+```bash
+gh skill install alptugharun/ai-social-media-toolkit --agent claude-code
+gh skill install alptugharun/ai-social-media-toolkit --agent cursor
+gh skill install alptugharun/ai-social-media-toolkit --agent codex
+gh skill install alptugharun/ai-social-media-toolkit --agent gemini
+```
+
+Preview third-party skills before installing them:
+
+```bash
+gh skill preview alptugharun/ai-social-media-toolkit
+```
 
 ### Universal Skills CLI
 
@@ -56,7 +80,15 @@ The repository includes a dependency-free installer:
 python tools/install_skills.py --target agents --scope user
 ```
 
-Supported direct targets: `agents`, `claude`, `codex`, `gemini`, `grok`, and `cursor`.
+Supported direct targets: `agents`, `claude`, `copilot`, `codex`, `gemini`, `grok`, and `cursor`.
+
+For GitHub Copilot specifically:
+
+```bash
+python tools/install_skills.py --target copilot --scope user
+```
+
+This installs personal skills to `~/.copilot/skills`. Project-scoped Copilot installs use `.github/skills`.
 
 Gemini CLI can also install directly from Git:
 
