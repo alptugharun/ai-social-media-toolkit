@@ -13,6 +13,7 @@ Installable creator and social-media skills for AI agents.
 | `content-repurposer` | Turns one source into platform-native assets |
 | `influencer-fit-auditor` | Evaluates creator / influencer partnerships |
 | `brand-voice-humanizer` | Restores natural brand voice |
+| `signal-to-content` | Converts trend evidence into original platform-native tests |
 | `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 
 ## Compatibility
@@ -29,15 +30,41 @@ Typical compatible environments may include:
 
 ## Installation
 
-Where supported by the open Skills CLI:
+### Universal Skills CLI
 
 ```bash
 npx skills add alptugharun/ai-social-media-toolkit
 ```
 
-List or install individual skills according to your runtime's supported Skills workflow.
+Browse first:
 
-Manual installation also works: copy the desired skill folder into the skills directory recognized by your agent.
+```bash
+npx skills add alptugharun/ai-social-media-toolkit --list
+```
+
+Install one skill:
+
+```bash
+npx skills add alptugharun/ai-social-media-toolkit --skill signal-to-content
+```
+
+### Native / direct placement
+
+The repository includes a dependency-free installer:
+
+```bash
+python tools/install_skills.py --target agents --scope user
+```
+
+Supported direct targets: `agents`, `claude`, `codex`, `gemini`, `grok`, and `cursor`.
+
+Gemini CLI can also install directly from Git:
+
+```bash
+gemini skills install https://github.com/alptugharun/ai-social-media-toolkit.git --consent
+```
+
+See the full [Installation & Compatibility Guide](../docs/INSTALLATION.md).
 
 ## Shared Context
 
