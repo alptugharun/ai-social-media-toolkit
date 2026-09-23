@@ -1,0 +1,58 @@
+name: Validate Agent Skills
+
+on:
+  push:
+    paths:
+      - "skills/**"
+      - ".github/workflows/validate-skills.yml"
+  pull_request:
+    paths:
+      - "skills/**"
+      - ".github/workflows/validate-skills.yml"
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate SKILL.md files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          count=0
+
+          while IFS= read -r -d '' file; do
+            count=$((count + 1))
+            echo "Checking $file"
+
+            first_line="$(head -n 1 "$file")"
+            if [ "$first_line" != "---" ]; then
+              echo "::error file=$file::Missing YAML frontmatter start"
+              exit 1
+            fi
+
+            if ! grep -q '^name:' "$file"; then
+              echo "::error file=$file::Missing name field"
+              exit 1
+            fi
+
+            if ! grep -q '^description:' "$file"; then
+              echo "::error file=$file::Missing description field"
+              exit 1
+            fi
+
+            if ! grep -q '^license:' "$file"; then
+              echo "::error file=$file::Missing license field"
+              exit 1
+            fi
+          done < <(find skills -mindepth 2 -maxdepth 2 -name SKILL.md -print0)
+
+          if [ "$count" -eq 0 ]; then
+            echo "::error::No SKILL.md files found"
+            exit 1
+          fi
+
+          echo "Validated $count skill files."
