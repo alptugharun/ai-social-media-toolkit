@@ -1,0 +1,21 @@
+{
+  "name": "ai-social-media-toolkit",
+  "version": "0.2.0",
+  "description": "Creator-operations skills for social research, content production, Pinterest, Reels, influencer analysis, brand voice, and content repurposing.",
+  "author": {
+    "name": "Alptuğ Harun",
+    "url": "https://alptugharun.com"
+  },
+  "homepage": "https://github.com/alptugharun/ai-social-media-toolkit",
+  "repository": "https://github.com/alptugharun/ai-social-media-toolkit",
+  "license": "MIT",
+  "keywords": [
+    "creator-ops",
+    "social-media",
+    "content-strategy",
+    "reels",
+    "pinterest",
+    "influencer-marketing",
+    "agent-skills"
+  ]
+}
