@@ -139,6 +139,7 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Content Repurposer](skills/content-repurposer/SKILL.md) | Rebuilds one source into platform-native assets |
 | [Influencer Fit Auditor](skills/influencer-fit-auditor/SKILL.md) | Evaluates creator partnerships and campaign fit |
 | [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) | Removes generic AI texture while preserving facts and voice |
+| [Signal to Content](skills/signal-to-content/SKILL.md) | Converts evidence-backed trends and outliers into original content tests |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
 
@@ -147,6 +148,12 @@ For consistent outputs, start with the [Creator Context Template](references/CRE
 **Status:** Alpha. Skill structure is automatically validated with GitHub Actions. Runtime-specific behavior should still be tested before production use.
 
 [Browse all Agent Skills](skills/README.md)
+
+### Working Tool
+
+The repository also includes a dependency-free [Signal to Content Opportunity Scorer](tools/signal2content_score.py) for ranking trend ideas with a transparent heuristic.
+
+Example data: [signal2content-opportunities.csv](examples/signal2content-opportunities.csv)
 
 
 ---
