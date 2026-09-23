@@ -153,9 +153,9 @@ Environment • Sustainability • Technology • Artificial Intelligence • Ed
 
 ---
 
-Version 1 includes:
+## Included Resources
 
-Planned resources include:
+Version 1 includes:
 
 - [x] [AI Content Workflow](AI-CONTENT-WORKFLOW.md)
 - [x] [Social Media Content System](SOCIAL-MEDIA-CONTENT-SYSTEM.md)
