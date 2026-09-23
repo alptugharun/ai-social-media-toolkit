@@ -33,7 +33,7 @@ The goal is to build **repeatable, efficient and measurable content systems**.
 
 ## Toolkit
 
-The repository will gradually include practical resources covering the following areas.
+This repository includes practical resources covering the following areas.
 
 ### AI Content Workflows
 
@@ -153,7 +153,7 @@ Environment • Sustainability • Technology • Artificial Intelligence • Ed
 
 ---
 
-## Repository Roadmap
+Version 1 includes:
 
 Planned resources include:
 
