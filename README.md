@@ -194,5 +194,14 @@ Antalya, Türkiye
 🎨 [Behance](https://www.behance.net/alptugharun/)
 
 ---
+## License
 
+This repository is licensed under the  
+[Creative Commons Attribution-NonCommercial 4.0 International License](LICENSE.md).
+
+You may share and adapt the original material with appropriate attribution to **Alptuğ Harun**.
+
+Commercial use requires separate permission.
+
+---
 _Last updated: September 2026_
