@@ -157,7 +157,7 @@ Environment • Sustainability • Technology • Artificial Intelligence • Ed
 
 Planned resources include:
 
-- [ ] AI Content Workflow
+- [x] [AI Content Workflow](AI-CONTENT-WORKFLOW.md)
 - [ ] Social Media Content System
 - [ ] Canva + AI Workflow
 - [ ] Pinterest Research Framework
