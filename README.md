@@ -162,7 +162,7 @@ Planned resources include:
 - [x] [Canva + AI Workflow](CANVA-AI-WORKFLOW.md)
 - [x] [Pinterest Research Framework](PINTEREST-RESEARCH-FRAMEWORK.md)
 - [x] [Prompt Engineering Framework](PROMPT-ENGINEERING-FRAMEWORK.md)
-- [ ] Reels Production Workflow
+- [x] [Reels Production Workflow](REELS-PRODUCTION-WORKFLOW.md)
 - [ ] Content Automation Architecture
 - [ ] AI Tool Comparison Resources
 - [ ] Digital Visibility Checklist
