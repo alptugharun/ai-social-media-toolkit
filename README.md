@@ -175,6 +175,7 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Signal to Content](skills/signal-to-content/SKILL.md) | Converts evidence-backed trends and outliers into original content tests |
 | [Comment Intelligence](skills/comment-intelligence/SKILL.md) | Mines comments for recurring questions, objections, audience language and testable content opportunities |
 | [Agent Skill Safety Auditor](skills/agent-skill-safety-auditor/SKILL.md) | Audits third-party skills before installation or reuse |
+| [GitHub Opportunity Radar](skills/github-opportunity-radar/SKILL.md) | Researches GitHub demand signals, fast-rising repositories and Agent Skill gaps |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
 
@@ -183,6 +184,21 @@ For consistent outputs, start with the [Creator Context Template](references/CRE
 **Status:** Alpha. Skill structure, manifests and the cross-agent installer are automatically validated with GitHub Actions. Runtime-specific behavior should still be tested before production use.
 
 [Browse all Agent Skills](skills/README.md)
+
+### Automated GitHub Opportunity Radar
+
+A scheduled GitHub Actions workflow scans current GitHub demand proxies and refreshes a single `growth-radar` issue with:
+
+- current Trending signals
+- recent star-velocity proxies
+- repository-search supply estimates
+- fast-rising relevant repositories
+- under-served Agent Skill candidates
+- packaging and monetization-readiness checks
+
+The radar runs daily and deliberately requires human approval before any new skill is published.
+
+Research method: [GitHub Growth & Discovery Playbook](references/GITHUB-GROWTH-PLAYBOOK.md)
 
 ### Working Tools
 
