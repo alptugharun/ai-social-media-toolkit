@@ -14,6 +14,7 @@ Installable creator and social-media skills for AI agents.
 | `influencer-fit-auditor` | Evaluates creator / influencer partnerships |
 | `brand-voice-humanizer` | Restores natural brand voice |
 | `signal-to-content` | Converts trend evidence into original platform-native tests |
+| `comment-intelligence` | Mines comments for questions, objections, pain points, demand signals, and content opportunities |
 | `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 
 ## Compatibility
