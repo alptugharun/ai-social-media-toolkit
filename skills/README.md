@@ -16,6 +16,7 @@ Installable creator and social-media skills for AI agents.
 | `signal-to-content` | Converts trend evidence into original platform-native tests |
 | `comment-intelligence` | Mines comments for questions, objections, pain points, demand signals, and content opportunities |
 | `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
+| `github-opportunity-radar` | Finds GitHub demand signals, skill gaps and repository-growth opportunities |
 
 ## Compatibility
 
