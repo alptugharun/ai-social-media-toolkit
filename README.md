@@ -115,6 +115,40 @@ Areas include:
 - AI agent workflows
 - Multi-tool automation
 
+
+---
+
+## Agent Skills — Creator Ops Alpha
+
+The toolkit now includes portable AI-agent skills for creator and social-media workflows.
+
+### Install
+
+```bash
+npx skills add alptugharun/ai-social-media-toolkit
+```
+
+Designed for Agent Skills-compatible environments including Claude Code, Cursor, Codex, Gemini CLI and similar runtimes.
+
+| Skill | What it does |
+| --- | --- |
+| [Creator Ops](skills/creator-ops/SKILL.md) | Routes end-to-end creator workflows |
+| [Viral Content Radar](skills/viral-content-radar/SKILL.md) | Finds trends, outliers and repeatable content mechanics |
+| [Reels Director](skills/reels-director/SKILL.md) | Turns ideas into short-form video production plans |
+| [Pinterest Growth Engine](skills/pinterest-growth-engine/SKILL.md) | Builds visual-search, keyword and traffic systems |
+| [Content Repurposer](skills/content-repurposer/SKILL.md) | Rebuilds one source into platform-native assets |
+| [Influencer Fit Auditor](skills/influencer-fit-auditor/SKILL.md) | Evaluates creator partnerships and campaign fit |
+| [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) | Removes generic AI texture while preserving facts and voice |
+
+Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
+
+For consistent outputs, start with the [Creator Context Template](references/CREATOR-CONTEXT-TEMPLATE.md).
+
+**Status:** Alpha. Skill structure is automatically validated with GitHub Actions. Runtime-specific behavior should still be tested before production use.
+
+[Browse all Agent Skills](skills/README.md)
+
+
 ---
 
 ## Tools
