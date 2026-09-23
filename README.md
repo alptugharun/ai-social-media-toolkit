@@ -1,10 +1,28 @@
 # AI Social Media Toolkit
 
-A growing collection of AI-powered workflows, frameworks and practical resources for social media strategy, content creation, digital marketing and creative automation.
+[![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
+[![GitHub stars](https://img.shields.io/github/stars/alptugharun/ai-social-media-toolkit?style=flat-square)](https://github.com/alptugharun/ai-social-media-toolkit/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/alptugharun/ai-social-media-toolkit?style=flat-square)](https://github.com/alptugharun/ai-social-media-toolkit/forks)
+![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Creator%20Ops-blue?style=flat-square)
+![Skills license](https://img.shields.io/badge/skills-MIT-green?style=flat-square)
+
+**An installable creator-operations toolkit for turning research signals into platform-native social content systems.**
+
+Built for creators, strategists and AI agents working across social-media research, Reels, Pinterest, influencer marketing, content repurposing, brand voice and digital visibility.
 
 Created and maintained by **Alptuğ Harun**.
 
 🌐 [alptugharun.com](https://alptugharun.com)
+
+### Install the Agent Skills
+
+```bash
+npx skills add alptugharun/ai-social-media-toolkit
+```
+
+Works as portable `SKILL.md` packages with installation paths and manifests for **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and Agent Skills-compatible runtimes**.
+
+→ [Installation & compatibility guide](docs/INSTALLATION.md)
 
 ---
 
@@ -140,12 +158,13 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Influencer Fit Auditor](skills/influencer-fit-auditor/SKILL.md) | Evaluates creator partnerships and campaign fit |
 | [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) | Removes generic AI texture while preserving facts and voice |
 | [Signal to Content](skills/signal-to-content/SKILL.md) | Converts evidence-backed trends and outliers into original content tests |
+| [Agent Skill Safety Auditor](skills/agent-skill-safety-auditor/SKILL.md) | Audits third-party skills before installation or reuse |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
 
 For consistent outputs, start with the [Creator Context Template](references/CREATOR-CONTEXT-TEMPLATE.md).
 
-**Status:** Alpha. Skill structure is automatically validated with GitHub Actions. Runtime-specific behavior should still be tested before production use.
+**Status:** Alpha. Skill structure, manifests and the cross-agent installer are automatically validated with GitHub Actions. Runtime-specific behavior should still be tested before production use.
 
 [Browse all Agent Skills](skills/README.md)
 
