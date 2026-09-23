@@ -164,7 +164,7 @@ Planned resources include:
 - [x] [Prompt Engineering Framework](PROMPT-ENGINEERING-FRAMEWORK.md)
 - [x] [Reels Production Workflow](REELS-PRODUCTION-WORKFLOW.md)
 - [x] [Content Automation Architecture](CONTENT-AUTOMATION-ARCHITECTURE.md)
-- [ ] AI Tool Comparison Resources
+- [x] [AI Tool Comparison Resources](AI-TOOL-COMPARISON-RESOURCES.md)
 - [ ] Digital Visibility Checklist
 
 ---
