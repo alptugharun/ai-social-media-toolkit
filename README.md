@@ -20,6 +20,22 @@ Created and maintained by **Alptuğ Harun**.
 npx skills add alptugharun/ai-social-media-toolkit
 ```
 
+Discover first, install only what you need, or run a skill without permanently installing it:
+
+```bash
+# List the skills in this repository
+npx skills add alptugharun/ai-social-media-toolkit --list
+
+# Install one workflow only
+npx skills add alptugharun/ai-social-media-toolkit --skill viral-content-radar
+
+# Target a specific supported agent
+npx skills add alptugharun/ai-social-media-toolkit --skill comment-intelligence -a codex
+
+# Try a skill without installing it
+npx skills use alptugharun/ai-social-media-toolkit --skill signal-to-content
+```
+
 Works as portable `SKILL.md` packages with installation paths and manifests for **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and Agent Skills-compatible runtimes**.
 
 → [Installation & compatibility guide](docs/INSTALLATION.md)
@@ -133,7 +149,6 @@ Areas include:
 - AI agent workflows
 - Multi-tool automation
 
-
 ---
 
 ## Agent Skills — Creator Ops Alpha
@@ -175,7 +190,6 @@ The repository includes dependency-free utilities that turn creator research int
 
 - [Signal to Content Opportunity Scorer](tools/signal2content_score.py) — ranks trend and content opportunities with a transparent heuristic. Example: [signal2content-opportunities.csv](examples/signal2content-opportunities.csv)
 - [Social Outlier Analyzer](tools/outlier_score.py) — compares post performance against the creator's own median baseline using views and engagement signals. Example: [social-outlier-posts.csv](examples/social-outlier-posts.csv)
-
 
 ---
 
@@ -229,7 +243,6 @@ Version 1 includes:
 - [x] [AI Tool Comparison Resources](AI-TOOL-COMPARISON-RESOURCES.md)
 - [x] [Digital Visibility Checklist](DIGITAL-VISIBILITY-CHECKLIST.md)
 
-
 ---
 
 ## Start Here
@@ -256,7 +269,6 @@ Use these resources directly in your own workflow:
 ### Case Study
 
 - [Building the AI Social Media Toolkit](case-studies/AI-SOCIAL-MEDIA-TOOLKIT-CASE-STUDY.md)
-
 
 ---
 
