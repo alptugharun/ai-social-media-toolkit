@@ -34,26 +34,30 @@ Typical compatible environments may include:
 
 ### GitHub CLI (`gh skill`)
 
-GitHub CLI v2.90.0+ can discover and install Agent Skills across supported hosts:
+GitHub CLI v2.90.0+ can discover and install Agent Skills across supported hosts. The `gh skill` feature is currently in public preview, so its interface may change.
+
+Browse the repository interactively:
 
 ```bash
 gh skill install alptugharun/ai-social-media-toolkit
 ```
 
-Target a specific host when needed:
+Preview a specific skill before installing it:
 
 ```bash
-gh skill install alptugharun/ai-social-media-toolkit --agent claude-code
-gh skill install alptugharun/ai-social-media-toolkit --agent cursor
-gh skill install alptugharun/ai-social-media-toolkit --agent codex
-gh skill install alptugharun/ai-social-media-toolkit --agent gemini
+gh skill preview alptugharun/ai-social-media-toolkit signal-to-content
 ```
 
-Preview third-party skills before installing them:
+Install a specific skill for a specific host when needed:
 
 ```bash
-gh skill preview alptugharun/ai-social-media-toolkit
+gh skill install alptugharun/ai-social-media-toolkit signal-to-content --agent claude-code --scope user
+gh skill install alptugharun/ai-social-media-toolkit signal-to-content --agent cursor --scope user
+gh skill install alptugharun/ai-social-media-toolkit signal-to-content --agent codex --scope user
+gh skill install alptugharun/ai-social-media-toolkit signal-to-content --agent gemini --scope user
 ```
+
+Installed skills receive provenance metadata that `gh skill update` can use for later update checks.
 
 ### Universal Skills CLI
 
@@ -98,6 +102,16 @@ gemini skills install https://github.com/alptugharun/ai-social-media-toolkit.git
 ```
 
 See the full [Installation & Compatibility Guide](../docs/INSTALLATION.md).
+
+## Maintainer Validation
+
+GitHub CLI v2.90.0+ can validate a skill repository against the Agent Skills specification without publishing it:
+
+```bash
+gh skill publish --dry-run
+```
+
+This complements the repository's own validation workflow. Treat the GitHub CLI result as an additional compatibility check rather than a substitute for runtime testing on each agent host.
 
 ## Shared Context
 
