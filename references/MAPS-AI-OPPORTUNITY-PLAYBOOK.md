@@ -284,3 +284,21 @@ Scores are prioritization heuristics, not predictions of virality.
 ## Core Principle
 
 **Use official location intelligence to solve a sharper workflow. Do not turn Google Maps content into a scraped database.**
+
+
+## Official References
+
+Re-check these before a production release because product capabilities and terms can change:
+
+- Google Maps Platform Agent Skills: https://developers.google.com/maps/ai/agent-skills
+- Google Maps Grounding Lite MCP: https://developers.google.com/maps/architecture/grounding-with-maps-mcp
+- Places Aggregate API overview: https://developers.google.com/maps/documentation/places-aggregate/overview
+- Places Aggregate request parameters: https://developers.google.com/maps/documentation/places-aggregate/request-parameters
+- Places Aggregate examples: https://developers.google.com/maps/documentation/places-aggregate/example-requests
+- Google Business Profile Performance API: https://developers.google.com/my-business/reference/performance/rpc
+- Google Business Profile reviews: https://developers.google.com/my-business/content/review-data
+- Google Maps Platform Terms: https://cloud.google.com/maps-platform/terms
+- Maps Service Specific Terms: https://cloud.google.com/maps-platform/terms/maps-service-terms
+- Street View Static policies: https://developers.google.com/maps/documentation/streetview/policies
+
+Important current examples from the service-specific terms include temporary caching limits for certain location values and Places Aggregate POI counts, plus special rules for Google IDs such as place IDs. Do not encode a permanent storage assumption into a product without checking the live terms.
