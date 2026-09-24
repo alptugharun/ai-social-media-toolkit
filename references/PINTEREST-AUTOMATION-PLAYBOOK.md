@@ -37,6 +37,21 @@ When a valid `PINTEREST_ACCESS_TOKEN` is available, the radar can additionally a
 
 Secrets must never be committed to the repository.
 
+### Mode B1 — Sandbox validation before production writes
+
+Pinterest's official Sandbox documentation, updated **2026-09-08**, lists Pin and board test endpoints available in Sandbox for Trial or Standard access, including creating, reading, updating and deleting Sandbox Pins. Use this environment to validate OAuth, scopes, request shapes and write-safety controls without treating Sandbox activity as production publishing.
+
+Before any production write capability is enabled, require all of the following:
+
+1. authenticated Pinterest app access
+2. successful read-only connection test
+3. successful Sandbox create/read/update/delete test where the required endpoint is available
+4. verified board and destination mapping
+5. explicit publishing authorization
+6. writes disabled by default outside the approved execution path
+
+A successful Sandbox test proves integration behavior only. It does not prove production access, content quality, ranking impact or traffic performance.
+
 ## Strategic wedge
 
 Generic bulk-pinning and scheduler tools already exist.
@@ -92,6 +107,7 @@ Do not:
 - use irrelevant destination links
 - commit access tokens
 - bypass API access tiers
+- treat Sandbox success as authorization for production writes
 
 ## Recommended visibility architecture
 
