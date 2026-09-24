@@ -15,6 +15,7 @@ import math
 import os
 import re
 import statistics
+import time
 import sys
 import urllib.error
 import urllib.parse
@@ -186,6 +187,7 @@ def score_lanes(lanes: list[LaneResult]) -> None:
 
 
 def search_repositories(query: str, token: str | None, per_page: int = 5) -> dict:
+    time.sleep(2.1)  # keep GitHub Search API calls below per-minute limits
     params = urllib.parse.urlencode(
         {
             "q": query,
