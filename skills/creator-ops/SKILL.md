@@ -30,6 +30,7 @@ If a completed context file exists, use it before asking repeated questions.
 | User intent | Route |
 | --- | --- |
 | Find trends, outliers, winning formats | `viral-content-radar` |
+| Research GitHub trends, skill gaps and repository opportunities | `github-opportunity-radar` |
 | Turn an idea into a short vertical video | `reels-director` |
 | Plan Pinterest discovery and pin clusters | `pinterest-growth-engine` |
 | Turn one source into many platform assets | `content-repurposer` |
@@ -43,9 +44,10 @@ If a completed context file exists, use it before asking repeated questions.
 2. Identify the platform or output.
 3. Read creator context if available.
 4. Use the minimum number of skills needed.
-5. Keep evidence and recommendations separate.
-6. Produce an immediately usable artifact.
-7. End with a review / measurement step.
+5. For GitHub growth or skill-gap work, use `github-opportunity-radar` before proposing a new skill.
+6. Keep evidence and recommendations separate.
+7. Produce an immediately usable artifact.
+8. End with a review / measurement step.
 
 ## Output Standard
 

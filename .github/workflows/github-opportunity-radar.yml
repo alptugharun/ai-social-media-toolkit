@@ -1,0 +1,70 @@
+name: GitHub Opportunity Radar
+
+on:
+  schedule:
+    # 05:20 UTC = 08:20 in Türkiye (UTC+3)
+    - cron: "20 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate evidence-aware opportunity report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python tools/github_growth_radar.py --output /tmp/github-opportunity-radar.md
+
+      - name: Create or refresh radar issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create growth-radar \
+            --description "Automated evidence-aware GitHub growth and skill-gap radar" \
+            --color "1D76DB" \
+            --force
+
+          issue_number="$(
+            gh issue list \
+              --label growth-radar \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" \
+              --title "GitHub Opportunity Radar — latest" \
+              --body-file /tmp/github-opportunity-radar.md
+          else
+            gh issue create \
+              --title "GitHub Opportunity Radar — latest" \
+              --body-file /tmp/github-opportunity-radar.md \
+              --label growth-radar
+          fi
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-opportunity-radar
+          path: /tmp/github-opportunity-radar.md
+          retention-days: 14
