@@ -36,6 +36,7 @@ Supported targets:
 | --- | --- | --- |
 | Portable Agent Skills | `~/.agents/skills/` | `.agents/skills/` |
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
+| GitHub Copilot | `~/.copilot/skills/` | `.github/skills/` |
 | OpenAI Codex | `~/.codex/skills/` | `.codex/skills/` |
 | Gemini CLI | `~/.gemini/skills/` | `.gemini/skills/` |
 | Grok | `~/.grok/skills/` | `.grok/skills/` |
@@ -46,6 +47,25 @@ Use `--skill <name>` to install only selected skills.
 Use `--dry-run` to inspect planned changes.
 
 Use `--force` only when you intentionally want to replace an existing installed skill.
+
+## GitHub Copilot
+
+GitHub Copilot supports project skills in `.github/skills/`, `.claude/skills/` or `.agents/skills/`, and personal skills in `~/.copilot/skills/` or `~/.agents/skills/`.
+
+With GitHub CLI 2.90.0 or later, preview a skill before installing it:
+
+```bash
+gh skill preview alptugharun/ai-social-media-toolkit signal-to-content
+gh skill install alptugharun/ai-social-media-toolkit signal-to-content
+```
+
+Or use the repository installer:
+
+```bash
+python tools/install_skills.py --target copilot --scope user
+```
+
+`gh skill` is currently a GitHub public-preview feature, so verify its current CLI behavior before scripting it into production automation.
 
 ## Gemini CLI native install
 
