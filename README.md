@@ -5,6 +5,7 @@
 [![GitHub forks](https://img.shields.io/github/forks/alptugharun/ai-social-media-toolkit?style=flat-square)](https://github.com/alptugharun/ai-social-media-toolkit/forks)
 ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Creator%20Ops-blue?style=flat-square)
 ![Skills license](https://img.shields.io/badge/skills-MIT-green?style=flat-square)
+![Tools license](https://img.shields.io/badge/tools-MIT-green?style=flat-square)
 
 **An installable creator-operations toolkit for turning research signals into platform-native social content systems.**
 
@@ -355,12 +356,13 @@ Antalya, Türkiye
 ---
 ## License
 
-This repository is licensed under the  
-[Creative Commons Attribution-NonCommercial 4.0 International License](LICENSE.md).
+Licensing is intentionally split by artifact type so the installable/reusable parts remain open-source:
 
-You may share and adapt the original material with appropriate attribution to **Alptuğ Harun**.
+- [`skills/`](skills/) — **MIT License** ([skills/LICENSE](skills/LICENSE)). Skills may be used, modified, distributed and included in commercial workflows under the MIT terms.
+- [`tools/`](tools/) — **MIT License** ([tools/LICENSE](tools/LICENSE)). Runnable utilities may be used, modified, distributed and included in commercial workflows under the MIT terms.
+- Other original documentation, frameworks, templates and repository material — **Creative Commons Attribution-NonCommercial 4.0 International** under the root [LICENSE.md](LICENSE.md).
 
-Commercial use requires separate permission.
+Preserve the applicable copyright and license notices when redistributing MIT-licensed material. See the license files for the controlling terms.
 
 ---
 _Last updated: September 2026_
