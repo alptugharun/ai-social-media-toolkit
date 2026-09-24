@@ -179,6 +179,8 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Maps Opportunity Radar](skills/maps-opportunity-radar/SKILL.md) | Finds under-served Google Maps, Places, local-business and geospatial AI workflows |
 | [Maps Policy Guard](skills/maps-policy-guard/SKILL.md) | Reviews Maps workflows for scraping, storage, caching, attribution and authorization risks |
 | [Local Business Intelligence](skills/local-business-intelligence/SKILL.md) | Turns permitted location and owned Business Profile signals into market, creator and content decisions |
+| [Commercial Opportunity Radar](skills/commercial-opportunity-radar/SKILL.md) | Finds product, service, report and monetization opportunities from evidence-backed demand signals |
+| [Monetization Architect](skills/monetization-architect/SKILL.md) | Turns validated open-source value into a staged commercial model |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
 
@@ -220,6 +222,21 @@ Research method: [Maps + AI Opportunity Playbook](references/MAPS-AI-OPPORTUNITY
 
 Project continuity: [Project State](docs/PROJECT-STATE.md)
 
+### Automated Commercial Opportunity Radar
+
+A third scheduled GitHub Actions workflow runs after the general and Maps radars and refreshes a single `commercial-radar` issue with:
+
+- commercially promising GitHub / open-source signals
+- buyer clarity and recurring-use analysis
+- reference repositories and adoption patterns
+- service, hosted SaaS, paid-report, Sponsors and Marketplace paths
+- current repository monetization-readiness checks
+- candidate products such as Local Business Intelligence Cloud, Creator Ops Workspace and B2B Signal-to-Offer briefs
+
+The commercial radar runs daily at **08:50 Türkiye time**. It automates research and prioritization, not billing, pricing changes, contracts or mass outreach.
+
+Research method: [Open-Source Monetization & Commercial Opportunity Playbook](references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md)
+
 ### Working Tools
 
 The repository includes dependency-free utilities that turn creator research into auditable scores instead of opaque AI judgments:
@@ -228,6 +245,7 @@ The repository includes dependency-free utilities that turn creator research int
 - [Social Outlier Analyzer](tools/outlier_score.py) — compares post performance against the creator's own median baseline using views and engagement signals. Example: [social-outlier-posts.csv](examples/social-outlier-posts.csv)
 - [Places Aggregate Market Scanner](tools/places_market_scan.py) — queries the official Places Aggregate API for live category-count / Place-ID insights without building a scraped Maps database.
 - [Maps Opportunity Radar Analyzer](tools/maps_opportunity_radar.py) — scores Maps / local-intelligence repository demand, direct supply, strategic fit and compliance feasibility.
+- [Commercial Opportunity Radar Analyzer](tools/commercial_opportunity_radar.py) — scores buyer clarity, recurring-use potential, proof, distribution and monetization paths without treating stars as revenue.
 
 ---
 
