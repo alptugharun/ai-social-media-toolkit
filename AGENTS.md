@@ -49,6 +49,9 @@ Before adding claims about current platform behavior, AI products, APIs, trends,
 - Use `references/EVIDENCE-POLICY.md` as the repository-wide standard.
 - Avoid presenting forecasts as facts.
 - If evidence is weak or contradictory, say so instead of forcing a conclusion.
+- For Google Maps, Places, Street View or Business Profile work, read `references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md` and route policy-sensitive designs through `maps-policy-guard`.
+- Do not build Google Maps workflows around consumer-UI scraping, prohibited bulk export, hidden long-term caching, or a permanent database of restricted Maps content.
+- Prefer official APIs, aggregate insights, place IDs where permitted, user-owned Business Profile data, user exports, or independently licensed/open datasets.
 
 ## Validation
 
