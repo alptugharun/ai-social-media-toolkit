@@ -176,6 +176,9 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Comment Intelligence](skills/comment-intelligence/SKILL.md) | Mines comments for recurring questions, objections, audience language and testable content opportunities |
 | [Agent Skill Safety Auditor](skills/agent-skill-safety-auditor/SKILL.md) | Audits third-party skills before installation or reuse |
 | [GitHub Opportunity Radar](skills/github-opportunity-radar/SKILL.md) | Researches GitHub demand signals, fast-rising repositories and Agent Skill gaps |
+| [Maps Opportunity Radar](skills/maps-opportunity-radar/SKILL.md) | Finds under-served Google Maps, Places, local-business and geospatial AI workflows |
+| [Maps Policy Guard](skills/maps-policy-guard/SKILL.md) | Reviews Maps workflows for scraping, storage, caching, attribution and authorization risks |
+| [Local Business Intelligence](skills/local-business-intelligence/SKILL.md) | Turns permitted location and owned Business Profile signals into market, creator and content decisions |
 
 Research-oriented skills follow an explicit [Evidence Policy](references/EVIDENCE-POLICY.md).
 
@@ -200,12 +203,31 @@ The radar runs daily and deliberately requires human approval before any new ski
 
 Research method: [GitHub Growth & Discovery Playbook](references/GITHUB-GROWTH-PLAYBOOK.md)
 
+### Automated Maps & Local Intelligence Radar
+
+A second scheduled GitHub Actions workflow runs after the general GitHub radar and refreshes a single `maps-radar` issue with:
+
+- Google Maps / Places / Business Profile opportunity signals
+- current open-source competitor snapshots
+- ChatGPT / Claude / Agent Skill demand proxies
+- local-business and creator-location workflow gaps
+- compliance-feasibility checks
+- product candidates such as Local Business Intelligence and MapWrapped
+
+The Maps radar runs daily at **08:35 Türkiye time** and keeps human approval before any new skill or product is published.
+
+Research method: [Maps + AI Opportunity Playbook](references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md)
+
+Project continuity: [Project State](docs/PROJECT-STATE.md)
+
 ### Working Tools
 
 The repository includes dependency-free utilities that turn creator research into auditable scores instead of opaque AI judgments:
 
 - [Signal to Content Opportunity Scorer](tools/signal2content_score.py) — ranks trend and content opportunities with a transparent heuristic. Example: [signal2content-opportunities.csv](examples/signal2content-opportunities.csv)
 - [Social Outlier Analyzer](tools/outlier_score.py) — compares post performance against the creator's own median baseline using views and engagement signals. Example: [social-outlier-posts.csv](examples/social-outlier-posts.csv)
+- [Places Aggregate Market Scanner](tools/places_market_scan.py) — queries the official Places Aggregate API for live category-count / Place-ID insights without building a scraped Maps database.
+- [Maps Opportunity Radar Analyzer](tools/maps_opportunity_radar.py) — scores Maps / local-intelligence repository demand, direct supply, strategic fit and compliance feasibility.
 
 ---
 

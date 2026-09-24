@@ -1,0 +1,70 @@
+name: Maps & Local Intelligence Radar
+
+on:
+  schedule:
+    # 05:35 UTC = 08:35 in Türkiye (UTC+3)
+    - cron: "35 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate Maps opportunity report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python tools/maps_opportunity_radar.py --output /tmp/maps-opportunity-radar.md
+
+      - name: Create or refresh Maps radar issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create maps-radar \
+            --description "Automated Maps, local intelligence and Agent Skill opportunity radar" \
+            --color "0E8A16" \
+            --force
+
+          issue_number="$(
+            gh issue list \
+              --label maps-radar \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" \
+              --title "Maps & Local Intelligence Radar — latest" \
+              --body-file /tmp/maps-opportunity-radar.md
+          else
+            gh issue create \
+              --title "Maps & Local Intelligence Radar — latest" \
+              --body-file /tmp/maps-opportunity-radar.md \
+              --label maps-radar
+          fi
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maps-opportunity-radar
+          path: /tmp/maps-opportunity-radar.md
+          retention-days: 14

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-social-media-toolkit",
-  "version": "0.2.0",
-  "description": "Portable creator-operations Agent Skills for social-media research, Reels, Pinterest, repurposing, influencer fit, brand voice, and evidence-backed content workflows.",
+  "version": "0.3.0",
+  "description": "Portable creator-operations Agent Skills for social-media research, content systems, Google Maps/local-business intelligence, Reels, Pinterest, influencer fit and evidence-backed automation.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -20,6 +20,10 @@
     "influencer-marketing",
     "content-repurposing",
     "ai-marketing",
-    "digital-visibility"
+    "digital-visibility",
+    "google-maps",
+    "local-business",
+    "location-intelligence",
+    "google-business-profile"
   ]
 }
