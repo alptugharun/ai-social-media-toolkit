@@ -81,6 +81,7 @@ jobs:
           done
 
           gh label create automation-health \
+            --repo "$REPO" \
             --description "Automation health monitor" \
             --color "5319E7" \
             --force
