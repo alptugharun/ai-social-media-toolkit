@@ -35,6 +35,7 @@ Typical compatible environments may include:
 - Cursor
 - Codex
 - Gemini CLI
+- Grok-compatible skill workflows via the repository installer
 - Other Agent Skills-compatible runtimes
 
 ## Installation
