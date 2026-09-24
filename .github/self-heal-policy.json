@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "max_total_attempts": 3,
+  "probe_unknown_once": true,
+  "base_backoff_seconds": 45,
+  "auto_assign_copilot_for_persistent_failures": true,
+  "never_auto_merge": true,
+  "monitored_workflows": [
+    "GitHub Opportunity Radar",
+    "Maps & Local Intelligence Radar",
+    "Commercial Opportunity Radar",
+    "Pinterest Visibility Radar",
+    "Validate Agent Skills",
+    "Automation Health Watch"
+  ]
+}

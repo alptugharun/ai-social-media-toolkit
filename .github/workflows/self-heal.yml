@@ -1,0 +1,328 @@
+name: Self-Healing Automation Guardian
+
+on:
+  workflow_run:
+    workflows:
+      - GitHub Opportunity Radar
+      - Maps & Local Intelligence Radar
+      - Commercial Opportunity Radar
+      - Pinterest Visibility Radar
+      - Validate Agent Skills
+      - Automation Health Watch
+    types:
+      - completed
+
+permissions:
+  actions: write
+  contents: read
+  issues: write
+
+concurrency:
+  group: self-heal-\${{ github.event.workflow_run.id }}
+  cancel-in-progress: false
+
+jobs:
+  diagnose-and-recover:
+    if: \${{ github.event.workflow_run.conclusion == 'failure' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout trusted guardian
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Capture failed logs
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          REPO: \${{ github.repository }}
+          RUN_ID: \${{ github.event.workflow_run.id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! gh run view "$RUN_ID" --repo "$REPO" --log-failed > /tmp/failed.log 2>/tmp/gh-log-error.txt; then
+            gh run view "$RUN_ID" --repo "$REPO" --log > /tmp/failed.log 2>>/tmp/gh-log-error.txt || true
+          fi
+          if [ ! -s /tmp/failed.log ]; then
+            {
+              echo "Unable to retrieve workflow logs."
+              cat /tmp/gh-log-error.txt 2>/dev/null || true
+            } > /tmp/failed.log
+          fi
+
+      - name: Diagnose failure
+        id: diagnosis
+        env:
+          WORKFLOW: \${{ github.event.workflow_run.name }}
+          RUN_ID: \${{ github.event.workflow_run.id }}
+          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/self_heal.py \
+            --log /tmp/failed.log \
+            --workflow "$WORKFLOW" \
+            --run-id "$RUN_ID" \
+            --run-attempt "$RUN_ATTEMPT" \
+            --json-output /tmp/self-heal.json \
+            --markdown-output /tmp/self-heal.md
+
+          cat /tmp/self-heal.json
+          echo "classification=$(jq -r '.classification' /tmp/self-heal.json)" >> "$GITHUB_OUTPUT"
+          echo "fingerprint=$(jq -r '.fingerprint' /tmp/self-heal.json)" >> "$GITHUB_OUTPUT"
+          echo "retryable=$(jq -r '.retryable' /tmp/self-heal.json)" >> "$GITHUB_OUTPUT"
+          echo "probe_retry_safe=$(jq -r '.probe_retry_safe' /tmp/self-heal.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Record incident and choose recovery
+        id: recovery
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          REPO: \${{ github.repository }}
+          RUN_URL: \${{ github.event.workflow_run.html_url }}
+          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
+          WORKFLOW: \${{ github.event.workflow_run.name }}
+          FINGERPRINT: \${{ steps.diagnosis.outputs.fingerprint }}
+          CLASSIFICATION: \${{ steps.diagnosis.outputs.classification }}
+          RETRYABLE: \${{ steps.diagnosis.outputs.retryable }}
+          PROBE_RETRY_SAFE: \${{ steps.diagnosis.outputs.probe_retry_safe }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create self-heal --repo "$REPO" --description "Self-healing automation incident" --color "5319E7" --force
+          gh label create self-heal-transient --repo "$REPO" --description "Failure signature learned as transient" --color "0E8A16" --force
+          gh label create self-heal-persistent --repo "$REPO" --description "Failure persisted and needs a code/config repair" --color "B60205" --force
+          gh label create self-heal-recovered --repo "$REPO" --description "Self-heal incident recovered on a later healthy run" --color "1D76DB" --force
+
+          issue_json="$(
+            gh issue list \
+              --repo "$REPO" \
+              --state all \
+              --label self-heal \
+              --search "$FINGERPRINT in:title" \
+              --limit 20 \
+              --json number,state,title,labels \
+              --jq '.[0] // empty'
+          )"
+
+          issue_number=""
+          learned_transient=false
+          if [ -n "$issue_json" ]; then
+            issue_number="$(jq -r '.number' <<<"$issue_json")"
+            if jq -e '.labels | map(.name) | index("self-heal-transient") != null' <<<"$issue_json" >/dev/null; then
+              learned_transient=true
+            fi
+          fi
+
+          max_attempts="$(jq -r '.max_total_attempts' .github/self-heal-policy.json)"
+          probe_unknown_once="$(jq -r '.probe_unknown_once' .github/self-heal-policy.json)"
+          base_backoff="$(jq -r '.base_backoff_seconds' .github/self-heal-policy.json)"
+
+          should_retry=false
+          if [ "$RUN_ATTEMPT" -lt "$max_attempts" ]; then
+            if [ "$RETRYABLE" = "true" ] || [ "$learned_transient" = "true" ]; then
+              should_retry=true
+            elif [ "$CLASSIFICATION" = "unknown" ] && [ "$PROBE_RETRY_SAFE" = "true" ] && [ "$probe_unknown_once" = "true" ] && [ "$RUN_ATTEMPT" -eq 1 ]; then
+              should_retry=true
+            fi
+          fi
+
+          {
+            cat /tmp/self-heal.md
+            echo
+            echo "## Run"
+            echo
+            echo "- Source: $RUN_URL"
+            echo "- Learned transient before this run: $learned_transient"
+            echo "- Guardian decision: $([ "$should_retry" = "true" ] && echo bounded-rerun || echo escalate)"
+          } > /tmp/self-heal-issue.md
+
+          title="Self-Heal Incident — $WORKFLOW — $FINGERPRINT"
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" --repo "$REPO" --body-file /tmp/self-heal-issue.md
+            if [ "$(jq -r '.state' <<<"$issue_json")" = "CLOSED" ]; then
+              gh issue reopen "$issue_number" --repo "$REPO"
+            fi
+          else
+            issue_url="$(
+              gh issue create \
+                --repo "$REPO" \
+                --title "$title" \
+                --body-file /tmp/self-heal-issue.md \
+                --label self-heal
+            )"
+            issue_number="$(basename "$issue_url")"
+          fi
+
+          persistent=false
+          if [ "$should_retry" != "true" ]; then
+            persistent=true
+            gh issue edit "$issue_number" --repo "$REPO" --add-label self-heal-persistent
+          fi
+
+          echo "issue_number=$issue_number" >> "$GITHUB_OUTPUT"
+          echo "should_retry=$should_retry" >> "$GITHUB_OUTPUT"
+          echo "persistent=$persistent" >> "$GITHUB_OUTPUT"
+          echo "backoff=$((base_backoff * RUN_ATTEMPT))" >> "$GITHUB_OUTPUT"
+
+      - name: Retry bounded transient failure
+        if: \${{ steps.recovery.outputs.should_retry == 'true' }}
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          REPO: \${{ github.repository }}
+          RUN_ID: \${{ github.event.workflow_run.id }}
+          ISSUE_NUMBER: \${{ steps.recovery.outputs.issue_number }}
+          BACKOFF: \${{ steps.recovery.outputs.backoff }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          sleep "$BACKOFF"
+          if gh run rerun "$RUN_ID" --repo "$REPO" --failed; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+              --body "Guardian scheduled a bounded retry after $BACKOFF seconds. The next workflow result will be used as learning feedback."
+          else
+            gh issue edit "$ISSUE_NUMBER" --repo "$REPO" --add-label self-heal-persistent
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+              --body "The guardian could not schedule the bounded retry. Manual or coding-agent repair is required."
+          fi
+
+      - name: Delegate persistent repair to Copilot when available
+        if: \${{ steps.recovery.outputs.persistent == 'true' }}
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          REPO: \${{ github.repository }}
+          ISSUE_NUMBER: \${{ steps.recovery.outputs.issue_number }}
+          WORKFLOW: \${{ github.event.workflow_run.name }}
+          RUN_URL: \${{ github.event.workflow_run.html_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ "$(jq -r '.auto_assign_copilot_for_persistent_failures' .github/self-heal-policy.json)" != "true" ]; then
+            exit 0
+          fi
+
+          payload="$(
+            jq -n \
+              --arg repo "$REPO" \
+              --arg instructions "Repair the root cause of the failing $WORKFLOW workflow. Start from the incident evidence and source run $RUN_URL. Use the repository custom agent self-healer. Do not weaken tests or validation, do not expose secrets, run targeted and full tests, and do not merge the resulting pull request." \
+              '{
+                assignees: ["copilot-swe-agent[bot]"],
+                agent_assignment: {
+                  target_repo: $repo,
+                  base_branch: "main",
+                  custom_instructions: $instructions,
+                  custom_agent: "self-healer",
+                  model: ""
+                }
+              }'
+          )"
+
+          if gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "/repos/$REPO/issues/$ISSUE_NUMBER/assignees" \
+            --input - <<<"$payload" >/tmp/copilot-assignment.json 2>/tmp/copilot-assignment.err; then
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" \
+              --body "Persistent failure delegated to the review-gated Self-Healer coding agent. Any repair must arrive as a pull request and pass CI before review."
+          else
+            {
+              echo "Copilot automatic assignment was unavailable for this repository/account."
+              echo
+              echo "The incident remains open and contains the evidence needed for repair."
+              echo
+              tail -n 20 /tmp/copilot-assignment.err 2>/dev/null || true
+            } > /tmp/copilot-unavailable.md
+            gh issue comment "$ISSUE_NUMBER" --repo "$REPO" --body-file /tmp/copilot-unavailable.md
+          fi
+
+      - name: Upload diagnosis artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: self-heal-diagnosis-\${{ github.event.workflow_run.id }}-\${{ github.event.workflow_run.run_attempt }}
+          path: |
+            /tmp/self-heal.json
+            /tmp/self-heal.md
+          retention-days: 30
+
+  learn-from-recovery:
+    if: \${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+
+    steps:
+      - name: Checkout trusted guardian
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.11"
+
+      - name: Mark recovered incidents
+        env:
+          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
+          REPO: \${{ github.repository }}
+          RUN_ID: \${{ github.event.workflow_run.id }}
+          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
+          RUN_URL: \${{ github.event.workflow_run.html_url }}
+          WORKFLOW: \${{ github.event.workflow_run.name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create self-heal-transient --repo "$REPO" --description "Failure signature learned as transient" --color "0E8A16" --force
+          gh label create self-heal-recovered --repo "$REPO" --description "Self-heal incident recovered on a later healthy run" --color "1D76DB" --force
+
+          if [ "$RUN_ATTEMPT" -gt 1 ]; then
+            previous_attempt=$((RUN_ATTEMPT - 1))
+            if gh run view "$RUN_ID" --repo "$REPO" --attempt "$previous_attempt" --log-failed > /tmp/previous-failure.log 2>/dev/null && [ -s /tmp/previous-failure.log ]; then
+              python tools/self_heal.py \
+                --log /tmp/previous-failure.log \
+                --workflow "$WORKFLOW" \
+                --run-id "$RUN_ID" \
+                --run-attempt "$previous_attempt" \
+                --json-output /tmp/previous-diagnosis.json \
+                --markdown-output /tmp/previous-diagnosis.md
+
+              fingerprint="$(jq -r '.fingerprint' /tmp/previous-diagnosis.json)"
+              issue_number="$(
+                gh issue list \
+                  --repo "$REPO" \
+                  --state all \
+                  --label self-heal \
+                  --search "$fingerprint in:title" \
+                  --limit 20 \
+                  --json number \
+                  --jq '.[0].number // empty'
+              )"
+
+              if [ -n "$issue_number" ]; then
+                gh issue edit "$issue_number" --repo "$REPO" --add-label self-heal-transient --add-label self-heal-recovered
+                gh issue comment "$issue_number" --repo "$REPO" \
+                  --body "Learning feedback: the same run succeeded on attempt $RUN_ATTEMPT after a bounded retry. Fingerprint $fingerprint is now recorded as transient. Successful run: $RUN_URL"
+                gh issue close "$issue_number" --repo "$REPO" --reason completed || true
+              fi
+            fi
+          fi
+
+          gh issue list \
+            --repo "$REPO" \
+            --state open \
+            --label self-heal \
+            --limit 100 \
+            --json number,title > /tmp/open-self-heal.json
+
+          jq -r --arg workflow "$WORKFLOW" '.[] | select(.title | contains($workflow)) | .number' /tmp/open-self-heal.json |
+          while read -r issue_number; do
+            [ -n "$issue_number" ] || continue
+            gh issue edit "$issue_number" --repo "$REPO" --add-label self-heal-recovered
+            gh issue close "$issue_number" --repo "$REPO" \
+              --comment "A later run of $WORKFLOW completed successfully. The incident is marked recovered. Successful run: $RUN_URL" \
+              --reason completed || true
+          done

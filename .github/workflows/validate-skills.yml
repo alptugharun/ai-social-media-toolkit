@@ -1,6 +1,7 @@
 name: Validate Agent Skills
 
 on:
+  workflow_dispatch:
   push:
     paths:
       - "skills/**"
@@ -10,7 +11,9 @@ on:
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
-      - ".github/workflows/validate-skills.yml"
+      - ".github/workflows/**"
+      - ".github/self-heal-policy.json"
+      - ".github/agents/**"
   pull_request:
     paths:
       - "skills/**"
@@ -20,7 +23,9 @@ on:
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
-      - ".github/workflows/validate-skills.yml"
+      - ".github/workflows/**"
+      - ".github/self-heal-policy.json"
+      - ".github/agents/**"
 
 jobs:
   validate:
@@ -28,10 +33,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7
         with:
           python-version: "3.11"
 
@@ -116,11 +121,18 @@ jobs:
           python -m json.tool plugin.json >/dev/null
           python -m json.tool gemini-extension.json >/dev/null
           python -m json.tool .claude-plugin/plugin.json >/dev/null
+          python -m json.tool .github/self-heal-policy.json >/dev/null
 
           while IFS= read -r -d '' file; do
             echo "Validating $file"
             python -m json.tool "$file" >/dev/null
           done < <(find skills -path '*/evals/*.json' -print0)
+
+      - name: Compile Python tools and tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q tools tests
 
       - name: Run installer tests
         run: python -m unittest discover -s tests -v
