@@ -1,0 +1,82 @@
+name: Pinterest Visibility Radar
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/pinterest_growth_radar.py"
+      - "skills/pinterest-opportunity-radar/**"
+      - "skills/pinterest-growth-engine/**"
+      - "references/PINTEREST-AUTOMATION-PLAYBOOK.md"
+      - ".github/workflows/pinterest-visibility-radar.yml"
+  schedule:
+    # 06:05 UTC = 09:05 in Türkiye (UTC+3)
+    - cron: "5 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate Pinterest visibility report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_REGIONS: "US,GB,CA,AU,TR"
+          PINTEREST_TRENDS_LIMIT: "10"
+        run: |
+          python tools/pinterest_growth_radar.py --output /tmp/pinterest-visibility-radar.md
+
+      - name: Create or refresh Pinterest radar issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create pinterest-radar \
+            --description "Automated Pinterest visibility, trend and opportunity radar" \
+            --color "E60023" \
+            --force
+
+          issue_number="$(
+            gh issue list \
+              --label pinterest-radar \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" \
+              --title "Pinterest Visibility Radar — latest" \
+              --body-file /tmp/pinterest-visibility-radar.md
+          else
+            gh issue create \
+              --title "Pinterest Visibility Radar — latest" \
+              --body-file /tmp/pinterest-visibility-radar.md \
+              --label pinterest-radar
+          fi
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pinterest-visibility-radar
+          path: /tmp/pinterest-visibility-radar.md
+          retention-days: 14
