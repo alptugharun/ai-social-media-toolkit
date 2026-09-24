@@ -14,6 +14,10 @@ on:
     - cron: "20 6 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: automation-health-watch
+  cancel-in-progress: true
+
 permissions:
   actions: read
   contents: read
@@ -32,6 +36,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          command -v gh >/dev/null
+          command -v jq >/dev/null
 
           workflows=(
             "GitHub Opportunity Radar"
