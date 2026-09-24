@@ -18,12 +18,12 @@ permissions:
   issues: write
 
 concurrency:
-  group: self-heal-\${{ github.event.workflow_run.id }}
+  group: self-heal-${{ github.event.workflow_run.id }}
   cancel-in-progress: false
 
 jobs:
   diagnose-and-recover:
-    if: \${{ github.event.workflow_run.conclusion == 'failure' }}
+    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -38,9 +38,9 @@ jobs:
 
       - name: Capture failed logs
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          REPO: \${{ github.repository }}
-          RUN_ID: \${{ github.event.workflow_run.id }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
         shell: bash
         run: |
           set -euo pipefail
@@ -57,9 +57,9 @@ jobs:
       - name: Diagnose failure
         id: diagnosis
         env:
-          WORKFLOW: \${{ github.event.workflow_run.name }}
-          RUN_ID: \${{ github.event.workflow_run.id }}
-          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
+          WORKFLOW: ${{ github.event.workflow_run.name }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
         shell: bash
         run: |
           set -euo pipefail
@@ -80,15 +80,15 @@ jobs:
       - name: Record incident and choose recovery
         id: recovery
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          REPO: \${{ github.repository }}
-          RUN_URL: \${{ github.event.workflow_run.html_url }}
-          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
-          WORKFLOW: \${{ github.event.workflow_run.name }}
-          FINGERPRINT: \${{ steps.diagnosis.outputs.fingerprint }}
-          CLASSIFICATION: \${{ steps.diagnosis.outputs.classification }}
-          RETRYABLE: \${{ steps.diagnosis.outputs.retryable }}
-          PROBE_RETRY_SAFE: \${{ steps.diagnosis.outputs.probe_retry_safe }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          WORKFLOW: ${{ github.event.workflow_run.name }}
+          FINGERPRINT: ${{ steps.diagnosis.outputs.fingerprint }}
+          CLASSIFICATION: ${{ steps.diagnosis.outputs.classification }}
+          RETRYABLE: ${{ steps.diagnosis.outputs.retryable }}
+          PROBE_RETRY_SAFE: ${{ steps.diagnosis.outputs.probe_retry_safe }}
         shell: bash
         run: |
           set -euo pipefail
@@ -170,13 +170,13 @@ jobs:
           echo "backoff=$((base_backoff * RUN_ATTEMPT))" >> "$GITHUB_OUTPUT"
 
       - name: Retry bounded transient failure
-        if: \${{ steps.recovery.outputs.should_retry == 'true' }}
+        if: ${{ steps.recovery.outputs.should_retry == 'true' }}
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          REPO: \${{ github.repository }}
-          RUN_ID: \${{ github.event.workflow_run.id }}
-          ISSUE_NUMBER: \${{ steps.recovery.outputs.issue_number }}
-          BACKOFF: \${{ steps.recovery.outputs.backoff }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          ISSUE_NUMBER: ${{ steps.recovery.outputs.issue_number }}
+          BACKOFF: ${{ steps.recovery.outputs.backoff }}
         shell: bash
         run: |
           set -euo pipefail
@@ -191,13 +191,13 @@ jobs:
           fi
 
       - name: Delegate persistent repair to Copilot when available
-        if: \${{ steps.recovery.outputs.persistent == 'true' }}
+        if: ${{ steps.recovery.outputs.persistent == 'true' }}
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          REPO: \${{ github.repository }}
-          ISSUE_NUMBER: \${{ steps.recovery.outputs.issue_number }}
-          WORKFLOW: \${{ github.event.workflow_run.name }}
-          RUN_URL: \${{ github.event.workflow_run.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          ISSUE_NUMBER: ${{ steps.recovery.outputs.issue_number }}
+          WORKFLOW: ${{ github.event.workflow_run.name }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
         shell: bash
         run: |
           set -euo pipefail
@@ -244,14 +244,14 @@ jobs:
       - name: Upload diagnosis artifact
         uses: actions/upload-artifact@v4
         with:
-          name: self-heal-diagnosis-\${{ github.event.workflow_run.id }}-\${{ github.event.workflow_run.run_attempt }}
+          name: self-heal-diagnosis-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
           path: |
             /tmp/self-heal.json
             /tmp/self-heal.md
           retention-days: 30
 
   learn-from-recovery:
-    if: \${{ github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     timeout-minutes: 6
 
@@ -266,12 +266,12 @@ jobs:
 
       - name: Mark recovered incidents
         env:
-          GH_TOKEN: \${{ secrets.GITHUB_TOKEN }}
-          REPO: \${{ github.repository }}
-          RUN_ID: \${{ github.event.workflow_run.id }}
-          RUN_ATTEMPT: \${{ github.event.workflow_run.run_attempt }}
-          RUN_URL: \${{ github.event.workflow_run.html_url }}
-          WORKFLOW: \${{ github.event.workflow_run.name }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          RUN_ATTEMPT: ${{ github.event.workflow_run.run_attempt }}
+          RUN_URL: ${{ github.event.workflow_run.html_url }}
+          WORKFLOW: ${{ github.event.workflow_run.name }}
         shell: bash
         run: |
           set -euo pipefail
