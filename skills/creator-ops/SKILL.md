@@ -37,6 +37,7 @@ If a completed context file exists, use it before asking repeated questions.
 | Research what to productize, sell or monetize | `commercial-opportunity-radar` |
 | Design a staged revenue model for validated value | `monetization-architect` |
 | Turn an idea into a short vertical video | `reels-director` |
+| Research Pinterest trends, seasonality and visual-search opportunities | `pinterest-opportunity-radar` |
 | Plan Pinterest discovery and pin clusters | `pinterest-growth-engine` |
 | Turn one source into many platform assets | `content-repurposer` |
 | Evaluate a creator / influencer partnership | `influencer-fit-auditor` |
@@ -52,9 +53,10 @@ If a completed context file exists, use it before asking repeated questions.
 5. For GitHub growth or skill-gap work, use `github-opportunity-radar` before proposing a new skill.
 6. For Maps / Places / Business Profile work, use `maps-opportunity-radar` for market research and `maps-policy-guard` before proposing a new data architecture.
 7. For commercial questions, use `commercial-opportunity-radar` before `monetization-architect`; do not jump from a vague idea directly to pricing.
-8. Keep evidence and recommendations separate.
-9. Produce an immediately usable artifact.
-10. End with a review / measurement step.
+8. For Pinterest growth, use `pinterest-opportunity-radar` before `pinterest-growth-engine` when current trend evidence matters.
+9. Keep evidence and recommendations separate.
+10. Produce an immediately usable artifact.
+11. End with a review / measurement step.
 
 ## Output Standard
 

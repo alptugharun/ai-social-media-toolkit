@@ -1,6 +1,15 @@
 name: Commercial Opportunity Radar
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/commercial_opportunity_radar.py"
+      - "skills/commercial-opportunity-radar/**"
+      - "skills/monetization-architect/**"
+      - "references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md"
+      - ".github/workflows/commercial-opportunity-radar.yml"
   schedule:
     # 05:50 UTC = 08:50 in Türkiye (UTC+3)
     - cron: "50 5 * * *"

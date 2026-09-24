@@ -170,6 +170,7 @@ Designed for Agent Skills-compatible environments including Claude Code, Cursor,
 | [Viral Content Radar](skills/viral-content-radar/SKILL.md) | Finds trends, outliers and repeatable content mechanics |
 | [Reels Director](skills/reels-director/SKILL.md) | Turns ideas into short-form video production plans |
 | [Pinterest Growth Engine](skills/pinterest-growth-engine/SKILL.md) | Builds visual-search, keyword and traffic systems |
+| [Pinterest Opportunity Radar](skills/pinterest-opportunity-radar/SKILL.md) | Finds evidence-backed Pinterest trends, seasonality and visual-search opportunities |
 | [Content Repurposer](skills/content-repurposer/SKILL.md) | Rebuilds one source into platform-native assets |
 | [Influencer Fit Auditor](skills/influencer-fit-auditor/SKILL.md) | Evaluates creator partnerships and campaign fit |
 | [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) | Removes generic AI texture while preserving facts and voice |
@@ -238,6 +239,23 @@ The commercial radar runs daily at **08:50 Türkiye time**. It automates researc
 
 Research method: [Open-Source Monetization & Commercial Opportunity Playbook](references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md)
 
+### Automated Pinterest Visibility Radar
+
+A fourth scheduled GitHub Actions workflow runs at **09:05 Türkiye time** and refreshes a single `pinterest-radar` issue with:
+
+- official Pinterest Trends API data when accessible
+- regional growing-keyword evidence
+- Pinterest automation / MCP / scheduling ecosystem changes
+- seasonal and visual-search opportunities
+- content-cluster and destination-fit guidance
+- API-readiness status without inventing trend numbers
+
+Research method: [Pinterest Automation & Visibility Playbook](references/PINTEREST-AUTOMATION-PLAYBOOK.md)
+
+### Automation Health Watch
+
+A separate health workflow monitors the four radars and opens an `automation-health` issue only when a monitored workflow is missing or fails. Healthy runs do not create noise.
+
 ### Working Tools
 
 The repository includes dependency-free utilities that turn creator research into auditable scores instead of opaque AI judgments:
@@ -247,6 +265,7 @@ The repository includes dependency-free utilities that turn creator research int
 - [Places Aggregate Market Scanner](tools/places_market_scan.py) — queries the official Places Aggregate API for live category-count / Place-ID insights without building a scraped Maps database.
 - [Maps Opportunity Radar Analyzer](tools/maps_opportunity_radar.py) — scores Maps / local-intelligence repository demand, direct supply, strategic fit and compliance feasibility.
 - [Commercial Opportunity Radar Analyzer](tools/commercial_opportunity_radar.py) — scores buyer clarity, recurring-use potential, proof, distribution and monetization paths without treating stars as revenue.
+- [Pinterest Visibility Radar Analyzer](tools/pinterest_growth_radar.py) — combines official Pinterest Trends data when accessible with Pinterest automation ecosystem signals and never fabricates trend numbers.
 
 ---
 

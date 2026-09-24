@@ -19,6 +19,10 @@ Never invent search volume or trend status.
 
 If only autocomplete / related terms are available, label them correctly.
 
+When live Pinterest Trends API evidence is required, route discovery through `pinterest-opportunity-radar` first.
+
+Do not scrape the consumer Pinterest UI as the primary evidence source.
+
 ## Workflow
 
 1. Define niche, audience, market, season, and destination.
@@ -35,6 +39,7 @@ If only autocomplete / related terms are available, label them correctly.
 6. Build content clusters.
 7. Map Pins to destination pages.
 8. Define measurement.
+9. If account analytics are available, compare current winners against the planned cluster before expanding production.
 
 ## Opportunity Map
 
@@ -111,3 +116,21 @@ Track when available:
 - top boards
 - search-led landing-page sessions
 - conversions
+
+
+## Automation Mode
+
+For recurring Pinterest operations:
+
+1. Let `pinterest-opportunity-radar` collect current evidence.
+2. Select only supported opportunities.
+3. Build the seven-variant Pin cluster.
+4. Map each Pin to a relevant destination.
+5. Keep publishing human-reviewed until API access, board mapping and destination checks are explicitly configured.
+6. After publishing, use organic analytics to identify winners and expand only the strongest clusters.
+
+## API Evidence
+
+Pinterest API v5 can support organic reporting and Pin creation for approved/authenticated apps. The Trends API can return current growing keywords with WoW, MoM and YoY growth when access is available.
+
+Never expose or commit a Pinterest access token.

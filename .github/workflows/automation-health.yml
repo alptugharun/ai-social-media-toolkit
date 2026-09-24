@@ -1,0 +1,120 @@
+name: Automation Health Watch
+
+on:
+  workflow_run:
+    workflows:
+      - GitHub Opportunity Radar
+      - Maps & Local Intelligence Radar
+      - Commercial Opportunity Radar
+      - Pinterest Visibility Radar
+    types:
+      - completed
+  schedule:
+    # 06:20 UTC = 09:20 in Türkiye (UTC+3)
+    - cron: "20 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  actions: read
+  contents: read
+  issues: write
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - name: Check radar health
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          workflows=(
+            "GitHub Opportunity Radar"
+            "Maps & Local Intelligence Radar"
+            "Commercial Opportunity Radar"
+            "Pinterest Visibility Radar"
+          )
+
+          report="/tmp/automation-health.md"
+          unhealthy=0
+
+          {
+            echo "# Automation Health Watch"
+            echo
+            echo "Repository: $REPO"
+            echo
+            echo "| Workflow | Status | Conclusion | Event | Created |"
+            echo "| --- | --- | --- | --- | --- |"
+          } > "$report"
+
+          for workflow in "${workflows[@]}"; do
+            row="$(
+              gh run list \
+                --repo "$REPO" \
+                --workflow "$workflow" \
+                --limit 1 \
+                --json status,conclusion,event,createdAt,url \
+                --jq '.[0] // empty'
+            )"
+
+            if [ -z "$row" ]; then
+              echo "| $workflow | missing | missing | - | - |" >> "$report"
+              unhealthy=1
+              continue
+            fi
+
+            status="$(jq -r '.status // "unknown"' <<<"$row")"
+            conclusion="$(jq -r '.conclusion // "pending"' <<<"$row")"
+            event="$(jq -r '.event // "-"' <<<"$row")"
+            created="$(jq -r '.createdAt // "-"' <<<"$row")"
+
+            echo "| $workflow | $status | $conclusion | $event | $created |" >> "$report"
+
+            if [ "$status" = "completed" ] && [ "$conclusion" != "success" ]; then
+              unhealthy=1
+            fi
+          done
+
+          gh label create automation-health \
+            --description "Automation health monitor" \
+            --color "5319E7" \
+            --force
+
+          issue_number="$(
+            gh issue list \
+              --repo "$REPO" \
+              --label automation-health \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [ "$unhealthy" -eq 1 ]; then
+            {
+              echo
+              echo "At least one radar is missing or failed. Inspect Actions before relying on its output."
+            } >> "$report"
+
+            if [ -n "$issue_number" ]; then
+              gh issue edit "$issue_number" \
+                --repo "$REPO" \
+                --title "Automation Health — attention required" \
+                --body-file "$report"
+            else
+              gh issue create \
+                --repo "$REPO" \
+                --title "Automation Health — attention required" \
+                --body-file "$report" \
+                --label automation-health
+            fi
+          elif [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" \
+              --repo "$REPO" \
+              --comment "All monitored radar workflows are currently healthy."
+          fi
