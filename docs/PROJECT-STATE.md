@@ -25,7 +25,7 @@ The repository has four layers:
 
 ## Agent Skills
 
-After the commercial-opportunity release, the repository contains **16 Agent Skills**:
+After the Pinterest visibility release, the repository contains **17 Agent Skills**:
 
 1. `creator-ops`
 2. `viral-content-radar`
@@ -43,6 +43,7 @@ After the commercial-opportunity release, the repository contains **16 Agent Ski
 14. `local-business-intelligence`
 15. `commercial-opportunity-radar`
 16. `monetization-architect`
+17. `pinterest-opportunity-radar`
 
 ## Daily Automations
 
@@ -89,6 +90,33 @@ Purpose:
 - inspect current repository monetization readiness
 - refresh one `commercial-radar` issue
 - keep billing, pricing, contracts, sponsorship acceptance and outreach behind human approval
+
+### 09:05 Türkiye — Pinterest Visibility Radar
+
+Workflow:
+
+`.github/workflows/pinterest-visibility-radar.yml`
+
+Purpose:
+
+- attempt current official Pinterest Trends API retrieval when accessible
+- compare regional growing-keyword evidence
+- monitor Pinterest API, MCP, scheduling and analytics repositories
+- identify seasonal / visual-search opportunities
+- refresh one `pinterest-radar` issue
+- never fabricate trend numbers when API evidence is unavailable
+
+### 09:20 Türkiye — Automation Health Watch
+
+Workflow:
+
+`.github/workflows/automation-health.yml`
+
+Purpose:
+
+- monitor the four radar workflows
+- open/update one `automation-health` issue only when a radar is missing or failed
+- close the health issue automatically after recovery
 
 ## Maps Strategy
 
@@ -158,6 +186,33 @@ Commercial skills:
 `skills/commercial-opportunity-radar/SKILL.md`
 
 `skills/monetization-architect/SKILL.md`
+
+## Pinterest Visibility Strategy
+
+Pinterest now has a dedicated automation lane.
+
+Strategy:
+
+**evidence → keyword cluster → visual system → destination match → publish → measure → expand winners**
+
+Current rules:
+
+- use official Pinterest Trends/API evidence when accessible
+- do not fabricate search volume or trend status
+- do not scrape Pinterest consumer UI as the core evidence source
+- use `pinterest-opportunity-radar` before `pinterest-growth-engine` when current trend evidence matters
+- keep publishing human-reviewed until access, board mapping and destination checks are intentionally configured
+- future authenticated layer: Pinterest analytics → top Pins → winner expansion → destination optimization
+
+Reference:
+
+`references/PINTEREST-AUTOMATION-PLAYBOOK.md`
+
+Pinterest skills:
+
+`skills/pinterest-opportunity-radar/SKILL.md`
+
+`skills/pinterest-growth-engine/SKILL.md`
 
 GitHub Agentic Workflows are monitored as an optional future AI execution layer. They are currently public preview and should not be enabled until a supported engine credential / repository secret and permissions are intentionally configured.
 
