@@ -54,8 +54,10 @@ Explain:
 
 ## Licensing
 
-The repository documentation is covered by the root license unless otherwise stated.
+Licensing is determined by the directory you contribute to:
 
-The `skills/` directory is separately licensed under MIT.
+- `skills/` — **MIT License** under [skills/LICENSE](skills/LICENSE).
+- `tools/` — **MIT License** under [tools/LICENSE](tools/LICENSE).
+- Other original documentation, frameworks, templates and repository material — **Creative Commons Attribution-NonCommercial 4.0 International** under the root [LICENSE.md](LICENSE.md), unless a file states otherwise.
 
-By contributing to a directory, you agree that your contribution may be distributed under the license applicable to that directory.
+By contributing to a directory, you agree that your contribution may be distributed under the license applicable to that directory. Preserve required copyright, attribution and license notices for any permitted third-party material you include.
