@@ -17,6 +17,9 @@ Installable creator and social-media skills for AI agents.
 | `comment-intelligence` | Mines comments for questions, objections, pain points, demand signals, and content opportunities |
 | `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 | `github-opportunity-radar` | Finds GitHub demand signals, skill gaps and repository-growth opportunities |
+| `maps-opportunity-radar` | Finds Maps, local-intelligence and geospatial Agent Skill opportunities |
+| `maps-policy-guard` | Reviews Maps workflows for scraping, storage, attribution and authorization risks |
+| `local-business-intelligence` | Turns permitted local and owned business signals into market, content and creator workflows |
 
 ## Compatibility
 
