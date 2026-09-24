@@ -1,6 +1,14 @@
 name: GitHub Opportunity Radar
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/github_growth_radar.py"
+      - "skills/github-opportunity-radar/**"
+      - "references/GITHUB-GROWTH-PLAYBOOK.md"
+      - ".github/workflows/github-opportunity-radar.yml"
   schedule:
     # 05:20 UTC = 08:20 in Türkiye (UTC+3)
     - cron: "20 5 * * *"
