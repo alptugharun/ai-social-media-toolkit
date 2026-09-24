@@ -3,7 +3,7 @@ name: pinterest-opportunity-radar
 description: Researches Pinterest Trends, seasonality, visual-search opportunities, Pinterest automation tools and destination-fit gaps to identify evidence-backed Pin clusters and growth opportunities. Use when the user asks what to publish on Pinterest, what is rising, what Pinterest automation to build, or how to turn Pinterest discovery into website traffic.
 license: MIT
 metadata:
-  version: 0.1.0
+  version: 0.1.1
   author: Alptuğ Harun
 ---
 
@@ -50,6 +50,17 @@ Never convert a hypothesis into a "trend".
 If Pinterest Trends API access is available, collect region, keyword, WoW growth, MoM growth, YoY growth and time-series shape.
 
 If access is unavailable, continue non-authenticated research, mark live trend evidence unavailable, and do not fabricate numbers.
+
+Before recommending any Pinterest write automation, require a staged validation path:
+
+1. authenticated app access
+2. read-only connection test
+3. Pinterest API v5 Sandbox test for the intended supported operation
+4. verified board and destination mapping
+5. explicit publishing authorization
+6. production writes kept disabled by default until every prior gate passes
+
+A successful Sandbox test proves only that the integration can execute the tested operation in Sandbox. It is not evidence of production authorization, audience demand, traffic or content performance.
 
 ## Opportunity score
 
@@ -111,6 +122,8 @@ Separate automatic research, automatic draft generation, human-reviewed publishi
 - [ ] No copied Pin
 - [ ] Destination matches Pin promise
 - [ ] API / access-tier requirements are explicit
+- [ ] Sandbox validation completed before recommending production writes
+- [ ] Board and destination mapping verified before live publishing
 - [ ] No secret committed to repository
 - [ ] Human approval before live publishing unless explicitly configured otherwise
 
