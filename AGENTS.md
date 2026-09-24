@@ -52,6 +52,8 @@ Before adding claims about current platform behavior, AI products, APIs, trends,
 - For Google Maps, Places, Street View or Business Profile work, read `references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md` and route policy-sensitive designs through `maps-policy-guard`.
 - Do not build Google Maps workflows around consumer-UI scraping, prohibited bulk export, hidden long-term caching, or a permanent database of restricted Maps content.
 - Prefer official APIs, aggregate insights, place IDs where permitted, user-owned Business Profile data, user exports, or independently licensed/open datasets.
+- For Pinterest trend or growth work, read `references/PINTEREST-AUTOMATION-PLAYBOOK.md`; prefer official Pinterest Trends/API evidence and never label a hypothesis as a live trend.
+- Do not scrape Pinterest consumer surfaces as the primary evidence source or commit Pinterest access tokens.
 - For monetization work, read `references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md` and route commercial prioritization through `commercial-opportunity-radar` before proposing pricing or paid product scope.
 - Treat revenue, willingness-to-pay, conversion, sponsor interest, customer counts and pricing as hypotheses until supported by real evidence.
 - Do not automate mass unsolicited outreach, financial commitments, sponsorship acceptance, billing changes or public revenue claims.
