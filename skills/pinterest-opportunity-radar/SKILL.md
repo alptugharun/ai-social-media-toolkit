@@ -3,7 +3,7 @@ name: pinterest-opportunity-radar
 description: Researches Pinterest Trends, seasonality, visual-search opportunities, Pinterest automation tools and destination-fit gaps to identify evidence-backed Pin clusters and growth opportunities. Use when the user asks what to publish on Pinterest, what is rising, what Pinterest automation to build, or how to turn Pinterest discovery into website traffic.
 license: MIT
 metadata:
-  version: 0.1.1
+  version: 0.1.2
   author: Alptuğ Harun
 ---
 
@@ -47,9 +47,11 @@ Never convert a hypothesis into a "trend".
 
 ## API-aware mode
 
-If Pinterest Trends API access is available, collect region, keyword, WoW growth, MoM growth, YoY growth and time-series shape.
+Treat Pinterest Trends API access as a separate capability gate, not as something implied by merely having a Pinterest access token. Pinterest currently documents the Trends & Insights API for agencies, Enterprise clients and partner platforms, with a limited subset of the consumer Trends experience.
 
-If access is unavailable, continue non-authenticated research, mark live trend evidence unavailable, and do not fabricate numbers.
+If authorized Pinterest Trends API access is available, collect region, keyword, WoW growth, MoM growth, YoY growth and time-series shape. Record the evidence date because the API currently returns today's trend data rather than arbitrary historical dates.
+
+If a token is missing, the Trends capability is unavailable, or the endpoint returns an authorization/access-tier error, continue non-authenticated research, mark live trend evidence unavailable, and do not fabricate numbers. Do not repeatedly treat HTTP 401/403 responses as evidence that no trend exists.
 
 Before recommending any Pinterest write automation, require a staged validation path:
 
@@ -121,6 +123,7 @@ Separate automatic research, automatic draft generation, human-reviewed publishi
 - [ ] No invented trend data
 - [ ] No copied Pin
 - [ ] Destination matches Pin promise
+- [ ] Trends API capability/access tier verified separately from token presence
 - [ ] API / access-tier requirements are explicit
 - [ ] Sandbox validation completed before recommending production writes
 - [ ] Board and destination mapping verified before live publishing
