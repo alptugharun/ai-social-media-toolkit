@@ -1,7 +1,7 @@
 {
   "name": "ai-social-media-toolkit",
-  "version": "0.3.0",
-  "description": "Creator-operations skills for social research, content production, Google Maps/local-business intelligence, Pinterest, Reels, influencer analysis and brand voice.",
+  "version": "0.4.0",
+  "description": "Creator-operations skills for social research, Maps/local-business intelligence, commercial opportunity analysis, Pinterest, Reels and brand voice.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -19,6 +19,9 @@
     "agent-skills",
     "google-maps",
     "local-business",
-    "location-intelligence"
+    "location-intelligence",
+    "commercial-opportunity",
+    "open-source-monetization",
+    "github-actions"
   ]
 }

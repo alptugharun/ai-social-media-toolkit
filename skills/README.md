@@ -20,6 +20,8 @@ Installable creator and social-media skills for AI agents.
 | `maps-opportunity-radar` | Finds Maps, local-intelligence and geospatial Agent Skill opportunities |
 | `maps-policy-guard` | Reviews Maps workflows for scraping, storage, attribution and authorization risks |
 | `local-business-intelligence` | Turns permitted local and owned business signals into market, content and creator workflows |
+| `commercial-opportunity-radar` | Finds evidence-backed product, service and monetization opportunities |
+| `monetization-architect` | Turns validated open-source value into a staged commercial model |
 
 ## Compatibility
 

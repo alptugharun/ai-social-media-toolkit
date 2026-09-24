@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-social-media-toolkit",
-  "version": "0.3.0",
-  "description": "Portable creator-operations Agent Skills for social-media research, content systems, Google Maps/local-business intelligence, Reels, Pinterest, influencer fit and evidence-backed automation.",
+  "version": "0.4.0",
+  "description": "Portable creator-operations Agent Skills for social content, Maps/local-business intelligence, commercial opportunity research and evidence-backed automation.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -24,6 +24,10 @@
     "google-maps",
     "local-business",
     "location-intelligence",
-    "google-business-profile"
+    "google-business-profile",
+    "open-source-monetization",
+    "commercial-opportunity",
+    "github-actions",
+    "agentic-workflows"
   ]
 }

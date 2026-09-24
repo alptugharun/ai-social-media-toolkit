@@ -34,6 +34,8 @@ If a completed context file exists, use it before asking repeated questions.
 | Research Google Maps / Places / geospatial product opportunities | `maps-opportunity-radar` |
 | Review Maps scraping, storage, caching or attribution architecture | `maps-policy-guard` |
 | Analyze local business, location, content-gap or creator-location signals | `local-business-intelligence` |
+| Research what to productize, sell or monetize | `commercial-opportunity-radar` |
+| Design a staged revenue model for validated value | `monetization-architect` |
 | Turn an idea into a short vertical video | `reels-director` |
 | Plan Pinterest discovery and pin clusters | `pinterest-growth-engine` |
 | Turn one source into many platform assets | `content-repurposer` |
@@ -49,9 +51,10 @@ If a completed context file exists, use it before asking repeated questions.
 4. Use the minimum number of skills needed.
 5. For GitHub growth or skill-gap work, use `github-opportunity-radar` before proposing a new skill.
 6. For Maps / Places / Business Profile work, use `maps-opportunity-radar` for market research and `maps-policy-guard` before proposing a new data architecture.
-7. Keep evidence and recommendations separate.
-8. Produce an immediately usable artifact.
-9. End with a review / measurement step.
+7. For commercial questions, use `commercial-opportunity-radar` before `monetization-architect`; do not jump from a vague idea directly to pricing.
+8. Keep evidence and recommendations separate.
+9. Produce an immediately usable artifact.
+10. End with a review / measurement step.
 
 ## Output Standard
 
