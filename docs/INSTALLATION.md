@@ -69,7 +69,19 @@ python tools/install_skills.py --target copilot --scope user
 
 ## Gemini CLI native install
 
-Gemini CLI supports installing skills directly from Git repositories:
+The repository includes a root `gemini-extension.json`, so Gemini CLI can install the toolkit as a first-class extension and automatically discover the bundled `skills/` directory:
+
+```bash
+gemini extensions install https://github.com/alptugharun/ai-social-media-toolkit
+```
+
+Gemini CLI copies extensions into its extension directory. Pull future toolkit updates with:
+
+```bash
+gemini extensions update ai-social-media-toolkit
+```
+
+If you prefer skill-only installation rather than the extension package, Gemini CLI also supports installing skills directly from Git repositories:
 
 ```bash
 gemini skills install https://github.com/alptugharun/ai-social-media-toolkit.git --consent
