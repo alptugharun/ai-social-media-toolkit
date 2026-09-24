@@ -1,6 +1,17 @@
 name: Maps & Local Intelligence Radar
 
 on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/maps_opportunity_radar.py"
+      - "tools/places_market_scan.py"
+      - "skills/maps-opportunity-radar/**"
+      - "skills/maps-policy-guard/**"
+      - "skills/local-business-intelligence/**"
+      - "references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md"
+      - ".github/workflows/maps-opportunity-radar.yml"
   schedule:
     # 05:35 UTC = 08:35 in Türkiye (UTC+3)
     - cron: "35 5 * * *"
