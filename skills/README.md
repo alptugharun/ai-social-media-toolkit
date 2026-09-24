@@ -10,6 +10,7 @@ Installable creator and social-media skills for AI agents.
 | `viral-content-radar` | Finds and deconstructs trends and outliers |
 | `reels-director` | Produces short-form vertical video plans |
 | `pinterest-growth-engine` | Builds Pinterest discovery and traffic systems |
+| `pinterest-opportunity-radar` | Finds evidence-backed Pinterest trends, seasonality and visual-search opportunities |
 | `content-repurposer` | Turns one source into platform-native assets |
 | `influencer-fit-auditor` | Evaluates creator / influencer partnerships |
 | `brand-voice-humanizer` | Restores natural brand voice |
