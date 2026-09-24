@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-social-media-toolkit",
-  "version": "0.4.0",
-  "description": "Portable creator-operations Agent Skills for social content, Maps/local-business intelligence, commercial opportunity research and evidence-backed automation.",
+  "version": "0.5.0",
+  "description": "Portable creator-operations Agent Skills for social content, Pinterest visibility, Maps/local-business intelligence, commercial opportunity research and evidence-backed automation.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -28,6 +28,9 @@
     "open-source-monetization",
     "commercial-opportunity",
     "github-actions",
-    "agentic-workflows"
+    "agentic-workflows",
+    "pinterest-trends",
+    "visual-search",
+    "pinterest-automation"
   ]
 }
