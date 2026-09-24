@@ -11,8 +11,7 @@ on:
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
-      - ".github/workflows/validate-skills.yml"
-      - ".github/workflows/self-heal.yml"
+      - ".github/workflows/**"
       - ".github/self-heal-policy.json"
       - ".github/agents/**"
   pull_request:
@@ -24,8 +23,7 @@ on:
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
-      - ".github/workflows/validate-skills.yml"
-      - ".github/workflows/self-heal.yml"
+      - ".github/workflows/**"
       - ".github/self-heal-policy.json"
       - ".github/agents/**"
 
