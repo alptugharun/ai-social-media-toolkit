@@ -17,6 +17,10 @@ on:
     - cron: "35 5 * * *"
   workflow_dispatch:
 
+concurrency:
+  group: maps-opportunity-radar
+  cancel-in-progress: true
+
 permissions:
   contents: read
   issues: write
@@ -34,6 +38,10 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Bootstrap pacing
+        if: github.event_name == 'push'
+        run: sleep 80
 
       - name: Generate Maps opportunity report
         env:
