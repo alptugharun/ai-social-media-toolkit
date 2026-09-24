@@ -319,3 +319,28 @@ Only after real demand is proven:
 ## Core principle
 
 **Do not automate "making money." Automate finding, proving and delivering useful value — then attach a clear commercial path.**
+
+
+## Official References
+
+Re-check these before productization because GitHub capabilities and eligibility requirements can change:
+
+- GitHub Agentic Workflows quickstart: https://docs.github.com/en/copilot/how-tos/github-agentic-workflows/quickstart
+- GitHub Agentic Workflows concepts: https://docs.github.com/en/copilot/concepts/agents/about-github-agentic-workflows
+- GitHub Actions hosted runners: https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+- Scheduled workflow behavior: https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows
+- GitHub Marketplace overview: https://docs.github.com/en/apps/github-marketplace/github-marketplace-overview/about-github-marketplace-for-apps
+- Publishing Actions in Marketplace: https://docs.github.com/en/actions/how-tos/create-and-publish-actions/publish-in-github-marketplace
+- Marketplace app listing requirements: https://docs.github.com/en/apps/github-marketplace/creating-apps-for-github-marketplace/requirements-for-listing-an-app
+- Marketplace pricing: https://docs.github.com/en/apps/github-marketplace/selling-your-app-on-github-marketplace/pricing-plans-for-github-marketplace-apps
+- GitHub Sponsors: https://docs.github.com/en/sponsors/getting-started-with-github-sponsors/about-github-sponsors
+- Setting up Sponsors for a personal account: https://docs.github.com/en/sponsors/receiving-sponsorships-through-github-sponsors/setting-up-github-sponsors-for-your-personal-account
+
+Current operational notes:
+
+- Standard GitHub-hosted runners are currently free and unlimited for public repositories.
+- Scheduled workflows run from the default branch and may be disabled after 60 days of inactivity in a public repository.
+- GitHub Agentic Workflows are currently in public preview.
+- Publishing a GitHub Action to Marketplace has a different path from selling a paid GitHub App.
+- Paid GitHub Marketplace Apps require organization ownership, publisher verification and the applicable listing requirements.
+- GitHub Sponsors requires a supported region, application/profile setup, payout/tax details and 2FA.
