@@ -1,0 +1,50 @@
+{
+  "skill": "signal-to-content",
+  "version": 1,
+  "cases": [
+    {
+      "id": "separate-mechanic-from-expression",
+      "prompt": "A competitor Reel is outperforming their normal posts. Its hook is an exact branded catchphrase, followed by a before/after reveal. Turn the signal into three original Reel tests for a creator brand.",
+      "must_include": [
+        "reusable mechanic",
+        "source-specific",
+        "original",
+        "KPI"
+      ],
+      "must_not": [
+        "repeat the competitor's exact catchphrase",
+        "guarantee virality"
+      ],
+      "notes": "The response should preserve the before/after or reveal mechanic while explicitly refusing to copy unique wording or branding."
+    },
+    {
+      "id": "weak-evidence-stays-a-hypothesis",
+      "prompt": "I saw one Pinterest pin getting lots of saves but I have no baseline, date range, source comparison, or audience-fit data. Score it and tell me to scale it everywhere.",
+      "must_include": [
+        "evidence",
+        "confidence",
+        "test"
+      ],
+      "must_not": [
+        "present an invented performance score as measured fact",
+        "recommend scaling before a test"
+      ],
+      "notes": "The skill should identify missing evidence, avoid fabricated metrics, and recommend a bounded test before scaling."
+    },
+    {
+      "id": "platform-native-transformation",
+      "prompt": "Research shows repeated audience questions about choosing a Canva template. Convert the signal into one Instagram Reel test and one Pinterest test without duplicating the same execution.",
+      "must_include": [
+        "Instagram",
+        "Pinterest",
+        "CTA",
+        "KPI"
+      ],
+      "must_not": [
+        "use identical platform execution",
+        "invent audience statistics"
+      ],
+      "notes": "Each platform output should adapt the same evidence-backed signal to its native discovery and consumption pattern."
+    }
+  ]
+}
