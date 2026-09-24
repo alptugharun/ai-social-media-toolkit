@@ -105,6 +105,7 @@ Purpose:
 - identify seasonal / visual-search opportunities
 - refresh one `pinterest-radar` issue
 - never fabricate trend numbers when API evidence is unavailable
+- enforce the Pinterest Sandbox validation gate before authenticated automation is treated as production-ready
 
 ### 09:20 Türkiye — Automation Health Watch
 
@@ -202,6 +203,7 @@ Current rules:
 - do not scrape Pinterest consumer UI as the core evidence source
 - use `pinterest-opportunity-radar` before `pinterest-growth-engine` when current trend evidence matters
 - keep publishing human-reviewed until access, board mapping and destination checks are intentionally configured
+- require the Pinterest Sandbox validation gate before authenticated automation is promoted toward production use
 - future authenticated layer: Pinterest analytics → top Pins → winner expansion → destination optimization
 
 Reference:
