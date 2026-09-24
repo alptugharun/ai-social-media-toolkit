@@ -39,6 +39,13 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Preflight self-test
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m py_compile tools/maps_opportunity_radar.py tools/places_market_scan.py
+          python -m unittest discover -s tests -p 'test_maps_tools.py' -v
+
       - name: Bootstrap pacing
         if: github.event_name == 'push'
         run: sleep 80
