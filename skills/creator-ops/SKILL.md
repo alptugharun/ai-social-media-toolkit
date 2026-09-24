@@ -31,6 +31,9 @@ If a completed context file exists, use it before asking repeated questions.
 | --- | --- |
 | Find trends, outliers, winning formats | `viral-content-radar` |
 | Research GitHub trends, skill gaps and repository opportunities | `github-opportunity-radar` |
+| Research Google Maps / Places / geospatial product opportunities | `maps-opportunity-radar` |
+| Review Maps scraping, storage, caching or attribution architecture | `maps-policy-guard` |
+| Analyze local business, location, content-gap or creator-location signals | `local-business-intelligence` |
 | Turn an idea into a short vertical video | `reels-director` |
 | Plan Pinterest discovery and pin clusters | `pinterest-growth-engine` |
 | Turn one source into many platform assets | `content-repurposer` |
@@ -45,9 +48,10 @@ If a completed context file exists, use it before asking repeated questions.
 3. Read creator context if available.
 4. Use the minimum number of skills needed.
 5. For GitHub growth or skill-gap work, use `github-opportunity-radar` before proposing a new skill.
-6. Keep evidence and recommendations separate.
-7. Produce an immediately usable artifact.
-8. End with a review / measurement step.
+6. For Maps / Places / Business Profile work, use `maps-opportunity-radar` for market research and `maps-policy-guard` before proposing a new data architecture.
+7. Keep evidence and recommendations separate.
+8. Produce an immediately usable artifact.
+9. End with a review / measurement step.
 
 ## Output Standard
 
