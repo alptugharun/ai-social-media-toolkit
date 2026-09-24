@@ -109,12 +109,18 @@ jobs:
 
           echo "Validated $count skill files."
 
-      - name: Validate JSON manifests
+      - name: Validate JSON manifests and eval fixtures
         shell: bash
         run: |
+          set -euo pipefail
           python -m json.tool plugin.json >/dev/null
           python -m json.tool gemini-extension.json >/dev/null
           python -m json.tool .claude-plugin/plugin.json >/dev/null
+
+          while IFS= read -r -d '' file; do
+            echo "Validating $file"
+            python -m json.tool "$file" >/dev/null
+          done < <(find skills -path '*/evals/*.json' -print0)
 
       - name: Run installer tests
         run: python -m unittest discover -s tests -v
