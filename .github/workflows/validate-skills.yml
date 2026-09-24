@@ -6,6 +6,7 @@ on:
       - "skills/**"
       - "tools/**"
       - "tests/**"
+      - "examples/**"
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
@@ -15,6 +16,7 @@ on:
       - "skills/**"
       - "tools/**"
       - "tests/**"
+      - "examples/**"
       - "plugin.json"
       - "gemini-extension.json"
       - ".claude-plugin/**"
@@ -128,3 +130,16 @@ jobs:
             --skill creator-ops
 
           test -f "$tmpdir/.agents/skills/creator-ops/SKILL.md"
+
+      - name: Smoke-test creator scoring tools
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          outlier_output="$(python tools/outlier_score.py examples/social-outlier-posts.csv --top 1)"
+          printf '%s\n' "$outlier_output"
+          grep -q 'reel-004' <<< "$outlier_output"
+
+          signal_output="$(python tools/signal2content_score.py examples/signal2content-opportunities.csv --top 1)"
+          printf '%s\n' "$signal_output"
+          grep -q 'Pinterest seasonal visual series' <<< "$signal_output"
