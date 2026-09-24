@@ -1,7 +1,7 @@
 {
   "name": "ai-social-media-toolkit",
-  "version": "0.4.0",
-  "description": "Creator-operations skills for social research, Maps/local-business intelligence, commercial opportunity analysis, Pinterest, Reels and brand voice.",
+  "version": "0.5.0",
+  "description": "Creator-operations skills for social research, Pinterest visibility, Maps/local-business intelligence, commercial opportunity analysis, Reels and brand voice.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -22,6 +22,9 @@
     "location-intelligence",
     "commercial-opportunity",
     "open-source-monetization",
-    "github-actions"
+    "github-actions",
+    "pinterest-trends",
+    "visual-search",
+    "pinterest-automation"
   ]
 }
