@@ -145,7 +145,7 @@ def parse_trending(html: str) -> list[dict]:
         if not match:
             continue
         full_name = match.group(1).strip()
-        stars_today_match = re.search(r"([\\d,]+)\\s+stars?\\s+today", block, flags=re.I)
+        stars_today_match = re.search(r"([\d,]+)\s+stars?\s+today", block, flags=re.I)
         stars_today = int(stars_today_match.group(1).replace(",", "")) if stars_today_match else 0
         repos.append({"full_name": full_name, "stars_today": stars_today})
     return repos
@@ -274,7 +274,7 @@ def research_skill_candidates(token: str | None, lanes: list[LaneResult]) -> lis
 
 
 def md_escape(value: str) -> str:
-    return value.replace("|", "\\|").replace("\\n", " ")
+    return value.replace("|", "\|").replace("\n", " ")
 
 
 def render_report(now: datetime, trending: list[dict], lanes: list[LaneResult], candidates: list[dict], warnings: list[str]) -> str:
