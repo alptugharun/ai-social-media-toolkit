@@ -25,7 +25,7 @@ The repository has four layers:
 
 ## Agent Skills
 
-After the Maps & Local Intelligence release, the repository contains **14 Agent Skills**:
+After the commercial-opportunity release, the repository contains **16 Agent Skills**:
 
 1. `creator-ops`
 2. `viral-content-radar`
@@ -41,6 +41,8 @@ After the Maps & Local Intelligence release, the repository contains **14 Agent 
 12. `maps-opportunity-radar`
 13. `maps-policy-guard`
 14. `local-business-intelligence`
+15. `commercial-opportunity-radar`
+16. `monetization-architect`
 
 ## Daily Automations
 
@@ -72,6 +74,21 @@ Purpose:
 - penalize generic Maps MCP wrappers
 - refresh one `maps-radar` issue
 - keep human approval before publication
+
+### 08:50 Türkiye — Commercial Opportunity Radar
+
+Workflow:
+
+`.github/workflows/commercial-opportunity-radar.yml`
+
+Purpose:
+
+- scan commercially relevant GitHub / open-source demand proxies
+- compare agentic-workflow, AI-marketing, creator-tool, local-business and B2B-intelligence lanes
+- score buyer clarity, recurring need, proof, distribution, feasibility and monetization paths
+- inspect current repository monetization readiness
+- refresh one `commercial-radar` issue
+- keep billing, pricing, contracts, sponsorship acceptance and outreach behind human approval
 
 ## Maps Strategy
 
@@ -115,6 +132,35 @@ Policy skill:
 
 `skills/maps-policy-guard/SKILL.md`
 
+## Commercial Strategy
+
+The pasted B2B-radar idea was retained in a safer and more useful form: **signal collection → evidence → insight → reusable report → offer → recurring delivery**.
+
+The project does **not** use the weaker pattern of scraping restricted platforms and mass-emailing scraped contacts.
+
+Primary commercial candidates currently tracked:
+
+1. Local Business Intelligence Cloud
+2. Creator Ops Workspace
+3. B2B Signal-to-Offer recurring briefs
+4. Maps / Local Content Gap reports
+5. implementation-as-a-service
+6. Agentic Workflow Packs
+7. MapWrapped premium companion products
+8. GitHub Sponsors / Marketplace only after adoption evidence
+
+Reference:
+
+`references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md`
+
+Commercial skills:
+
+`skills/commercial-opportunity-radar/SKILL.md`
+
+`skills/monetization-architect/SKILL.md`
+
+GitHub Agentic Workflows are monitored as an optional future AI execution layer. They are currently public preview and should not be enabled until a supported engine credential / repository secret and permissions are intentionally configured.
+
 ## Quality Rules
 
 - Never invent metrics, downloads, stars, search volume or case-study outcomes.
@@ -126,10 +172,13 @@ Policy skill:
 - Run CI and tests before merging.
 - If CI fails, inspect the logs and fix the change before merging.
 - Do not auto-publish a large number of low-quality skills.
+- Do not treat stars as revenue or assume sponsor interest without evidence.
+- Do not automate mass unsolicited outreach or restricted-platform scraping.
+- Monetization sequence: prove useful value → identify buyer → test a small offer → automate delivery only after demand exists.
 
 ## Current Strategic Loop
 
-**Research → score opportunity → policy check → human approval → prototype → test → package → publish → measure → learn**
+**Research → score opportunity → policy/commercial check → human approval → prototype → test → package → publish → measure adoption → validate buyer → monetize carefully → learn**
 
 ## Website Coordination Rule
 
