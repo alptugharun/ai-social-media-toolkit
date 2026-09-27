@@ -16,6 +16,8 @@ Treat this file as the shared operating guide for coding and AI agents working i
 - Prefer extending or merging existing workflows when they already cover most of the requested job.
 - Treat commit count and skill count as internal activity, not external adoption.
 - When adoption is weak, prioritize onboarding, examples, demos, distribution and real-user proof over additional breadth.
+- For major opportunity decisions, read `references/STRATEGIC-DECISION-FRAMEWORK.md` and challenge the idea with why-this / why-now / why-us / payer / proof / overlap / stop-condition questions before implementation.
+- Prefer AI-native opportunities when evidence is comparable, but allow stronger adjacent demand or monetization evidence to outrank AI branding. Never add AI as decoration.
 - Never invent platform metrics, trend evidence, benchmark results, downloads, stars, performance claims, or case-study outcomes.
 - Distinguish observed evidence from hypotheses and recommendations.
 - Do not copy another project's distinctive wording, branding, proprietary assets, or unlicensed code.
