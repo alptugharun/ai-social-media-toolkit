@@ -1,0 +1,83 @@
+name: Traction & Focus Watch
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "tools/traction_focus_report.py"
+      - "references/FOCUS-TRACTION-PLAYBOOK.md"
+      - ".github/workflows/traction-focus-watch.yml"
+      - "skills/commercial-opportunity-radar/**"
+      - "skills/monetization-architect/**"
+  schedule:
+    # Monday 06:40 UTC = 09:40 in Türkiye (UTC+3)
+    - cron: "40 6 * * 1"
+  workflow_dispatch:
+
+concurrency:
+  group: traction-focus-watch
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  traction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Generate traction and focus report
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python tools/traction_focus_report.py --output /tmp/traction-focus-report.md
+
+      - name: Create or refresh traction issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          gh label create traction-focus \
+            --description "External adoption proof and repository focus watch" \
+            --color "0E8A16" \
+            --force
+
+          issue_number="$(
+            gh issue list \
+              --label traction-focus \
+              --state open \
+              --limit 1 \
+              --json number \
+              --jq '.[0].number // empty'
+          )"
+
+          if [ -n "$issue_number" ]; then
+            gh issue edit "$issue_number" \
+              --title "Traction & Focus Watch — latest" \
+              --body-file /tmp/traction-focus-report.md
+          else
+            gh issue create \
+              --title "Traction & Focus Watch — latest" \
+              --body-file /tmp/traction-focus-report.md \
+              --label traction-focus
+          fi
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: traction-focus-report
+          path: /tmp/traction-focus-report.md
+          retention-days: 30

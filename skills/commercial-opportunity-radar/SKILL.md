@@ -18,6 +18,7 @@ Read:
 - `references/EVIDENCE-POLICY.md`
 - `references/GITHUB-GROWTH-PLAYBOOK.md`
 - `references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md`
+- `references/FOCUS-TRACTION-PLAYBOOK.md`
 - `references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md` when Maps / local data is involved
 
 ## Core Questions
@@ -30,6 +31,8 @@ Read:
 6. Can the first useful version run with low friction?
 7. What monetization path fits the problem?
 8. Does the opportunity fit the creator / agency / local-business positioning of this repository?
+9. Does it strengthen an existing wedge or create unnecessary scope expansion?
+10. What external adoption proof exists, and what proof is still missing?
 
 ## Research Inputs
 
@@ -74,6 +77,18 @@ Penalize:
 - no measurable output
 - high cost before first value
 - weak fit with the repository
+- new product/skill lane with no measurable proof plan
+- duplication of an existing skill or workflow
+- scope expansion that dilutes creator-operations positioning
+
+## Focus Gate
+
+Before recommending a new skill or product lane:
+
+1. Check whether an existing skill already covers most of the job.
+2. Prefer extending, merging or deepening an existing workflow when possible.
+3. Name the external proof required before the idea graduates from research mode.
+4. Treat commit count and skill count as internal activity, not adoption.
 
 ## Monetization Paths
 
@@ -147,6 +162,9 @@ Only automate collection, analysis and draft artifacts that are allowed and usef
 - [ ] Data rights checked
 - [ ] Commercial action requires human approval
 - [ ] Product is useful without hype
+- [ ] Existing skill overlap checked
+- [ ] External proof gap named
+- [ ] Scope expansion justified
 
 ## Core Principle
 

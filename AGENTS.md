@@ -12,6 +12,10 @@ Treat this file as the shared operating guide for coding and AI agents working i
 - Prefer small, reversible changes over broad rewrites.
 - Keep the toolkit creator- and marketer-facing. New assets should solve a concrete social-media, creator-economy, content, research, automation, or digital-visibility problem.
 - Do not add files merely to make the repository look larger.
+- Before adding a new Agent Skill, automation, or product lane, read `references/FOCUS-TRACTION-PLAYBOOK.md` and apply the Expansion Gate.
+- Prefer extending or merging existing workflows when they already cover most of the requested job.
+- Treat commit count and skill count as internal activity, not external adoption.
+- When adoption is weak, prioritize onboarding, examples, demos, distribution and real-user proof over additional breadth.
 - Never invent platform metrics, trend evidence, benchmark results, downloads, stars, performance claims, or case-study outcomes.
 - Distinguish observed evidence from hypotheses and recommendations.
 - Do not copy another project's distinctive wording, branding, proprietary assets, or unlicensed code.
