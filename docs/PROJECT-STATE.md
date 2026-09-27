@@ -250,6 +250,65 @@ GitHub Agentic Workflows are monitored as an optional future AI execution layer.
 - Do not automate mass unsolicited outreach or restricted-platform scraping.
 - Monetization sequence: prove useful value → identify buyer → test a small offer → automate delivery only after demand exists.
 
+## Focus & Traction Strategy
+
+A new operating rule now sits above expansion:
+
+**Breadth creates possibilities. Traction decides where depth belongs.**
+
+Primary wedge:
+
+**Open-source creator operations for AI-assisted social media and digital visibility.**
+
+Pinterest, Maps/local intelligence, Reels, influencer workflows and commercial research are supporting lanes inside that creator-operations system. They do not automatically become separate products.
+
+Before adding a new skill, automation or product lane:
+
+1. check whether an existing workflow already covers most of the job
+2. prefer extending or merging before adding breadth
+3. require a measurable external proof plan
+4. name the buyer or user
+5. keep the idea in research mode when adoption evidence is weak
+
+Commercial sequence:
+
+**GitHub proof / open core → implementation service → productized recurring service → paid intelligence/reporting → hosted workspace/SaaS**
+
+GitHub is treated primarily as proof, distribution, inspectable open core and trust infrastructure, not as the assumed primary revenue source.
+
+Traction evidence priority:
+
+- repeated real-world use
+- paid buyer validation
+- external installs / reuse
+- external contributors / issues
+- stars / forks / watchers
+- referral traffic / qualitative feedback
+- internal activity last
+
+Reference:
+
+`references/FOCUS-TRACTION-PLAYBOOK.md`
+
+### Weekly — Traction & Focus Watch
+
+Workflow:
+
+`.github/workflows/traction-focus-watch.yml`
+
+Schedule:
+
+**Monday 09:40 Türkiye time**
+
+Purpose:
+
+- separate internal activity from external adoption
+- track public proof signals
+- keep scope expansion under control
+- recommend BUILD PROOF, VALIDATE WEDGE or SCALE WHAT WORKS
+- refresh one `traction-focus` issue
+- prevent skill count from becoming the goal
+
 ## Current Strategic Loop
 
 **Research → score opportunity → policy/commercial check → human approval → prototype → test → package → publish → measure adoption → validate buyer → monetize carefully → learn**
