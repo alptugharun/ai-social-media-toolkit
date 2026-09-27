@@ -21,6 +21,7 @@ Read:
 
 - `references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md`
 - `references/EVIDENCE-POLICY.md`
+- `references/FOCUS-TRACTION-PLAYBOOK.md`
 
 ## Input
 
@@ -37,21 +38,31 @@ Identify:
 - strongest differentiator
 - current distribution surface
 
+## Step 0 — Confirm the wedge
+
+Before pricing or product expansion:
+
+- identify the existing workflow with the strongest real-world proof
+- distinguish internal shipping from external adoption
+- prefer a narrow service/productized-service test before creating another broad product lane
+- treat GitHub primarily as proof, distribution and open core unless evidence supports a different role
+
 ## Step 1 — Choose the first monetization layer
 
 Use this priority unless evidence suggests otherwise:
 
 1. implementation / service
-2. paid recurring report
-3. hosted convenience
-4. premium companion asset
-5. sponsor support
-6. Marketplace distribution
-7. enterprise plan
+2. productized recurring service
+3. paid recurring report
+4. hosted convenience
+5. premium companion asset
+6. sponsor support
+7. Marketplace distribution
+8. enterprise plan
 
 Why:
 
-Services and reports can validate willingness to pay before building a large SaaS platform.
+Services, productized services and reports can validate willingness to pay before building a large SaaS platform.
 
 ## Step 2 — Keep the open core useful
 
