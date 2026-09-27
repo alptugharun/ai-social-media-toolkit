@@ -19,6 +19,7 @@ Read:
 - `references/GITHUB-GROWTH-PLAYBOOK.md`
 - `references/OPEN-SOURCE-MONETIZATION-PLAYBOOK.md`
 - `references/FOCUS-TRACTION-PLAYBOOK.md`
+- `references/STRATEGIC-DECISION-FRAMEWORK.md`
 - `references/MAPS-AI-OPPORTUNITY-PLAYBOOK.md` when Maps / local data is involved
 
 ## Core Questions
@@ -33,6 +34,9 @@ Read:
 8. Does the opportunity fit the creator / agency / local-business positioning of this repository?
 9. Does it strengthen an existing wedge or create unnecessary scope expansion?
 10. What external adoption proof exists, and what proof is still missing?
+11. Why would the buyer pay now instead of using an existing tool or doing nothing?
+12. What is the cheapest seven-day validation?
+13. What evidence would make us stop or merge the idea into an existing workflow?
 
 ## Research Inputs
 
@@ -90,6 +94,22 @@ Before recommending a new skill or product lane:
 3. Name the external proof required before the idea graduates from research mode.
 4. Treat commit count and skill count as internal activity, not adoption.
 
+## Strategic Challenge
+
+For the strongest candidate, apply the three-pass review from `references/STRATEGIC-DECISION-FRAMEWORK.md` and explicitly answer:
+
+- why this
+- why now
+- why us
+- who pays
+- what they pay for
+- what is recurring
+- what could make the economics unattractive
+- what can be validated in seven days
+- what evidence would make us stop
+
+Compare an **AI-native** candidate with the strongest **high-momentum adjacent** candidate. Prefer AI when evidence is similar; allow the adjacent candidate to lead when demand, monetization or distribution evidence is materially stronger.
+
 ## Monetization Paths
 
 Evaluate:
@@ -138,6 +158,7 @@ When the user asks for "a radar that makes money":
 | --- | --- | --- | --- | --- | ---: |
 
 ## Best Commercial Test
+- Strategic decision: BUILD PROOF / VALIDATE BUYER / DEEPEN EXISTING / WATCH
 - Candidate:
 - Buyer:
 - Pain:
@@ -165,6 +186,10 @@ Only automate collection, analysis and draft artifacts that are allowed and usef
 - [ ] Existing skill overlap checked
 - [ ] External proof gap named
 - [ ] Scope expansion justified
+- [ ] Why-now case supported
+- [ ] First payer and paid job are explicit
+- [ ] AI-vs-market-momentum comparison completed
+- [ ] Seven-day proof and stop condition defined
 
 ## Core Principle
 

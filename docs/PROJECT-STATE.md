@@ -309,6 +309,38 @@ Purpose:
 - refresh one `traction-focus` issue
 - prevent skill count from becoming the goal
 
+## Strategic Decision Layer
+
+All major opportunity decisions now use:
+
+`references/STRATEGIC-DECISION-FRAMEWORK.md`
+
+Required questions include:
+
+- Why this?
+- Why now?
+- Why us?
+- Why would anyone care?
+- Why would anyone pay?
+- What evidence is external?
+- What can be proven in seven days?
+- What existing workflow overlaps?
+- What evidence would make us stop?
+
+Focus rule:
+
+- AI is the default strategic lens because it strengthens the current positioning.
+- AI does not automatically win.
+- If a non-AI or adjacent opportunity has materially stronger demand, monetization or distribution evidence, it may rank equally or higher.
+- Never add AI as decoration.
+
+Major decisions resolve to one of:
+
+- BUILD PROOF
+- VALIDATE BUYER
+- DEEPEN EXISTING
+- WATCH
+
 ## Current Strategic Loop
 
 **Research → score opportunity → policy/commercial check → human approval → prototype → test → package → publish → measure adoption → validate buyer → monetize carefully → learn**

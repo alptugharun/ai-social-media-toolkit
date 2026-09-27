@@ -430,6 +430,17 @@ def render_report(
                 f'- Heuristic score: {best["score"]:.1f}/100',
                 f'- Direct-supply proxy: {best["direct_supply"]:,} GitHub repository results',
                 "- Recommended validation: produce one useful free artifact, define one paid deeper deliverable, and measure real requests before building a large SaaS layer.",
+                "",
+                "## Executive Challenge",
+                "",
+                "- **Why this?** It currently ranks highest on the configured commercial heuristic, but the score is only a prioritization aid.",
+                f'- **Why now?** Its source lane is `{best.get("lane", "unspecified")}`; compare that lane against current demand evidence before committing engineering time.',
+                f'- **Why would anyone pay?** The job is recurring-value oriented: {best["job"]}',
+                f'- **Why might this fail?** Direct-supply proxy is {best["direct_supply"]:,}; existing tools may already satisfy the buyer well enough.',
+                "- **Why us?** Proceed only if the idea compounds the toolkit's creator-ops / AI / automation positioning and can become visible proof.",
+                "- **Seven-day proof:** create one concrete free artifact, define one paid deeper outcome, show it to real target users/buyers, and record actual responses.",
+                "- **Stop condition:** if real users do not understand the job, do not request the deeper outcome, or an existing tool already solves it with lower friction, do not expand the product.",
+                "- **AI vs momentum:** prefer AI-native when evidence is comparable; allow a stronger adjacent market to lead when demand, monetization or distribution evidence is materially better.",
             ]
         )
 

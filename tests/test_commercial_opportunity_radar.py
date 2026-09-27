@@ -45,6 +45,8 @@ class CommercialOpportunityRadarTests(unittest.TestCase):
         self.assertIn("not a revenue forecast", report)
         self.assertIn("human approval", report.lower())
         self.assertIn("GitHub Agentic Workflows", report)
+        self.assertIn("Executive Challenge", report)
+        self.assertIn("Seven-day proof", report)
 
     def test_report_does_not_equate_stars_with_revenue(self):
         lane = Lane(
