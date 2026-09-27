@@ -256,6 +256,20 @@ Research method: [Pinterest Automation & Visibility Playbook](references/PINTERE
 
 A separate health workflow monitors the four radars and opens an `automation-health` issue only when a monitored workflow is missing or fails. Healthy runs do not create noise.
 
+### Traction & Focus Watch
+
+A weekly GitHub Actions workflow checks whether repository growth is producing **external proof**, not only internal activity.
+
+It tracks public signals such as stars, forks, releases, external issue participation and external contributors, then recommends one operating state:
+
+- **BUILD PROOF**
+- **VALIDATE WEDGE**
+- **SCALE WHAT WORKS**
+
+The purpose is to prevent unnecessary scope expansion. Commit count and skill count are treated as shipping activity, not product-market fit.
+
+Research method: [Focus & Traction Playbook](references/FOCUS-TRACTION-PLAYBOOK.md)
+
 ### Working Tools
 
 The repository includes dependency-free utilities that turn creator research into auditable scores instead of opaque AI judgments:
@@ -266,6 +280,7 @@ The repository includes dependency-free utilities that turn creator research int
 - [Maps Opportunity Radar Analyzer](tools/maps_opportunity_radar.py) — scores Maps / local-intelligence repository demand, direct supply, strategic fit and compliance feasibility.
 - [Commercial Opportunity Radar Analyzer](tools/commercial_opportunity_radar.py) — scores buyer clarity, recurring-use potential, proof, distribution and monetization paths without treating stars as revenue.
 - [Pinterest Visibility Radar Analyzer](tools/pinterest_growth_radar.py) — combines official Pinterest Trends data when accessible with Pinterest automation ecosystem signals and never fabricates trend numbers.
+- [Traction & Focus Analyzer](tools/traction_focus_report.py) — separates internal shipping from external adoption and keeps expansion tied to proof.
 
 ---
 
