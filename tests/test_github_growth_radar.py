@@ -50,3 +50,6 @@ class GitHubGrowthRadarTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+# Strategic challenge output is validated through integration rendering tests.
