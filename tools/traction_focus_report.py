@@ -50,15 +50,25 @@ def collect(token: str | None) -> dict:
     )
 
     real_issues = [item for item in issues if "pull_request" not in item]
+    def is_external_human(user: dict) -> bool:
+        login = (user or {}).get("login", "").lower()
+        user_type = (user or {}).get("type", "")
+        return (
+            bool(login)
+            and login != OWNER.lower()
+            and not login.endswith("[bot]")
+            and user_type.lower() != "bot"
+        )
+
     external_issue_count = sum(
         1
         for item in real_issues
-        if (item.get("user") or {}).get("login", "").lower() != OWNER.lower()
+        if is_external_human(item.get("user") or {})
     )
     external_contributors = [
         item
         for item in contributors
-        if item.get("login", "").lower() != OWNER.lower()
+        if is_external_human(item)
     ]
 
     return {
