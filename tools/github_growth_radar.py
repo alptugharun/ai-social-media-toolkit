@@ -355,7 +355,7 @@ def render_report(now: datetime, trending: list[dict], lanes: list[LaneResult], 
         lines.append("## Executive Challenge")
         lines.append("")
         lines.append("- **Why this?** It is the current top heuristic candidate, not an automatic build order.")
-        lines.append(f'- **Why now?** Its parent lane is `{best["lane"]}`; confirm the lane remains fresh and relevant.')
+        lines.append(f'- **Why now?** Its parent lane is `{best.get("lane", "unspecified")}`; confirm the lane remains fresh and relevant.')
         lines.append(f'- **Why might it fail?** Direct-supply proxy is {best["result_count"]:,}; naming a gap does not prove users want another tool.')
         lines.append("- **Why us?** Build only if it strengthens AI-native creator operations, produces visible proof, and does not duplicate an existing skill.")
         lines.append("- **Seven-day proof:** create the smallest working example, put it in front of real users, and measure reuse/request signals rather than internal commits.")
