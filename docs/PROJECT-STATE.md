@@ -115,7 +115,7 @@ Workflow:
 
 Purpose:
 
-- monitor the four radar workflows
+- monitor the four radar workflows plus Traction & Focus Watch
 - open/update one `automation-health` issue only when a radar is missing or failed
 - close the health issue automatically after recovery
 
@@ -127,7 +127,7 @@ Workflow:
 
 Purpose:
 
-- react to completed runs from the four radar workflows, Agent Skill validation and Automation Health Watch
+- react to completed runs from the four radar workflows, Traction & Focus Watch, Agent Skill validation and Automation Health Watch
 - diagnose failed workflow logs with `tools/self_heal.py`
 - classify failure fingerprints and keep incident evidence in GitHub Issues
 - perform only bounded retries for failures classified as retryable or safe to probe
