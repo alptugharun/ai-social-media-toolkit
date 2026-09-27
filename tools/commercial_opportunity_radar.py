@@ -434,7 +434,7 @@ def render_report(
                 "## Executive Challenge",
                 "",
                 "- **Why this?** It currently ranks highest on the configured commercial heuristic, but the score is only a prioritization aid.",
-                f'- **Why now?** Its source lane is `{best["lane"]}`; compare that lane against current demand evidence before committing engineering time.',
+                f'- **Why now?** Its source lane is `{best.get("lane", "unspecified")}`; compare that lane against current demand evidence before committing engineering time.',
                 f'- **Why would anyone pay?** The job is recurring-value oriented: {best["job"]}',
                 f'- **Why might this fail?** Direct-supply proxy is {best["direct_supply"]:,}; existing tools may already satisfy the buyer well enough.',
                 "- **Why us?** Proceed only if the idea compounds the toolkit's creator-ops / AI / automation positioning and can become visible proof.",
