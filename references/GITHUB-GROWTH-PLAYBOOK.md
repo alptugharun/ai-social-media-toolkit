@@ -183,6 +183,26 @@ These are hypotheses to test, not claims of uniqueness.
 
 The automated radar should re-score these ideas instead of assuming they remain attractive.
 
+## Strategic Decision Layer
+
+Before building the highest-scoring opportunity, run:
+
+`references/STRATEGIC-DECISION-FRAMEWORK.md`
+
+The radar must challenge the idea beyond a score:
+
+- Why this?
+- Why now?
+- Why Alptuğ / this repository?
+- Why would a user switch?
+- Why would a buyer pay?
+- What evidence is missing?
+- What existing skill already overlaps?
+- What can be proven in seven days?
+- What evidence would make us stop?
+
+AI-native opportunities get a positioning advantage only when the underlying evidence is comparable. Stronger adjacent market evidence can override that preference.
+
 ## Growth Loop
 
 **Observe → Measure → Find gap → Build one useful asset → Prove it → Package it → Distribute it → Measure adoption → Improve**
