@@ -23,6 +23,49 @@ Treat this file as the shared operating guide for coding and AI agents working i
 - Do not copy another project's distinctive wording, branding, proprietary assets, or unlicensed code.
 - When third-party material is materially reused under a compatible license, preserve required notices and attribution in `THIRD-PARTY-NOTICES.md`.
 
+## Visibility-first operating priority — 2026-09-28
+
+The owner's priority order is:
+
+1. Accurate public identity and useful, professional presentation.
+2. Relevant visibility, genuine followers, saves, meaningful comments, stars, external reuse and qualified website traffic.
+3. Revenue through website advertising/sponsorship, client work and validated GitHub-related services or products.
+
+Keep commercial readiness in view, but do not replace audience building with premature paid infrastructure. AI-assisted creator operations is the core positioning. Popularity, buyer demand and verified revenue are different measurements.
+
+Routine work is delegated within actual account access and existing approval gates. Do not claim that a broad delegation grants new OAuth scopes, platform permissions, paid budgets or unrestricted publication rights.
+
+### Execution, not planning noise
+
+- Prefer completing one useful demo, example, case study or distribution asset over adding another skill, workflow or planning document.
+- Before each change, identify its audience, evidence, affected scope, success check and rollback path.
+- Read the current file SHA, object state and relevant open work before writing. Do not overwrite concurrent edits or duplicate another agent's task.
+- Keep Alptuğ Harun, ADYA Creative, Yeşil Dijital Akademi and MiyaPaw audiences distinct. Never infer an author from the topic alone or imply an institutional endorsement.
+- Keep `alptugharun.com` as the intended long-term content/portfolio/revenue hub. Verify destination relevance and availability before directing traffic there.
+- Do not change the website's deployment, DNS, schema, canonical/hreflang, sitemap, Search Console/Bing/indexing or cross-link architecture without resolving the separate website project's current state first.
+- Never purchase engagement, generate fake reviews or use automated comments, unsolicited bulk messages or duplicate content to simulate adoption.
+
+### Operational evidence
+
+- Distinguish installed app, authorized account, mapped destination, successful read, saved draft, scheduled publication and confirmed live publication.
+- A workflow definition or enabled task is configuration, not evidence of a successful execution.
+- A successful health-monitor job does not prove every monitored system is healthy. Inspect its findings, skipped jobs, payload quality, timestamps and remaining incidents.
+- A fixed question template or hand-assigned score is not independent AI reasoning or buyer research. Label those limitations.
+- Do not report continuous model operation, universal self-repair or zero-error guarantees.
+
+### Controlled recovery
+
+Use: current-state read -> scoped preparation -> tests and factual review -> allowed application -> read-back verification -> evidence record.
+
+- Retry transient failures only within bounded limits and only when safe to repeat.
+- After an ambiguous write response, read back the destination before retrying to avoid duplicates.
+- On missing credentials, account mapping, plan restrictions, billing requirements or security denials, stop the affected operation. Do not bypass the restriction, alter permissions or repeatedly reactivate a paused task.
+- Repair the cause when permitted, then rerun targeted and relevant full tests. Never weaken tests to make the status green.
+- Keep useful independent work moving while recording the minimum external blocker once.
+- Keep private account identifiers, credentials and sensitive client data out of public project records.
+
+Use precise completion states: **DRAFT**, **APPLIED**, **VERIFIED**, or **BLOCKED**. A change is not verified until the relevant read-back/test evidence exists.
+
 ## Repository map
 
 - `skills/` — reusable Agent Skills. Each skill lives in its own directory and requires a valid `SKILL.md`.
