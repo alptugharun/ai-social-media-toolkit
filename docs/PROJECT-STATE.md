@@ -1,6 +1,6 @@
 # Project State — AI Social Media Toolkit
 
-Last updated: **2026-09-24**
+Last updated: **2026-09-27**
 
 This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor sessions working on this repository.
 
@@ -118,6 +118,23 @@ Purpose:
 - monitor the four radar workflows
 - open/update one `automation-health` issue only when a radar is missing or failed
 - close the health issue automatically after recovery
+
+### Event-driven — Self-Healing Automation Guardian
+
+Workflow:
+
+`.github/workflows/self-heal.yml`
+
+Purpose:
+
+- react to completed runs from the four radar workflows, Agent Skill validation and Automation Health Watch
+- diagnose failed workflow logs with `tools/self_heal.py`
+- classify failure fingerprints and keep incident evidence in GitHub Issues
+- perform only bounded retries for failures classified as retryable or safe to probe
+- learn from successful reruns by marking recovered/transient incidents
+- escalate persistent failures instead of silently weakening tests or validation
+- optionally delegate persistent repair to the review-gated Self-Healer coding agent when repository/account support is available
+- keep repair changes behind pull-request review and CI rather than auto-merging them
 
 ## Maps Strategy
 
