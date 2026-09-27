@@ -1,10 +1,10 @@
 # Project State — AI Social Media Toolkit
 
-Last updated: **2026-09-27**
+Last updated: **2026-09-28**
 
 This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor sessions working on this repository.
 
-**Read this file before making project-wide changes.**
+**Read this file and AGENTS.md before making project-wide changes.**
 
 ## Repository
 
@@ -13,6 +13,39 @@ This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor 
 - Website: `https://alptugharun.com`
 - Positioning: Social Media Specialist • Digital Content Creator • Creative Strategist
 - Related projects: ADYA Creative, Yeşil Dijital Akademi
+
+## Current owner direction — 2026-09-28
+
+**Useful public work -> relevant visibility and real adoption -> qualified website traffic -> revenue.**
+
+The owner delegates routine planning, research, content preparation and low-risk reversible maintenance within available access and existing approval requirements. The priority is first to grow accurate identity, recognition, genuine followers, meaningful engagement, GitHub stars and real use. Website advertising/sponsorship, client acquisition and GitHub-related income are later conversion goals, not reasons to inflate metrics or prematurely build paid infrastructure.
+
+Use the visibility-first operating section of `AGENTS.md`. Do not add another skill, dashboard or scheduled task simply to document this direction. Finish existing user-facing proof and distribution assets.
+
+### Cross-project priorities
+
+| Surface | Current priority | Completion evidence |
+| --- | --- | --- |
+| GitHub | Reliable existing tools, a usable quick start, concrete input/output demo and release-readiness review | Reproducible example, exact tested commit, real user feedback when available |
+| Behance / LinkedIn | Finish the toolkit case study and concise proof-led presentation | Actual saved assets and, separately, confirmed public project/post |
+| Pinterest | Original niche-relevant visual/search clusters with relevant destinations | Verified account/board mapping, authentic analytics and confirmed publication when authorized |
+| ADYA / Google Business Profile | Consistent identity, service information and genuine case studies | Current field read, permitted change and read-back, not merely Maps research |
+| alptugharun.com | Main content/portfolio/traffic hub, coordinated with the separate website project | Confirmed current project state before code, SEO or deployment changes |
+| Yeşil Dijital Akademi | Environmental education and technology content with correct joint authorship | Source-backed content and approved brand/author identity |
+
+Keep MiyaPaw's visual/lifestyle audiences distinct from the AI/agency audience. Do not redirect unrelated Pin topics to a generic agency page. Alptuğ Harun, ADYA Creative and Yeşil Dijital Akademi require related but distinct positioning. Ahu Nur Şahin Harun is a co-founder of Yeşil Dijital Akademi; do not erase her role or infer article authorship from subject matter.
+
+### Integration checkpoint, observed 2026-09-28
+
+This is a dated observation, not a permanent claim. Recheck before any dependent action.
+
+- Metricool's brand lookup was reachable but reported no connected social networks. Social analytics and publishing must not be reported as operational until an actual connected account and successful read are verified.
+- Windsor.ai onboarding was shown in the conversation, but directory discovery did not confirm an installed/usable connection. Search Console, GA4 and Business Profile data access remains unverified from this session. Do not create duplicate analytics properties or replace the website stack to work around an access gap.
+- The installed GitHub repository search returned the profile repository and toolkit, not the website code repository. Do not infer website deployment access from toolkit access.
+- Behance project preparation is in progress. A project ID or an editor screenshot alone does not prove that all fields were saved or that the project was published. Keep the ten independent case-study visual sections as the existing backlog, not a collage.
+- The existing six-hour Alptuğ Authority Radar task was updated to coordinate visibility-first work. Task configuration is not evidence that a later execution succeeded. Do not rely on an unverified separate hourly task or silently reactivate paused tasks.
+
+Do not store credentials, private account identifiers, client data or private analytics in this public document. Use precise states: **DRAFT**, **APPLIED**, **VERIFIED**, **BLOCKED**.
 
 ## Current Architecture
 
@@ -46,6 +79,8 @@ After the Pinterest visibility release, the repository contains **17 Agent Skill
 17. `pinterest-opportunity-radar`
 
 ## Daily Automations
+
+The times below describe configured schedules, not guaranteed execution or delivery times. Verify run history and output freshness separately.
 
 ### 08:20 Türkiye — GitHub Opportunity Radar
 
@@ -363,12 +398,12 @@ without first checking the current state of the separate website project.
 
 If a future conversation has lost context, start with:
 
-> Read `docs/PROJECT-STATE.md` in `alptugharun/ai-social-media-toolkit` and continue from the latest repository state.
+> Read `docs/PROJECT-STATE.md` and `AGENTS.md` in `alptugharun/ai-social-media-toolkit` and continue from the latest repository state.
 
-Then inspect current `main`, open Issues, recent Actions and recent PRs before making changes.
+Then inspect current `main`, open Issues, recent Actions and recent PRs before making changes. Check actual account access separately from installation status. Do not treat earlier conversation claims as live verification.
 
 ## Source of Truth
 
-The live GitHub repository is the operational source of truth.
+The live GitHub repository is the operational source of truth for this toolkit. It does not establish access to unrelated accounts or the separate website deployment.
 
 This file should be updated when the architecture, automation schedule, core skill inventory or strategic priorities materially change.
