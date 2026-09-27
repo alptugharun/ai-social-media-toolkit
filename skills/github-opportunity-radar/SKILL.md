@@ -21,6 +21,8 @@ Read:
 
 - `references/EVIDENCE-POLICY.md`
 - `references/GITHUB-GROWTH-PLAYBOOK.md`
+- `references/FOCUS-TRACTION-PLAYBOOK.md`
+- `references/STRATEGIC-DECISION-FRAMEWORK.md`
 
 ## Core Questions
 
@@ -31,6 +33,9 @@ Read:
 5. What original skill could solve a sharper job?
 6. How can the repository prove the skill works?
 7. How should the result be packaged for discovery?
+8. Why now, and why should Alptuğ build this instead of another adjacent idea?
+9. What evidence would weaken the idea?
+10. What is the fastest credible path from proof to money?
 
 ## Research Inputs
 
@@ -53,6 +58,23 @@ Use labeled proxies:
 - topic density
 - fork activity
 - update recency
+
+## Strategic Challenge
+
+Before recommending a build, run the three-pass review from `references/STRATEGIC-DECISION-FRAMEWORK.md`:
+
+1. thesis
+2. assumption check
+3. resolution
+
+The resolution must be one of:
+
+- BUILD PROOF
+- VALIDATE BUYER
+- DEEPEN EXISTING
+- WATCH
+
+AI is the default strategic lens, but AI does not automatically win. If a high-momentum adjacent opportunity has materially stronger evidence, it may rank equally or higher.
 
 ## Winner Teardown
 
@@ -127,6 +149,21 @@ This is a prioritization heuristic, not a prediction of virality.
 - Quick start:
 - Why now:
 
+## Executive Challenge
+
+For the top candidate include concise answers to:
+
+- Why this?
+- Why now?
+- Why us?
+- Why would anyone pay?
+- Why might this fail?
+- What proof can we obtain in seven days?
+- What existing skill overlaps?
+- What is the stop condition?
+
+Do not expose private chain-of-thought; provide evidence-backed conclusions only.
+
 ## Repository Growth Actions
 
 Only include actions supported by current evidence.
@@ -142,6 +179,10 @@ Separate what is available now, what requires more usage, and what requires acco
 - [ ] Candidate "novelty" is labeled as a proxy, not certainty
 - [ ] Proposed skill has a measurable job-to-be-done
 - [ ] Human approval required before publishing a new skill
+- [ ] Existing-skill overlap checked
+- [ ] AI-vs-market-momentum decision stated
+- [ ] First buyer / user named
+- [ ] Seven-day proof and stop condition defined
 
 ## Core Principle
 
