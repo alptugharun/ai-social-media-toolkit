@@ -152,6 +152,22 @@ Areas include:
 
 ---
 
+## Free Creator Materials
+
+Prefer a ready-to-use resource before installing the full Agent Skills system?
+
+The new [Creator Materials Hub](downloads/README.md) provides practical, non-developer starter assets:
+
+- [Creator Prompt Starter Kit](downloads/CREATOR-PROMPT-STARTER-KIT.md) — a connected 10-step prompt workflow from audience/evidence to QA and winner expansion
+- [AI Assistant Blueprint Starter Pack](downloads/AI-ASSISTANT-BLUEPRINTS.md) — five portable creator-operations assistant blueprints for Gemini Gems or comparable custom assistants
+- [Creator Automation Starter Pack](downloads/CREATOR-AUTOMATION-STARTER-PACK.md) — three approval-gated automation blueprints for research, repurposing and weekly performance review
+
+The product rule is simple:
+
+**Free proves the workflow. A future premium companion must remove meaningful setup or operational friction — not merely contain more prompts.**
+
+---
+
 ## Agent Skills — Creator Ops Alpha
 
 The toolkit now includes portable AI-agent skills for creator and social-media workflows.
