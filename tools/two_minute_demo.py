@@ -48,10 +48,10 @@ def render() -> str:
         "| ---: | --- | ---: |",
     ]
     for row in opportunities:
-        lines.append(f"| {row[\'rank\']} | {row[\'name\']} | **{float(row[\'score\']):.2f}** |")
+        lines.append("| {rank} | {name} | **{score:.2f}** |".format(rank=row["rank"], name=row["name"], score=float(row["score"])))
     if opportunities:
         top = opportunities[0]
-        lines += ["", f"**Decision:** start by reviewing **{top[\'name\']}**. The score is a prioritization heuristic, not a virality prediction."]
+        lines += ["", "**Decision:** start by reviewing **{}**. The score is a prioritization heuristic, not a virality prediction.".format(top["name"])]
 
     lines += [
         "",
@@ -77,7 +77,7 @@ def render() -> str:
         winner = outliers[0]
         lines += [
             "",
-            f"**Decision:** inspect **{winner[\'post_id\']}** first. It reached **{float(winner[\'view_multiple\']):.2f}×** the dataset median views. The next step is qualitative analysis, not blind duplication.",
+            "**Decision:** inspect **{}** first. It reached **{:.2f}×** the dataset median views. The next step is qualitative analysis, not blind duplication.".format(winner["post_id"], float(winner["view_multiple"])),
         ]
 
     lines += [
