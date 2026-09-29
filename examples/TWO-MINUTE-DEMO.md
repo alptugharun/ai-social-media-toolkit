@@ -33,6 +33,10 @@ Save the Markdown report if you want:
 
 The demo combines both outputs into one proof report.
 
+## Expected output snapshot
+
+Want to see the current synthetic result before running it? Open [TWO-MINUTE-DEMO-OUTPUT.md](TWO-MINUTE-DEMO-OUTPUT.md).
+
 ## What should you inspect?
 
 - the input CSVs;
