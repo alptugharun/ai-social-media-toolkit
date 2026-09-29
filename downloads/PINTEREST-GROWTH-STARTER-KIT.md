@@ -1,4 +1,8 @@
-# Pinterest Growth Starter Kit
+# One Search Opportunity → Seven Pins With a Job
+
+Build a Pinterest cluster around intent, visual usefulness, destination fit and measured iteration.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 A compact workflow for building Pinterest content from evidence, search intent and destination fit.
 
