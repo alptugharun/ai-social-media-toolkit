@@ -2,6 +2,10 @@
 
 Small, inspectable utilities that support the AI Social Media Toolkit.
 
+## Complete Usage Guide
+
+For setup, exact commands, required inputs, expected outputs and failure notes for **all 10 tools**, open **[How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md)**.
+
 ## Signal to Content Opportunity Scorer
 
 Input:
