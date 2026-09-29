@@ -4,7 +4,7 @@
 
 Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and agent-based tools in real work. Start with research, writing, learning, support or automation. Use the creator resources when the job calls for Canva, Pinterest, Reels or social-media strategy.
 
-[AI Lab](AI-LAB.md) · [Prompt cards](downloads/AI-LAB-PROMPT-CARDS.md) · [Assistant setup](downloads/ASSISTANT-SETUP-LAB.md) · [Usage guide](downloads/AI-WORKBENCH-GUIDE.md)
+[AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [AI Lab](AI-LAB.md) · [Prompt Library](prompts/README.md) · [Assistants](assistants/README.md) · [Learning Paths](learning/README.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 
@@ -26,12 +26,14 @@ Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-
 
 | Area | Included | Start here |
 |---|---|---|
-| **Prompts and context** | 12 original task prompts, filled examples and acceptance checks | [Prompt cards](downloads/AI-LAB-PROMPT-CARDS.md) |
-| **GPTs and assistants** | Four instruction packages for research, writing, learning and workflow design | [Assistant Setup Lab](downloads/ASSISTANT-SETUP-LAB.md) |
+| **Prompts and context** | AI Workbench prompt cards plus a structured prompt library with inputs, QA, examples and troubleshooting | [Prompt Library](prompts/README.md) |
+| **GPTs and assistants** | Portable assistant blueprints plus ChatGPT/Plugin migration, Claude Project, Gemini Gem and Grok setup guides | [Assistant Blueprints](assistants/README.md) |
 | **Agent Skills** | Existing installable skills plus a portable assistant-to-skill export | [Skills](skills/README.md) |
-| **API bots** | OpenAI, xAI, Anthropic and Gemini request adapters; preview-first, bounded terminal chat | [Bot and API guide](downloads/AI-WORKBENCH-GUIDE.md) |
-| **MCP and integrations** | A small read-only local catalog server with three tools | [MCP source](tools/prompt_mcp_server.py) |
+| **API bots** | Existing AI Workbench adapters plus a small provider-neutral starter for OpenAI, xAI, Anthropic and Gemini | [Bot Starters](bots/README.md) |
+| **MCP and integrations** | Read-only local MCP tooling, integration contracts and Plugin/MCP decision guidance | [Integrations Hub](integrations/README.md) |
 | **Creative work** | Canva + AI, Pinterest, Reels, brand voice and repurposing resources | [Creator materials](downloads/README.md) |
+| **Automation recipes** | Approval-gated research, publishing, monitoring and recovery patterns | [Automation Recipes](automation-recipes/README.md) |
+| **Learning paths** | Prompt → assistant → skill → API → MCP → automation progression | [Learning Paths](learning/README.md) |
 | **Measurement and operations** | Content scoring, outlier analysis, research radars and bounded failure diagnosis | [Existing toolkit manual](docs/HOW-TO-USE-EVERYTHING.md) |
 
 A prompt is an instruction. An assistant package organizes behavior. A skill is reusable instruction material in a supported host. An MCP server exposes tools. An API bot runs code against a provider. None of these automatically grants account access, installs a plugin or publishes content.
