@@ -1,4 +1,8 @@
-# Creator Automation Starter Pack
+# Automate the Boring Handoffs — Keep Judgment in Human Hands
+
+Three approval-gated creator automations for research, repurposing and weekly performance review.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 Three approval-gated automation blueprints for creator operations.
 
