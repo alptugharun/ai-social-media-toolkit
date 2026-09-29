@@ -12,6 +12,18 @@ The toolkit is designed to move from theory to execution:
 
 ---
 
+## 2-Minute Proof
+
+Before choosing a full workflow, verify that the repository contains runnable decision tools:
+
+```bash
+python tools/two_minute_demo.py
+```
+
+No API key or third-party Python package is required. The bundled data is synthetic and clearly labeled.
+
+→ [Two-Minute Demo walkthrough](examples/TWO-MINUTE-DEMO.md)
+
 ## 15-Minute Quick Start
 
 ### 1. Define the objective
