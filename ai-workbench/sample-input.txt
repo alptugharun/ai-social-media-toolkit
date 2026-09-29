@@ -1,0 +1,4 @@
+Question: Did response speed improve, and did satisfaction improve?
+Source A: Last month median response time was 12 hours.
+Source B: This month median response time was 8 hours.
+No satisfaction survey is available.
