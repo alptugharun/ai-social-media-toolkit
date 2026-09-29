@@ -3,6 +3,7 @@
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![GitHub stars](https://img.shields.io/github/stars/alptugharun/ai-social-media-toolkit?style=flat-square)](https://github.com/alptugharun/ai-social-media-toolkit/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/alptugharun/ai-social-media-toolkit?style=flat-square)](https://github.com/alptugharun/ai-social-media-toolkit/forks)
+[![GitHub release](https://img.shields.io/github/v/release/alptugharun/ai-social-media-toolkit?include_prereleases&style=flat-square&label=alpha)](https://github.com/alptugharun/ai-social-media-toolkit/releases)
 ![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Creator%20Ops-blue?style=flat-square)
 ![Skills license](https://img.shields.io/badge/skills-MIT-green?style=flat-square)
 ![Tools license](https://img.shields.io/badge/tools-MIT-green?style=flat-square)
@@ -49,6 +50,8 @@ python tools/two_minute_demo.py
 It uses synthetic example data to show two real decisions: **which content opportunity to prioritize** and **which post broke the supplied performance baseline**.
 
 → [See exactly what the demo does](examples/TWO-MINUTE-DEMO.md)
+
+→ [v0.1.0-alpha.1 release notes](releases/v0.1.0-alpha.1.md)
 
 ### What ships today
 
