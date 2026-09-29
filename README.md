@@ -29,7 +29,7 @@ npx skills add alptugharun/ai-social-media-toolkit --list
 npx skills use alptugharun/ai-social-media-toolkit --skill signal-to-content
 ```
 
-Works with portable Agent Skills workflows across **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and compatible runtimes**.
+Designed for portable Agent Skills workflows across **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and compatible runtimes**. Runtime-specific behavior can differ; see the [verification matrix](docs/RUNTIME-VERIFICATION.md) for what is CI-tested versus independently host-verified.
 
 → [Installation & compatibility](docs/INSTALLATION.md) · [Quick Start](START-HERE.md) · [Free Creator Materials](downloads/README.md)
 

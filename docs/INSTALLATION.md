@@ -134,6 +134,12 @@ This repository includes:
 
 Never treat popularity alone as a security guarantee.
 
+## Runtime verification status
+
+Installer paths and manifests are repository-tested, but real host behavior can differ by runtime/version. See [Runtime Verification Matrix](RUNTIME-VERIFICATION.md) before treating a documented path as independently verified compatibility.
+
+External runtime reports are welcome through the `good first issue` verification task.
+
 ## Verification
 
 After installation, use the runtime's own skill listing / inspection command when available.
