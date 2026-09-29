@@ -20,6 +20,12 @@ class TwoMinuteDemoTests(unittest.TestCase):
         self.assertIn("Which post actually broke the creator\'s baseline?", report)
         self.assertIn("synthetic", report.lower())
 
+    def test_render_keeps_known_demo_decisions(self):
+        report = demo.render()
+        self.assertIn("Pinterest seasonal visual series", report)
+        self.assertIn("reel-004", report)
+        self.assertIn("3.94×", report)
+
     def test_render_contains_ranked_rows(self):
         report = demo.render()
         self.assertIn("| 1 |", report)
