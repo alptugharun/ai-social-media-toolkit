@@ -65,6 +65,20 @@ Applied direction:
 Commercial automation may research, score and prepare. It must not autonomously activate billing, change live pricing or remove useful free functionality.
 
 
+
+## Documentation & onboarding standard — 2026-09-29
+
+Every public starter kit, downloadable resource, tool, workflow or major skill must now include human-facing usage guidance, not only implementation files or installation commands.
+
+Required user journey:
+
+**result → audience → prerequisites → exact steps → copyable example → expected output → common mistake → troubleshooting → next step**
+
+The complete reference is `docs/HOW-TO-USE-EVERYTHING.md`. New public assets should extend that manual and follow `references/USER-FACING-ASSET-DOC-TEMPLATE.md`. Current onboarding patterns are tracked in `references/ONBOARDING-BENCHMARKS.md`.
+
+Public titles should be outcome-led and memorable without clickbait, fabricated urgency or unsupported claims. Apply Brand Voice Humanizer principles to outward-facing copy.
+
+
 ## Current Architecture
 
 The repository has four layers:

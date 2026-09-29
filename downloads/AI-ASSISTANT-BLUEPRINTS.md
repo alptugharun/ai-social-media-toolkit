@@ -1,4 +1,8 @@
-# AI Assistant Blueprint Starter Pack
+# Build Five Useful AI Teammates — Not One Confused Mega-Assistant
+
+Five narrow creator-operations blueprints you can adapt to Gemini Gems or comparable custom-assistant systems.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 Five reusable creator-operations assistant blueprints.
 

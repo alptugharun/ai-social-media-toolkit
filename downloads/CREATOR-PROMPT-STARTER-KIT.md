@@ -1,4 +1,8 @@
-# Creator Prompt Starter Kit
+# Stop Prompt-Hopping — Build a Repeatable Content System
+
+Turn scattered AI requests into one connected workflow: evidence → angle → hook → content → QA → winner expansion.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 A compact, reusable prompt system for turning a content objective into researched, platform-native execution.
 

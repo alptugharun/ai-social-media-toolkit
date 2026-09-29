@@ -1,6 +1,8 @@
-# Creator Materials
+# Creator Materials — Pick a Job, Get a Result
 
-A practical download layer for creators, strategists and small teams who want useful AI-assisted workflows without installing the full Agent Skills system.
+**No terminal required. No 500-prompt dump. Pick one creator job and follow it to a usable result.**
+
+This hub is for creators, strategists and small teams who want practical AI-assisted workflows without installing the full Agent Skills system.
 
 This directory is intentionally different from a generic prompt dump.
 
@@ -12,6 +14,12 @@ Each resource should have:
 - an expected output
 - a human-review gate
 - an example or quality check when useful
+
+## New here? Start with the Field Manual
+
+If you want exact setup, example inputs, expected outputs, troubleshooting and the full map of **7 starter kits + 17 Agent Skills + 10 tools + 8 automations**, open:
+
+**[How to Use Everything — The AI Social Media Toolkit Field Manual](../docs/HOW-TO-USE-EVERYTHING.md)**
 
 ## Free starter resources
 
