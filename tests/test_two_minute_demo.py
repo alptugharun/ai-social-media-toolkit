@@ -1,0 +1,30 @@
+from __future__ import annotations
+
+import importlib.util
+from pathlib import Path
+import unittest
+
+ROOT = Path(__file__).resolve().parents[1]
+MODULE_PATH = ROOT / "tools" / "two_minute_demo.py"
+
+spec = importlib.util.spec_from_file_location("two_minute_demo", MODULE_PATH)
+demo = importlib.util.module_from_spec(spec)
+assert spec.loader is not None
+spec.loader.exec_module(demo)
+
+
+class TwoMinuteDemoTests(unittest.TestCase):
+    def test_render_contains_both_proof_sections(self):
+        report = demo.render()
+        self.assertIn("Which content opportunity should go first?", report)
+        self.assertIn("Which post actually broke the creator\'s baseline?", report)
+        self.assertIn("synthetic", report.lower())
+
+    def test_render_contains_ranked_rows(self):
+        report = demo.render()
+        self.assertIn("| 1 |", report)
+        self.assertIn("×", report)
+
+
+if __name__ == "__main__":
+    unittest.main()

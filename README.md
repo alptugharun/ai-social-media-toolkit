@@ -36,6 +36,20 @@ Works with portable Agent Skills workflows across **Claude Code, OpenAI Codex, G
 
 → [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
+## Two-minute proof
+
+**Want proof before installation? Run the dependency-free demo.**
+
+```bash
+git clone https://github.com/alptugharun/ai-social-media-toolkit.git
+cd ai-social-media-toolkit
+python tools/two_minute_demo.py
+```
+
+It uses synthetic example data to show two real decisions: **which content opportunity to prioritize** and **which post broke the supplied performance baseline**.
+
+→ [See exactly what the demo does](examples/TWO-MINUTE-DEMO.md)
+
 ### What ships today
 
 | Layer | Current public surface |

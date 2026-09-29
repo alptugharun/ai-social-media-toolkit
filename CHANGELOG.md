@@ -14,6 +14,7 @@ The project is currently in **alpha**. Until the first tagged release is publish
 - Creator Materials Hub with starter resources for prompts, AI assistants, automation, Pinterest, Reels, Canva + AI and the AI Creator OS map.
 - Evidence, security, Maps policy and monetization guardrails.
 - Bug-report and real-workflow-feedback issue templates.
+- Two-minute proof demo that runs the content-opportunity and social-outlier tools on synthetic example data.
 
 ### Improved
 
