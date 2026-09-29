@@ -9,6 +9,20 @@ on:
       - "tests/**"
       - "examples/**"
       - "downloads/**"
+      - "prompts/**"
+      - "assistants/**"
+      - "integrations/**"
+      - "bots/**"
+      - "learning/**"
+      - "automation-recipes/**"
+      - "AI-ECOSYSTEM-HUB.md"
+      - "prompts/**"
+      - "assistants/**"
+      - "integrations/**"
+      - "bots/**"
+      - "learning/**"
+      - "automation-recipes/**"
+      - "AI-ECOSYSTEM-HUB.md"
       - "docs/**"
       - "README.md"
       - "START-HERE.md"
@@ -136,6 +150,9 @@ jobs:
             python -m json.tool "$file" >/dev/null
           done < <(find skills -path '*/evals/*.json' -print0)
 
+      - name: Validate prompt library
+        run: python tools/validate_prompt_library.py
+
       - name: Compile Python tools and tests
         shell: bash
         run: |
@@ -177,3 +194,9 @@ jobs:
           python tools/two_minute_demo.py > /tmp/two-minute-demo.md
           grep -q 'Two-Minute Proof' /tmp/two-minute-demo.md
           grep -q 'reel-004' /tmp/two-minute-demo.md
+
+      - name: Smoke-test multi-provider assistant
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/multi_provider_assistant.py --provider mock --prompt "hello" | grep -q "\[mock\] hello"
