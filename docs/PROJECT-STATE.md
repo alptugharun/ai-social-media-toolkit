@@ -47,6 +47,24 @@ This is a dated observation, not a permanent claim. Recheck before any dependent
 
 Do not store credentials, private account identifiers, client data or private analytics in this public document. Use precise states: **DRAFT**, **APPLIED**, **VERIFIED**, **BLOCKED**.
 
+
+## Growth surface update — 2026-09-29
+
+Current benchmark research shows that high-adoption Agent Skill / AI-marketing repositories tend to reduce first-use friction with a clear value proposition, a fast install path, task-oriented routing, visible proof, contribution paths and release discipline.
+
+Applied direction:
+
+- keep the profile product-led rather than decoration-heavy
+- keep the main repository's one-command install above the fold
+- route non-developers to the Creator Materials Hub
+- make real tools and workflows easy to inspect
+- collect bug reports separately from real-workflow feedback
+- maintain a public changelog and release policy
+- use `references/GROWTH-PRODUCTIZATION-GATES.md` before turning public traction into a paid companion product
+
+Commercial automation may research, score and prepare. It must not autonomously activate billing, change live pricing or remove useful free functionality.
+
+
 ## Current Architecture
 
 The repository has four layers:
