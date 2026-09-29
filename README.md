@@ -32,6 +32,8 @@ Works with portable Agent Skills workflows across **Claude Code, OpenAI Codex, G
 
 → [Installation & compatibility](docs/INSTALLATION.md) · [Quick Start](START-HERE.md) · [Free Creator Materials](downloads/README.md)
 
+**New here? → [How to Use Everything: complete field manual](docs/HOW-TO-USE-EVERYTHING.md)**
+
 → [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
 ### What ships today
