@@ -2,6 +2,10 @@
 
 Installable creator and social-media skills for AI agents.
 
+## Human Usage Guide
+
+Not sure what to ask after installation? Open **[How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md)** for every skill's use case, first request to try, expected result and next step.
+
 ## Skills
 
 | Skill | Job |
