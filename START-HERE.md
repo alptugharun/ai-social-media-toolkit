@@ -2,6 +2,8 @@
 
 A fast entry point for using the **AI Social Media Toolkit** in real workflows.
 
+Want the full, step-by-step version instead? Open the **[complete field manual](docs/HOW-TO-USE-EVERYTHING.md)** for every starter kit, Agent Skill, Python tool and GitHub automation.
+
 Created by **Alptuğ Harun**.
 
 The toolkit is designed to move from theory to execution:
