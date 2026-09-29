@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Start Here
+    url: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/START-HERE.md
+    about: New to the toolkit? Start with the quick-start guide.
+  - name: Creator Materials Hub
+    url: https://github.com/alptugharun/ai-social-media-toolkit/tree/main/downloads
+    about: Use the non-developer starter materials before opening a setup question.
