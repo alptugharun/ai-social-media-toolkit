@@ -161,6 +161,10 @@ The new [Creator Materials Hub](downloads/README.md) provides practical, non-dev
 - [Creator Prompt Starter Kit](downloads/CREATOR-PROMPT-STARTER-KIT.md) — a connected 10-step prompt workflow from audience/evidence to QA and winner expansion
 - [AI Assistant Blueprint Starter Pack](downloads/AI-ASSISTANT-BLUEPRINTS.md) — five portable creator-operations assistant blueprints for Gemini Gems or comparable custom assistants
 - [Creator Automation Starter Pack](downloads/CREATOR-AUTOMATION-STARTER-PACK.md) — three approval-gated automation blueprints for research, repurposing and weekly performance review
+- [Pinterest Growth Starter Kit](downloads/PINTEREST-GROWTH-STARTER-KIT.md) — evidence-to-keyword-to-7-Pin cluster workflow
+- [Reels Production Starter Kit](downloads/REELS-PRODUCTION-STARTER-KIT.md) — 30–35 second production workflow with timing and QA
+- [Canva + AI Content Starter Kit](downloads/CANVA-AI-CONTENT-STARTER-KIT.md) — master visual, adaptation and export system
+- [AI Creator OS Starter Map](downloads/AI-CREATOR-OS-STARTER.md) — connects research, production, review and measurement into one operating loop
 
 The product rule is simple:
 
