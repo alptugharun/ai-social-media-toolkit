@@ -33,6 +33,30 @@ Three approval-gated automation blueprints for research, repurposing and weekly 
 
 [Open the Creator Automation Starter Pack](CREATOR-AUTOMATION-STARTER-PACK.md)
 
+### AI Creator OS Starter Map
+
+A public map connecting research, prompts, Reels, Pinterest, Canva, review and measurement into one creator-operations loop.
+
+[Open the AI Creator OS Starter Map](AI-CREATOR-OS-STARTER.md)
+
+### Pinterest Growth Starter Kit
+
+A 7-Pin, evidence-to-destination workflow for visual search.
+
+[Open the Pinterest Growth Starter Kit](PINTEREST-GROWTH-STARTER-KIT.md)
+
+### Reels Production Starter Kit
+
+A 30–35 second short-form production workflow with timing, shot planning and QA.
+
+[Open the Reels Production Starter Kit](REELS-PRODUCTION-STARTER-KIT.md)
+
+### Canva + AI Content Starter Kit
+
+A master-visual-to-platform-adaptation workflow for consistent creator assets.
+
+[Open the Canva + AI Content Starter Kit](CANVA-AI-CONTENT-STARTER-KIT.md)
+
 ## Open core vs. future premium companions
 
 The public repository must remain genuinely useful.
