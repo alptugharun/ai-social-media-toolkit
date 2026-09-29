@@ -1,4 +1,8 @@
-# Canva + AI Content Starter Kit
+# Stop Resizing Templates — Build a Visual System That Travels
+
+Turn one approved idea into a consistent master visual and platform-native adaptations.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 A lightweight system for turning one approved content idea into consistent social assets without treating Canva as a template vending machine.
 
