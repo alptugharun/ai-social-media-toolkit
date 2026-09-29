@@ -4,20 +4,32 @@ Thanks for helping improve the **AI Social Media Toolkit**.
 
 The project focuses on practical creator, social-media, AI, automation and digital-visibility workflows.
 
+## Start with a real open task
+
+You do **not** need to write a new Agent Skill to contribute.
+
+Good first contributions currently include:
+
+- [Verify one Agent Skills runtime end-to-end](https://github.com/alptugharun/ai-social-media-toolkit/issues/38)
+- [Add one end-to-end creator workflow example](https://github.com/alptugharun/ai-social-media-toolkit/issues/40)
+
+Both are intentionally small enough to complete without understanding the whole repository.
+
 ## Good Contributions
 
 Useful contributions include:
 
-- new Agent Skills
+- real runtime compatibility evidence
 - stronger evidence or verification logic
-- platform-specific improvements
-- filled examples
+- filled end-to-end creator examples
 - tested automation recipes
 - better templates
 - accessibility improvements
 - documentation fixes
-- bug reports
-- compatibility notes for agent runtimes
+- reproducible bug reports
+- focused improvements to an existing Agent Skill
+
+A **new Agent Skill is usually not the first choice**. Show that an existing workflow cannot solve the job cleanly before increasing the skill count.
 
 ## Skill Requirements
 
@@ -39,6 +51,20 @@ A new skill should:
 Use [references/EVIDENCE-POLICY.md](references/EVIDENCE-POLICY.md).
 
 Research outputs should preserve source URLs when possible and label confidence honestly.
+
+## Before opening a pull request
+
+Run the repository baseline when your change touches code, skills, examples or workflows:
+
+```bash
+python -m compileall -q tools tests
+python -m unittest discover -s tests -v
+python tools/two_minute_demo.py > /tmp/two-minute-demo.md
+```
+
+For documentation-only changes, verify every changed relative link and make sure the instructions still match the current repository.
+
+The pull-request template will ask for evidence, user-facing documentation impact and safety/scope checks.
 
 ## Pull Requests
 

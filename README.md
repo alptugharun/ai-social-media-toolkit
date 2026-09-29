@@ -35,7 +35,7 @@ Designed for portable Agent Skills workflows across **Claude Code, OpenAI Codex,
 
 **New here? → [How to Use Everything: complete field manual](docs/HOW-TO-USE-EVERYTHING.md)**
 
-→ [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+→ [Contributing](CONTRIBUTING.md) · [Public Roadmap](ROADMAP.md) · [Adoption Evidence](ADOPTION.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
 Growth milestone: **[First 10 real users](docs/FIRST-10-USERS.md)** — usage and friction before vanity metrics.
 
