@@ -28,8 +28,12 @@ def parse_csv(text: str) -> list[dict[str, str]]:
 
 
 def render() -> str:
-    opportunities = parse_csv(run_tool("signal2content_score.py", str(EXAMPLES / "signal2content-opportunities.csv"), "--top", "3"))
-    outliers = parse_csv(run_tool("outlier_score.py", str(EXAMPLES / "social-outlier-posts.csv"), "--top", "3"))
+    opportunities = parse_csv(
+        run_tool("signal2content_score.py", str(EXAMPLES / "signal2content-opportunities.csv"), "--top", "3")
+    )
+    outliers = parse_csv(
+        run_tool("outlier_score.py", str(EXAMPLES / "social-outlier-posts.csv"), "--top", "3")
+    )
 
     lines = [
         "# AI Social Media Toolkit — Two-Minute Proof",
@@ -44,10 +48,10 @@ def render() -> str:
         "| ---: | --- | ---: |",
     ]
     for row in opportunities:
-        lines.append(f\'| {row["rank"]} | {row["name"]} | **{float(row["score"]):.2f}** |\')
+        lines.append(f"| {row[\'rank\']} | {row[\'name\']} | **{float(row[\'score\']):.2f}** |")
     if opportunities:
         top = opportunities[0]
-        lines += ["", f\'**Decision:** start by reviewing **{top["name"]}**. The score is a prioritization heuristic, not a virality prediction.\']
+        lines += ["", f"**Decision:** start by reviewing **{top[\'name\']}**. The score is a prioritization heuristic, not a virality prediction."]
 
     lines += [
         "",
@@ -59,13 +63,22 @@ def render() -> str:
         "| ---: | --- | --- | ---: | ---: | ---: |",
     ]
     for row in outliers:
-        lines.append("| {rank} | {platform} | {post_id} | **{score:.2f}** | {views:.2f}× | {engagement:.2f}× |".format(
-            rank=row["rank"], platform=row["platform"], post_id=row["post_id"],
-            score=float(row["outlier_score"]), views=float(row["view_multiple"]),
-            engagement=float(row["engagement_multiple"])))
+        lines.append(
+            "| {rank} | {platform} | {post_id} | **{score:.2f}** | {views:.2f}× | {engagement:.2f}× |".format(
+                rank=row["rank"],
+                platform=row["platform"],
+                post_id=row["post_id"],
+                score=float(row["outlier_score"]),
+                views=float(row["view_multiple"]),
+                engagement=float(row["engagement_multiple"]),
+            )
+        )
     if outliers:
         winner = outliers[0]
-        lines += ["", f\'**Decision:** inspect **{winner["post_id"]}** first. It reached **{float(winner["view_multiple"]):.2f}×** the dataset median views. The next step is qualitative analysis, not blind duplication.\']
+        lines += [
+            "",
+            f"**Decision:** inspect **{winner[\'post_id\']}** first. It reached **{float(winner[\'view_multiple\']):.2f}×** the dataset median views. The next step is qualitative analysis, not blind duplication.",
+        ]
 
     lines += [
         "",
@@ -83,7 +96,7 @@ def render() -> str:
         "Then continue with docs/HOW-TO-USE-EVERYTHING.md.",
         "",
     ]
-    return "\\n".join(lines)
+    return "\n".join(lines)
 
 
 def main() -> int:
