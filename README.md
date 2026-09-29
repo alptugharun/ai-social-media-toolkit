@@ -36,6 +36,8 @@ Works with portable Agent Skills workflows across **Claude Code, OpenAI Codex, G
 
 → [Contributing](CONTRIBUTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
+Growth milestone: **[First 10 real users](docs/FIRST-10-USERS.md)** — usage and friction before vanity metrics.
+
 ## Two-minute proof
 
 **Want proof before installation? Run the dependency-free demo.**
@@ -48,7 +50,7 @@ python tools/two_minute_demo.py
 
 It uses synthetic example data to show two real decisions: **which content opportunity to prioritize** and **which post broke the supplied performance baseline**.
 
-→ [See exactly what the demo does](examples/TWO-MINUTE-DEMO.md)
+→ [See exactly what the demo does](examples/TWO-MINUTE-DEMO.md) · [Preview the expected output](examples/TWO-MINUTE-DEMO-OUTPUT.md)
 
 ### What ships today
 
