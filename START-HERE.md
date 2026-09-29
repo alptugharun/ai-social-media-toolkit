@@ -36,7 +36,19 @@ Choose one primary goal:
 - AI tool selection → [AI Tool Comparison Resources](AI-TOOL-COMPARISON-RESOURCES.md)
 - Search and digital authority → [Digital Visibility Checklist](DIGITAL-VISIBILITY-CHECKLIST.md)
 
-### 3. Copy a practical template
+### 3. Choose a practical starter
+
+If you want a non-developer starting point, open the [Creator Materials Hub](downloads/README.md):
+
+- [Creator Prompt Starter Kit](downloads/CREATOR-PROMPT-STARTER-KIT.md)
+- [AI Assistant Blueprint Starter Pack](downloads/AI-ASSISTANT-BLUEPRINTS.md)
+- [Creator Automation Starter Pack](downloads/CREATOR-AUTOMATION-STARTER-PACK.md)
+- [Pinterest Growth Starter Kit](downloads/PINTEREST-GROWTH-STARTER-KIT.md)
+- [Reels Production Starter Kit](downloads/REELS-PRODUCTION-STARTER-KIT.md)
+- [Canva + AI Content Starter Kit](downloads/CANVA-AI-CONTENT-STARTER-KIT.md)
+- [AI Creator OS Starter Map](downloads/AI-CREATOR-OS-STARTER.md)
+
+Or copy a task-specific template:
 
 - [Content Brief Template](templates/CONTENT-BRIEF-TEMPLATE.md)
 - [Reels Production Template](templates/REELS-PRODUCTION-TEMPLATE.md)

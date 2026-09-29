@@ -56,6 +56,30 @@ The repository has four layers:
 3. **Agent Skills** — portable workflows for creator, marketing, research and local-intelligence work.
 4. **Automation / validation** — GitHub Actions, tests, installers and opportunity-radar tooling.
 
+
+## Creator Materials Layer — 2026-09-29
+
+**State: APPLIED on feature branch; pending PR validation/merge.**
+
+A user-facing materials hub is being added under `downloads/` to improve onboarding and external proof without increasing Agent Skill count.
+
+Initial public assets:
+
+- Creator Prompt Starter Kit
+- AI Assistant Blueprint Starter Pack
+- Creator Automation Starter Pack
+- Pinterest Growth Starter Kit
+- Reels Production Starter Kit
+- Canva + AI Content Starter Kit
+- AI Creator OS Starter Map
+
+Product rule:
+
+**Free materials must be independently useful. Premium companion products should be validated as time-saving systems, implementation packs or support layers rather than paywalled prompt quantity.**
+
+Candidate commercial lanes remain hypotheses until external use or buyer evidence exists: Creator Prompt OS, Pinterest Growth OS, Reels Production OS, Canva + AI Content Factory, Creator Automation Vault and AI Creator OS.
+
+
 ## Agent Skills
 
 After the Pinterest visibility release, the repository contains **17 Agent Skills**:
