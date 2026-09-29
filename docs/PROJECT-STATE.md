@@ -68,6 +68,10 @@ Initial public assets:
 - Creator Prompt Starter Kit
 - AI Assistant Blueprint Starter Pack
 - Creator Automation Starter Pack
+- Pinterest Growth Starter Kit
+- Reels Production Starter Kit
+- Canva + AI Content Starter Kit
+- AI Creator OS Starter Map
 
 Product rule:
 
