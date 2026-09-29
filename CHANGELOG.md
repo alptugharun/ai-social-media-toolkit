@@ -6,6 +6,10 @@ The project is currently in **alpha**. Until the first tagged release is publish
 
 ## Unreleased
 
+No unreleased public changes recorded yet.
+
+## [v0.1.0-alpha.1] - 2026-09-29
+
 ### Added
 
 - 17 portable creator-operations Agent Skills.

@@ -5,15 +5,15 @@ A release is a distribution event, not a version-number decoration.
 ## Required before tagging
 
 - [ ] Validate Agent Skills is green on the release commit.
-- [ ] `python tools/two_minute_demo.py` completes successfully.
-- [ ] README links to the runnable demo.
+- [x] `python tools/two_minute_demo.py` completes successfully in CI.
+- [x] README links to the runnable demo.
 - [ ] START-HERE gives a non-developer and an Agent Skills path.
 - [ ] HOW-TO-USE-EVERYTHING reflects the public surface.
-- [ ] Known limitations are explicit.
+- [x] Known limitations are explicit.
 - [ ] CHANGELOG moves shipped items from Unreleased into the release section.
-- [ ] No fabricated install, user, revenue, trend or performance claims.
-- [ ] No secrets or private client/account data.
-- [ ] Release notes explain install, first result, major capabilities and limitations.
+- [x] No fabricated install, user, revenue, trend or performance claims.
+- [x] No secrets or private client/account data.
+- [x] Release notes explain install, first result, major capabilities and limitations.
 
 ## Proposed first tag
 
