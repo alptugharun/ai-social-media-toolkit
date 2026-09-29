@@ -169,3 +169,11 @@ jobs:
           signal_output="$(python tools/signal2content_score.py examples/signal2content-opportunities.csv --top 1)"
           printf '%s\n' "$signal_output"
           grep -q 'Pinterest seasonal visual series' <<< "$signal_output"
+
+      - name: Run two-minute proof demo
+        shell: bash
+        run: |
+          set -euo pipefail
+          python tools/two_minute_demo.py > /tmp/two-minute-demo.md
+          grep -q 'Two-Minute Proof' /tmp/two-minute-demo.md
+          grep -q 'reel-004' /tmp/two-minute-demo.md
