@@ -77,6 +77,39 @@ Use precise completion states: **DRAFT**, **APPLIED**, **VERIFIED**, or **BLOCKE
 - `.github/workflows/` — repository validation and CI.
 - Root Markdown files — major human-facing workflow guides and documentation.
 
+
+## User-facing documentation standard
+
+Every new public starter kit, downloadable resource, tool, workflow or major skill must be understandable by a first-time human user without hidden project context.
+
+Before merge, the user-facing documentation must answer:
+
+1. **What result does this create?**
+2. **Who is it for?**
+3. **What do I need before starting?**
+4. **Exactly how do I use it?**
+5. **What example input/request can I copy?**
+6. **What should a useful output look like?**
+7. **What is the most common mistake or misuse?**
+8. **What should I do next?**
+9. **What changes if something fails?**
+
+Public-facing titles and descriptions should lead with a concrete outcome or tension, not an internal filename. Make them memorable without clickbait, fake urgency, unsupported superlatives or guaranteed results.
+
+For substantial public assets:
+
+- link to the relevant section of `docs/HOW-TO-USE-EVERYTHING.md`, or extend that manual;
+- use `references/USER-FACING-ASSET-DOC-TEMPLATE.md` as the default documentation skeleton;
+- provide copyable examples where they materially reduce setup friction;
+- distinguish install instructions from actual usage instructions;
+- explain prerequisites, credentials and permissions without exposing secrets;
+- include troubleshooting / failure behavior when the asset can fail;
+- apply the principles in `references/ONBOARDING-BENCHMARKS.md`;
+- apply Brand Voice Humanizer principles to public copy: natural rhythm, concrete language, no generic AI texture, no inflated claims.
+
+A new capability is not documentation-complete merely because its implementation file exists.
+
+
 ## Agent Skill requirements
 
 For every new or edited `skills/<skill-name>/SKILL.md`:
