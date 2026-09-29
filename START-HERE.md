@@ -43,6 +43,10 @@ If you want a non-developer starting point, open the [Creator Materials Hub](dow
 - [Creator Prompt Starter Kit](downloads/CREATOR-PROMPT-STARTER-KIT.md)
 - [AI Assistant Blueprint Starter Pack](downloads/AI-ASSISTANT-BLUEPRINTS.md)
 - [Creator Automation Starter Pack](downloads/CREATOR-AUTOMATION-STARTER-PACK.md)
+- [Pinterest Growth Starter Kit](downloads/PINTEREST-GROWTH-STARTER-KIT.md)
+- [Reels Production Starter Kit](downloads/REELS-PRODUCTION-STARTER-KIT.md)
+- [Canva + AI Content Starter Kit](downloads/CANVA-AI-CONTENT-STARTER-KIT.md)
+- [AI Creator OS Starter Map](downloads/AI-CREATOR-OS-STARTER.md)
 
 Or copy a task-specific template:
 
