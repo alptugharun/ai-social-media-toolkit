@@ -6,3 +6,6 @@ contact_links:
   - name: Creator Materials Hub
     url: https://github.com/alptugharun/ai-social-media-toolkit/tree/main/downloads
     about: Use the non-developer starter materials before opening a setup question.
+  - name: Support
+    url: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/SUPPORT.md
+    about: Choose the right path for setup help, bugs, workflow feedback, contributions or security.
