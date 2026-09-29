@@ -7,62 +7,70 @@
 ![Skills license](https://img.shields.io/badge/skills-MIT-green?style=flat-square)
 ![Tools license](https://img.shields.io/badge/tools-MIT-green?style=flat-square)
 
-**An installable creator-operations toolkit for turning research signals into platform-native social content systems.**
+**Open-source creator operations for AI-assisted social media.**
 
-Built for creators, strategists and AI agents working across social-media research, Reels, Pinterest, influencer marketing, content repurposing, brand voice and digital visibility.
+Turn a signal into **research → strategy → platform-native content → review → measurement → winner expansion** using portable Agent Skills, runnable tools and approval-gated automation.
 
-Created and maintained by **Alptuğ Harun**.
+Built for **creators, social-media strategists, agencies and AI-agent users** who want repeatable workflows instead of isolated prompt lists.
 
-🌐 [alptugharun.com](https://alptugharun.com)
+Created and maintained by **Alptuğ Harun** · [alptugharun.com](https://alptugharun.com)
 
-### Install the Agent Skills
+### Start in 60 seconds
 
 ```bash
 npx skills add alptugharun/ai-social-media-toolkit
 ```
 
-Discover first, install only what you need, or run a skill without permanently installing it:
+Or inspect before installing:
 
 ```bash
-# List the skills in this repository
 npx skills add alptugharun/ai-social-media-toolkit --list
-
-# Install one workflow only
-npx skills add alptugharun/ai-social-media-toolkit --skill viral-content-radar
-
-# Target a specific supported agent
-npx skills add alptugharun/ai-social-media-toolkit --skill comment-intelligence -a codex
-
-# Try a skill without installing it
 npx skills use alptugharun/ai-social-media-toolkit --skill signal-to-content
 ```
 
-Works as portable `SKILL.md` packages with installation paths and manifests for **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and Agent Skills-compatible runtimes**.
+Works with portable Agent Skills workflows across **Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and compatible runtimes**.
 
-→ [Installation & compatibility guide](docs/INSTALLATION.md)
+→ [Installation & compatibility](docs/INSTALLATION.md) · [Quick Start](START-HERE.md) · [Free Creator Materials](downloads/README.md)
 
----
+### What ships today
 
-## About This Repository
+| Layer | Current public surface |
+| --- | --- |
+| Agent workflows | **17 Agent Skills** for creator ops, Reels, Pinterest, repurposing, influencer fit, brand voice, research and local intelligence |
+| Runnable tooling | **10 Python tools** for scoring, radars, installation, market scanning, traction and self-healing support |
+| Automation | **8 GitHub Actions workflows** for validation, research radars, health monitoring, traction review and bounded self-healing |
+| Starter materials | Prompt system, AI assistant blueprints, automation starters, Pinterest, Reels, Canva + AI and Creator OS starter map |
+| Evidence layer | Explicit source rules, human-review gates and no fabricated trend/search/revenue claims |
 
-Artificial intelligence is changing how social media content is researched, created, optimized and distributed.
+### Choose your path
 
-This repository documents practical systems I use and develop across:
+| I want to… | Start here |
+| --- | --- |
+| Build an end-to-end creator workflow | [Creator Ops](skills/creator-ops/SKILL.md) |
+| Turn a signal into a content test | [Signal to Content](skills/signal-to-content/SKILL.md) |
+| Build Reels faster | [Reels Director](skills/reels-director/SKILL.md) or [Reels Starter Kit](downloads/REELS-PRODUCTION-STARTER-KIT.md) |
+| Grow through Pinterest visual search | [Pinterest Growth Engine](skills/pinterest-growth-engine/SKILL.md) or [Pinterest Starter Kit](downloads/PINTEREST-GROWTH-STARTER-KIT.md) |
+| Remove generic AI writing texture | [Brand Voice Humanizer](skills/brand-voice-humanizer/SKILL.md) |
+| Analyze what actually outperformed | [Social Outlier Analyzer](tools/outlier_score.py) |
+| Start without a terminal | [Creator Materials Hub](downloads/README.md) |
 
-- Social Media Strategy
-- AI-Assisted Content Creation
-- Digital Marketing
-- Content Automation
-- Pinterest & Visual Search
-- Canva Workflows
-- Prompt Design
-- Creative AI Tools
-- Brand Strategy
-- Digital Visibility
+### Why this repository exists
 
-The focus is not simply generating more content.
+A lot of AI marketing content stops at “generate more.”
 
-The goal is to build **repeatable, efficient and measurable content systems**.
+This project focuses on the harder part: **making creator work inspectable, repeatable and measurable**.
+
+The repository is deliberately proof-first:
+
+- real examples over feature-count inflation
+- one-command installation where possible
+- measurable outputs over vague “AI magic”
+- human approval before external publishing
+- official/permitted data sources over scraping shortcuts
+- improvement of existing workflows before adding another shiny skill
+
+If this is useful, ⭐ **star the repository** so you can find future releases and workflow improvements again.
+
 
 ---
 
