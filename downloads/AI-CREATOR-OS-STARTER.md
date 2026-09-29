@@ -1,4 +1,8 @@
-# AI Creator OS — Starter Map
+# See the Whole Creator Machine Before You Automate It
+
+Connect signal, research, strategy, content, creative, review, distribution and measurement into one traceable loop.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 A public starter map showing how the toolkit’s research, production and review assets connect into one creator-operations loop.
 
