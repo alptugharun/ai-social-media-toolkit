@@ -1,4 +1,8 @@
-# Reels Production Starter Kit
+# From One Idea to a Shoot-Ready 30–35 Second Reel
+
+A timing-first production system for hook, voiceover, shots, visuals, edit and final QA.
+
+**Need the full walkthrough?** See [How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md) for setup, example inputs, expected outputs and troubleshooting.
 
 A 30–35 second short-form workflow from idea to review-ready production package.
 
