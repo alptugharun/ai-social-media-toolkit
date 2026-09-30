@@ -1,0 +1,45 @@
+name: Community Support Intake
+
+on:
+  issues:
+    types: [opened, edited, reopened]
+  issue_comment:
+    types: [created, edited]
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/community-intake.yml
+      - tools/community_intake.py
+      - tests/test_community_intake.py
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: community-intake-${{ github.event.issue.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  intake:
+    if: github.repository == 'alptugharun/ai-social-media-toolkit' && vars.COMMUNITY_SUPPORT_PAUSED != 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Check out trusted main only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Use Python 3.11
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.11'
+      - name: Test intake before allowing a label write
+        run: python -m unittest discover -s tests -p test_community_intake.py -v
+      - name: Route the event without posting a reply
+        if: github.event_name == 'issues' || github.event_name == 'issue_comment'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python tools/community_intake.py --apply
