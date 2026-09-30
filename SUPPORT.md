@@ -10,6 +10,21 @@ Use:
 - [How to Use Everything](docs/HOW-TO-USE-EVERYTHING.md) for full step-by-step guidance;
 - [Two-Minute Demo](examples/TWO-MINUTE-DEMO.md) if you want proof before installation.
 
+## I have a question, idea or example
+
+Use **GitHub Discussions** for open-ended conversation:
+
+https://github.com/alptugharun/ai-social-media-toolkit/discussions
+
+Use:
+
+- **Q&A** for setup, usage and compatibility questions;
+- **Ideas** for feature/workflow proposals tied to a real job;
+- **Show and tell** for things you built, adapted or learned;
+- **General** for broader AI-workflow conversation.
+
+Read [COMMUNITY.md](COMMUNITY.md) for category guidance.
+
 ## Something is broken
 
 Open a **Bug report**.
