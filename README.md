@@ -28,6 +28,10 @@ Run these from the downloaded repository folder, then open `downloads/ai-workben
 
 Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-CARDS.md). Need the complete setup? Use the [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md), including Windows commands and troubleshooting.
 
+**Using your own data?** Start with the [exact CSV columns, examples and validation commands](docs/CSV-INPUTS.md), then follow the [Reels analysis-to-brief example](examples/workflows/reels-from-outlier.md).
+
+**Want to contribute?** Follow [fork → branch → tests → PR](CONTRIBUTING.md#submit-through-a-fork). You do not need write access to this repository. Runtime reports have a separate [evidence checklist](docs/RUNTIME-VERIFICATION.md).
+
 ## What you can use
 
 | Area | Included | Start here |

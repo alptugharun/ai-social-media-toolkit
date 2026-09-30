@@ -27,6 +27,27 @@ def parse_csv(text: str) -> list[dict[str, str]]:
     return list(csv.DictReader(text.splitlines()))
 
 
+def own_data_steps(example: str, contract: str, columns: str, script: str, filename: str) -> list[str]:
+    base = "https://github.com/alptugharun/ai-social-media-toolkit/blob/main/"
+    copy_command = 'python -c "from pathlib import Path; Path(\'../{filename}\').open(\'xb\').write(Path(\'{example}\').read_bytes())"'.format(example=example, filename=filename)
+    return [
+        "", "### Use your own data", "",
+        f"Sample CSV: `{example}`",
+        f"Input contract: [{contract}]({base}{contract})", "",
+        "Required columns (keep these exact names):", "", "```csv", columns, "```", "",
+        "Copy the sample outside the repository. Run this once from the repository root:",
+        "", "```bash", copy_command, "```", "",
+        f"Edit `../{filename}` with your own data, preserving the header. Then run:",
+        "", "```bash",
+        f'python tools/{script} "../{filename}" --validate-only',
+        f'python tools/{script} "../{filename}" --top 3',
+        "```", "",
+        "The copy refuses to overwrite an existing file; use another filename if needed.",
+        "Output: validation summary, then ranked CSV in the terminal. Scoring never changes input files.",
+        f"For errors, open `{contract}`. Do not commit private exports. These are not raw platform-export schemas.",
+    ]
+
+
 def render() -> str:
     opportunities = parse_csv(
         run_tool("signal2content_score.py", str(EXAMPLES / "signal2content-opportunities.csv"), "--top", "3")
@@ -52,6 +73,13 @@ def render() -> str:
     if opportunities:
         top = opportunities[0]
         lines += ["", "**Decision:** start by reviewing **{}**. The score is a prioritization heuristic, not a virality prediction.".format(top["name"])]
+
+    lines += own_data_steps(
+        "examples/signal2content-opportunities.csv",
+        "docs/CSV-INPUTS.md#content-opportunities",
+        "name,evidence_strength,audience_fit,freshness,repeatability,production_ease,saturation",
+        "signal2content_score.py", "opportunities.csv",
+    )
 
     lines += [
         "",
@@ -80,6 +108,13 @@ def render() -> str:
             "**Decision:** inspect **{}** first. It reached **{:.2f}×** the dataset median views. The next step is qualitative analysis, not blind duplication.".format(winner["post_id"], float(winner["view_multiple"])),
         ]
 
+    lines += own_data_steps(
+        "examples/social-outlier-posts.csv",
+        "docs/CSV-INPUTS.md#social-posts",
+        "platform,post_id,views,likes,comments,shares,saves",
+        "outlier_score.py", "posts.csv",
+    )
+
     lines += [
         "",
         "## What this proves",
@@ -91,9 +126,9 @@ def render() -> str:
         "",
         "## Try your own data",
         "",
-        "Replace the example CSVs with your own exports while keeping the documented columns.",
+        "Follow the sample, columns, validation command and contract printed directly after each proof.",
         "",
-        "Then continue with docs/HOW-TO-USE-EVERYTHING.md.",
+        "For an end-to-end Reels example, continue with examples/workflows/reels-from-outlier.md.",
         "",
     ]
     return "\n".join(lines)

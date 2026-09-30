@@ -30,14 +30,14 @@ The repository also ships a dependency-free installer for direct placement into 
 python tools/install_skills.py --target agents --scope user
 ```
 
-Supported targets:
+Installer placement targets (not a host-support guarantee):
 
 | Target | User scope | Project scope |
 | --- | --- | --- |
 | Portable Agent Skills | `~/.agents/skills/` | `.agents/skills/` |
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
 | GitHub Copilot | `~/.copilot/skills/` | `.github/skills/` |
-| OpenAI Codex | `~/.codex/skills/` | `.codex/skills/` |
+| Legacy `codex` target | `~/.codex/skills/` | `.codex/skills/` |
 | Gemini CLI | `~/.gemini/skills/` | `.gemini/skills/` |
 | Grok | `~/.grok/skills/` | `.grok/skills/` |
 | Cursor | `~/.cursor/skills/` | `.cursor/skills/` |
@@ -91,14 +91,16 @@ Gemini CLI also recognizes the portable `.agents/skills/` alias.
 
 ## OpenAI Codex
 
-Codex supports user skills under `$CODEX_HOME/skills/` (normally `~/.codex/skills/`) and project-local skill discovery including `.codex/skills/` and `.agents/skills/`.
-
-Examples:
+Current [OpenAI skills documentation](https://developers.openai.com/codex/skills), checked 2026-10-01, documents repository and user `.agents/skills/` discovery. Use the portable target for the verification path:
 
 ```bash
-python tools/install_skills.py --target codex --scope user
-python tools/install_skills.py --target codex --scope project --project-root /path/to/project
+python tools/install_skills.py --target agents --scope project --skill signal-to-content --dry-run
+python tools/install_skills.py --target agents --scope project --skill signal-to-content
 ```
+
+Run from the intended project root, or explicitly pass `--project-root`. The existing `--target codex` implementation still writes to legacy `.codex/skills/`; it has not been silently changed. File placement there is not evidence of discovery in your Codex version.
+
+Follow [one complete Codex verification test](RUNTIME-VERIFICATION.md#codex-one-reproducible-test) and record the exact runtime/version, discovery, invocation and output. Use [the report template](RUNTIME-VERIFICATION-TEMPLATE.md). Downloading or copying a skill does not create a verified runtime result.
 
 ## Claude Code
 
@@ -114,12 +116,12 @@ The repository also includes a Claude Code plugin manifest so the repository can
 
 ## Grok
 
-Grok discovers skills from `.grok/skills/` and also supports compatibility discovery for `.agents/skills/`, Claude skill directories and Cursor skill directories.
+The repository has a `grok` placement target. Actual discovery depends on the specific host and version and remains unverified here; do not assume the consumer Grok chat or an API request loads local skill folders.
 
-For native Grok placement:
+To inspect the planned placement first:
 
 ```bash
-python tools/install_skills.py --target grok --scope user
+python tools/install_skills.py --target grok --scope user --dry-run
 ```
 
 ## Security
@@ -138,7 +140,7 @@ Never treat popularity alone as a security guarantee.
 
 Installer paths and manifests are repository-tested, but real host behavior can differ by runtime/version. See [Runtime Verification Matrix](RUNTIME-VERIFICATION.md) before treating a documented path as independently verified compatibility.
 
-External runtime reports are welcome through the `good first issue` verification task.
+External runtime reports are welcome through [issue #38](https://github.com/alptugharun/ai-social-media-toolkit/issues/38). Real host access is a prerequisite; it is not a no-account beginner task.
 
 ## Verification
 

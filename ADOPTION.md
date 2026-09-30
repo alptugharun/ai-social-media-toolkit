@@ -15,6 +15,14 @@ It deliberately starts sparse.
 | External forks/contributions | record only when independently visible | do not infer use from internal activity |
 | Paid buyer signal | **not yet recorded** | premium productization remains gated |
 
+## Reported onboarding feedback — reviewed 2026-10-01
+
+`soyeladice-svg` reported a concrete own-data handoff problem in [#30](https://github.com/alptugharun/ai-social-media-toolkit/issues/30): the demo did not print the required CSV columns or direct input-contract links. This is public feedback, not proof of a complete runtime test, recurring use or traffic attribution. The comment states that only public demo/source and synthetic data were used; it supplies no full command/environment transcript.
+
+The same account explicitly withdrew the uncompleted claims for [runtime verification #38](https://github.com/alptugharun/ai-social-media-toolkit/issues/38) and [workflow example #40](https://github.com/alptugharun/ai-social-media-toolkit/issues/40). Do not count those claims as completed contributions. The cause of the contributor's branch/PR restriction is not established by the comments.
+
+Maintainer-created fixes, examples and passing local tests remain **internal project work**, not new external adoption. No visitor count, install count or conversion rate is inferred here.
+
 ## What counts as adoption evidence?
 
 Examples:
