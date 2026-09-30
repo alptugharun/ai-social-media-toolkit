@@ -1,0 +1,53 @@
+title: "[Show & Tell] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share something you actually built, adapted, tested or learned with the toolkit. Small wins are welcome.
+  - type: input
+    id: built
+    attributes:
+      label: What did you build?
+      placeholder: "A trend-audit workflow / assistant / Reel package / MCP experiment..."
+    validations:
+      required: true
+  - type: dropdown
+    id: resource
+    attributes:
+      label: What did you use?
+      options:
+        - 10 Quick Wins
+        - Prompt Library
+        - Assistant Blueprints
+        - Agent Skills
+        - MCP / Integrations
+        - Bot Starters / APIs
+        - Automation Recipes
+        - Creator Materials
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What result did you get?
+      placeholder: "The workflow produced..."
+    validations:
+      required: true
+  - type: textarea
+    id: friction
+    attributes:
+      label: What was the first friction point?
+      placeholder: "The first confusing / slow / broken step was..."
+  - type: textarea
+    id: links
+    attributes:
+      label: Public-safe links or screenshots
+      description: Optional. Forks, screenshots and examples are welcome.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Before posting
+      options:
+        - label: Everything I shared is safe to make public.
+          required: true

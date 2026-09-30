@@ -1,0 +1,43 @@
+title: "[Idea] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Good ideas start with a real job or friction point. Explain the problem before proposing the feature.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Prompts
+        - Assistants / GPT-style workflows
+        - Agent Skills
+        - MCP / Integrations
+        - Bots / APIs
+        - Automation
+        - Creator workflows
+        - Documentation / Learning
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: What real job are you trying to complete?
+      placeholder: "I need to..."
+    validations:
+      required: true
+  - type: textarea
+    id: gap
+    attributes:
+      label: Where does the current workflow stop helping?
+      placeholder: "The current flow works until..."
+    validations:
+      required: true
+  - type: textarea
+    id: success
+    attributes:
+      label: What would a successful result look like?
+      placeholder: "Success would mean..."
+    validations:
+      required: true
