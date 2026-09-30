@@ -1,0 +1,56 @@
+title: "[Q&A] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Ask setup, usage or compatibility questions here. Include what you already tried when possible.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Topic
+      options:
+        - Prompt Library
+        - Assistant Blueprints
+        - Agent Skills
+        - MCP / Integrations
+        - Bot Starters / APIs
+        - Automation
+        - Reels / Pinterest / Canva
+        - Installation / Runtime
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: goal
+    attributes:
+      label: What are you trying to achieve?
+      placeholder: "I want to..."
+    validations:
+      required: true
+  - type: textarea
+    id: tried
+    attributes:
+      label: What have you tried?
+      placeholder: "I followed... / I ran..."
+    validations:
+      required: true
+  - type: textarea
+    id: blocked
+    attributes:
+      label: Where are you blocked?
+      placeholder: "I expected... but got..."
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Runtime / platform
+      description: Optional but useful for compatibility questions.
+      placeholder: "Claude Code / Cursor / Windows 11 / Python 3.11..."
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, tokens and private data before posting.
+          required: true
