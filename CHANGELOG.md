@@ -8,6 +8,27 @@ The project is currently in **alpha**. Until the first tagged release is publish
 
 No unreleased public changes recorded yet.
 
+## [v0.2.0-alpha.1] - 2026-09-30
+
+### Added
+
+- AI Workbench with prompt rendering, assistant exports, provider adapters, local browser catalog and read-only MCP tooling.
+- Structured Prompt Library with eight starter prompts and an automated prompt contract validator.
+- Portable assistant blueprints for ChatGPT/OpenAI, Claude, Gemini and Grok/xAI workflows.
+- Integrations Hub with MCP / Plugin decision guidance and integration contracts.
+- Multi-provider assistant starter for OpenAI, Anthropic, xAI and Gemini, including mock mode and credential-redacted dry runs.
+- Learning Paths from prompt fundamentals through automation.
+- Automation Recipes for research, publishing, monitoring and failure recovery.
+- 10 Quick Wins for low-friction first use.
+- Curated AI Creator Stack reference map.
+- v0.2.0 distribution pack for legitimate community and social sharing.
+
+### Improved
+
+- README routing now reflects the wider AI ecosystem rather than only social-media workflows.
+- CI validates prompt-library contracts and the wider AI ecosystem directories.
+- First-use paths now prioritize immediate useful outcomes and transparent evidence levels.
+
 ## [v0.1.0-alpha.1] - 2026-09-29
 
 ### Added
