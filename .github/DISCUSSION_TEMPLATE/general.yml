@@ -1,0 +1,27 @@
+title: "[General] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use General for open-ended conversation about the project, AI workflows, creator systems and practical experiments.
+  - type: textarea
+    id: topic
+    attributes:
+      label: What would you like to discuss?
+      description: Give enough context for someone new to understand the topic.
+      placeholder: "I am exploring..."
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context or examples
+      description: Optional links, screenshots or public-safe examples.
+      placeholder: "Relevant context..."
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Before posting
+      options:
+        - label: I removed API keys, tokens, passwords and private client data.
+          required: true
