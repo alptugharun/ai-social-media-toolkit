@@ -9,3 +9,7 @@ contact_links:
   - name: Support
     url: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/SUPPORT.md
     about: Choose the right path for setup help, bugs, workflow feedback, contributions or security.
+
+  - name: Community Discussions
+    url: https://github.com/alptugharun/ai-social-media-toolkit/discussions
+    about: Ask questions, propose ideas, or share what you built before opening an issue.
