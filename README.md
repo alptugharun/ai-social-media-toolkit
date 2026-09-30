@@ -4,9 +4,15 @@
 
 Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and agent-based tools in real work. Start with research, writing, learning, support or automation. Use the creator resources when the job calls for Canva, Pinterest, Reels or social-media strategy.
 
-[AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [AI Lab](AI-LAB.md) · [Prompt Library](prompts/README.md) · [Assistants](assistants/README.md) · [Learning Paths](learning/README.md)
+[10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Prompt Library](prompts/README.md) · [Assistants](assistants/README.md) · [AI Creator Stack](resources/AI-CREATOR-STACK.md) · [Learning Paths](learning/README.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
+
+## Ten things worth trying first
+
+If you only have a few minutes, open **[10 Quick Wins](QUICK-WINS.md)**. It gives direct paths for research synthesis, trend checking, reusable assistants, API request inspection, automations, Reels, Pinterest, brand voice and AI-output QA.
+
+Want to study the wider ecosystem without drowning in bookmarks? Use the **[AI Creator Stack](resources/AI-CREATOR-STACK.md)** — a curated map of prompt, Agent Skill, orchestration, learning and provider references, with notes on what to learn rather than what to copy.
 
 ## Start with one useful result
 
