@@ -6,6 +6,8 @@ Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and ag
 
 [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Prompt Library](prompts/README.md) · [Assistants](assistants/README.md) · [AI Creator Stack](resources/AI-CREATOR-STACK.md) · [Learning Paths](learning/README.md)
 
+**Using ChatGPT, Claude, Gemini or Grok?** Start with the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds), then try the same reusable assistant job across providers before adding more infrastructure.
+
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 
 ## Ten things worth trying first
