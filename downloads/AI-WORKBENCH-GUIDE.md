@@ -4,6 +4,28 @@
 
 Author: Alptuğ Harun. Implementation: Python 3.10+ and its standard library. No package installation is required for these new tools. The workbench is an addition to the existing social-media toolkit; it also covers research, writing, learning, support, coding diagnosis and general automation.
 
+## 0. Prove your copy works first
+
+Before choosing a provider or adding a key, run the repository's reproducible first-run check:
+
+```bash
+python tools/first_run_check.py
+```
+
+Windows:
+
+```powershell
+py -3 -X utf8 tools/first_run_check.py
+```
+
+It deliberately stays offline. It checks catalog loading, example rendering, API preview mode, Agent Skill dry-run, four-provider assistant exports and the two-minute demo. **Do not continue to live API setup if this offline check fails.**
+
+Expected final line:
+
+```text
+FIRST-RUN CHECK: PASS
+```
+
 ## What you receive
 
 | Component | What it actually does | What it does not do |

@@ -1,5 +1,7 @@
 # Installation
 
+> **New here?** Before copying anything into an agent host, run `python tools/first_run_check.py` from the repository root. It proves the repository-local path without changing your real skill folders or requiring an API key. Then use `--dry-run` below before the first install.
+
 The **AI Social Media Toolkit** uses portable `SKILL.md` packages so the same creator workflows can be reused across multiple AI-agent environments.
 
 ## Fastest route

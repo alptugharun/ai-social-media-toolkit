@@ -27,9 +27,16 @@ Read [COMMUNITY.md](COMMUNITY.md) for category guidance.
 
 ## Something is broken
 
-Open a **Bug report**.
+First run the offline check from the repository root:
 
-Include:
+```bash
+python tools/first_run_check.py
+```
+
+On Windows, use `py -3 -X utf8 tools/first_run_check.py`.
+
+If it fails, open a **Bug report** and include the **first FAIL/error point**, not only the final traceback. Also include:
+
 
 - the skill/tool/workflow;
 - runtime/platform and version;
