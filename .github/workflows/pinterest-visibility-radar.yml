@@ -25,7 +25,7 @@ permissions:
 
 jobs:
   radar:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
 
     steps:
@@ -90,7 +90,7 @@ jobs:
           fi
 
       - name: Upload report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pinterest-visibility-radar
           path: /tmp/pinterest-visibility-radar.md
