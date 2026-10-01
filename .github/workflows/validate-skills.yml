@@ -212,3 +212,16 @@ jobs:
         run: |
           set -euo pipefail
           python tools/multi_provider_assistant.py --provider mock --prompt "hello" | grep -q "\[mock\] hello"
+
+      - name: Smoke-test artifact upload input
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf 'runner=%s\ncommit=%s\n' "${{ matrix.os }}" "${{ github.sha }}" > artifact-smoke.txt
+
+      - name: Upload smoke artifact
+        uses: actions/upload-artifact@v7
+        with:
+          path: artifact-smoke.txt
+          archive: false
+          retention-days: 1
