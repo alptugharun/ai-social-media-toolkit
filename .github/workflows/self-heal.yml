@@ -25,7 +25,7 @@ concurrency:
 jobs:
   diagnose-and-recover:
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 10
 
     steps:
@@ -243,7 +243,7 @@ jobs:
           fi
 
       - name: Upload diagnosis artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: self-heal-diagnosis-${{ github.event.workflow_run.id }}-${{ github.event.workflow_run.run_attempt }}
           path: |
@@ -253,7 +253,7 @@ jobs:
 
   learn-from-recovery:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 6
 
     steps:
