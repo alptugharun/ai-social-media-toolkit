@@ -8,7 +8,7 @@ It deliberately starts sparse.
 
 | Signal | Current evidence | What it means |
 | --- | --- | --- |
-| Public alpha release | `v0.1.0-alpha.1` published | the project has a versioned public baseline |
+| Public alpha release | `v0.2.0-alpha.1` published | the project has a current versioned public prerelease baseline |
 | Runnable proof | two-minute demo is CI-gated | visitors can verify runnable tooling |
 | External runtime verification | **not yet recorded** | documented compatibility still needs independent host evidence |
 | External workflow examples | **not yet recorded** | first contributor examples are still open |
