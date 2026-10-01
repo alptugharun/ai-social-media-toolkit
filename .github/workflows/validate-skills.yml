@@ -53,9 +53,17 @@ on:
       - ".github/self-heal-policy.json"
       - ".github/agents/**"
 
+
+permissions:
+  contents: read
+
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-26.04]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
