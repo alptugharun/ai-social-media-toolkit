@@ -1,28 +1,79 @@
-# Start Here
+# Start Here — prove the toolkit works before you configure anything
 
-A fast entry point for using the **AI Social Media Toolkit** in real workflows.
+**Do not read the whole repository first. Get one reproducible result, then choose the layer you actually need.**
 
-Want the full, step-by-step version instead? Open the **[complete field manual](docs/HOW-TO-USE-EVERYTHING.md)** for every starter kit, Agent Skill, Python tool and GitHub automation.
+The toolkit covers prompts, reusable assistants, Agent Skills, API request previews, MCP examples, automation and creator workflows. You do not need all of them.
 
 Created by **Alptuğ Harun**.
 
-The toolkit is designed to move from theory to execution:
+## Your first 2 minutes: one command, no API key
 
-**Choose a goal → Select a framework → Use a template → Review → Publish → Measure**
+### Requirements
 
----
+- Python **3.10+**
+- this repository downloaded or cloned
+- a terminal opened in the repository root
 
-## 2-Minute Proof
+No provider account, API key, package install or social-media login is required for this check.
 
-Before choosing a full workflow, verify that the repository contains runnable decision tools:
+macOS / Linux:
 
 ```bash
-python tools/two_minute_demo.py
+python tools/first_run_check.py
 ```
 
-No API key or third-party Python package is required. The bundled data is synthetic and clearly labeled.
+Windows:
 
-→ [Two-Minute Demo walkthrough](examples/TWO-MINUTE-DEMO.md)
+```powershell
+py -3 -X utf8 tools/first_run_check.py
+```
+
+### What this checks
+
+The script reproduces the first things a new user is likely to try:
+
+1. loads the prompt/assistant catalog;
+2. renders a filled evidence prompt;
+3. previews an xAI/Grok API request **without making a network call**;
+4. dry-runs one Agent Skill installation without changing your real skill folders;
+5. exports the same assistant job for ChatGPT, Claude, Gemini and Grok;
+6. runs the existing two-minute creator proof.
+
+A successful run ends with:
+
+```text
+FIRST-RUN CHECK: PASS
+No API key, network call, account login or third-party Python package was required.
+```
+
+If you do not get that result, stop there and use [Troubleshooting](downloads/AI-WORKBENCH-GUIDE.md#troubleshooting) or [Support](SUPPORT.md). Do not add API keys to debug an offline failure.
+
+## Choose one lane — not the whole toolkit
+
+| I want to… | Start here | What you should get |
+| --- | --- | --- |
+| **Try a useful AI workflow now** | [10 Quick Wins](QUICK-WINS.md) | one copyable workflow with a quality check |
+| **Build a reusable ChatGPT / Claude / Gemini / Grok assistant** | [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md) | provider-specific instruction package from one portable job |
+| **Install Agent Skills** | [Installation](docs/INSTALLATION.md) | a dry-run plan first, then an explicit install path |
+| **Connect local read-only tools with MCP** | [MCP guide](integrations/MCP-PLUGIN-GUIDE.md) | a local stdio configuration and three bounded tools |
+| **Analyze creator/social signals** | [Two-Minute Demo](examples/TWO-MINUTE-DEMO.md) | synthetic scoring output you can compare with the documented result |
+| **Use my own CSV/export** | [CSV input contract](docs/CSV-INPUTS.md) | exact required columns plus validation before scoring |
+| **Understand everything A–Z** | [Complete field manual](docs/HOW-TO-USE-EVERYTHING.md) | the full map of tools, skills, automations and limitations |
+
+## Before using real data or a paid API
+
+Keep the first run synthetic. Then:
+
+1. read the exact input contract for the tool you chose;
+2. preview the request or use `--dry-run` when available;
+3. confirm the expected output;
+4. set provider credentials only in the documented environment variable;
+5. use `--live` only when you intentionally want a network request;
+6. review the result before any downstream action.
+
+**Downloading this repository does not grant account access, publish content, install a hosted assistant or create a background bot.**
+
+## 15-Minute Quick Start
 
 ## 15-Minute Quick Start
 
