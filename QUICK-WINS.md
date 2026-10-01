@@ -46,6 +46,17 @@ Then export the result into:
 
 **You should get:** instructions, starter requests, output contract, failure rules and acceptance tests.
 
+**Portability check:** export one assistant job to all four provider targets and compare the instruction packages before creating four separate workflows:
+
+```bash
+python tools/ai_workbench.py export evidence-desk --target chatgpt
+python tools/ai_workbench.py export evidence-desk --target claude
+python tools/ai_workbench.py export evidence-desk --target gemini
+python tools/ai_workbench.py export evidence-desk --target grok
+```
+
+This tests the reusable workflow shape; it does not claim identical provider behavior or create hosted assistants.
+
 ---
 
 ## 4. Run an AI assistant locally without an API key
