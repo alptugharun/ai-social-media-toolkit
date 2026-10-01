@@ -17,6 +17,30 @@ This hub expands the toolkit beyond social media without pretending that every p
 | learn from beginner to working system | [Learning Paths](learning/README.md) |
 | see creator-focused examples | [Creator Materials](downloads/README.md) |
 
+## Pick a provider in 60 seconds
+
+The same useful job should not require relearning the whole system every time you switch models.
+
+| Provider | Reusable assistant path | API / bot path | Portable layer |
+| --- | --- | --- | --- |
+| **ChatGPT / OpenAI** | [ChatGPT migration-aware assistant path](assistants/CHATGPT-GPT-PLUGIN-MIGRATION.md) | [Bot Starters](bots/README.md) | prompts → assistant contract → Agent Skill / MCP when needed |
+| **Claude / Anthropic** | [Claude Project blueprint](assistants/CLAUDE-PROJECT-BLUEPRINT.md) | [Bot Starters](bots/README.md) | prompts → Project instructions → Agent Skill / MCP when needed |
+| **Gemini** | [Gemini Gem blueprint](assistants/GEMINI-GEM-BLUEPRINT.md) | [Bot Starters](bots/README.md) | prompts → Gem instructions → portable workflow / MCP when needed |
+| **Grok / xAI** | [Grok assistant blueprint](assistants/GROK-ASSISTANT-BLUEPRINT.md) | [Bot Starters](bots/README.md) | prompts → reusable instructions → portable workflow / API when needed |
+
+### Try the same job across four providers
+
+Use one assistant definition and export provider-specific instruction packages:
+
+```bash
+python tools/ai_workbench.py export evidence-desk --target chatgpt
+python tools/ai_workbench.py export evidence-desk --target claude
+python tools/ai_workbench.py export evidence-desk --target gemini
+python tools/ai_workbench.py export evidence-desk --target grok
+```
+
+These are instruction packages, not claims that a hosted assistant was created. Compare the outputs, note provider-specific limitations, and keep the underlying job contract portable.
+
 ## Platform lanes
 
 - **OpenAI / ChatGPT** — prompts, Responses API starter patterns, existing GPT workflows and migration-aware Plugin guidance.
