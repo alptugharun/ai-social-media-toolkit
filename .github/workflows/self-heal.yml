@@ -14,9 +14,7 @@ on:
       - completed
 
 permissions:
-  actions: write
   contents: read
-  issues: write
 
 concurrency:
   group: self-heal-${{ github.event.workflow_run.id }}
@@ -24,6 +22,10 @@ concurrency:
 
 jobs:
   diagnose-and-recover:
+    permissions:
+      actions: write
+      contents: read
+      issues: write
     if: ${{ github.event.workflow_run.conclusion == 'failure' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -252,6 +254,10 @@ jobs:
           retention-days: 30
 
   learn-from-recovery:
+    permissions:
+      actions: read
+      contents: read
+      issues: write
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
     timeout-minutes: 6
