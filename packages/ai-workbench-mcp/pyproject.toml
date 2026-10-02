@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "alptugharun-ai-workbench-mcp"
+version = "0.1.0a1"
+description = "Read-only MCP server for Alptug Harun's AI Workbench prompt and assistant catalog."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Alptuğ Harun" }
+]
+keywords = ["mcp", "model-context-protocol", "ai", "prompts", "assistants"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Topic :: Software Development :: Libraries :: Application Frameworks"
+]
+
+[project.scripts]
+alptugharun-ai-workbench-mcp = "ai_workbench_mcp.server:main"
+
+[project.urls]
+Homepage = "https://github.com/alptugharun/ai-social-media-toolkit"
+Repository = "https://github.com/alptugharun/ai-social-media-toolkit"
+Issues = "https://github.com/alptugharun/ai-social-media-toolkit/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+ai_workbench_mcp = ["catalog.json"]
