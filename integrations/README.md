@@ -15,6 +15,7 @@
 ## Resources
 
 - [MCP & Plugin Guide](MCP-PLUGIN-GUIDE.md)
+- [Standalone AI Workbench MCP package candidate](../packages/ai-workbench-mcp/README.md) — locally buildable/read-only; PyPI and official Registry publication remain gated until exact-version verification passes.
 - [Assistant Blueprints](../assistants/README.md)
 - [Agent Skills](../skills/README.md)
 - [Bot Starters](../bots/README.md)

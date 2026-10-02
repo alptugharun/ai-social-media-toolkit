@@ -6,6 +6,7 @@ on:
     paths:
       - "skills/**"
       - "tools/**"
+      - "packages/**"
       - "tests/**"
       - "examples/**"
       - "downloads/**"
@@ -31,6 +32,7 @@ on:
     paths:
       - "skills/**"
       - "tools/**"
+      - "packages/**"
       - "tests/**"
       - "examples/**"
       - "downloads/**"
@@ -168,14 +170,36 @@ jobs:
       - name: Audit public release readiness
         run: python tools/release_readiness.py
 
-      - name: Compile Python tools and tests
+      - name: Compile Python tools, package and tests
         shell: bash
         run: |
           set -euo pipefail
-          python -W error::SyntaxWarning -m compileall -q tools tests
+          python -W error::SyntaxWarning -m compileall -q tools packages/ai-workbench-mcp/src tests
 
       - name: Run installer tests
         run: python -m unittest discover -s tests -v
+
+      - name: Build and smoke-test standalone MCP wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf .mcp-dist
+          python -m pip wheel --disable-pip-version-check --no-deps packages/ai-workbench-mcp --wheel-dir .mcp-dist
+          python -m pip install --disable-pip-version-check --no-deps --force-reinstall .mcp-dist/*.whl
+          printf '%s\n'             '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18"}}'             '{"jsonrpc":"2.0","method":"notifications/initialized"}'             '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}'             | alptugharun-ai-workbench-mcp > mcp-package-smoke.jsonl
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          lines = Path("mcp-package-smoke.jsonl").read_text(encoding="utf-8").splitlines()
+          assert len(lines) == 2, lines
+          initialized = json.loads(lines[0])
+          listed = json.loads(lines[1])
+          assert initialized["result"]["serverInfo"]["name"] == "alptugharun-ai-workbench-mcp"
+          assert len(listed["result"]["tools"]) == 3
+          assert all(tool["annotations"]["readOnlyHint"] for tool in listed["result"]["tools"])
+          print("Standalone MCP wheel smoke test passed.")
+          PY
 
       - name: Smoke-test installer
         shell: bash
