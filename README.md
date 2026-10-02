@@ -10,6 +10,7 @@ Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and ag
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/alptugharun/ai-social-media-toolkit/badge)](https://scorecard.dev/viewer/?uri=github.com/alptugharun/ai-social-media-toolkit)
 
 ## Ten things worth trying first
 
@@ -28,6 +29,26 @@ python tools/ai_workbench.py build-ui
 ```
 
 Run these from the downloaded repository folder, then open `downloads/ai-workbench.html` in a browser. The catalog lets you select a task, edit example inputs and copy or download the resulting instruction. It does not send data or call a model.
+
+### Try the read-only MCP locally
+
+The repository now contains a standalone MCP package candidate with the same bundled prompt/assistant catalog:
+
+```bash
+python -m pip install --no-deps ./packages/ai-workbench-mcp
+```
+
+Point a local stdio-capable MCP host at this command:
+
+```text
+alptugharun-ai-workbench-mcp
+```
+
+It exposes three tools — `list_prompts`, `render_prompt`, and `get_assistant` — and does not request network, shell, filesystem-write, account, or provider access. The wheel build/install/handshake path is CI-gated on Ubuntu 24.04, Ubuntu 26.04, and Windows 2025.
+
+[Standalone MCP package](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-social-media-toolkit/issues/110)
+
+The PyPI/official MCP Registry path is deliberately gated until the first signed package release is published and verified. Do not treat local package readiness as proof of every MCP host.
 
 Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-CARDS.md). Need the complete setup? Use the [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md), including Windows commands and troubleshooting.
 
