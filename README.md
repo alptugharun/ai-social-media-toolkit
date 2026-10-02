@@ -104,7 +104,18 @@ Examples are synthetic unless a source says otherwise. No promise of virality, i
 
 Run one task and report the first point where you got confused or blocked. Reproducible bug reports, clearer examples and real runtime checks are more useful than another empty feature list.
 
-[Community](COMMUNITY.md) · [Discussions](https://github.com/alptugharun/ai-social-media-toolkit/discussions) · [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md) · [Adoption evidence](ADOPTION.md) · [Security](SECURITY.md) · [Releases](https://github.com/alptugharun/ai-social-media-toolkit/releases)
+[Community](COMMUNITY.md) · [Discussions](https://github.com/alptugharun/ai-social-media-toolkit/discussions) · [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md) · [Adoption evidence](ADOPTION.md) · [Security](SECURITY.md) · [Trust & discovery review](docs/TRUST-DISCOVERY-REVIEW.md) · [Releases](https://github.com/alptugharun/ai-social-media-toolkit/releases)
+
+## Verify before trusting a badge
+
+Run the offline public-readiness gate before release:
+
+```bash
+python tools/release_readiness.py
+python -m unittest discover -s tests -v
+```
+
+This checks the evidence the repository can prove itself: MCP annotations and schemas, name-level MCP test coverage, public trust/onboarding files, JSON manifests and immutable third-party GitHub Action refs. It does **not** fabricate external adoption, registry acceptance, a trust grade or live-host compatibility. See [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) for M8ven, OpenAI plugin review, the official MCP Registry, directory submission and OpenSSF guidance.
 
 ## License
 
