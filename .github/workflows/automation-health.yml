@@ -22,10 +22,13 @@ concurrency:
 permissions:
   actions: read
   contents: read
-  issues: write
 
 jobs:
   health:
+    permissions:
+      actions: read
+      contents: read
+      issues: write
     runs-on: ubuntu-24.04
     timeout-minutes: 8
 
