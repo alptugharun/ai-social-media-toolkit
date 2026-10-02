@@ -93,6 +93,9 @@ def load_rows(path: Path) -> list[dict[str, str]]:
 
 
 def main() -> int:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", newline="")
     parser = argparse.ArgumentParser(
         description="Rank trend/content opportunities with the Signal to Content heuristic."
     )

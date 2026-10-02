@@ -101,6 +101,9 @@ def score_rows(rows: list[dict[str, str]]) -> list[dict[str, object]]:
 
 
 def main() -> int:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", newline="")
     parser = argparse.ArgumentParser(description="Rank social posts against their own median baseline.")
     parser.add_argument("csv_file", type=Path)
     parser.add_argument("--top", type=int, default=10, help="Number of ranked posts to print")

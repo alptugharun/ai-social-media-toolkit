@@ -1,7 +1,7 @@
 import unittest
 from datetime import datetime, timezone
 
-from tools.github_growth_radar import LaneResult, parse_trending, render_report, score_lanes, stars_per_day
+from tools.github_growth_radar import LaneResult, md_escape, parse_trending, render_report, score_lanes, stars_per_day
 
 
 class GitHubGrowthRadarTests(unittest.TestCase):
@@ -38,6 +38,9 @@ class GitHubGrowthRadarTests(unittest.TestCase):
         </article>
         """
         self.assertEqual(parse_trending(html), [])
+
+    def test_md_escape_escapes_table_separator(self):
+        self.assertEqual(md_escape("a|b\nc"), "a\\|b c")
 
     def test_stars_per_day_has_one_day_floor(self):
         now = datetime(2026, 9, 24, tzinfo=timezone.utc)
