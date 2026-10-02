@@ -49,7 +49,20 @@ Do not label a dependency or project malicious without evidence. Record the exac
 
 Do not publish secrets, exploit payloads, or sensitive user data in a public issue.
 
-If GitHub's private vulnerability reporting is available for this repository, use **Security → Report a vulnerability**. Otherwise, open a minimal public issue that states only that you found a security concern and asks the maintainer for a private contact path. Do not include exploit details in that public issue.
+Start from the repository's security page: https://github.com/alptugharun/ai-social-media-toolkit/security
+
+If GitHub's private vulnerability reporting is available there, use **Security → Report a vulnerability**. Otherwise, open a minimal public issue that states only that you found a security concern and asks the maintainer for a private contact path. Do not include exploit details in that public issue.
+
+## Response and disclosure targets
+
+These are response targets, not guarantees:
+
+- acknowledge a reproducible vulnerability report within **7 days** when possible;
+- provide an initial triage/status update within **14 days**;
+- coordinate disclosure with the reporter after a fix is available;
+- when a longer embargo is not required, aim to resolve the issue or publish a status update within **90 days**.
+
+If a report needs more time because of dependency coordination, user migration, or a complex fix, communicate the delay before disclosure rather than silently extending the timeline.
 
 A useful report includes:
 
