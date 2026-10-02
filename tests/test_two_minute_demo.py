@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import importlib.util
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +32,12 @@ class TwoMinuteDemoTests(unittest.TestCase):
         report = demo.render()
         self.assertIn("| 1 |", report)
         self.assertIn("×", report)
+
+    def test_cli_emits_utf8(self):
+        result = subprocess.run([sys.executable, str(MODULE_PATH)], cwd=ROOT, capture_output=True, text=True, encoding="utf-8", timeout=20)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("Alptuğ Harun", result.stdout)
+        self.assertIn("3.94×", result.stdout)
 
 
 if __name__ == "__main__":
