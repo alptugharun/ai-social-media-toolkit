@@ -77,7 +77,12 @@ jobs:
           set -euo pipefail
           python - <<'PY'
           import pathlib
+          import tomllib
           import zipfile
+
+          version = tomllib.loads(
+              pathlib.Path("packages/ai-workbench-mcp/pyproject.toml").read_text(encoding="utf-8")
+          )["project"]["version"]
 
           wheels = list(pathlib.Path("dist").glob("*.whl"))
           if len(wheels) != 1:
@@ -98,8 +103,8 @@ jobs:
               metadata = archive.read(metadata_name).decode("utf-8")
               if "Name: alptugharun-ai-workbench-mcp" not in metadata:
                   raise SystemExit("unexpected package name in wheel metadata")
-              if "Version: 0.1.0a1" not in metadata:
-                  raise SystemExit("unexpected package version in wheel metadata")
+              if f"Version: {version}" not in metadata:
+                  raise SystemExit(f"unexpected package version in wheel metadata; expected {version}")
 
               if "ai_workbench_mcp/catalog.json" not in names:
                   raise SystemExit("bundled catalog missing from wheel")
