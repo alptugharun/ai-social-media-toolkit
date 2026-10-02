@@ -12,7 +12,7 @@ from . import __version__
 VERSIONS = ("2025-06-18", "2025-03-26")
 LINE_LIMIT = 128000
 MAX_INPUT = 32000
-PLACEHOLDER_RE = re.compile(r"\\{\\{([a-z_]+)\\}\\}")
+PLACEHOLDER_RE = re.compile(r"\{\{([a-z_]+)\}\}")
 
 TOOLS = [
     {
