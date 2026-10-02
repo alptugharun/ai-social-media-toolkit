@@ -165,6 +165,9 @@ jobs:
       - name: Validate prompt library
         run: python tools/validate_prompt_library.py
 
+      - name: Audit public release readiness
+        run: python tools/release_readiness.py
+
       - name: Compile Python tools and tests
         shell: bash
         run: |
