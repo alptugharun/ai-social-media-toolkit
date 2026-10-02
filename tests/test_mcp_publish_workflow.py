@@ -37,6 +37,16 @@ class MCPPublishWorkflowTests(unittest.TestCase):
         for token in forbidden:
             self.assertNotIn(token, self.text)
 
+    def test_sigstore_release_signing_is_pinned_and_precedes_publish(self):
+        publish_pos = self.text.index("Publish wheel with PyPI Trusted Publishing")
+        sign_pos = self.text.index("Sign wheel and attach Sigstore release assets")
+        self.assertLess(sign_pos, publish_pos)
+        self.assertIn(
+            "sigstore/gh-action-sigstore-python@790bc6befb9d733738f18d8f895854b453640ec9",
+            self.text,
+        )
+        self.assertIn('release-signing-artifacts: "true"', self.text)
+
     def test_workflow_tests_builds_and_inspects_before_publish(self):
         publish_pos = self.text.index("Publish wheel with PyPI Trusted Publishing")
         for required in (
