@@ -1,0 +1,124 @@
+name: Publish AI Workbench MCP to PyPI
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: startsWith(github.event.release.tag_name, 'ai-workbench-mcp-v')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    environment:
+      name: pypi
+      url: https://pypi.org/project/alptugharun-ai-workbench-mcp/
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
+
+      - name: Verify release tag matches package version
+        shell: bash
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          import pathlib
+          import tomllib
+
+          tag = os.environ["RELEASE_TAG"]
+          prefix = "ai-workbench-mcp-v"
+          if not tag.startswith(prefix):
+              raise SystemExit(f"unexpected release tag: {tag}")
+
+          version = tomllib.loads(
+              pathlib.Path("packages/ai-workbench-mcp/pyproject.toml").read_text(encoding="utf-8")
+          )["project"]["version"]
+          expected = prefix + version
+          if tag != expected:
+              raise SystemExit(f"release tag {tag!r} must equal {expected!r}")
+          print(f"Release tag matches package version {version}.")
+          PY
+
+      - name: Run MCP distribution tests
+        run: python -m unittest discover -s tests -p "test_mcp_distribution_package.py" -v
+
+      - name: Build exact wheel
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist
+          python -m pip wheel \
+            --disable-pip-version-check \
+            --no-deps \
+            packages/ai-workbench-mcp \
+            --wheel-dir dist
+          test "$(find dist -maxdepth 1 -type f -name '*.whl' | wc -l)" -eq 1
+
+      - name: Inspect wheel before publish
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import pathlib
+          import tomllib
+          import zipfile
+
+          version = tomllib.loads(
+              pathlib.Path("packages/ai-workbench-mcp/pyproject.toml").read_text(encoding="utf-8")
+          )["project"]["version"]
+
+          wheels = list(pathlib.Path("dist").glob("*.whl"))
+          if len(wheels) != 1:
+              raise SystemExit(f"expected one wheel, found {len(wheels)}")
+
+          wheel = wheels[0]
+          with zipfile.ZipFile(wheel) as archive:
+              names = set(archive.namelist())
+              required_suffixes = (
+                  "/METADATA",
+                  "/entry_points.txt",
+              )
+              for suffix in required_suffixes:
+                  if not any(name.endswith(suffix) for name in names):
+                      raise SystemExit(f"wheel missing {suffix}")
+
+              metadata_name = next(name for name in names if name.endswith("/METADATA"))
+              metadata = archive.read(metadata_name).decode("utf-8")
+              if "Name: alptugharun-ai-workbench-mcp" not in metadata:
+                  raise SystemExit("unexpected package name in wheel metadata")
+              if f"Version: {version}" not in metadata:
+                  raise SystemExit(f"unexpected package version in wheel metadata; expected {version}")
+
+              if "ai_workbench_mcp/catalog.json" not in names:
+                  raise SystemExit("bundled catalog missing from wheel")
+
+          print(f"Wheel inspection passed: {wheel.name}")
+          PY
+
+      - name: Sign wheel and attach Sigstore release assets
+        uses: sigstore/gh-action-sigstore-python@790bc6befb9d733738f18d8f895854b453640ec9 # v3.5.0
+        with:
+          inputs: dist/*.whl
+          release-signing-artifacts: "true"
+
+      - name: Publish wheel with PyPI Trusted Publishing
+        uses: pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33 # v1.14.2
+        with:
+          packages-dir: dist/
