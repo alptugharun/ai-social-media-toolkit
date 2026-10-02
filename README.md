@@ -9,6 +9,7 @@ Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and ag
 **Using ChatGPT, Claude, Gemini or Grok?** Start with the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds), then try the same reusable assistant job across providers before adding more infrastructure.
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
+[![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
 
 ## Ten things worth trying first
 
