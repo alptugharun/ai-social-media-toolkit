@@ -48,6 +48,8 @@ For the first publication, configure a **pending GitHub Trusted Publisher** on P
 - Workflow filename: `publish-ai-workbench-mcp-pypi.yml`
 - GitHub environment: `pypi`
 
+The publish job receives job-scoped `id-token: write` for PyPI and Sigstore, plus job-scoped `contents: write` only so Sigstore can attach signed release assets. Workflow-level permissions remain read-only.
+
 A pending publisher does not reserve the project name until it is actually used. Do not announce the package as available before the first publish succeeds.
 
 On GitHub, configure the `pypi` environment with deployment protection appropriate for a release credential boundary. The publish job is the only job granted `id-token: write`.
@@ -58,10 +60,12 @@ On GitHub, configure the `pypi` environment with deployment protection appropria
 2. Confirm the package version in `pyproject.toml` is `0.1.0a1`.
 3. Confirm the PyPI pending publisher and GitHub `pypi` environment match the values above.
 4. Publish a GitHub release tagged exactly `ai-workbench-mcp-v0.1.0a1`.
-5. The publish workflow verifies the tag/version match, reruns package tests, builds one wheel, inspects its metadata and bundled catalog, then exchanges GitHub OIDC for a short-lived PyPI publishing credential.
-6. Confirm the PyPI project page exists and shows version `0.1.0a1`.
-7. Confirm the public package metadata/README contains the `mcp-name` marker.
-8. Perform the clean exact-version install below before any MCP Registry metadata is created.
+5. The publish workflow verifies the tag/version match, reruns package tests, builds one wheel, and inspects its metadata and bundled catalog.
+6. It signs the wheel (and GitHub source archives for the release) with keyless Sigstore using GitHub OIDC, and attaches the artifacts plus `.sigstore.json` bundles to the GitHub release.
+7. It then exchanges GitHub OIDC for a short-lived PyPI publishing credential and uploads the wheel.
+8. Confirm the GitHub release contains the wheel and Sigstore bundle, and that the PyPI project page shows version `0.1.0a1`.
+9. Confirm the public package metadata/README contains the `mcp-name` marker.
+10. Perform the clean exact-version install below before any MCP Registry metadata is created.
 
 ## Exact-version verification
 
