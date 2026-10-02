@@ -18,16 +18,16 @@ LINE_LIMIT = 128000
 TOOLS = [
     {"name": "list_prompts", "description": "List the original local prompt and assistant catalog. No network access.",
      "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
-     "annotations": {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False}},
+     "annotations": {"title": "List Prompt Catalog", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
     {"name": "render_prompt", "description": "Fill a local prompt template with supplied string variables. Returns text only; does not run an AI model.",
      "inputSchema": {"type": "object", "properties": {"id": {"type": "string"},
                      "variables": {"type": "object", "additionalProperties": {"type": "string"}}},
                      "required": ["id", "variables"], "additionalProperties": False},
-     "annotations": {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False}},
+     "annotations": {"title": "Render Prompt Template", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
     {"name": "get_assistant", "description": "Read a local assistant instruction blueprint; no installation or account changes.",
      "inputSchema": {"type": "object", "properties": {"id": {"type": "string"}},
                      "required": ["id"], "additionalProperties": False},
-     "annotations": {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False}},
+     "annotations": {"title": "Get Assistant Blueprint", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
 ]
 
 

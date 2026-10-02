@@ -290,7 +290,7 @@ def research_skill_candidates(token: str | None, lanes: list[LaneResult]) -> lis
 
 
 def md_escape(value: str) -> str:
-    return value.replace("|", "\|").replace("\n", " ")
+    return value.replace("|", "\\|").replace("\n", " ")
 
 
 def render_report(now: datetime, trending: list[dict], lanes: list[LaneResult], candidates: list[dict], warnings: list[str]) -> str:

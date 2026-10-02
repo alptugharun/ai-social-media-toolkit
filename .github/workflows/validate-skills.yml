@@ -62,7 +62,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, ubuntu-26.04]
+        os: [ubuntu-24.04, ubuntu-26.04, windows-2025]
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -169,7 +169,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m compileall -q tools tests
+          python -W error::SyntaxWarning -m compileall -q tools tests
 
       - name: Run installer tests
         run: python -m unittest discover -s tests -v

@@ -38,6 +38,14 @@ class MCPTests(unittest.TestCase):
         tools = self.server.handle(req('tools/list'))['result']['tools']
         self.assertEqual(len(tools), 3)
         self.assertTrue(all(t['annotations']['readOnlyHint'] for t in tools))
+        for tool in tools:
+            annotations = tool['annotations']
+            self.assertTrue(annotations.get('title'), tool['name'])
+            self.assertEqual(set(annotations), {'title', 'readOnlyHint', 'destructiveHint', 'idempotentHint', 'openWorldHint'})
+            self.assertTrue(annotations['readOnlyHint'])
+            self.assertFalse(annotations['destructiveHint'])
+            self.assertTrue(annotations['idempotentHint'])
+            self.assertFalse(annotations['openWorldHint'])
     def test_catalog_tool(self):
         self.initialize()
         result = self.server.handle(req('tools/call', {'name': 'list_prompts', 'arguments': {}}))['result']

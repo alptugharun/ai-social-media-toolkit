@@ -222,6 +222,9 @@ def ask(provider: str, model: str, system: str, messages: list[dict], max_tokens
 
 
 def main(argv=None) -> int:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", newline="")
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
     sub.add_parser("list", help="List original prompts and assistants; offline.")
@@ -304,9 +307,15 @@ def main(argv=None) -> int:
     except FileExistsError:
         print("error: Output already exists; choose another --output path.", file=sys.stderr)
         return 2
-    except (WorkbenchError, OSError, UnicodeError) as exc:
-        message = str(exc) if isinstance(exc, WorkbenchError) else "Cannot read or create the requested local UTF-8 file; check the path and permissions."
-        print("error: " + message, file=sys.stderr)
+    except WorkbenchError as exc:
+        print("error: " + str(exc), file=sys.stderr)
+        return 2
+    except UnicodeError as exc:
+        print(f"error: UTF-8 encoding/decoding failed ({type(exc).__name__}); check the input file and console encoding.", file=sys.stderr)
+        return 2
+    except OSError as exc:
+        target = Path(exc.filename).name if getattr(exc, "filename", None) else "local file or stream"
+        print(f"error: {type(exc).__name__} while accessing {target}; check the path and permissions.", file=sys.stderr)
         return 2
     except KeyboardInterrupt:
         print("Stopped; no automatic retry.", file=sys.stderr)

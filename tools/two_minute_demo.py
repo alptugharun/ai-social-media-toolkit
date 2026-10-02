@@ -135,6 +135,9 @@ def render() -> str:
 
 
 def main() -> int:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            stream.reconfigure(encoding="utf-8", newline="")
     try:
         report = render()
     except subprocess.CalledProcessError as exc:
