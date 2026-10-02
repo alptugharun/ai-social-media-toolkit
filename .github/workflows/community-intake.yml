@@ -15,7 +15,6 @@ on:
 
 permissions:
   contents: read
-  issues: write
 
 concurrency:
   group: community-intake-${{ github.event.issue.number || github.run_id }}
