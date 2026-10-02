@@ -21,10 +21,12 @@ concurrency:
 
 permissions:
   contents: read
-  issues: write
 
 jobs:
   radar:
+    permissions:
+      contents: read
+      issues: write
     runs-on: ubuntu-24.04
     timeout-minutes: 10
 
