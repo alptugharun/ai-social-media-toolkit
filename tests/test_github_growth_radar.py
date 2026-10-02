@@ -17,6 +17,28 @@ class GitHubGrowthRadarTests(unittest.TestCase):
             [{"full_name": "owner/repo", "stars_today": 1234}],
         )
 
+    def test_parse_trending_ignores_sponsor_link_before_repo_heading(self):
+        html = """
+        <article class="Box-row">
+          <a href="/sponsors/mattpocock">Sponsor</a>
+          <h2 class="h3 lh-condensed"><a href="/real-owner/real-repo">real-owner / real-repo</a></h2>
+          <span>321 stars today</span>
+        </article>
+        """
+        self.assertEqual(
+            parse_trending(html),
+            [{"full_name": "real-owner/real-repo", "stars_today": 321}],
+        )
+
+    def test_parse_trending_rejects_reserved_non_repo_heading(self):
+        html = """
+        <article class="Box-row">
+          <h2><a href="/sponsors/example">sponsors / example</a></h2>
+          <span>99 stars today</span>
+        </article>
+        """
+        self.assertEqual(parse_trending(html), [])
+
     def test_stars_per_day_has_one_day_floor(self):
         now = datetime(2026, 9, 24, tzinfo=timezone.utc)
         self.assertEqual(

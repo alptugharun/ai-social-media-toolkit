@@ -141,11 +141,25 @@ def fetch_text(url: str) -> str:
 
 def parse_trending(html: str) -> list[dict]:
     repos: list[dict] = []
+    reserved_owners = {"sponsors", "features", "marketplace", "topics", "collections", "trending"}
+
     for block in re.findall(r"<article[^>]*Box-row[^>]*>(.*?)</article>", html, flags=re.S | re.I):
-        match = re.search(r'href="/([^"/]+/[^"/]+)"', block)
+        # GitHub Trending articles can contain unrelated links (for example Sponsor links)
+        # before the repository title. Read the repository link from the article heading
+        # instead of accepting the first owner/name-looking href in the block.
+        match = re.search(
+            r'<h2\b[^>]*>.*?<a\b[^>]*href="/([^"?#/]+/[^"?#/]+)"[^>]*>',
+            block,
+            flags=re.S | re.I,
+        )
         if not match:
             continue
+
         full_name = match.group(1).strip()
+        owner, _, repo = full_name.partition("/")
+        if not owner or not repo or owner.lower() in reserved_owners:
+            continue
+
         stars_today_match = re.search(r"([\d,]+)\s+stars?\s+today", block, flags=re.I)
         stars_today = int(stars_today_match.group(1).replace(",", "")) if stars_today_match else 0
         repos.append({"full_name": full_name, "stars_today": stars_today})
