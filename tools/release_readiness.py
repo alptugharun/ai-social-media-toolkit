@@ -144,12 +144,43 @@ def check_actions_pinned() -> list[str]:
     return [f"actions-immutable-refs:{uses_count}"]
 
 
+def check_workflow_top_level_permissions() -> list[str]:
+    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unsafe: list[str] = []
+    missing: list[str] = []
+    for workflow in workflows:
+        text = workflow.read_text(encoding="utf-8")
+        prefix = text.split("\njobs:", 1)[0]
+        match = re.search(r"(?ms)^permissions:\s*(.*?)(?=^\S|\Z)", prefix)
+        if not match:
+            missing.append(str(workflow.relative_to(ROOT)))
+            continue
+        block = match.group(0)
+        if re.search(r"(?m)^permissions:\s*write-all\s*$", block) or re.search(
+            r"(?m)^\s{2}[A-Za-z0-9_-]+:\s*write\s*(?:#.*)?$", block
+        ):
+            unsafe.append(str(workflow.relative_to(ROOT)))
+
+    if missing:
+        fail("Workflows must declare top-level permissions: " + ", ".join(missing))
+    if unsafe:
+        fail(
+            "Top-level workflow permissions must remain read-only; move required writes to the narrowest job: "
+            + ", ".join(unsafe)
+        )
+    return [f"workflow-top-level-readonly:{len(workflows)}"]
+
+
 def run() -> list[str]:
     checks: list[str] = []
     checks.extend(check_public_files())
     checks.extend(check_mcp_tools())
     checks.extend(check_json_files())
     checks.extend(check_actions_pinned())
+    checks.extend(check_workflow_top_level_permissions())
     return checks
 
 
