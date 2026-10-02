@@ -23,6 +23,9 @@ concurrency:
 
 jobs:
   intake:
+    permissions:
+      contents: read
+      issues: write
     if: github.repository == 'alptugharun/ai-social-media-toolkit' && vars.COMMUNITY_SUPPORT_PAUSED != 'true'
     runs-on: ubuntu-24.04
     timeout-minutes: 3
