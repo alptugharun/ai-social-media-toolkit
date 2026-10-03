@@ -148,6 +148,22 @@ def check_json_files() -> list[str]:
     return [f"json-manifests:{checked}"]
 
 
+def check_citation_metadata() -> list[str]:
+    path = ROOT / "CITATION.cff"
+    text = path.read_text(encoding="utf-8")
+    required_literals = (
+        "cff-version: 1.2.0",
+        "title: \"AI Social Media Toolkit\"",
+        "type: software",
+        "given-names: \"Alptuğ\"",
+        "family-names: \"Harun\"",
+        "repository-code: \"https://github.com/alptugharun/ai-social-media-toolkit\"",
+    )
+    missing = [item for item in required_literals if item not in text]
+    if missing:
+        fail("CITATION.cff is missing required metadata: " + ", ".join(missing))
+    return ["citation-metadata:complete"]
+
 def check_actions_pinned() -> list[str]:
     workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
     if not workflows:
@@ -206,6 +222,7 @@ def run() -> list[str]:
     checks.extend(check_public_files())
     checks.extend(check_mcp_tools())
     checks.extend(check_json_files())
+    checks.extend(check_citation_metadata())
     checks.extend(check_actions_pinned())
     checks.extend(check_workflow_top_level_permissions())
     return checks
