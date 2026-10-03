@@ -43,25 +43,27 @@ python tools/ai_workbench.py build-ui
 
 Run these from the downloaded repository folder, then open `downloads/ai-workbench.html` in a browser. The catalog lets you select a task, edit example inputs and copy or download the resulting instruction. It does not send data or call a model.
 
-### Try the read-only MCP locally
+### Use the standalone read-only MCP
 
-The MCP package now has a dedicated public home at **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. This toolkit keeps a mirrored package surface for integration testing, so the local checkout can still be tested directly:
+The canonical MCP product now lives only in **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. Keeping one runtime source avoids drift between this toolkit and the published package.
+
+Install the verified public alpha:
 
 ```bash
-python -m pip install --no-deps ./packages/ai-workbench-mcp
+python -m pip install "alptugharun-ai-workbench-mcp==0.1.0a1"
 ```
 
-Point a local stdio-capable MCP host at this command:
+Point a stdio-capable MCP host at:
 
 ```text
 alptugharun-ai-workbench-mcp
 ```
 
-It exposes three tools — `list_prompts`, `render_prompt`, and `get_assistant` — and does not request network, shell, filesystem-write, account, or provider access. The wheel build/install/handshake path is CI-gated on Ubuntu 24.04, Ubuntu 26.04, and Windows 2025.
+The standalone server exposes `list_prompts`, `render_prompt`, and `get_assistant`. Version `0.1.0a1` is published on PyPI, active in the official MCP Registry, and maintainer-run runtime verification passed in Cursor 3.20.21 for discovery plus all three tool call paths.
 
-[Standalone MCP repository](https://github.com/alptugharun/ai-workbench-mcp) · [Bundled integration copy](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
+This toolkit still keeps its smaller local MCP example at `tools/prompt_mcp_server.py` for integration/testing of the shared catalog, but it no longer duplicates the standalone package source or release workflow.
 
-The PyPI/official MCP Registry path is deliberately gated until the first signed package release is published and verified. Do not treat local package readiness as proof of every MCP host.
+[Standalone MCP repository](https://github.com/alptugharun/ai-workbench-mcp) · [Runtime evidence](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
 Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-CARDS.md). Need the complete setup? Use the [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md), including Windows commands and troubleshooting.
 
