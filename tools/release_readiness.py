@@ -16,6 +16,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MCP_SERVER = ROOT / "tools" / "prompt_mcp_server.py"
 MCP_TESTS = ROOT / "tests" / "test_prompt_mcp_server.py"
+PACKAGED_MCP_SERVER = ROOT / "packages" / "ai-workbench-mcp" / "src" / "ai_workbench_mcp" / "server.py"
+PACKAGED_MCP_TESTS = ROOT / "tests" / "test_mcp_distribution_package.py"
 REQUIRED_PUBLIC_FILES = (
     "README.md",
     "LICENSE.md",
@@ -44,8 +46,8 @@ def fail(message: str) -> None:
     raise ReadinessError(message)
 
 
-def load_tools_literal() -> list[dict]:
-    tree = ast.parse(MCP_SERVER.read_text(encoding="utf-8"))
+def load_tools_literal_from(path: Path) -> list[dict]:
+    tree = ast.parse(path.read_text(encoding="utf-8"))
     for node in tree.body:
         if isinstance(node, ast.Assign) and any(
             isinstance(target, ast.Name) and target.id == "TOOLS" for target in node.targets
@@ -54,7 +56,11 @@ def load_tools_literal() -> list[dict]:
             if not isinstance(value, list):
                 fail("TOOLS must be a literal list.")
             return value
-    fail("Could not find literal TOOLS declaration.")
+    fail(f"Could not find literal TOOLS declaration in {path.relative_to(ROOT)}.")
+
+
+def load_tools_literal() -> list[dict]:
+    return load_tools_literal_from(MCP_SERVER)
 
 
 def check_public_files() -> list[str]:
@@ -104,7 +110,28 @@ def check_mcp_tools() -> list[str]:
     if missing_tests:
         fail("MCP tools without name-level test coverage: " + ", ".join(missing_tests))
 
-    return [f"mcp-tools:{len(tools)}", "mcp-hints:complete", "mcp-name-test-coverage:complete"]
+    packaged_tools = load_tools_literal_from(PACKAGED_MCP_SERVER)
+    packaged_names = [tool.get("name") for tool in packaged_tools]
+    if any(not isinstance(name, str) or not name for name in packaged_names):
+        fail("Every packaged MCP tool needs a non-empty string name.")
+    if len(packaged_names) != len(set(packaged_names)):
+        fail("Packaged MCP tool names must be unique.")
+
+    packaged_test_text = PACKAGED_MCP_TESTS.read_text(encoding="utf-8")
+    missing_packaged_tests = [name for name in packaged_names if name not in packaged_test_text]
+    if missing_packaged_tests:
+        fail(
+            "Packaged MCP tools without name-level test coverage: "
+            + ", ".join(missing_packaged_tests)
+        )
+
+    return [
+        f"mcp-tools:{len(tools)}",
+        f"packaged-mcp-tools:{len(packaged_tools)}",
+        "mcp-hints:complete",
+        "mcp-name-test-coverage:complete",
+        "packaged-mcp-name-test-coverage:complete",
+    ]
 
 
 def check_json_files() -> list[str]:
