@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use AI Social Media Toolkit in public work, research, teaching, or a derived open-source workflow, please cite this repository."
+title: "AI Social Media Toolkit"
+type: software
+authors:
+  - family-names: "Harun"
+    given-names: "Alptuğ"
+repository-code: "https://github.com/alptugharun/ai-social-media-toolkit"
+url: "https://alptugharun.com"
+version: "0.2.0-alpha.1"
+date-released: "2026-09-30"
+keywords:
+  - artificial intelligence
+  - agent skills
+  - model context protocol
+  - prompt engineering
+  - creator operations
+  - social media
+  - automation
+abstract: >-
+  An open-source toolkit for practical AI workflows, prompt systems,
+  portable assistant blueprints, Agent Skills, read-only MCP tooling,
+  automation patterns, and creator operations across ChatGPT, Claude,
+  Gemini, Grok, Canva, Pinterest, Reels, and related workflows.
