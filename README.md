@@ -1,3 +1,8 @@
+<p align="center">
+  <a href="./README.md"><img src="https://img.shields.io/badge/English-0D1117?style=for-the-badge&logo=github&logoColor=white" alt="English"></a>
+  <a href="./README_TR.md"><img src="https://img.shields.io/badge/Türkçe-E30A17?style=for-the-badge&logo=readme&logoColor=white" alt="Türkçe"></a>
+</p>
+
 # AI Social Media Toolkit — AI Workbench, Agent Skills & MCP
 
 **Build practical, testable AI workflows for ChatGPT, Claude, Gemini, Grok and creator operations.**
