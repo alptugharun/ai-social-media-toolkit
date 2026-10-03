@@ -16,8 +16,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 MCP_SERVER = ROOT / "tools" / "prompt_mcp_server.py"
 MCP_TESTS = ROOT / "tests" / "test_prompt_mcp_server.py"
-PACKAGED_MCP_SERVER = ROOT / "packages" / "ai-workbench-mcp" / "src" / "ai_workbench_mcp" / "server.py"
-PACKAGED_MCP_TESTS = ROOT / "tests" / "test_mcp_distribution_package.py"
+CANONICAL_MCP_REPO = "https://github.com/alptugharun/ai-workbench-mcp"
+LEGACY_MCP_DIR = ROOT / "packages" / "ai-workbench-mcp"
 REQUIRED_PUBLIC_FILES = (
     "README.md",
     "LICENSE.md",
@@ -110,28 +110,32 @@ def check_mcp_tools() -> list[str]:
     if missing_tests:
         fail("MCP tools without name-level test coverage: " + ", ".join(missing_tests))
 
-    packaged_tools = load_tools_literal_from(PACKAGED_MCP_SERVER)
-    packaged_names = [tool.get("name") for tool in packaged_tools]
-    if any(not isinstance(name, str) or not name for name in packaged_names):
-        fail("Every packaged MCP tool needs a non-empty string name.")
-    if len(packaged_names) != len(set(packaged_names)):
-        fail("Packaged MCP tool names must be unique.")
-
-    packaged_test_text = PACKAGED_MCP_TESTS.read_text(encoding="utf-8")
-    missing_packaged_tests = [name for name in packaged_names if name not in packaged_test_text]
-    if missing_packaged_tests:
-        fail(
-            "Packaged MCP tools without name-level test coverage: "
-            + ", ".join(missing_packaged_tests)
-        )
-
     return [
         f"mcp-tools:{len(tools)}",
-        f"packaged-mcp-tools:{len(packaged_tools)}",
         "mcp-hints:complete",
         "mcp-name-test-coverage:complete",
-        "packaged-mcp-name-test-coverage:complete",
     ]
+
+
+def check_canonical_mcp_boundary() -> list[str]:
+    duplicate_runtime_paths = (
+        LEGACY_MCP_DIR / "src",
+        LEGACY_MCP_DIR / "pyproject.toml",
+        ROOT / ".github" / "workflows" / "publish-ai-workbench-mcp-pypi.yml",
+    )
+    present = [str(path.relative_to(ROOT)) for path in duplicate_runtime_paths if path.exists()]
+    if present:
+        fail(
+            "Standalone MCP runtime/publishing source must live only in the canonical repository; "
+            "remove duplicate toolkit surfaces: " + ", ".join(present)
+        )
+
+    for relative in ("README.md", "README_TR.md", "llms.txt"):
+        text = (ROOT / relative).read_text(encoding="utf-8")
+        if CANONICAL_MCP_REPO not in text:
+            fail(f"{relative} must point MCP users to the canonical standalone repository.")
+
+    return ["mcp-canonical-repo:external", "mcp-duplicate-runtime:absent"]
 
 
 def check_json_files() -> list[str]:
@@ -221,6 +225,7 @@ def run() -> list[str]:
     checks: list[str] = []
     checks.extend(check_public_files())
     checks.extend(check_mcp_tools())
+    checks.extend(check_canonical_mcp_boundary())
     checks.extend(check_json_files())
     checks.extend(check_citation_metadata())
     checks.extend(check_actions_pinned())
