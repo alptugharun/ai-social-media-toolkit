@@ -53,7 +53,7 @@ Review every new finding against the exact commit M8ven says it scanned. Dispute
 
 Current OpenAI plugin guidance expects tool descriptions to match behavior and requires explicit `readOnlyHint`, `destructiveHint` and `openWorldHint`; `idempotentHint` is also useful where truthful.
 
-The local server is intentionally a protocol example, not a hosted remote plugin. A future public ChatGPT plugin submission needs a remotely reachable Streamable HTTP MCP endpoint, deployment, privacy/data-handling review and host-level testing. Do not call the local stdio example a published ChatGPT plugin.
+The local stdio server is not a published ChatGPT plugin. Current OpenAI plugin packaging can be skills-only, MCP-backed, or combine both. A skills-only package can use reusable instructions without this MCP server; if this stdio MCP is included in a public MCP-backed plugin, it needs a stable publicly reachable HTTPS Streamable HTTP deployment plus the applicable privacy/data-handling, review and host-level tests. Do not call the local stdio example a published ChatGPT plugin.
 
 Official references:
 
@@ -63,19 +63,18 @@ Official references:
 
 ## Official MCP Registry
 
-The official MCP Registry uses `server.json` metadata and verifies publish/package ownership. This repository does **not** add a cosmetic `server.json` before the MCP server has a real distributable package or remote URL.
+The official MCP Registry uses `server.json` metadata and verifies publish/package ownership. The canonical standalone distribution project is **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**, so public Registry metadata belongs there rather than being duplicated inside this toolkit's integration copy.
 
-The canonical standalone distribution project is now **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. The copy under `packages/ai-workbench-mcp` remains in this toolkit as an integration/test surface during the cutover; public release metadata belongs in the standalone repository.
+Current verified publication state:
 
-The remaining publication gate is:
+1. `alptugharun-ai-workbench-mcp==0.1.0a1` is published to PyPI through Trusted Publishing;
+2. the exact public package completed clean install and MCP handshake verification;
+3. the standalone `server.json` passed the Registry publication path;
+4. `io.github.alptugharun/ai-workbench-mcp` is published in the official Registry and reports `active`;
+5. a maintainer-run Cursor 3.20.21 session successfully invoked `list_prompts`, `render_prompt` and `get_assistant`;
+6. independent external host verification remains an open adoption goal.
 
-1. publish the exact prerelease version to PyPI through the existing Trusted Publishing workflow;
-2. verify a clean exact-version install and MCP handshake from the published artifact;
-3. generate a valid `server.json` using the current registry schema;
-4. validate with `mcp-publisher`;
-5. authenticate the `io.github.alptugharun` namespace;
-6. publish to the official registry;
-7. verify the registry install in a real MCP host and record the dated result.
+Registry acceptance proves distribution metadata and ownership requirements. It does not prove universal host compatibility, independent adoption or production fitness.
 
 Official references:
 
