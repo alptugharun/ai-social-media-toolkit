@@ -18,6 +18,7 @@ MCP_SERVER = ROOT / "tools" / "prompt_mcp_server.py"
 MCP_TESTS = ROOT / "tests" / "test_prompt_mcp_server.py"
 PACKAGED_MCP_SERVER = ROOT / "packages" / "ai-workbench-mcp" / "src" / "ai_workbench_mcp" / "server.py"
 PACKAGED_MCP_TESTS = ROOT / "tests" / "test_mcp_distribution_package.py"
+PACKAGED_MCP_ADJACENT_TESTS = ROOT / "packages" / "ai-workbench-mcp" / "tests" / "test_public_tools.py"
 REQUIRED_PUBLIC_FILES = (
     "README.md",
     "LICENSE.md",
@@ -125,12 +126,21 @@ def check_mcp_tools() -> list[str]:
             + ", ".join(missing_packaged_tests)
         )
 
+    adjacent_test_text = PACKAGED_MCP_ADJACENT_TESTS.read_text(encoding="utf-8")
+    missing_adjacent_tests = [name for name in packaged_names if name not in adjacent_test_text]
+    if missing_adjacent_tests:
+        fail(
+            "Packaged MCP tools without adjacent name-level tests: "
+            + ", ".join(missing_adjacent_tests)
+        )
+
     return [
         f"mcp-tools:{len(tools)}",
         f"packaged-mcp-tools:{len(packaged_tools)}",
         "mcp-hints:complete",
         "mcp-name-test-coverage:complete",
         "packaged-mcp-name-test-coverage:complete",
+        "packaged-mcp-adjacent-name-test-coverage:complete",
     ]
 
 
