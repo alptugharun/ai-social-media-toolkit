@@ -15,6 +15,10 @@ class ReleaseReadinessTests(unittest.TestCase):
         self.assertIn("mcp-hints:complete", checks)
         self.assertIn("mcp-name-test-coverage:complete", checks)
         self.assertIn("citation-metadata:complete", checks)
+        self.assertIn("plugin-version:0.6.0", checks)
+        self.assertIn("plugin-skills:18", checks)
+        self.assertIn("plugin-submission-cases:5+3", checks)
+        self.assertIn("plugin-mcp:none-skills-only", checks)
         self.assertTrue(any(item.startswith("workflow-top-level-readonly:") for item in checks))
 
     def test_all_public_mcp_tools_have_explicit_boolean_hints(self):

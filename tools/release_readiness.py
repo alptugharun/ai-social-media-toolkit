@@ -19,6 +19,12 @@ MCP_TESTS = ROOT / "tests" / "test_prompt_mcp_server.py"
 PACKAGED_MCP_SERVER = ROOT / "packages" / "ai-workbench-mcp" / "src" / "ai_workbench_mcp" / "server.py"
 PACKAGED_MCP_TESTS = ROOT / "tests" / "test_mcp_distribution_package.py"
 PACKAGED_MCP_ADJACENT_TESTS = ROOT / "packages" / "ai-workbench-mcp" / "tests" / "test_public_tools.py"
+PLUGIN_MANIFEST = ROOT / "plugin.json"
+PLUGIN_GUIDE = ROOT / "PLUGIN-GUIDE.md"
+PLUGIN_CASES = ROOT / "evals" / "plugin-submission-cases.json"
+SKILLS_ROOT = ROOT / "skills"
+PLUGIN_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
+PLUGIN_MCP_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json"
 REQUIRED_PUBLIC_FILES = (
     "README.md",
     "LICENSE.md",
@@ -158,6 +164,85 @@ def check_json_files() -> list[str]:
     return [f"json-manifests:{checked}"]
 
 
+def check_plugin_package() -> list[str]:
+    manifest = json.loads(PLUGIN_MANIFEST.read_text(encoding="utf-8"))
+    if manifest.get("$schema") != PLUGIN_SCHEMA:
+        fail("plugin.json must use the Agent Plugins 1.0.0 portable schema.")
+
+    name = manifest.get("name")
+    if not isinstance(name, str) or not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", name):
+        fail("plugin.json name must be stable kebab-case.")
+
+    version = manifest.get("version")
+    if not isinstance(version, str) or not re.fullmatch(
+        r"\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?", version
+    ):
+        fail("plugin.json version must be explicit semantic version text.")
+
+    description = manifest.get("description")
+    if not isinstance(description, str) or len(description.strip()) < 40:
+        fail("plugin.json description is missing or too vague.")
+
+    skills = sorted(
+        path.parent.name
+        for path in SKILLS_ROOT.glob("*/SKILL.md")
+        if path.is_file()
+    )
+    if len(skills) != 18:
+        fail(f"Expected 18 portable plugin skills, found {len(skills)}.")
+
+    for skill_name in skills:
+        text = (SKILLS_ROOT / skill_name / "SKILL.md").read_text(encoding="utf-8")
+        prefix = text.replace("\r\n", "\n").split("---", 2)
+        if len(prefix) < 3:
+            fail(f"{skill_name}: SKILL.md is missing YAML frontmatter.")
+        frontmatter = prefix[1]
+        name_match = re.search(r"(?m)^name:\s*(.+?)\s*$", frontmatter)
+        desc_match = re.search(r"(?m)^description:\s*(.+?)\s*$", frontmatter)
+        if not name_match or name_match.group(1).strip().strip("\"'") != skill_name:
+            fail(f"{skill_name}: frontmatter name must match the directory.")
+        if not desc_match or len(desc_match.group(1).strip().strip("\"'")) < 30:
+            fail(f"{skill_name}: frontmatter description is missing or too vague.")
+
+    if not PLUGIN_GUIDE.is_file():
+        fail("PLUGIN-GUIDE.md is missing.")
+
+    cases = json.loads(PLUGIN_CASES.read_text(encoding="utf-8"))
+    positives = cases.get("positive_cases")
+    negatives = cases.get("negative_cases")
+    if not isinstance(positives, list) or len(positives) != 5:
+        fail("Plugin submission preparation requires exactly 5 positive cases.")
+    if not isinstance(negatives, list) or len(negatives) != 3:
+        fail("Plugin submission preparation requires exactly 3 negative cases.")
+
+    mcp_path = ROOT / "mcp.json"
+    if mcp_path.exists():
+        mcp = json.loads(mcp_path.read_text(encoding="utf-8"))
+        if mcp.get("$schema") != PLUGIN_MCP_SCHEMA:
+            fail("Portable plugin mcp.json must use the Agent Plugins MCP schema.")
+        servers = mcp.get("mcpServers")
+        if not isinstance(servers, dict) or not servers:
+            fail("Portable plugin mcp.json must declare at least one MCP server.")
+        for server_name, server in servers.items():
+            if not isinstance(server, dict):
+                fail(f"{server_name}: MCP server declaration must be an object.")
+            if server.get("type") != "streamable-http":
+                fail(f"{server_name}: public plugin MCP transport must be streamable-http.")
+            url = server.get("url")
+            if not isinstance(url, str) or not url.startswith("https://"):
+                fail(f"{server_name}: public plugin MCP URL must use HTTPS.")
+        mcp_status = f"plugin-mcp:{len(servers)}"
+    else:
+        mcp_status = "plugin-mcp:none-skills-only"
+
+    return [
+        f"plugin-version:{version}",
+        f"plugin-skills:{len(skills)}",
+        "plugin-submission-cases:5+3",
+        mcp_status,
+    ]
+
+
 def check_citation_metadata() -> list[str]:
     path = ROOT / "CITATION.cff"
     text = path.read_text(encoding="utf-8")
@@ -232,6 +317,7 @@ def run() -> list[str]:
     checks.extend(check_public_files())
     checks.extend(check_mcp_tools())
     checks.extend(check_json_files())
+    checks.extend(check_plugin_package())
     checks.extend(check_citation_metadata())
     checks.extend(check_actions_pinned())
     checks.extend(check_workflow_top_level_permissions())
