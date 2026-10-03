@@ -31,9 +31,10 @@ M8ven grades combine code findings, verification depth and reputation/adoption. 
 - publisher ownership is verified;
 - GitHub Live Monitoring is connected;
 - Sandbox Verified is present;
-- the public grade moved from the earlier **C / 74** snapshot to **B / 89** after current-code verification;
-- the remaining visible quality suggestion at that snapshot was tool-name test coverage;
-- PR #112 added direct name-level tests for every packaged MCP tool and strengthened the release-readiness gate; its cross-platform validation and CodeQL checks passed before merge.
+- M8ven's public page currently reports **B / 89** for commit `0e62484`;
+- current `main` is newer than that M8ven snapshot, so the displayed score/suggestion must be treated as stale until M8ven names the newer commit;
+- the visible `0e62484` snapshot still reports 50% tool-name test coverage;
+- PR #112 later added direct name-level tests for every packaged MCP tool and strengthened the release-readiness gate; its cross-platform validation and CodeQL checks passed before merge.
 
 For the repository's local and packaged MCP surfaces:
 
@@ -64,7 +65,9 @@ Official references:
 
 The official MCP Registry uses `server.json` metadata and verifies publish/package ownership. This repository does **not** add a cosmetic `server.json` before the MCP server has a real distributable package or remote URL.
 
-The standalone product boundary now exists at `packages/ai-workbench-mcp`. The remaining publication gate is:
+The canonical standalone distribution project is now **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. The copy under `packages/ai-workbench-mcp` remains in this toolkit as an integration/test surface during the cutover; public release metadata belongs in the standalone repository.
+
+The remaining publication gate is:
 
 1. publish the exact prerelease version to PyPI through the existing Trusted Publishing workflow;
 2. verify a clean exact-version install and MCP handshake from the published artifact;
@@ -96,7 +99,17 @@ A listing is useful only if a visitor can install, run and understand the result
 
 ## OpenSSF Scorecard
 
-The repository includes an OpenSSF Scorecard workflow and CodeQL. Scorecard results can still be held back by repository/account settings that code changes alone cannot fix, such as branch protection, security settings or maintainer practices. The current repository ruleset API returned no configured rulesets during the 2026-10-03 audit, so default-branch protection remains an explicit account-level hardening task.
+The repository includes OpenSSF Scorecard and CodeQL.
+
+Observed on 2026-10-03:
+
+- the public Scorecard API reported **7.0** for commit `af97b51`;
+- dependency-update tooling, token permissions, dangerous-workflow, pinned-dependency, security-policy and vulnerability checks were strong;
+- the run could not read the then-classic branch-protection settings with its default token;
+- after that run, the repository was migrated to an active **Repository Rules** ruleset for the default branch, with pull-request flow, required CI/CodeQL checks, linear history, deletion protection and force-push protection;
+- Dependabot alerts/security updates and GitHub private vulnerability reporting are enabled.
+
+The next Scorecard run must be used to verify that Repository Rules are visible to the default Scorecard token. Do not claim the branch-protection score improved until that external result exists.
 
 Never weaken CI just to raise a score. Prefer:
 

@@ -9,7 +9,7 @@
 
 Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](packages/ai-workbench-mcp/README.md) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -25,7 +25,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
-| **Run a local read-only MCP server** | [AI Workbench MCP](packages/ai-workbench-mcp/README.md) |
+| **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
 | **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
 | **Inspect security, trust and runtime evidence** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
 
@@ -45,7 +45,7 @@ Run these from the downloaded repository folder, then open `downloads/ai-workben
 
 ### Try the read-only MCP locally
 
-The repository now contains a standalone MCP package candidate with the same bundled prompt/assistant catalog:
+The MCP package now has a dedicated public home at **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. This toolkit keeps a mirrored package surface for integration testing, so the local checkout can still be tested directly:
 
 ```bash
 python -m pip install --no-deps ./packages/ai-workbench-mcp
@@ -59,7 +59,7 @@ alptugharun-ai-workbench-mcp
 
 It exposes three tools — `list_prompts`, `render_prompt`, and `get_assistant` — and does not request network, shell, filesystem-write, account, or provider access. The wheel build/install/handshake path is CI-gated on Ubuntu 24.04, Ubuntu 26.04, and Windows 2025.
 
-[Standalone MCP package](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-social-media-toolkit/issues/110)
+[Standalone MCP repository](https://github.com/alptugharun/ai-workbench-mcp) · [Bundled integration copy](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
 The PyPI/official MCP Registry path is deliberately gated until the first signed package release is published and verified. Do not treat local package readiness as proof of every MCP host.
 
