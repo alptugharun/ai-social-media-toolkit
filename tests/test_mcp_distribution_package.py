@@ -24,6 +24,52 @@ def req(method, params=None, rpc_id=1):
 
 
 class MCPDistributionPackageTests(unittest.TestCase):
+    def initialized_server(self):
+        server = packaged.CatalogServer(packaged.load_catalog())
+        server.handle(req("initialize", {"protocolVersion": "2025-06-18"}))
+        server.handle({"jsonrpc": "2.0", "method": "notifications/initialized"})
+        return server
+
+    def test_list_prompts_tool_by_name(self):
+        server = self.initialized_server()
+        result = server.handle(
+            req("tools/call", {"name": "list_prompts", "arguments": {}})
+        )["result"]
+        self.assertFalse(result["isError"])
+        payload = json.loads(result["content"][0]["text"])
+        self.assertTrue(payload["prompts"])
+        self.assertTrue(payload["assistants"])
+
+    def test_render_prompt_tool_by_name(self):
+        server = self.initialized_server()
+        entry = packaged.load_catalog()["prompts"][0]
+        result = server.handle(
+            req(
+                "tools/call",
+                {
+                    "name": "render_prompt",
+                    "arguments": {"id": entry["id"], "variables": entry["example"]},
+                },
+            )
+        )["result"]
+        self.assertFalse(result["isError"])
+        self.assertTrue(result["content"][0]["text"].strip())
+
+    def test_get_assistant_tool_by_name(self):
+        server = self.initialized_server()
+        assistant_id = packaged.load_catalog()["assistants"][0]["id"]
+        result = server.handle(
+            req(
+                "tools/call",
+                {
+                    "name": "get_assistant",
+                    "arguments": {"id": assistant_id, "target": "chatgpt"},
+                },
+            )
+        )["result"]
+        self.assertFalse(result["isError"])
+        self.assertIn("## Instructions", result["content"][0]["text"])
+
     def test_package_metadata_is_explicit_and_prerelease(self):
         metadata = tomllib.loads((PACKAGE_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
         project = metadata["project"]
