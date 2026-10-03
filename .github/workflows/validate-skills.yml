@@ -18,9 +18,12 @@ on:
       - "learning/**"
       - "automation-recipes/**"
       - "resources/**"
+      - "references/**"
       - "AI-ECOSYSTEM-HUB.md"
       - "QUICK-WINS.md"
       - "docs/**"
+      - "*.md"
+      - "llms.txt"
       - "README.md"
       - "START-HERE.md"
       - "plugin.json"
@@ -29,6 +32,9 @@ on:
       - ".github/workflows/**"
       - ".github/self-heal-policy.json"
       - ".github/agents/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/DISCUSSION_TEMPLATE/**"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
   pull_request:
     paths:
       - "skills/**"
@@ -45,9 +51,12 @@ on:
       - "learning/**"
       - "automation-recipes/**"
       - "resources/**"
+      - "references/**"
       - "AI-ECOSYSTEM-HUB.md"
       - "QUICK-WINS.md"
       - "docs/**"
+      - "*.md"
+      - "llms.txt"
       - "README.md"
       - "START-HERE.md"
       - "plugin.json"
@@ -56,6 +65,9 @@ on:
       - ".github/workflows/**"
       - ".github/self-heal-policy.json"
       - ".github/agents/**"
+      - ".github/ISSUE_TEMPLATE/**"
+      - ".github/DISCUSSION_TEMPLATE/**"
+      - ".github/PULL_REQUEST_TEMPLATE.md"
 
 
 permissions:
