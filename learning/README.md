@@ -2,7 +2,7 @@
 
 **Learn by building one useful artifact at every level.**
 
-Start with the detailed [AI Builder Path](AI-BUILDER-PATH.md) when you want the full prompt → assistant → Agent Skill → MCP → plugin → automation decision and testing workflow.
+Start with the detailed [AI Builder Path](AI-BUILDER-PATH.md) when you want the architecture map. Then use the hands-on [AI Builder Lab](AI-BUILDER-LAB.md) to run the same job through prompt → assistant → Agent Skill → MCP → plugin → API bot → automation tests.
 
 ## 1 — Prompt Fundamentals
 
