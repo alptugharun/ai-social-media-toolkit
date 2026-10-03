@@ -199,6 +199,9 @@ jobs:
       - name: Run installer tests
         run: python -m unittest discover -s tests -v
 
+      - name: Run standalone MCP name-level tests
+        run: python -m unittest discover -s packages/ai-workbench-mcp/tests -v
+
       - name: Build and smoke-test standalone MCP wheel
         shell: bash
         run: |
