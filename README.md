@@ -138,7 +138,7 @@ Examples are synthetic unless a source says otherwise. No promise of virality, i
 
 Run one task and report the first point where you got confused or blocked. Reproducible bug reports, clearer examples and real runtime checks are more useful than another empty feature list.
 
-[Community](COMMUNITY.md) · [Discussions](https://github.com/alptugharun/ai-social-media-toolkit/discussions) · [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md) · [Adoption evidence](ADOPTION.md) · [Security](SECURITY.md) · [Trust & discovery review](docs/TRUST-DISCOVERY-REVIEW.md) · [Releases](https://github.com/alptugharun/ai-social-media-toolkit/releases)
+[Community](COMMUNITY.md) · [Discussions](https://github.com/alptugharun/ai-social-media-toolkit/discussions) · [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md) · [Adoption evidence](ADOPTION.md) · [Security](SECURITY.md) · [Trust & discovery review](docs/TRUST-DISCOVERY-REVIEW.md) · [Cite this project](CITATION.cff) · [Releases](https://github.com/alptugharun/ai-social-media-toolkit/releases)
 
 ## Verify before trusting a badge
 
