@@ -81,6 +81,18 @@ class MCPDistributionPackageTests(unittest.TestCase):
             "ai_workbench_mcp.server:main",
         )
 
+    def test_build_backend_uses_patched_setuptools(self):
+        metadata = tomllib.loads((PACKAGE_ROOT / "pyproject.toml").read_text(encoding="utf-8"))
+        build_requires = metadata["build-system"]["requires"]
+        setuptools_pins = [item for item in build_requires if item.startswith("setuptools==")]
+        self.assertEqual(1, len(setuptools_pins), build_requires)
+        version = tuple(int(part) for part in setuptools_pins[0].split("==", 1)[1].split("."))
+        self.assertGreaterEqual(
+            version,
+            (83, 0, 0),
+            "setuptools <83.0.0 is affected by GHSA-h35f-9h28-mq5c / CVE-2026-59890",
+        )
+
     def test_registry_ownership_marker_matches_planned_server_name(self):
         readme = (PACKAGE_ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn(

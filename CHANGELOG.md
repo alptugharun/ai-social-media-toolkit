@@ -25,6 +25,7 @@ The project is currently in **alpha**. Until the first tagged release is publish
 
 ### Fixed
 
+- Updated the embedded MCP package build backend from vulnerable `setuptools==80.9.0` to `setuptools==84.0.0` and added a regression guard requiring the patched 83.0.0+ line for CVE-2026-59890.
 - Removed a duplicated `15-Minute Quick Start` heading and aligned the MCP quick-start path with the standalone package.
 
 ## [v0.2.0-alpha.1] - 2026-09-30
