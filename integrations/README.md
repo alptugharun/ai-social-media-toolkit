@@ -15,10 +15,11 @@
 ## Resources
 
 - [MCP & Plugin Guide](MCP-PLUGIN-GUIDE.md)
-- [Standalone AI Workbench MCP package candidate](../packages/ai-workbench-mcp/README.md) — locally buildable/read-only; PyPI and official Registry publication remain gated until exact-version verification passes.
+- [AI Workbench MCP](../packages/ai-workbench-mcp/README.md) — focused read-only MCP product; version `0.1.0a1` is published on PyPI and the official MCP Registry, with package/registry/host evidence tracked separately.
 - [Assistant Blueprints](../assistants/README.md)
 - [Agent Skills](../skills/README.md)
 - [Bot Starters](../bots/README.md)
+- [AI Builder Path](../learning/AI-BUILDER-PATH.md) — decide when a job needs a prompt, assistant, Agent Skill, MCP, plugin or automation.
 - [Automation Recipes](../automation-recipes/README.md)
 
 ## Integration checklist

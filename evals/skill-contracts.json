@@ -272,6 +272,22 @@
         "claim missing API data means no trend exists"
       ],
       "notes": "The radar should degrade honestly when live platform evidence is unavailable."
+    },
+    {
+      "id": "plugin-mcp-architect-lightest-layer-first",
+      "skill": "plugin-mcp-architect",
+      "prompt": "Design an installable AI workflow for a repeated research task. Decide whether it needs only a prompt, an Agent Skill, MCP tools, a plugin, or automation, and include a reproducible test plan.",
+      "must_include": [
+        "job",
+        "architecture",
+        "permissions",
+        "test"
+      ],
+      "must_not": [
+        "add MCP without a tool need",
+        "claim unverified host compatibility"
+      ],
+      "notes": "The architect should choose the lightest justified layer and keep package, registry and host evidence separate."
     }
   ]
 }

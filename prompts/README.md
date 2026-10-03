@@ -9,6 +9,7 @@
 | [Source Synthesis](research/source-synthesis.md) | turn multiple sources into a traceable synthesis |
 | [Trend Evidence Auditor](research/trend-evidence-auditor.md) | separate current evidence from hype |
 | [Assistant Builder](assistants/assistant-builder.md) | design a narrow reusable assistant |
+| [Plugin & MCP Architect](assistants/plugin-mcp-architect.md) | choose and design the lightest justified prompt/skill/MCP/plugin architecture |
 | [Approval-Gated Automation](automation/approval-gated-workflow.md) | design a safe repeatable automation |
 | [Reels Director](creator/reels-director.md) | build a 30–35 second short-form package |
 | [Pinterest Cluster Builder](creator/pinterest-cluster.md) | turn one search opportunity into a 7-Pin system |

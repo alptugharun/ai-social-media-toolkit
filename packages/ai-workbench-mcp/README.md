@@ -6,7 +6,7 @@
 
 It exists for one job: let an MCP-capable host discover a small local AI Workbench catalog without giving the server network, shell, account or filesystem-write access.
 
-> **Status:** alpha package candidate. The source package is CI-tested. Do not treat it as a published PyPI or official MCP Registry package until the exact public artifact is linked here.
+> **Status:** public alpha. `alptugharun-ai-workbench-mcp==0.1.0a1` is published on PyPI, the official MCP Registry reports `io.github.alptugharun/ai-workbench-mcp` as active, and a dated maintainer-run Cursor host verification covers all three public tools.
 
 ## What you get
 
@@ -157,33 +157,25 @@ Call `list_prompts` first and supply exactly the template variables required by 
 
 It will not. This server is intentionally local and read-only. Use the returned instruction in the model/host you chose.
 
-## Exact-version install after PyPI publication
+## Exact-version public install
 
-The first package candidate is `0.1.0a1`.
+The first public alpha is `0.1.0a1`.
 
-Only after that exact version is actually published and verified will this become a valid public install command:
+Install the exact published version:
 
 ```bash
-uvx --from alptugharun-ai-workbench-mcp==0.1.0a1 alptugharun-ai-workbench-mcp
+python -m pip install "alptugharun-ai-workbench-mcp==0.1.0a1"
 ```
 
-Until then, use the repository-local install above.
+Then launch `alptugharun-ai-workbench-mcp` from the same Python environment. Keep local-source tests separate from published-package verification.
 
-## Official MCP Registry gate
+## Official MCP Registry status
 
-A `server.json` is intentionally **not** added just to look registry-ready.
+The focused standalone repository owns the public Registry metadata. Version `0.1.0a1` is published under `io.github.alptugharun/ai-workbench-mcp` and currently reports `active`.
 
-The publication sequence is:
+Registry acceptance proves metadata/ownership requirements were satisfied. It does not prove universal host compatibility.
 
-1. publish the exact signed package to PyPI;
-2. clean-install that exact public version;
-3. repeat initialize → `tools/list` → named tool calls;
-4. generate metadata using the current MCP publisher/schema;
-5. run `mcp-publisher validate server.json`;
-6. publish only after validation succeeds;
-7. test the registry-installed package in a real MCP host.
-
-See [REGISTRY-PUBLISHING.md](REGISTRY-PUBLISHING.md).
+See [REGISTRY-PUBLISHING.md](REGISTRY-PUBLISHING.md) for the evidence boundary and standalone source-of-truth link.
 
 ## Independent verification wanted
 

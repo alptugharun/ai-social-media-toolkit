@@ -55,7 +55,7 @@ If you do not get that result, stop there and use [Troubleshooting](downloads/AI
 | **Try a useful AI workflow now** | [10 Quick Wins](QUICK-WINS.md) | one copyable workflow with a quality check |
 | **Build a reusable ChatGPT / Claude / Gemini / Grok assistant** | [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md) | provider-specific instruction package from one portable job |
 | **Install Agent Skills** | [Installation](docs/INSTALLATION.md) | a dry-run plan first, then an explicit install path |
-| **Connect local read-only tools with MCP** | [Standalone MCP package](packages/ai-workbench-mcp/README.md) | a local stdio server with three bounded, read-only tools |
+| **Connect local read-only tools with MCP** | [AI Workbench MCP](packages/ai-workbench-mcp/README.md) | a published read-only stdio server with three bounded public tools |
 | **Analyze creator/social signals** | [Two-Minute Demo](examples/TWO-MINUTE-DEMO.md) | synthetic scoring output you can compare with the documented result |
 | **Use my own CSV/export** | [CSV input contract](docs/CSV-INPUTS.md) | exact required columns plus validation before scoring |
 | **Understand everything A–Z** | [Complete field manual](docs/HOW-TO-USE-EVERYTHING.md) | the full map of tools, skills, automations and limitations |
