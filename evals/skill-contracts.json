@@ -1,0 +1,277 @@
+{
+  "schema_version": 1,
+  "status": "contract fixtures only; not runtime model evaluation results",
+  "cases": [
+    {
+      "id": "creator-ops-routes-before-writing",
+      "skill": "creator-ops",
+      "prompt": "I need a creator workflow for a new idea but I am not sure whether this is a Reels, Pinterest, research, or monetization task. Route the work before producing content.",
+      "must_include": [
+        "objective",
+        "route",
+        "review",
+        "measurement"
+      ],
+      "must_not": [
+        "claim guaranteed virality",
+        "invent performance data"
+      ],
+      "notes": "The orchestration layer should identify the job first and use the minimum relevant workflow."
+    },
+    {
+      "id": "viral-content-radar-evidence-before-trend-claim",
+      "skill": "viral-content-radar",
+      "prompt": "One post looks popular. Tell me if it is a real trend and what reusable mechanic is worth testing.",
+      "must_include": [
+        "evidence",
+        "baseline",
+        "reusable mechanic",
+        "confidence"
+      ],
+      "must_not": [
+        "call one post a confirmed trend",
+        "copy source-specific wording"
+      ],
+      "notes": "Separate a reusable mechanic from one-off expression and label weak evidence honestly."
+    },
+    {
+      "id": "reels-director-production-ready-brief",
+      "skill": "reels-director",
+      "prompt": "Turn this idea into a 30-35 second vertical Reel with a clear hook, shot flow, voiceover pacing, visual direction and review gate.",
+      "must_include": [
+        "hook",
+        "timing",
+        "shot",
+        "review"
+      ],
+      "must_not": [
+        "promise reach",
+        "ignore the requested duration"
+      ],
+      "notes": "The result should be usable as a production brief, not a generic caption."
+    },
+    {
+      "id": "pinterest-growth-engine-cluster-with-destination",
+      "skill": "pinterest-growth-engine",
+      "prompt": "Build a Pinterest content cluster around one validated keyword theme. Every Pin needs a distinct angle and a destination decision.",
+      "must_include": [
+        "keyword intent",
+        "Pin",
+        "destination",
+        "KPI"
+      ],
+      "must_not": [
+        "duplicate the same creative seven times",
+        "invent search volume"
+      ],
+      "notes": "A cluster should vary intent and creative while preserving a coherent destination strategy."
+    },
+    {
+      "id": "content-repurposer-platform-native",
+      "skill": "content-repurposer",
+      "prompt": "Repurpose one source article into Instagram, Pinterest and LinkedIn outputs without copying the same structure to every platform.",
+      "must_include": [
+        "source",
+        "platform",
+        "adapt",
+        "CTA"
+      ],
+      "must_not": [
+        "use identical platform execution",
+        "invent facts not present in the source"
+      ],
+      "notes": "Transformation should be platform-native rather than mechanical duplication."
+    },
+    {
+      "id": "influencer-fit-auditor-no-vanity-only-score",
+      "skill": "influencer-fit-auditor",
+      "prompt": "Evaluate whether this creator is a fit for a campaign. I only have audience notes, content examples and a few public metrics.",
+      "must_include": [
+        "fit",
+        "evidence",
+        "risk",
+        "recommendation"
+      ],
+      "must_not": [
+        "treat follower count as sufficient proof",
+        "invent audience demographics"
+      ],
+      "notes": "The audit should explain fit and uncertainty instead of reducing the decision to vanity metrics."
+    },
+    {
+      "id": "brand-voice-humanizer-preserve-facts",
+      "skill": "brand-voice-humanizer",
+      "prompt": "Rewrite this stiff AI-sounding paragraph so it reads like a person wrote it, but do not change any factual claims or add new ones.",
+      "must_include": [
+        "voice",
+        "meaning",
+        "facts"
+      ],
+      "must_not": [
+        "add unsupported claims",
+        "turn every sentence into hype"
+      ],
+      "notes": "Humanization must preserve meaning and factual boundaries."
+    },
+    {
+      "id": "signal-to-content-evidence-to-test",
+      "skill": "signal-to-content",
+      "prompt": "Turn a weak but interesting audience signal into an original content experiment with a measurable review step.",
+      "must_include": [
+        "evidence",
+        "test",
+        "KPI",
+        "original"
+      ],
+      "must_not": [
+        "present a hypothesis as measured fact",
+        "guarantee virality"
+      ],
+      "notes": "The output should convert evidence into a bounded test rather than a certainty."
+    },
+    {
+      "id": "comment-intelligence-questions-not-fake-demand",
+      "skill": "comment-intelligence",
+      "prompt": "Analyze a small set of comments for repeated questions, objections and content opportunities. Do not claim market demand from this sample alone.",
+      "must_include": [
+        "question",
+        "objection",
+        "evidence",
+        "opportunity"
+      ],
+      "must_not": [
+        "call the sample market-wide demand",
+        "invent comment counts"
+      ],
+      "notes": "Comment patterns are qualitative signals unless stronger measurement exists."
+    },
+    {
+      "id": "agent-skill-safety-auditor-permission-first",
+      "skill": "agent-skill-safety-auditor",
+      "prompt": "Audit an unfamiliar Agent Skill before installation. Highlight execution, network, credential, filesystem and supply-chain risks.",
+      "must_include": [
+        "permissions",
+        "credentials",
+        "network",
+        "filesystem"
+      ],
+      "must_not": [
+        "label the project malicious without evidence",
+        "recommend bypassing sandbox restrictions"
+      ],
+      "notes": "The audit should be evidence-led and distinguish risk from confirmed malicious behavior."
+    },
+    {
+      "id": "github-opportunity-radar-proxy-labeling",
+      "skill": "github-opportunity-radar",
+      "prompt": "Find an underserved GitHub opportunity using repository activity and search-result counts, but keep proxies separate from actual demand.",
+      "must_include": [
+        "proxy",
+        "competition",
+        "evidence",
+        "validation"
+      ],
+      "must_not": [
+        "call repository result count search volume",
+        "predict guaranteed stars"
+      ],
+      "notes": "Opportunity scoring is a prioritization heuristic, not a forecast."
+    },
+    {
+      "id": "maps-opportunity-radar-no-generic-wrapper",
+      "skill": "maps-opportunity-radar",
+      "prompt": "Research a Maps-related AI opportunity and tell me whether a generic place-search wrapper is actually differentiated.",
+      "must_include": [
+        "existing solutions",
+        "gap",
+        "policy",
+        "validation"
+      ],
+      "must_not": [
+        "assume a generic wrapper is novel",
+        "recommend restricted scraping"
+      ],
+      "notes": "The radar should inspect supply and favor higher-level workflow value."
+    },
+    {
+      "id": "maps-policy-guard-storage-and-attribution",
+      "skill": "maps-policy-guard",
+      "prompt": "Review a proposed Maps workflow that stores place data and screenshots for later analysis. Identify policy and architecture risks before implementation.",
+      "must_include": [
+        "storage",
+        "attribution",
+        "authorization",
+        "risk"
+      ],
+      "must_not": [
+        "approve scraping by default",
+        "ignore data-retention constraints"
+      ],
+      "notes": "The guard should surface policy-sensitive architecture choices before build."
+    },
+    {
+      "id": "local-business-intelligence-authorized-signals",
+      "skill": "local-business-intelligence",
+      "prompt": "Create a local business insight brief using owned or authorized signals. Keep observations separate from assumptions.",
+      "must_include": [
+        "source",
+        "observation",
+        "inference",
+        "action"
+      ],
+      "must_not": [
+        "invent private analytics",
+        "infer sensitive traits"
+      ],
+      "notes": "The workflow must use permitted evidence and preserve the observation/inference boundary."
+    },
+    {
+      "id": "commercial-opportunity-radar-buyer-proof",
+      "skill": "commercial-opportunity-radar",
+      "prompt": "Evaluate a possible paid AI service. I want a prioritized validation plan, not a revenue prediction.",
+      "must_include": [
+        "buyer",
+        "problem",
+        "proof",
+        "validation"
+      ],
+      "must_not": [
+        "forecast revenue as fact",
+        "recommend billing before buyer evidence"
+      ],
+      "notes": "Commercial scoring should lead to a small proof step and a stop condition."
+    },
+    {
+      "id": "monetization-architect-stage-after-value",
+      "skill": "monetization-architect",
+      "prompt": "Design a monetization path for an open-source workflow that has some real usage evidence but no proven recurring buyer yet.",
+      "must_include": [
+        "free value",
+        "buyer",
+        "stage",
+        "evidence"
+      ],
+      "must_not": [
+        "paywall the useful core immediately",
+        "assume willingness to pay"
+      ],
+      "notes": "The architecture should stage monetization after usefulness and buyer validation."
+    },
+    {
+      "id": "pinterest-opportunity-radar-no-fabricated-trends",
+      "skill": "pinterest-opportunity-radar",
+      "prompt": "Research a Pinterest opportunity when live Trends API data is unavailable. Show what can still be concluded and what remains a hypothesis.",
+      "must_include": [
+        "evidence",
+        "hypothesis",
+        "seasonality",
+        "validation"
+      ],
+      "must_not": [
+        "invent trend growth percentages",
+        "claim missing API data means no trend exists"
+      ],
+      "notes": "The radar should degrade honestly when live platform evidence is unavailable."
+    }
+  ]
+}

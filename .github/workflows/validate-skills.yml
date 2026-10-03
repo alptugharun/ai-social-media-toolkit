@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "skills/**"
+      - "evals/**"
       - "tools/**"
       - "packages/**"
       - "tests/**"
@@ -31,6 +32,7 @@ on:
   pull_request:
     paths:
       - "skills/**"
+      - "evals/**"
       - "tools/**"
       - "packages/**"
       - "tests/**"
@@ -158,6 +160,7 @@ jobs:
           python -m json.tool gemini-extension.json >/dev/null
           python -m json.tool .claude-plugin/plugin.json >/dev/null
           python -m json.tool .github/self-heal-policy.json >/dev/null
+          python -m json.tool evals/skill-contracts.json >/dev/null
 
           while IFS= read -r -d '' file; do
             echo "Validating $file"
