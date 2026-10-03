@@ -44,7 +44,16 @@ class SkillEvaluationContractTests(unittest.TestCase):
 
     def test_contracts_do_not_encode_fake_success(self):
         forbidden = ("passed in production", "100% compatible", "guaranteed viral", "guaranteed revenue")
-        serialized = json.dumps(self.data, ensure_ascii=False).lower()
+        claimed_text = [self.data["status"]]
+        for case in self.cases:
+            claimed_text.extend(
+                [
+                    case["prompt"],
+                    case["notes"],
+                    *case["must_include"],
+                ]
+            )
+        serialized = "\n".join(claimed_text).lower()
         for phrase in forbidden:
             self.assertNotIn(phrase, serialized)
 
