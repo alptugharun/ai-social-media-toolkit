@@ -9,7 +9,7 @@
 
 Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -24,6 +24,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Prove the repo works without an API key** | [Start Here](START-HERE.md) |
 | **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
+| **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
 | **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
@@ -61,7 +62,7 @@ It exposes three tools — `list_prompts`, `render_prompt`, and `get_assistant` 
 
 [Standalone MCP repository](https://github.com/alptugharun/ai-workbench-mcp) · [Bundled integration copy](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
-The PyPI/official MCP Registry path is deliberately gated until the first signed package release is published and verified. Do not treat local package readiness as proof of every MCP host.
+Version `0.1.0a1` is published on PyPI and the official MCP Registry currently reports `io.github.alptugharun/ai-workbench-mcp` as active. A maintainer-run Cursor 3.20.21 session successfully invoked all three public tools. Keep package publication, registry acceptance, maintainer host verification and independent user verification as separate evidence levels.
 
 Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-CARDS.md). Need the complete setup? Use the [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md), including Windows commands and troubleshooting.
 
@@ -80,7 +81,7 @@ Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-
 | **MCP and integrations** | Read-only local MCP tooling, integration contracts and Plugin/MCP decision guidance | [Integrations Hub](integrations/README.md) |
 | **Creative work** | Canva + AI, Pinterest, Reels, brand voice and repurposing resources | [Creator materials](downloads/README.md) |
 | **Automation recipes** | Approval-gated research, publishing, monitoring and recovery patterns | [Automation Recipes](automation-recipes/README.md) |
-| **Learning paths** | Prompt → assistant → skill → API → MCP → automation progression | [Learning Paths](learning/README.md) |
+| **Learning paths** | Prompt → assistant → skill → MCP → plugin → automation progression, including test and failure gates | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Measurement and operations** | Content scoring, outlier analysis, research radars and bounded failure diagnosis | [Existing toolkit manual](docs/HOW-TO-USE-EVERYTHING.md) |
 
 A prompt is an instruction. An assistant package organizes behavior. A skill is reusable instruction material in a supported host. An MCP server exposes tools. An API bot runs code against a provider. None of these automatically grants account access, installs a plugin or publishes content.

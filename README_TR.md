@@ -13,7 +13,7 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
-[Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
@@ -26,6 +26,7 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 | **Repo gerçekten çalışıyor mu görmek** | [Start Here](START-HERE.md) |
 | **Hemen faydalı bir AI işi denemek** | [10 Quick Wins](QUICK-WINS.md) |
 | **ChatGPT / Claude / Gemini / Grok arasında aynı işi taşımak** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
+| **Prompt → asistan → skill → MCP → plugin geliştirmeyi öğrenmek** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Agent Skill kurmak** | [Agent Skills](skills/README.md) |
 | **Yerel, salt-okunur MCP çalıştırmak** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
 | **Canva / Pinterest / Reels creator akışlarını kullanmak** | [Creator Materials](downloads/README.md) |
@@ -75,7 +76,9 @@ Sunulan araçlar:
 
 Bu MCP yüzeyi ağ erişimi, shell, dosya yazma, hesap erişimi veya model-provider çağrısı istemez.
 
-[Standalone MCP repo](https://github.com/alptugharun/ai-workbench-mcp) · [Toolkit içindeki entegrasyon kopyası](packages/ai-workbench-mcp/README.md) · [Bağımsız host / release gate](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
+[Standalone MCP repo](https://github.com/alptugharun/ai-workbench-mcp) · [Toolkit içindeki entegrasyon kopyası](packages/ai-workbench-mcp/README.md) · [Bağımsız host doğrulaması](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
+
+`0.1.0a1` sürümü PyPI'da yayımlandı ve official MCP Registry kaydı `active`. Cursor 3.20.21 üzerinde maintainer-run testte üç public tool da gerçek host üzerinden çağrıldı. Paket yayını, registry kabulü, maintainer host testi ve bağımsız kullanıcı doğrulaması ayrı kanıt seviyeleridir.
 
 ## Repo içinde neler var?
 
@@ -151,7 +154,7 @@ python tools/two_minute_demo.py
 - M8ven Verified / Live Monitoring
 - Standalone MCP artık ayrı public repoda; toolkit içindeki kopya entegrasyon testi için korunuyor
 - GitHub Repository Rules, Dependabot security updates ve private vulnerability reporting aktif
-- PyPI ve official MCP Registry yayını kanıta dayalı release gate arkasında
+- AI Workbench MCP `0.1.0a1` PyPI'da yayımlandı; official MCP Registry kaydı `active`; maintainer-run Cursor host doğrulaması kaydedildi; bağımsız kullanıcı doğrulaması hâlâ açık hedef
 
 Güncel teknik durum için:
 

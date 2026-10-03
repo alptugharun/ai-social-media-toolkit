@@ -18,10 +18,10 @@ This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor 
 
 - M8ven publisher ownership is verified and GitHub Live Monitoring is connected.
 - M8ven's latest visible public grade is **B / 89** at commit `0e62484`; current `main` is newer, so treat the displayed M8ven finding as a stale external snapshot until its page names the newer commit.
-- PR #112 added direct name-level calls for every packaged MCP tool and strengthened the release-readiness gate; it merged into `main` after Validate Agent Skills and CodeQL passed.
+- PR #112 added direct name-level calls for every packaged MCP tool and strengthened the release-readiness gate. PR #135 later added adjacent package-local tests for `list_prompts`, `render_prompt` and `get_assistant` and made that coverage part of CI/release readiness. PR #136 added the AI Builder learning path plus `plugin-mcp-architect`; PR #137 moved the embedded build backend to patched `setuptools==84.0.0` with a regression guard.
 - **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)** is now the canonical standalone MCP distribution repository. The toolkit copy remains an integration/test surface during cutover.
-- The standalone MCP repo has Linux/Windows CI, CodeQL, OpenSSF Scorecard, Dependabot, Repository Rules, private vulnerability reporting and a `pypi` GitHub environment. PyPI publication still requires the pending Trusted Publisher identity step.
-- Official MCP Registry `server.json` remains intentionally gated until PyPI publication and clean host verification.
+- The standalone MCP repo has Linux/Windows CI, CodeQL, OpenSSF Scorecard, Dependabot, Repository Rules, private vulnerability reporting and a protected `pypi` GitHub environment. Version `0.1.0a1` is published to PyPI through Trusted Publishing with signed release evidence.
+- The official MCP Registry entry `io.github.alptugharun/ai-workbench-mcp` is published and reports `active`. A maintainer-run Cursor 3.20.21 session invoked all three public tools successfully; independent external host verification remains a separate open adoption goal.
 - This toolkit now uses active GitHub Repository Rules on `main` (PR flow, required validation/CodeQL checks, linear history, no force-push/delete bypass), plus Dependabot security updates and private vulnerability reporting.
 - OpenSSF Scorecard last observed **7.0** on `af97b51` before the Repository Rules migration; the next external run must confirm that branch protection is now readable.
 
@@ -125,7 +125,7 @@ Candidate commercial lanes remain hypotheses until external use or buyer evidenc
 
 ## Agent Skills
 
-After the Pinterest visibility release, the repository contains **17 Agent Skills**:
+The repository currently contains **18 Agent Skills**:
 
 1. `creator-ops`
 2. `viral-content-radar`
@@ -144,6 +144,7 @@ After the Pinterest visibility release, the repository contains **17 Agent Skill
 15. `commercial-opportunity-radar`
 16. `monetization-architect`
 17. `pinterest-opportunity-radar`
+18. `plugin-mcp-architect`
 
 ## Daily Automations
 

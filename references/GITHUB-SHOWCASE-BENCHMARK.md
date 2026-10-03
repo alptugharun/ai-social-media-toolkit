@@ -207,7 +207,7 @@ The best standalone candidates are:
 1. **AI Workbench MCP**
    - existing package boundary;
    - read-only local MCP;
-   - tests and PyPI release gate already exist.
+   - published PyPI package, official MCP Registry entry, cross-platform tests and maintainer-run real-host evidence already exist.
 
 2. **Agent Skill Safety Auditor**
    - narrow trust job;

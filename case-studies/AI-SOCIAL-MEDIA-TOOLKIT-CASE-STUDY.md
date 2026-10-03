@@ -59,7 +59,7 @@ The objective is to let a visitor use the system rather than only read about it.
 
 ### 3. Portable Agent Skills
 
-The toolkit now contains **17 Agent Skills** covering creator, research, visibility and commercial workflows.
+The toolkit now contains **18 Agent Skills** covering creator, research, visibility, commercial workflows and plugin/MCP architecture.
 
 Current skills include:
 
@@ -80,6 +80,7 @@ Current skills include:
 - Local Business Intelligence
 - Commercial Opportunity Radar
 - Monetization Architect
+- Plugin & MCP Architect
 
 The skills are packaged as portable `SKILL.md` workflows and documented for Agent Skills-compatible environments including Claude Code, OpenAI Codex, Gemini CLI, Grok, Cursor and similar runtimes.
 

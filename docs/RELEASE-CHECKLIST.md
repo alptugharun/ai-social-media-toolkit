@@ -39,7 +39,7 @@ One sentence describing the creator-operations job.
 
 ### What is included
 
-- 17 Agent Skills
+- 18 Agent Skills
 - runnable creator decision tools
 - approval-gated GitHub automation
 - free creator starter materials
