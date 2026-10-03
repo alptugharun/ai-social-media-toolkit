@@ -7,7 +7,6 @@ on:
       - "skills/**"
       - "evals/**"
       - "tools/**"
-      - "packages/**"
       - "tests/**"
       - "examples/**"
       - "downloads/**"
@@ -41,7 +40,6 @@ on:
       - "skills/**"
       - "evals/**"
       - "tools/**"
-      - "packages/**"
       - "tests/**"
       - "examples/**"
       - "downloads/**"
@@ -190,23 +188,14 @@ jobs:
       - name: Audit public release readiness
         run: python tools/release_readiness.py
 
-      - name: Compile Python tools, package and tests
+      - name: Compile Python tools and tests
         shell: bash
         run: |
           set -euo pipefail
-          python -W error::SyntaxWarning -m compileall -q tools packages/ai-workbench-mcp/src tests
+          python -W error::SyntaxWarning -m compileall -q tools tests
 
       - name: Run installer tests
         run: python -m unittest discover -s tests -v
-
-      - name: Build and smoke-test standalone MCP wheel
-        shell: bash
-        run: |
-          set -euo pipefail
-          rm -rf .mcp-dist
-          python -m pip wheel --disable-pip-version-check --no-deps packages/ai-workbench-mcp --wheel-dir .mcp-dist
-          python -m pip install --disable-pip-version-check --no-deps --force-reinstall .mcp-dist/*.whl
-          python packages/ai-workbench-mcp/examples/smoke_client.py
 
       - name: Smoke-test installer
         shell: bash
