@@ -148,6 +148,257 @@ def check_json_files() -> list[str]:
     return [f"json-manifests:{checked}"]
 
 
+def check_citation_metadata() -> list[str]:
+    path = ROOT / "CITATION.cff"
+    text = path.read_text(encoding="utf-8")
+    required_patterns = {
+        "cff-version": r"(?m)^cff-version:\s*1\.2\.0\s*$",
+        "title": r'(?m)^title:\s*"AI Social Media Toolkit"\s*    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unpinned: list[str] = []
+    uses_count = 0
+    for workflow in workflows:
+        for line_no, line in enumerate(workflow.read_text(encoding="utf-8").splitlines(), 1):
+            match = ACTION_REF.match(line)
+            if not match:
+                continue
+            uses_count += 1
+            ref = match.group(1)
+            if ref.startswith("./") or re.fullmatch(r"[0-9a-f]{40}", ref):
+                continue
+            unpinned.append(f"{workflow.relative_to(ROOT)}:{line_no} -> {ref}")
+
+    if unpinned:
+        fail("Third-party Actions must use immutable 40-char commit SHAs:\n" + "\n".join(unpinned))
+    return [f"actions-immutable-refs:{uses_count}"]
+
+
+def check_workflow_top_level_permissions() -> list[str]:
+    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unsafe: list[str] = []
+    missing: list[str] = []
+    for workflow in workflows:
+        text = workflow.read_text(encoding="utf-8")
+        prefix = text.split("\njobs:", 1)[0]
+        match = re.search(r"(?ms)^permissions:\s*(.*?)(?=^\S|\Z)", prefix)
+        if not match:
+            missing.append(str(workflow.relative_to(ROOT)))
+            continue
+        block = match.group(0)
+        if re.search(r"(?m)^permissions:\s*write-all\s*$", block) or re.search(
+            r"(?m)^\s{2}[A-Za-z0-9_-]+:\s*write\s*(?:#.*)?$", block
+        ):
+            unsafe.append(str(workflow.relative_to(ROOT)))
+
+    if missing:
+        fail("Workflows must declare top-level permissions: " + ", ".join(missing))
+    if unsafe:
+        fail(
+            "Top-level workflow permissions must remain read-only; move required writes to the narrowest job: "
+            + ", ".join(unsafe)
+        )
+    return [f"workflow-top-level-readonly:{len(workflows)}"]
+
+
+def run() -> list[str]:
+    checks: list[str] = []
+    checks.extend(check_public_files())
+    checks.extend(check_mcp_tools())
+    checks.extend(check_json_files())
+    checks.extend(check_citation_metadata())
+    checks.extend(check_actions_pinned())
+    checks.extend(check_workflow_top_level_permissions())
+    return checks
+
+
+def main() -> int:
+    try:
+        checks = run()
+    except (ReadinessError, OSError, SyntaxError, ValueError, json.JSONDecodeError) as exc:
+        print(f"READINESS FAIL: {exc}", file=sys.stderr)
+        return 1
+
+    print("READINESS PASS")
+    for item in checks:
+        print(f"- {item}")
+    print("- external-reputation:not-asserted")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+,
+        "type": r"(?m)^type:\s*software\s*$",
+        "author": r'(?m)^\s+given-names:\s*"Alptuğ"\s*    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unpinned: list[str] = []
+    uses_count = 0
+    for workflow in workflows:
+        for line_no, line in enumerate(workflow.read_text(encoding="utf-8").splitlines(), 1):
+            match = ACTION_REF.match(line)
+            if not match:
+                continue
+            uses_count += 1
+            ref = match.group(1)
+            if ref.startswith("./") or re.fullmatch(r"[0-9a-f]{40}", ref):
+                continue
+            unpinned.append(f"{workflow.relative_to(ROOT)}:{line_no} -> {ref}")
+
+    if unpinned:
+        fail("Third-party Actions must use immutable 40-char commit SHAs:\n" + "\n".join(unpinned))
+    return [f"actions-immutable-refs:{uses_count}"]
+
+
+def check_workflow_top_level_permissions() -> list[str]:
+    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unsafe: list[str] = []
+    missing: list[str] = []
+    for workflow in workflows:
+        text = workflow.read_text(encoding="utf-8")
+        prefix = text.split("\njobs:", 1)[0]
+        match = re.search(r"(?ms)^permissions:\s*(.*?)(?=^\S|\Z)", prefix)
+        if not match:
+            missing.append(str(workflow.relative_to(ROOT)))
+            continue
+        block = match.group(0)
+        if re.search(r"(?m)^permissions:\s*write-all\s*$", block) or re.search(
+            r"(?m)^\s{2}[A-Za-z0-9_-]+:\s*write\s*(?:#.*)?$", block
+        ):
+            unsafe.append(str(workflow.relative_to(ROOT)))
+
+    if missing:
+        fail("Workflows must declare top-level permissions: " + ", ".join(missing))
+    if unsafe:
+        fail(
+            "Top-level workflow permissions must remain read-only; move required writes to the narrowest job: "
+            + ", ".join(unsafe)
+        )
+    return [f"workflow-top-level-readonly:{len(workflows)}"]
+
+
+def run() -> list[str]:
+    checks: list[str] = []
+    checks.extend(check_public_files())
+    checks.extend(check_mcp_tools())
+    checks.extend(check_json_files())
+    checks.extend(check_actions_pinned())
+    checks.extend(check_workflow_top_level_permissions())
+    return checks
+
+
+def main() -> int:
+    try:
+        checks = run()
+    except (ReadinessError, OSError, SyntaxError, ValueError, json.JSONDecodeError) as exc:
+        print(f"READINESS FAIL: {exc}", file=sys.stderr)
+        return 1
+
+    print("READINESS PASS")
+    for item in checks:
+        print(f"- {item}")
+    print("- external-reputation:not-asserted")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+,
+        "repository": r'(?m)^repository-code:\s*"https://github\.com/alptugharun/ai-social-media-toolkit"\s*    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unpinned: list[str] = []
+    uses_count = 0
+    for workflow in workflows:
+        for line_no, line in enumerate(workflow.read_text(encoding="utf-8").splitlines(), 1):
+            match = ACTION_REF.match(line)
+            if not match:
+                continue
+            uses_count += 1
+            ref = match.group(1)
+            if ref.startswith("./") or re.fullmatch(r"[0-9a-f]{40}", ref):
+                continue
+            unpinned.append(f"{workflow.relative_to(ROOT)}:{line_no} -> {ref}")
+
+    if unpinned:
+        fail("Third-party Actions must use immutable 40-char commit SHAs:\n" + "\n".join(unpinned))
+    return [f"actions-immutable-refs:{uses_count}"]
+
+
+def check_workflow_top_level_permissions() -> list[str]:
+    workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
+    if not workflows:
+        fail("No GitHub Actions workflows found.")
+
+    unsafe: list[str] = []
+    missing: list[str] = []
+    for workflow in workflows:
+        text = workflow.read_text(encoding="utf-8")
+        prefix = text.split("\njobs:", 1)[0]
+        match = re.search(r"(?ms)^permissions:\s*(.*?)(?=^\S|\Z)", prefix)
+        if not match:
+            missing.append(str(workflow.relative_to(ROOT)))
+            continue
+        block = match.group(0)
+        if re.search(r"(?m)^permissions:\s*write-all\s*$", block) or re.search(
+            r"(?m)^\s{2}[A-Za-z0-9_-]+:\s*write\s*(?:#.*)?$", block
+        ):
+            unsafe.append(str(workflow.relative_to(ROOT)))
+
+    if missing:
+        fail("Workflows must declare top-level permissions: " + ", ".join(missing))
+    if unsafe:
+        fail(
+            "Top-level workflow permissions must remain read-only; move required writes to the narrowest job: "
+            + ", ".join(unsafe)
+        )
+    return [f"workflow-top-level-readonly:{len(workflows)}"]
+
+
+def run() -> list[str]:
+    checks: list[str] = []
+    checks.extend(check_public_files())
+    checks.extend(check_mcp_tools())
+    checks.extend(check_json_files())
+    checks.extend(check_actions_pinned())
+    checks.extend(check_workflow_top_level_permissions())
+    return checks
+
+
+def main() -> int:
+    try:
+        checks = run()
+    except (ReadinessError, OSError, SyntaxError, ValueError, json.JSONDecodeError) as exc:
+        print(f"READINESS FAIL: {exc}", file=sys.stderr)
+        return 1
+
+    print("READINESS PASS")
+    for item in checks:
+        print(f"- {item}")
+    print("- external-reputation:not-asserted")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+,
+    }
+    missing = [name for name, pattern in required_patterns.items() if not re.search(pattern, text)]
+    if missing:
+        fail("CITATION.cff is missing required metadata: " + ", ".join(missing))
+    return ["citation-metadata:complete"]
+
+
 def check_actions_pinned() -> list[str]:
     workflows = sorted((ROOT / ".github" / "workflows").glob("*.yml"))
     if not workflows:
