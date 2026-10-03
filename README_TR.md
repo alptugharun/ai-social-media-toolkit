@@ -28,6 +28,7 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 | **ChatGPT / Claude / Gemini / Grok arasında aynı işi taşımak** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Prompt → asistan → skill → MCP → plugin geliştirmeyi öğrenmek** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Agent Skill kurmak** | [Agent Skills](skills/README.md) |
+| **Skills-only ChatGPT/Codex plugin paketini geliştirmek/test etmek** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Yerel, salt-okunur MCP çalıştırmak** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
 | **Canva / Pinterest / Reels creator akışlarını kullanmak** | [Creator Materials](downloads/README.md) |
 | **Güvenlik ve doğrulama durumuna bakmak** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |

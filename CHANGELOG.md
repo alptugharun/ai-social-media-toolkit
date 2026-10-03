@@ -8,6 +8,7 @@ The project is currently in **alpha**. Until the first tagged release is publish
 
 ### Added
 
+- Portable skills-only Agent Plugin release gate with a deterministic ZIP builder, 18-skill package validation, submission-preparation test cases and a public Plugin Guide.
 - Standalone `ai-workbench-mcp` package boundary with dependency-free stdio server, bundled catalog and exact tool contracts.
 - CI wheel build/install/handshake verification on Ubuntu 24.04, Ubuntu 26.04 and Windows 2025.
 - Tokenless PyPI Trusted Publishing workflow with keyless Sigstore signing for MCP release artifacts.

@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ai-social-media-toolkit",
-  "version": "0.5.0",
-  "description": "Portable creator-operations Agent Skills for social content, Pinterest visibility, Maps/local-business intelligence, commercial opportunity research and evidence-backed automation.",
+  "version": "0.6.0",
+  "description": "Installable Agent Skills for AI-assisted creator operations: research, Reels, Pinterest, local visibility, content quality, commercial discovery and plugin/MCP architecture.",
   "author": {
     "name": "Alptuğ Harun",
     "url": "https://alptugharun.com"
@@ -12,6 +12,10 @@
   "license": "MIT",
   "keywords": [
     "agent-skills",
+    "chatgpt",
+    "codex",
+    "mcp",
+    "prompt-engineering",
     "creator-ops",
     "social-media",
     "content-strategy",

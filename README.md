@@ -26,6 +26,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
+| **Build/test the skills-only ChatGPT/Codex plugin** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
 | **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
 | **Inspect security, trust and runtime evidence** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
