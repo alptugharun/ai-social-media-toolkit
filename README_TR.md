@@ -53,29 +53,31 @@ Bu akış veri göndermez ve model çağırmaz.
 
 ## Standalone MCP
 
-MCP'nin bağımsız public projesi artık **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)**. Ana toolkit içindeki paket kopyası entegrasyon ve regresyon testleri için korunuyor.
+MCP'nin canonical public projesi **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)** reposudur. Aynı runtime kodunu iki repoda taşımamak için standalone package source artık yalnızca bu repoda tutuluyor.
 
-Bu repo içinden yerel paket kurulumu:
+PyPI sürümünü kur:
 
 ```bash
-python -m pip install --no-deps ./packages/ai-workbench-mcp
+python -m pip install "alptugharun-ai-workbench-mcp==0.1.0a1"
 ```
 
-MCP host'unun çalıştıracağı komut:
+MCP host komutu:
 
 ```text
 alptugharun-ai-workbench-mcp
 ```
 
-Sunulan araçlar:
+Araçlar:
 
 - `list_prompts`
 - `render_prompt`
 - `get_assistant`
 
-Bu MCP yüzeyi ağ erişimi, shell, dosya yazma, hesap erişimi veya model-provider çağrısı istemez.
+`0.1.0a1` PyPI'de yayında, resmi MCP Registry'de aktif ve Cursor 3.20.21 üzerinde üç araç çağrısıyla doğrulandı.
 
-[Standalone MCP repo](https://github.com/alptugharun/ai-workbench-mcp) · [Toolkit içindeki entegrasyon kopyası](packages/ai-workbench-mcp/README.md) · [Bağımsız host / release gate](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
+Ana toolkit ortak katalog için `tools/prompt_mcp_server.py` altındaki yerel MCP örneğini koruyor; standalone package source ve publish workflow burada kopyalanmıyor.
+
+[Standalone MCP repo](https://github.com/alptugharun/ai-workbench-mcp) · [Runtime kanıtı](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
 ## Repo içinde neler var?
 
@@ -149,9 +151,9 @@ python tools/two_minute_demo.py
 - CodeQL
 - OpenSSF Scorecard
 - M8ven Verified / Live Monitoring
-- Standalone MCP artık ayrı public repoda; toolkit içindeki kopya entegrasyon testi için korunuyor
+- Standalone MCP canonical olarak ayrı public repoda; toolkit içindeki duplicate package source kaldırıldı
 - GitHub Repository Rules, Dependabot security updates ve private vulnerability reporting aktif
-- PyPI ve official MCP Registry yayını kanıta dayalı release gate arkasında
+- AI Workbench MCP `0.1.0a1` PyPI'de yayınlandı ve official MCP Registry'de aktif
 
 Güncel teknik durum için:
 
