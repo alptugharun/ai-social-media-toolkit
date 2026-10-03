@@ -1,22 +1,30 @@
-# AI Social Media Toolkit
+# AI Social Media Toolkit — AI Workbench, Agent Skills & MCP
 
-**Practical AI tools, prompts, assistants and automation — with creator workflows included.**
+**Build practical, testable AI workflows for ChatGPT, Claude, Gemini, Grok and creator operations.**
 
-Built by **Alptuğ Harun** for people using ChatGPT, Claude, Grok, Gemini and agent-based tools in real work. Start with research, writing, learning, support or automation. Use the creator resources when the job calls for Canva, Pinterest, Reels or social-media strategy.
+Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Prompt Library](prompts/README.md) · [Assistants](assistants/README.md) · [AI Creator Stack](resources/AI-CREATOR-STACK.md) · [Learning Paths](learning/README.md)
+[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](packages/ai-workbench-mcp/README.md) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
-**Using ChatGPT, Claude, Gemini or Grok?** Start with the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds), then try the same reusable assistant job across providers before adding more infrastructure.
+**Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/alptugharun/ai-social-media-toolkit/badge)](https://scorecard.dev/viewer/?uri=github.com/alptugharun/ai-social-media-toolkit)
 
-## Ten things worth trying first
+## Pick one path
 
-If you only have a few minutes, open **[10 Quick Wins](QUICK-WINS.md)**. It gives direct paths for research synthesis, trend checking, reusable assistants, API request inspection, automations, Reels, Pinterest, brand voice and AI-output QA.
+| Goal | Fastest entry point |
+| --- | --- |
+| **Prove the repo works without an API key** | [Start Here](START-HERE.md) |
+| **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
+| **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
+| **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
+| **Run a local read-only MCP server** | [AI Workbench MCP](packages/ai-workbench-mcp/README.md) |
+| **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
+| **Inspect security, trust and runtime evidence** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
 
-Want to study the wider ecosystem without drowning in bookmarks? Use the **[AI Creator Stack](resources/AI-CREATOR-STACK.md)** — a curated map of prompt, Agent Skill, orchestration, learning and provider references, with notes on what to learn rather than what to copy.
+Want a curated ecosystem map after the first run? Use the **[AI Creator Stack](resources/AI-CREATOR-STACK.md)**.
 
 ## Start with one useful result
 

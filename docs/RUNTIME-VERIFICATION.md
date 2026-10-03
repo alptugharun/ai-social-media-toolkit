@@ -13,6 +13,7 @@
 | Gemini CLI | Manifest structure and installer placement | NOT TESTED |
 | GitHub Copilot | Installer placement in `.github/skills/` / `.copilot/skills/` | NOT TESTED |
 | Grok target | Installer placement in `.grok/skills/`; actual host capability needs separate evidence | NOT TESTED |
+| AI Workbench MCP (stdio) | Package build/install, initialize handshake, `tools/list`, named tool calls and bounded failure paths | NOT TESTED in an independent MCP host |
 
 Installer targets describe filesystem behavior, not a guarantee that every product or plan supports them. The contributor's withdrawal in [#38](https://github.com/alptugharun/ai-social-media-toolkit/issues/38) is not a FAIL and is not a PASS.
 
@@ -87,12 +88,30 @@ That local command is only a deterministic comparison; it does not substitute fo
 
 A PASS needs evidence that the real host discovered and invoked the skill, the requested sections are present, the top score agrees within 0.01, synthetic evidence is labelled, and no publication/performance claim is invented. Save a sanitized excerpt and the exact request. An assistant merely saying “I used the skill” is insufficient by itself; include available selector/tool/file-read evidence.
 
+## AI Workbench MCP: independent host verification
+
+The standalone package lives at [`packages/ai-workbench-mcp`](../packages/ai-workbench-mcp/README.md). Maintainer CI verifies the local package boundary, but that is not independent host evidence.
+
+From a clean checkout:
+
+```bash
+python -m pip install --no-deps ./packages/ai-workbench-mcp
+```
+
+Configure a current stdio-capable MCP host to launch:
+
+```text
+alptugharun-ai-workbench-mcp
+```
+
+A useful report records the host/version, OS/Python version, discovery of `list_prompts`, `render_prompt` and `get_assistant`, one successful call, one invalid-input result and the first confusing or blocked step. Submit MCP-specific evidence on [#110](https://github.com/alptugharun/ai-social-media-toolkit/issues/110).
+
 ## Other runtimes
 
 Use the same evidence requirements and [report template](RUNTIME-VERIFICATION-TEMPLATE.md), but follow the chosen host's current official installation and invocation instructions. Do not reuse Codex slash commands or `$` syntax in another host without checking. Start with [Installation](INSTALLATION.md); record any version-specific mismatch rather than claiming universal compatibility.
 
 ## Submit your evidence
 
-Post the filled [report template](RUNTIME-VERIFICATION-TEMPLATE.md) as a public-safe comment on [#38](https://github.com/alptugharun/ai-social-media-toolkit/issues/38), or use the [fork → PR guide](../CONTRIBUTING.md#submit-through-a-fork) for a documentation correction. A BLOCKED/FAIL report is useful feedback but does not complete a successful end-to-end verification task.
+For Agent Skill host evidence, post the filled [report template](RUNTIME-VERIFICATION-TEMPLATE.md) on [#38](https://github.com/alptugharun/ai-social-media-toolkit/issues/38). For the standalone MCP package, use [#110](https://github.com/alptugharun/ai-social-media-toolkit/issues/110). Use the [fork → PR guide](../CONTRIBUTING.md#submit-through-a-fork) for documentation or code corrections. A BLOCKED/FAIL report is useful feedback but does not complete a successful end-to-end verification task.
 
 Only promote a host to verified after a maintainer can reproduce the submitted, dated runtime/version-specific evidence. Local CI success alone never changes this matrix to PASS.

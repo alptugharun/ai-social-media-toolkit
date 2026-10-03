@@ -167,6 +167,9 @@ jobs:
       - name: Validate prompt library
         run: python tools/validate_prompt_library.py
 
+      - name: Validate public Markdown navigation
+        run: python tools/validate_docs.py
+
       - name: Audit public release readiness
         run: python tools/release_readiness.py
 

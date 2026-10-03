@@ -1,6 +1,6 @@
 # Project State — AI Social Media Toolkit
 
-Last updated: **2026-09-28**
+Last updated: **2026-10-03**
 
 This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor sessions working on this repository.
 
@@ -14,7 +14,16 @@ This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor 
 - Positioning: Social Media Specialist • Digital Content Creator • Creative Strategist
 - Related projects: ADYA Creative, Yeşil Dijital Akademi
 
-## Current owner direction — 2026-09-28
+## Current trust & distribution checkpoint — 2026-10-03
+
+- M8ven publisher ownership is verified and GitHub Live Monitoring is connected.
+- M8ven's latest observed public grade is **B / 89**; treat that as a dated external result, not a permanent repository claim.
+- The current visible M8ven quality suggestion is tool-name test coverage. PR #112 added direct name-level calls for every packaged MCP tool and strengthened the release-readiness gate; it merged into `main` after Validate Agent Skills and CodeQL passed.
+- The standalone `packages/ai-workbench-mcp` distribution boundary exists, builds in CI and has a tokenless PyPI Trusted Publishing + Sigstore release path. It is **not** claimed as published until the exact package version exists on PyPI and a clean exact-version install succeeds.
+- Official MCP Registry `server.json` remains intentionally gated until PyPI publication and clean host verification.
+- OpenSSF Scorecard and CodeQL run on the repository. Repository rules/branch protection are still an account-level hardening step and must be verified in GitHub settings.
+
+## Current owner direction
 
 **Useful public work -> relevant visibility and real adoption -> qualified website traffic -> revenue.**
 
@@ -91,7 +100,7 @@ The repository has four layers:
 
 ## Creator Materials Layer — 2026-09-29
 
-**State: APPLIED on feature branch; pending PR validation/merge.**
+**State: VERIFIED on `main`.**
 
 A user-facing materials hub is being added under `downloads/` to improve onboarding and external proof without increasing Agent Skill count.
 

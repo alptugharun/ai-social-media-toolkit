@@ -1,6 +1,6 @@
 # AI Social Media Toolkit
 
-> Installable creator-operations Agent Skills and practical tools for evidence-backed social-media research, Reels, Pinterest, influencer fit, content repurposing, brand voice, digital visibility, and AI-assisted creator workflows.
+> Practical, testable AI workflows: prompts, portable assistants, Agent Skills, a read-only MCP server, API/bot starters, automation patterns, and creator operations for ChatGPT, Claude, Gemini and Grok.
 
 Canonical repository: https://github.com/alptugharun/ai-social-media-toolkit
 Maintainer: Alptuğ Harun
@@ -10,7 +10,9 @@ Website: https://alptugharun.com
 
 - README: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/README.md
 - Agent instructions: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/AGENTS.md
+- First-run proof: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/START-HERE.md
 - Installation and compatibility: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/docs/INSTALLATION.md
+- Standalone read-only MCP: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/packages/ai-workbench-mcp/README.md
 - Skills catalog: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/README.md
 - Evidence policy: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/references/EVIDENCE-POLICY.md
 - Security policy: https://github.com/alptugharun/ai-social-media-toolkit/blob/main/SECURITY.md
@@ -44,6 +46,17 @@ Use the installation guide for runtime-specific paths and current compatibility 
   https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/brand-voice-humanizer/SKILL.md
 - Agent Skill Safety Auditor — reviews third-party skills before installation or reuse:
   https://github.com/alptugharun/ai-social-media-toolkit/blob/main/skills/agent-skill-safety-auditor/SKILL.md
+
+## MCP
+
+- AI Workbench MCP package:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/packages/ai-workbench-mcp/README.md
+- Trust/discovery review:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/docs/TRUST-DISCOVERY-REVIEW.md
+- Runtime verification matrix:
+  https://github.com/alptugharun/ai-social-media-toolkit/blob/main/docs/RUNTIME-VERIFICATION.md
+
+The MCP server is local/read-only and does not request network, shell, filesystem-write, account, or model-provider access. Do not claim PyPI or official MCP Registry publication until the exact published artifact and host verification are recorded.
 
 ## Runnable tools and examples
 
