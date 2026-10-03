@@ -11,6 +11,9 @@ This roadmap is intentionally short. It exists to make the project's current bet
 - [x] Add a complete human usage field manual.
 - [x] Open real `good first issue` contribution paths.
 - [ ] Reach the first **10 real external users**.
+- [ ] Publish the first signed `ai-workbench-mcp` prerelease to PyPI through Trusted Publishing and verify an exact-version clean install.
+- [ ] Publish the verified package metadata to the official MCP Registry only after `server.json` passes the current publisher validator.
+- [ ] Collect one independent real-host verification for the standalone MCP package.
 - [ ] Collect independent runtime verification for at least two Agent Skills hosts.
 - [ ] Add at least two external or independently reproduced end-to-end workflow examples.
 - [ ] Identify the top three repeated friction points from real use.

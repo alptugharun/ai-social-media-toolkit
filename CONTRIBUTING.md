@@ -10,6 +10,7 @@ You do **not** need to write a new Agent Skill to contribute.
 
 Choose a task whose prerequisites you already meet:
 
+- [Verify the standalone AI Workbench MCP in one real host](https://github.com/alptugharun/ai-social-media-toolkit/issues/110)
 - [Verify one Agent Skills runtime end-to-end](https://github.com/alptugharun/ai-social-media-toolkit/issues/38)
 - [Add one end-to-end creator workflow example](https://github.com/alptugharun/ai-social-media-toolkit/issues/40)
 
@@ -114,7 +115,13 @@ python -m unittest discover -s tests -v
 python tools/two_minute_demo.py
 ```
 
-For documentation-only changes, verify every changed relative link and make sure the instructions still match the current repository.
+For documentation-only changes, run:
+
+```bash
+python tools/validate_docs.py
+```
+
+Then preview the changed Markdown and make sure instructions still match the current repository.
 
 For CSV changes, also check the examples before ranking:
 

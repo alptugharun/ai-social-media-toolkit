@@ -26,22 +26,27 @@ It deliberately does **not** claim stars, users, registry acceptance, M8ven grad
 
 M8ven grades combine code findings, verification depth and reputation/adoption. Their public listings state that new projects can remain capped at **C / Emerging** until adoption is earned, even when no concerning code findings remain.
 
-For this repository's local MCP server:
+### Current repository state — observed 2026-10-03
 
-- all three tools now declare the four trust hints explicitly;
-- the hints are locked by tests;
-- the server is read-only and local;
-- no network, shell, account, file-write or provider call is exposed by those MCP tools.
+- publisher ownership is verified;
+- GitHub Live Monitoring is connected;
+- Sandbox Verified is present;
+- the public grade moved from the earlier **C / 74** snapshot to **B / 89** after current-code verification;
+- the remaining visible quality suggestion at that snapshot was tool-name test coverage;
+- PR #112 added direct name-level tests for every packaged MCP tool and strengthened the release-readiness gate; its cross-platform validation and CodeQL checks passed before merge.
 
-### Publisher action
+For the repository's local and packaged MCP surfaces:
 
-After claiming the listing, review each finding against the current commit and submit corrections where the scanner is still showing an older snapshot. A publisher claim is an identity/account step and must be performed by the repository owner.
+- all public tools declare the four trust hints explicitly;
+- tests lock those hints to explicit booleans;
+- the package is read-only and dependency-free at runtime;
+- no network, shell, account, filesystem-write or provider call is exposed by the MCP tools.
 
-Do not ask for a grade increase that the evidence does not support. Ask for **re-evaluation of the current commit** and identify the exact fixed findings.
+Treat any future M8ven grade as dated external evidence. Live Monitoring can re-score after pushes, and reputation/adoption remains outside the repository's direct control.
 
-Suggested note:
+### Publisher review rule
 
-> The current main branch explicitly declares readOnlyHint, destructiveHint, idempotentHint and openWorldHint for every MCP tool, and tests enforce all four fields as booleans. Please re-evaluate the latest commit and update any findings that still reflect an older snapshot. If the remaining grade cap is adoption/reputation-based, please leave that distinction visible rather than treating it as an unresolved code defect.
+Review every new finding against the exact commit M8ven says it scanned. Dispute only stale or incorrect findings with file-level evidence. Do not ask for a grade increase unsupported by the scanner or by adoption evidence.
 
 ## OpenAI / ChatGPT plugin review readiness
 
@@ -59,15 +64,15 @@ Official references:
 
 The official MCP Registry uses `server.json` metadata and verifies publish/package ownership. This repository does **not** add a cosmetic `server.json` before the MCP server has a real distributable package or remote URL.
 
-The publication gate is:
+The standalone product boundary now exists at `packages/ai-workbench-mcp`. The remaining publication gate is:
 
-1. choose the MCP product boundary;
-2. package it as a versioned artifact (for example PyPI/npm) **or** deploy a supported remote endpoint;
-3. add a valid `server.json` using the current schema;
+1. publish the exact prerelease version to PyPI through the existing Trusted Publishing workflow;
+2. verify a clean exact-version install and MCP handshake from the published artifact;
+3. generate a valid `server.json` using the current registry schema;
 4. validate with `mcp-publisher`;
-5. authenticate the namespace;
-6. publish;
-7. verify the exact published version can be installed and called from a real MCP host.
+5. authenticate the `io.github.alptugharun` namespace;
+6. publish to the official registry;
+7. verify the registry install in a real MCP host and record the dated result.
 
 Official references:
 
@@ -91,7 +96,7 @@ A listing is useful only if a visitor can install, run and understand the result
 
 ## OpenSSF Scorecard
 
-The repository includes an OpenSSF Scorecard workflow and CodeQL. Scorecard results can still be held back by repository/account settings that code changes alone cannot fix, such as branch protection, security settings or maintainer practices.
+The repository includes an OpenSSF Scorecard workflow and CodeQL. Scorecard results can still be held back by repository/account settings that code changes alone cannot fix, such as branch protection, security settings or maintainer practices. The current repository ruleset API returned no configured rulesets during the 2026-10-03 audit, so default-branch protection remains an explicit account-level hardening task.
 
 Never weaken CI just to raise a score. Prefer:
 

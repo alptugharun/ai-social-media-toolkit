@@ -6,7 +6,26 @@ The project is currently in **alpha**. Until the first tagged release is publish
 
 ## Unreleased
 
-No unreleased public changes recorded yet.
+### Added
+
+- Standalone `ai-workbench-mcp` package boundary with dependency-free stdio server, bundled catalog and exact tool contracts.
+- CI wheel build/install/handshake verification on Ubuntu 24.04, Ubuntu 26.04 and Windows 2025.
+- Tokenless PyPI Trusted Publishing workflow with keyless Sigstore signing for MCP release artifacts.
+- Public release-readiness audit covering MCP annotations, schemas, tool-name test coverage, JSON manifests, immutable Action refs and workflow permission posture.
+- Offline Markdown navigation validation for broken relative links and duplicate consecutive headings.
+- M8ven Verified/Live integration and OpenSSF Scorecard visibility.
+
+### Improved
+
+- Every local and packaged MCP tool declares explicit `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`.
+- Packaged MCP tests reference each public tool by name, closing the visible M8ven tool-test-coverage gap.
+- GitHub Actions write permissions were reduced from workflow-level grants to narrow job-level permissions where writes are required.
+- README, profile, `llms.txt`, project-state and runtime-verification paths now reflect the current AI Workbench / Agent Skills / MCP scope.
+- Self-healing now treats deterministic readiness/docs quality-gate failures as non-retryable regressions instead of wasting a probe retry.
+
+### Fixed
+
+- Removed a duplicated `15-Minute Quick Start` heading and aligned the MCP quick-start path with the standalone package.
 
 ## [v0.2.0-alpha.1] - 2026-09-30
 
