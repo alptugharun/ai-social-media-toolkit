@@ -1,113 +1,101 @@
-# Official MCP Registry Publishing Gate
+# AI Workbench MCP publication status
 
-This directory is the standalone distribution boundary for the repository's read-only AI Workbench MCP server.
+This directory is the monorepo source copy of the read-only AI Workbench MCP server.
 
-The official MCP Registry is preview infrastructure, so re-check its schema and publisher CLI immediately before publication.
+The focused public distribution boundary is the standalone repository:
 
-## Planned identity
+https://github.com/alptugharun/ai-workbench-mcp
+
+## Verified state — 2026-10-03
 
 - MCP server name: `io.github.alptugharun/ai-workbench-mcp`
 - PyPI package: `alptugharun-ai-workbench-mcp`
-- Package transport: `stdio`
-- Runtime hint: `uvx`
-- First package candidate: `0.1.0a1`
-- GitHub release tag for that candidate: `ai-workbench-mcp-v0.1.0a1`
-- PyPI workflow: `.github/workflows/publish-ai-workbench-mcp-pypi.yml`
+- published version: `0.1.0a1`
+- transport: stdio
+- PyPI publication: GitHub OIDC Trusted Publishing
+- release signing: keyless Sigstore
+- official MCP Registry: published, status `active`
+- package clean-install/protocol verification: completed
+- maintainer-run real-host verification: completed in Cursor 3.20.21 for all three public tools
+- independent external host verification: still wanted
 
-The package README contains the PyPI ownership marker expected by the MCP Registry publication flow:
+## Public install
+
+```bash
+python -m pip install "alptugharun-ai-workbench-mcp==0.1.0a1"
+```
+
+Then configure a stdio-capable MCP host to launch:
 
 ```text
-mcp-name: io.github.alptugharun/ai-workbench-mcp
+alptugharun-ai-workbench-mcp
 ```
 
-## Do not create server.json yet
+Host configuration fields and locations vary. Use the current documentation for the host being tested.
 
-A registry file that points to an unpublished package would be operationally false. Create `server.json` only after the exact PyPI version exists and a clean exact-version install succeeds.
+## Monorepo validation
 
-## Pre-publish checks
-
-From the repository root:
+From the toolkit repository root:
 
 ```bash
-python -m unittest discover -s tests -v
-python -m pip wheel --no-deps packages/ai-workbench-mcp --wheel-dir .mcp-dist
-python -m pip install --no-deps --force-reinstall .mcp-dist/*.whl
+python -m unittest discover -s tests -p "test_mcp_distribution_package.py" -v
+python -m unittest discover -s tests -p "test_mcp_smoke_client.py" -v
+python -m unittest discover -s packages/ai-workbench-mcp/tests -v
+python tools/release_readiness.py
 ```
 
-Then verify the installed console script with an MCP handshake and all three tool contracts.
+The package source is also built and smoke-tested in the CI matrix.
 
-## PyPI Trusted Publisher setup
+## Evidence boundaries
 
-The repository uses PyPI Trusted Publishing through GitHub OIDC. No long-lived PyPI API token belongs in GitHub secrets.
+Keep these claims separate:
 
-For the first publication, configure a **pending GitHub Trusted Publisher** on PyPI using these exact values:
+1. **source tests** — repository code passed local/CI checks;
+2. **published package** — exact PyPI version exists;
+3. **registry state** — official MCP Registry accepted the metadata/ownership;
+4. **host verification** — a named host/version actually invoked the tools;
+5. **independent adoption** — another user reproduced the result.
 
-- PyPI project name: `alptugharun-ai-workbench-mcp`
-- GitHub owner: `alptugharun`
-- GitHub repository: `ai-social-media-toolkit`
-- Workflow filename: `publish-ai-workbench-mcp-pypi.yml`
-- GitHub environment: `pypi`
+One level does not automatically prove the next.
 
-The publish job receives job-scoped `id-token: write` for PyPI and Sigstore, plus job-scoped `contents: write` only so Sigstore can attach signed release assets. Workflow-level permissions remain read-only.
+## Real-host evidence
 
-A pending publisher does not reserve the project name until it is actually used. Do not announce the package as available before the first publish succeeds.
+The current maintainer-run Cursor verification covered:
 
-On GitHub, configure the `pypi` environment with deployment protection appropriate for a release credential boundary. The publish job is the only job granted `id-token: write`.
+- `list_prompts`
+- `render_prompt`
+- `get_assistant`
 
-## First PyPI publication
+The detailed record lives in the standalone repository:
 
-1. Make sure all tests on the exact release commit are green.
-2. Confirm the package version in `pyproject.toml` is `0.1.0a1`.
-3. Confirm the PyPI pending publisher and GitHub `pypi` environment match the values above.
-4. Publish a GitHub release tagged exactly `ai-workbench-mcp-v0.1.0a1`.
-5. The publish workflow verifies the tag/version match, reruns package tests, builds one wheel, and inspects its metadata and bundled catalog.
-6. It signs the wheel (and GitHub source archives for the release) with keyless Sigstore using GitHub OIDC, and attaches the artifacts plus `.sigstore.json` bundles to the GitHub release.
-7. It then exchanges GitHub OIDC for a short-lived PyPI publishing credential and uploads the wheel.
-8. Confirm the GitHub release contains the wheel and Sigstore bundle, and that the PyPI project page shows version `0.1.0a1`.
-9. Confirm the public package metadata/README contains the `mcp-name` marker.
-10. Perform the clean exact-version install below before any MCP Registry metadata is created.
+https://github.com/alptugharun/ai-workbench-mcp/blob/main/HOST-VERIFICATION.md
 
-## Exact-version verification
+This is real host evidence, but it is not an independent third-party endorsement or a claim of universal compatibility.
 
-After PyPI publication:
+## Security model
 
-```bash
-uvx --from alptugharun-ai-workbench-mcp==0.1.0a1 alptugharun-ai-workbench-mcp
-```
+The public tools remain read-only and declare explicit MCP behavior hints.
 
-A real host verification should cover:
+The runtime does not intentionally provide:
 
-1. `initialize`;
-2. `notifications/initialized`;
-3. `tools/list`;
-4. successful `list_prompts`;
-5. successful `render_prompt`;
-6. successful `get_assistant`;
-7. invalid/extra arguments returning bounded errors;
-8. no unexpected network, shell, write, or account behavior.
+- arbitrary filesystem access;
+- shell execution;
+- provider/model calls;
+- account modification;
+- content publishing.
 
-Record the host/version and result in the runtime verification matrix. Package publication by itself is not a host-compatibility claim.
+Registry publication does not weaken that boundary.
 
-## Future server.json shape
+## Future releases
 
-After PyPI publication and clean exact-version verification, generate metadata with the **current** `mcp-publisher init` rather than copying an old schema. The intended fields are:
+For a new version:
 
-- current official `$schema`;
-- `name: io.github.alptugharun/ai-workbench-mcp`;
-- repository URL and GitHub source;
-- exact server/package version;
-- one PyPI package entry using the official PyPI registry;
-- `runtimeHint: uvx`;
-- `transport.type: stdio`.
+1. update the package/version deliberately;
+2. run the full tests and wheel smoke checks;
+3. publish through the trusted release path;
+4. clean-install the exact public version;
+5. validate/update Registry metadata;
+6. record host verification separately;
+7. never describe a local build as a published release.
 
-Then run:
-
-```bash
-mcp-publisher validate server.json
-```
-
-Resolve every validation error before authentication or publication.
-
-## Publication is not compatibility proof
-
-Registry acceptance proves metadata and ownership requirements. It does not prove correctness in every MCP host. Keep real host verification and adoption evidence separate from package/registry publication.
+The standalone repository is the source of truth for public package/Registry release state.

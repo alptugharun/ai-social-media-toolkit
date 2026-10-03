@@ -2,6 +2,8 @@
 
 **Learn by building one useful artifact at every level.**
 
+Start with the detailed [AI Builder Path](AI-BUILDER-PATH.md) when you want the full prompt → assistant → Agent Skill → MCP → plugin → automation decision and testing workflow.
+
 ## 1 — Prompt Fundamentals
 
 Outcome: write prompts with explicit inputs, task, output and QA.

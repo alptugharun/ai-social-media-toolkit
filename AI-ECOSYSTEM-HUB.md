@@ -12,6 +12,7 @@ This hub expands the toolkit beyond social media without pretending that every p
 | build a reusable AI assistant | [Assistant Blueprints](assistants/README.md) |
 | install Agent Skills | [Agent Skills](skills/README.md) |
 | understand plugins / MCP / connected apps | [Integrations Hub](integrations/README.md) |
+| learn to build prompts → skills → MCP → plugins | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | prototype an API-based assistant or bot | [Bot Starters](bots/README.md) |
 | automate a repeatable workflow | [Automation Recipes](automation-recipes/README.md) |
 | learn from beginner to working system | [Learning Paths](learning/README.md) |

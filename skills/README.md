@@ -22,6 +22,7 @@ Not sure what to ask after installation? Open **[How to Use Everything](../docs/
 | `comment-intelligence` | Mines comments for questions, objections, pain points, demand signals, and content opportunities |
 | `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 | `github-opportunity-radar` | Finds GitHub demand signals, skill gaps and repository-growth opportunities |
+| `plugin-mcp-architect` | Designs and teaches testable prompt, Agent Skill, MCP and plugin architectures |
 | `maps-opportunity-radar` | Finds Maps, local-intelligence and geospatial Agent Skill opportunities |
 | `maps-policy-guard` | Reviews Maps workflows for scraping, storage, attribution and authorization risks |
 | `local-business-intelligence` | Turns permitted local and owned business signals into market, content and creator workflows |
