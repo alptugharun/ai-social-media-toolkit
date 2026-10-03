@@ -17,11 +17,13 @@ This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor 
 ## Current trust & distribution checkpoint — 2026-10-03
 
 - M8ven publisher ownership is verified and GitHub Live Monitoring is connected.
-- M8ven's latest observed public grade is **B / 89**; treat that as a dated external result, not a permanent repository claim.
-- The current visible M8ven quality suggestion is tool-name test coverage. PR #112 added direct name-level calls for every packaged MCP tool and strengthened the release-readiness gate; it merged into `main` after Validate Agent Skills and CodeQL passed.
-- The standalone `packages/ai-workbench-mcp` distribution boundary exists, builds in CI and has a tokenless PyPI Trusted Publishing + Sigstore release path. It is **not** claimed as published until the exact package version exists on PyPI and a clean exact-version install succeeds.
+- M8ven's latest visible public grade is **B / 89** at commit `0e62484`; current `main` is newer, so treat the displayed M8ven finding as a stale external snapshot until its page names the newer commit.
+- PR #112 added direct name-level calls for every packaged MCP tool and strengthened the release-readiness gate; it merged into `main` after Validate Agent Skills and CodeQL passed.
+- **[alptugharun/ai-workbench-mcp](https://github.com/alptugharun/ai-workbench-mcp)** is now the canonical standalone MCP distribution repository. The toolkit copy remains an integration/test surface during cutover.
+- The standalone MCP repo has Linux/Windows CI, CodeQL, OpenSSF Scorecard, Dependabot, Repository Rules, private vulnerability reporting and a `pypi` GitHub environment. PyPI publication still requires the pending Trusted Publisher identity step.
 - Official MCP Registry `server.json` remains intentionally gated until PyPI publication and clean host verification.
-- OpenSSF Scorecard and CodeQL run on the repository. Repository rules/branch protection are still an account-level hardening step and must be verified in GitHub settings.
+- This toolkit now uses active GitHub Repository Rules on `main` (PR flow, required validation/CodeQL checks, linear history, no force-push/delete bypass), plus Dependabot security updates and private vulnerability reporting.
+- OpenSSF Scorecard last observed **7.0** on `af97b51` before the Repository Rules migration; the next external run must confirm that branch protection is now readable.
 
 ## Current owner direction
 
