@@ -15,6 +15,25 @@ class SelfHealTests(unittest.TestCase):
         self.assertTrue(d.retryable)
         self.assertEqual(len(d.fingerprint), 12)
 
+    def test_readiness_failure_is_not_blindly_retried(self):
+        d = classify(
+            "READINESS FAIL: Top-level workflow permissions must remain read-only.\n"
+            "Process completed with exit code 1.",
+            workflow="Validate Agent Skills",
+        )
+        self.assertEqual(d.classification, "quality-gate-regression")
+        self.assertEqual(d.confidence, "high")
+        self.assertFalse(d.retryable)
+        self.assertFalse(d.probe_retry_safe)
+
+    def test_docs_validation_failure_is_not_blindly_retried(self):
+        d = classify(
+            "DOCS VALIDATION FAIL\n- README.md:12: broken relative link: missing.md",
+            workflow="Validate Agent Skills",
+        )
+        self.assertEqual(d.classification, "quality-gate-regression")
+        self.assertFalse(d.retryable)
+
     def test_assertion_failure_is_not_blindly_retried(self):
         d = classify(
             "FAIL: test_parse_trending\nAssertionError: 0 != 1234\nFAILED (failures=1)",

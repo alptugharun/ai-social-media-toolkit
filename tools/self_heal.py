@@ -66,6 +66,18 @@ PATTERNS: tuple[tuple[str, tuple[str, ...], bool, str, str], ...] = (
         "Kimlik doğrulama veya izin problemi tespit edildi.",
     ),
     (
+        "quality-gate-regression",
+        (
+            r"READINESS FAIL:",
+            r"DOCS VALIDATION FAIL",
+            r"prompt library validation failed",
+            r"validation gate failed",
+        ),
+        False,
+        "high",
+        "Deterministik kalite kapısı başarısız oldu; kod veya yapılandırma düzeltmesi gerekiyor.",
+    ),
+    (
         "test-regression",
         (
             r"AssertionError:",
