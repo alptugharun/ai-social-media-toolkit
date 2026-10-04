@@ -82,7 +82,7 @@ It exposes three tools — `list_prompts`, `render_prompt`, and `get_assistant` 
 
 [Standalone MCP repository](https://github.com/alptugharun/ai-workbench-mcp) · [Bundled integration copy](packages/ai-workbench-mcp/README.md) · [Independent host verification wanted](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
-Version `0.1.0a1` is published on PyPI and the official MCP Registry currently reports `io.github.alptugharun/ai-workbench-mcp` as active. A maintainer-run Cursor 3.20.21 session successfully invoked all three public tools. Keep package publication, registry acceptance, maintainer host verification and independent user verification as separate evidence levels.
+Version `0.1.0a2` is published on PyPI and the official MCP Registry reports `io.github.alptugharun/ai-workbench-mcp` version `0.1.0a2` as active/latest. The `0.1.0a2` release adds local `--doctor` and `--version` diagnostics without widening the read-only tool surface. The recorded maintainer-run Cursor 3.20.21 session successfully invoked all three public tools; that host evidence remains separate from package publication, registry acceptance and independent user verification.
 
 Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-CARDS.md). Need the complete setup? Use the [AI Workbench guide](downloads/AI-WORKBENCH-GUIDE.md), including Windows commands and troubleshooting.
 
