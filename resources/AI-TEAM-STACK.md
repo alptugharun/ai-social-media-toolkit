@@ -1,5 +1,7 @@
 # Verified AI Team Stack
 
+![Verified AI Team Stack — build a five-role AI team](../docs/assets/ai-team-stack/en/slide-01.png)
+
 **Do not install 46 things because a carousel told you to. Start with the job, choose the role, verify the source, then install the smallest useful stack.**
 
 This catalog is a practical companion to the existing [AI Creator Stack](AI-CREATOR-STACK.md). The Creator Stack is a reference map. This file is a **selection and verification layer**.
@@ -21,7 +23,7 @@ Every item includes:
 - evidence level;
 - install/docs reference.
 
-The machine-readable source is [ai-team-stack.json](ai-team-stack.json).
+The machine-readable source is [ai-team-stack.json](ai-team-stack.json). Campaign visuals are available in [English and Turkish](../docs/assets/ai-team-stack/README.md); English is the canonical GitHub/global-developer variant.
 
 The CLI is dependency-free:
 
