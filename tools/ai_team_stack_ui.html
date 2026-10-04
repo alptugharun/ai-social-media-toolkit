@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Verified AI Team Stack</title>
+<style>
+:root{color-scheme:dark;--bg:#07111f;--card:#0d1b2a;--line:#18344d;--text:#eef7ff;--muted:#9ab0c4;--a:#38bdf8;--b:#2dd4bf;--c:#a78bfa}
+*{box-sizing:border-box}body{margin:0;font:16px/1.5 Inter,system-ui,sans-serif;background:radial-gradient(circle at top,#0f2b46 0,#07111f 48%);color:var(--text)}
+main{max-width:1180px;margin:auto;padding:48px 20px 80px}h1{font-size:clamp(2.2rem,5vw,4.8rem);line-height:.95;margin:0 0 18px}
+.lead{max-width:780px;color:var(--muted);font-size:1.08rem}.bar{display:flex;gap:10px;flex-wrap:wrap;margin:28px 0}
+button,select{background:#0b2033;color:var(--text);border:1px solid var(--line);border-radius:999px;padding:10px 14px}button{cursor:pointer}
+button.active{border-color:var(--a);box-shadow:0 0 0 1px var(--a) inset}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.card{background:linear-gradient(180deg,#0d1b2a,#0a1623);border:1px solid var(--line);border-radius:18px;padding:18px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.badge{font-size:.78rem;padding:4px 8px;border-radius:999px;background:#10263a;color:#bfe8ff}
+.card h3{margin:0;font-size:1.25rem}.meta{color:var(--muted);font-size:.9rem}.card p{margin:.65rem 0}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.cta a{color:#05111e;background:linear-gradient(90deg,var(--a),var(--b));text-decoration:none;padding:8px 10px;border-radius:10px;font-weight:700}
+.cta a.secondary{background:#14283b;color:var(--text)}section{margin-top:44px}.lane{display:none}.lane.show{display:block}.lane ol{padding-left:22px}.lane li{margin:8px 0}
+footer{margin-top:50px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<h1>Verified AI Team Stack</h1>
+<p class="lead">Start with a role and a job. Do not install everything. Every item below carries a source label, evidence level, permission note and first-result target.</p>
+<div class="bar">
+<button data-lane="all" class="active">All tools</button>
+<button data-lane="coding_core">Minimum 5 — coding</button>
+<button data-lane="creator_core">Minimum 5 — creator/ops</button>
+<select id="source"><option value="">All sources</option><option>official</option><option>vendor</option><option>community</option><option>maintainer</option></select>
+<select id="evidence"><option value="">All evidence</option><option>repo_verified</option><option>local_ci_verified</option><option>maintainer_runtime_verified</option></select>
+</div>
+<section id="lanes"></section>
+<section><div id="grid" class="grid"></div></section>
+<footer>Evidence checked on <span id="checked"></span>. Repository presence is not the same as runtime verification.</footer>
+</main>
+<script>
+const DATA=__CATALOG__;
+const byId=Object.fromEntries(DATA.items.map(x=>[x.id,x]));
+const grid=document.getElementById('grid'), lanes=document.getElementById('lanes');
+document.getElementById('checked').textContent=DATA.checked_at;
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function card(x){return `<article class="card" data-source="${esc(x.source_type)}" data-evidence="${esc(x.evidence)}"><h3>${esc(x.name)}</h3><div class="badges"><span class="badge">${esc(x.role)}</span><span class="badge">${esc(x.source_type)}</span><span class="badge">${esc(x.evidence)}</span></div><p class="meta">${esc(x.layer)}</p><p><strong>Use when:</strong> ${esc(x.use_when)}</p><p><strong>Avoid when:</strong> ${esc(x.avoid_when)}</p><p><strong>First result:</strong> ${esc(x.first_result)}</p><p><strong>Permission:</strong> ${esc(x.permission_note)}</p><p><strong>Cost:</strong> ${esc(x.cost_note)}</p><div class="cta"><a href="${esc(x.repo)}" target="_blank" rel="noopener">Repository</a><a class="secondary" href="${esc(x.install_reference)}" target="_blank" rel="noopener">Install / docs</a></div></article>`}
+function renderItems(ids=null){const source=document.getElementById('source').value,evidence=document.getElementById('evidence').value;let items=ids?ids.map(id=>byId[id]):DATA.items;items=items.filter(x=>(!source||x.source_type===source)&&(!evidence||x.evidence===evidence));grid.innerHTML=items.map(card).join('')}
+function showLane(id){lanes.innerHTML='';document.querySelectorAll('button[data-lane]').forEach(b=>b.classList.toggle('active',b.dataset.lane===id));if(id==='all'){renderItems();return}const lane=DATA.lanes[id];lanes.innerHTML=`<div class="lane show card"><h2>${esc(lane.title)}</h2><p>${esc(lane.purpose)}</p><ol>${lane.items.map(i=>`<li><strong>${esc(byId[i].name)}</strong> — ${esc(byId[i].role)}</li>`).join('')}</ol></div>`;renderItems(lane.items)}
+document.querySelectorAll('button[data-lane]').forEach(b=>b.onclick=()=>showLane(b.dataset.lane));
+document.getElementById('source').onchange=()=>showLane(document.querySelector('button.active').dataset.lane);
+document.getElementById('evidence').onchange=()=>showLane(document.querySelector('button.active').dataset.lane);
+renderItems();
+</script>
+</body>
+</html>
