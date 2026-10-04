@@ -4,6 +4,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -50,6 +51,16 @@ class AITeamStackTests(unittest.TestCase):
         )
         self.assertEqual(run.returncode, 0, run.stderr)
         self.assertIn("PASS:", run.stdout)
+
+    def test_build_ui_creates_self_contained_page(self):
+        data = module.load_catalog()
+        with tempfile.TemporaryDirectory() as tmp:
+            output = Path(tmp) / "stack.html"
+            module.build_ui(data, output)
+            page = output.read_text(encoding="utf-8")
+            self.assertIn("Verified AI Team Stack", page)
+            self.assertIn("github-mcp", page)
+            self.assertNotIn("__CATALOG__", page)
 
     def test_cli_recommend_returns_five(self):
         run = subprocess.run(
