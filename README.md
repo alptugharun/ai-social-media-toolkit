@@ -27,6 +27,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
 | **Read the architecture guide before building** | [Prompt → Assistant → Agent Skill → MCP → Plugin](https://alptugharun.hashnode.dev/prompt-assistant-agent-skill-mcp-plugin-guide) |
 | **Build, break and test every AI layer hands-on** | [AI Builder Lab](learning/AI-BUILDER-LAB.md) |
+| **Choose a small evidence-labeled AI team** | [Verified AI Team Stack](resources/AI-TEAM-STACK.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
 | **Build/test the skills-only ChatGPT/Codex plugin** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |

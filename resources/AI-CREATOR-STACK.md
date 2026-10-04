@@ -8,6 +8,8 @@ The purpose is simple:
 
 **learn the useful pattern → understand why it works → build an original version for your own job.**
 
+Need a smaller, evidence-labeled starting team instead of a broad reference map? Use the **[Verified AI Team Stack](AI-TEAM-STACK.md)** and its dependency-free CLI.
+
 ## Prompt engineering & prompt libraries
 
 | Project | What to learn | Best use |
