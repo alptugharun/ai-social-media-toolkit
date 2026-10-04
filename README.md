@@ -17,6 +17,22 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/alptugharun/ai-social-media-toolkit/badge)](https://scorecard.dev/viewer/?uri=github.com/alptugharun/ai-social-media-toolkit)
 
+## Prove it works in 2 minutes
+
+No API key, social login or paid model call is required:
+
+```bash
+git clone https://github.com/alptugharun/ai-social-media-toolkit.git
+cd ai-social-media-toolkit
+python tools/first_run_check.py
+```
+
+A passing run verifies the local catalog, dry-run provider path, Agent Skill installer flow and creator demo from the checkout. It does **not** claim that every external host/provider works.
+
+**PASS?** Pick one path below. **FAIL?** Keep the first error and use the linked troubleshooting/evidence path instead of guessing.
+
+If the proof saved you setup time, a star helps other builders discover the repository. A reproducible failure report is even more useful than a generic “works for me.”
+
 ## Pick one path
 
 | Goal | Fastest entry point |
