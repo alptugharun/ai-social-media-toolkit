@@ -16,6 +16,7 @@ This hub expands the toolkit beyond social media without pretending that every p
 | prototype an API-based assistant or bot | [Bot Starters](bots/README.md) |
 | automate a repeatable workflow | [Automation Recipes](automation-recipes/README.md) |
 | learn from beginner to working system | [Learning Paths](learning/README.md) |
+| choose a small evidence-labeled AI team | [Verified AI Team Stack](resources/AI-TEAM-STACK.md) |
 | see creator-focused examples | [Creator Materials](downloads/README.md) |
 
 ## Pick a provider in 60 seconds
