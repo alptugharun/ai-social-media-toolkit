@@ -9,7 +9,7 @@
 
 Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -25,6 +25,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
+| **Build, break and test every AI layer hands-on** | [AI Builder Lab](learning/AI-BUILDER-LAB.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
 | **Build/test the skills-only ChatGPT/Codex plugin** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
@@ -82,7 +83,7 @@ Prefer to read first? Open the [filled prompt examples](downloads/AI-LAB-PROMPT-
 | **MCP and integrations** | Read-only local MCP tooling, integration contracts and Plugin/MCP decision guidance | [Integrations Hub](integrations/README.md) |
 | **Creative work** | Canva + AI, Pinterest, Reels, brand voice and repurposing resources | [Creator materials](downloads/README.md) |
 | **Automation recipes** | Approval-gated research, publishing, monitoring and recovery patterns | [Automation Recipes](automation-recipes/README.md) |
-| **Learning paths** | Prompt → assistant → skill → MCP → plugin → automation progression, including test and failure gates | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
+| **Learning paths** | Prompt → assistant → skill → MCP → plugin → automation progression, including hands-on failure and regression gates | [AI Builder Lab](learning/AI-BUILDER-LAB.md) |
 | **Measurement and operations** | Content scoring, outlier analysis, research radars and bounded failure diagnosis | [Existing toolkit manual](docs/HOW-TO-USE-EVERYTHING.md) |
 
 A prompt is an instruction. An assistant package organizes behavior. A skill is reusable instruction material in a supported host. An MCP server exposes tools. An API bot runs code against a provider. None of these automatically grants account access, installs a plugin or publishes content.
