@@ -11,6 +11,8 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_PATH = ROOT / "resources" / "ai-team-stack.json"
+UI_TEMPLATE = Path(__file__).with_name("ai_team_stack_ui.html")
+DEFAULT_UI_OUTPUT = ROOT / "downloads" / "ai-team-stack.html"
 SOURCE_TYPES = {"official", "vendor", "community", "maintainer"}
 EVIDENCE = {"repo_verified", "maintainer_runtime_verified", "local_ci_verified"}
 
@@ -56,10 +58,10 @@ def validate_catalog(data: dict[str, Any]) -> None:
         if not isinstance(item_id, str) or not item_id or item_id in ids:
             raise StackError("Catalog IDs must be unique non-empty strings.")
         ids.add(item_id)
-        repo = item["repo"]
-        if not isinstance(repo, str) or not repo.startswith("https://github.com/") or repo in repos:
+        repo_url = item["repo"]
+        if not isinstance(repo_url, str) or not repo_url.startswith("https://github.com/") or repo_url in repos:
             raise StackError("Repository URLs must be unique HTTPS GitHub URLs.")
-        repos.add(repo)
+        repos.add(repo_url)
         if item["source_type"] not in SOURCE_TYPES:
             raise StackError(f"Unknown source_type for {item_id}.")
         if item["evidence"] not in EVIDENCE:
@@ -107,6 +109,19 @@ def print_item(item: dict[str, Any]) -> None:
     print(f'Install/docs: {item["install_reference"]}')
 
 
+def build_ui(data: dict[str, Any], output: Path) -> None:
+    try:
+        template = UI_TEMPLATE.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise StackError(f"Could not read UI template: {exc}") from exc
+    if template.count("__CATALOG__") != 1:
+        raise StackError("UI template must contain exactly one catalog insertion point.")
+    payload = json.dumps(data, ensure_ascii=False).replace("<", "\\u003c")
+    page = template.replace("__CATALOG__", payload)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(page, encoding="utf-8")
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -124,6 +139,9 @@ def build_parser() -> argparse.ArgumentParser:
     recommend.add_argument("--lane", choices=["coding_core", "creator_core"], required=True)
     recommend.add_argument("--json", action="store_true", dest="as_json")
 
+    ui = sub.add_parser("build-ui", help="Build one self-contained offline browser catalog.")
+    ui.add_argument("--output", type=Path, default=DEFAULT_UI_OUTPUT)
+
     sub.add_parser("check", help="Validate the catalog.")
     return parser
 
@@ -137,6 +155,11 @@ def main(argv: list[str] | None = None) -> int:
 
         if args.command == "check":
             print(f'PASS: {len(data["items"])} items, {len(data["lanes"])} lanes; checked {data["checked_at"]}.')
+            return 0
+
+        if args.command == "build-ui":
+            build_ui(data, args.output)
+            print(f"Created {args.output}. No network call or tracking was configured.")
             return 0
 
         if args.command == "show":
