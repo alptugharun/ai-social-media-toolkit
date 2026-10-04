@@ -9,7 +9,7 @@
 
 Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -25,6 +25,7 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 | **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
+| **Read the architecture guide before building** | [Prompt → Assistant → Agent Skill → MCP → Plugin](https://alptugharun.hashnode.dev/prompt-assistant-agent-skill-mcp-plugin-guide) |
 | **Build, break and test every AI layer hands-on** | [AI Builder Lab](learning/AI-BUILDER-LAB.md) |
 | **Choose a small evidence-labeled AI team** | [Verified AI Team Stack](resources/AI-TEAM-STACK.md) |
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
@@ -166,7 +167,7 @@ Preserve applicable attribution and license notices. Referenced platforms and tr
 ---
 
 **Alptuğ Harun** · Social Media Specialist · Digital Content Creator · Practical AI Workflows  
-[Website](https://alptugharun.com) · [LinkedIn](https://www.linkedin.com/in/alptugharun/)
+[Website](https://alptugharun.com) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [LinkedIn](https://www.linkedin.com/in/alptugharun/)
 
 <details>
 <summary>Türkçe</summary>
