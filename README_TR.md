@@ -13,11 +13,27 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
-[Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/alptugharun/ai-social-media-toolkit/badge)](https://scorecard.dev/viewer/?uri=github.com/alptugharun/ai-social-media-toolkit)
+
+## 2 dakikada çalıştığını kanıtla
+
+API key, sosyal medya girişi veya ücretli model çağrısı gerekmez:
+
+```bash
+git clone https://github.com/alptugharun/ai-social-media-toolkit.git
+cd ai-social-media-toolkit
+python tools/first_run_check.py
+```
+
+Başarılı çalıştırma; yerel kataloğu, dry-run provider yolunu, Agent Skill installer akışını ve creator demosunu kontrol eder. **Her harici host/provider çalışır** iddiasında bulunmaz.
+
+**PASS?** Aşağıdan tek bir yol seç. **FAIL?** İlk hatayı sakla ve tahmin yürütmek yerine troubleshooting/evidence yolunu kullan.
+
+Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarının keşfetmesine yardım eder. Tekrarlanabilir bir hata raporu ise genel bir “çalışıyor” yorumundan daha değerlidir.
 
 ## En kısa yol hangisi?
 
