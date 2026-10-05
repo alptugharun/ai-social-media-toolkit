@@ -230,6 +230,38 @@ def _hardcoded_credential_keys(
     return sorted(result)
 
 
+def _embedded_env_credentials(
+    mapping: dict[str, Any],
+) -> tuple[list[str], list[str]]:
+    hardcoded: list[str] = []
+    placeholders: list[str] = []
+
+    for outer_key, value in mapping.items():
+        if not isinstance(value, str):
+            continue
+        stripped = value.strip()
+        if not stripped.startswith("{"):
+            continue
+        try:
+            parsed = json.loads(stripped)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(parsed, dict):
+            continue
+
+        for key, inner_value in parsed.items():
+            if not CREDENTIAL_KEY_RE.search(str(key)):
+                continue
+            if inner_value in (None, ""):
+                continue
+            if _is_header_placeholder(inner_value) or _is_placeholder(inner_value):
+                placeholders.append(str(outer_key))
+            else:
+                hardcoded.append(str(outer_key))
+
+    return sorted(set(hardcoded)), sorted(set(placeholders))
+
+
 def _is_broad_path(value: str) -> bool:
     raw = value.strip().replace("\\", "/").lower()
     if raw == "/":
@@ -288,13 +320,29 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
     if not isinstance(raw, dict):
         raise InspectorError(f"Server '{name}' must be an object.")
 
-    command = str(raw.get("command", "")).strip() or None
+    command_raw = raw.get("command")
+    if isinstance(command_raw, dict):
+        if "args" in raw or "env" in raw:
+            raise InspectorError(
+                f"Server '{name}' mixes nested command args/env with top-level args/env."
+            )
+        path_value = command_raw.get("path")
+        if not isinstance(path_value, str) or not path_value.strip():
+            raise InspectorError(
+                f"Server '{name}' nested command must contain a non-empty string 'path'."
+            )
+        command = path_value.strip()
+        args = _string_list(command_raw.get("args"))
+        env = _mapping(command_raw.get("env"), "command.env", name)
+    else:
+        command = str(command_raw or "").strip() or None
+        args = _string_list(raw.get("args"))
+        env = _mapping(raw.get("env"), "env", name)
+
     url = str(raw.get("url", "")).strip() or None
     if not command and not url:
         raise InspectorError(f"Server '{name}' has neither command nor url.")
 
-    args = _string_list(raw.get("args"))
-    env = _mapping(raw.get("env"), "env", name)
     headers = _mapping(raw.get("headers"), "headers", name)
     env_keys = sorted(str(k) for k in env)
     header_keys = sorted(str(k) for k in headers)
@@ -393,6 +441,30 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
                 + ", ".join(env_credential_keys)
                 + ". Values are never displayed.",
                 "Use least-privilege, short-lived credentials and keep secret values outside committed config.",
+            )
+        )
+
+    embedded_hardcoded, embedded_placeholders = _embedded_env_credentials(env)
+    if embedded_hardcoded:
+        findings.append(
+            Finding(
+                "high",
+                "embedded-env-credential",
+                "Environment values contain embedded credential fields in: "
+                + ", ".join(embedded_hardcoded)
+                + ". Values are never displayed.",
+                "Move embedded credentials to placeholders/host secret storage and keep only non-secret structure in config.",
+            )
+        )
+    elif embedded_placeholders:
+        findings.append(
+            Finding(
+                "medium",
+                "embedded-env-credential-boundary",
+                "Environment values contain embedded credential placeholders in: "
+                + ", ".join(embedded_placeholders)
+                + ". Values are never displayed.",
+                "Verify the referenced secret source and keep the embedded JSON free of literal credentials.",
             )
         )
 
