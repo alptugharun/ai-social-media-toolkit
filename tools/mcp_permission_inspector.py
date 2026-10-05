@@ -107,7 +107,8 @@ def _redact_args(args: list[str]) -> list[str]:
             continue
 
         if URL_RE.search(arg):
-            arg = _redact_url(arg)
+            redacted.append(_redact_url(arg))
+            continue
 
         if "=" in arg:
             key, value = arg.split("=", 1)
