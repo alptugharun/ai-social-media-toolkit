@@ -94,7 +94,7 @@ def load_config(path: Path) -> dict[str, Any]:
 
 
 def server_map(data: dict[str, Any]) -> dict[str, Any]:
-    for key in ("mcpServers", "servers"):
+    for key in ("mcpServers", "servers", "context_servers"):
         value = data.get(key)
         if isinstance(value, dict):
             if len(value) > MAX_SERVERS:
@@ -106,7 +106,7 @@ def server_map(data: dict[str, Any]) -> dict[str, Any]:
         return {"server": data}
     raise InspectorError(
         "No MCP server map found. Expected 'mcpServers', 'servers', "
-        "or a single server object with command/url."
+        "'context_servers', or a single server object with command/url."
     )
 
 
