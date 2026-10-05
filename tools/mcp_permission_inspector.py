@@ -32,6 +32,8 @@ URL_RE = re.compile(r"https?://", re.I)
 ABS_PATH_RE = re.compile(r"^(?:[A-Za-z]:[\\/]|/)")
 SHELLS = {"bash", "bash.exe", "sh", "sh.exe", "zsh", "zsh.exe", "fish", "fish.exe", "cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe"}
 RUNNERS = {"npx", "npx.cmd", "npx.exe", "uvx", "uvx.exe", "pipx", "pipx.exe", "bunx", "bunx.exe", "pnpx", "pnpx.cmd", "pnpx.exe"}
+CONTAINER_RUNNERS = {"docker", "podman"}
+CONTAINER_VALUE_FLAGS = {"-e", "--env", "-p", "--publish", "-v", "--volume", "--name", "--network", "--env-file", "-w", "--workdir", "-u", "--user", "--entrypoint"}
 SHELL_FLAGS = {"-c", "/c", "-command", "-encodedcommand"}
 SHELL_META_ARGS = {"&&", "||", ";", "|"}
 BROAD_PATHS = {"/", "~", "/home", "/users", "c:\\", "c:/"}
@@ -279,6 +281,44 @@ def _runner_family(cmd_name: str) -> str:
         if cmd_name.endswith(suffix):
             return cmd_name[: -len(suffix)]
     return cmd_name
+
+
+def _container_image_arg(args: list[str]) -> str | None:
+    if not args or args[0].lower() != "run":
+        return None
+
+    i = 1
+    while i < len(args):
+        arg = args[i]
+        lower = arg.lower()
+
+        if arg == "--":
+            return args[i + 1] if i + 1 < len(args) else None
+
+        if lower in CONTAINER_VALUE_FLAGS:
+            i += 2
+            continue
+
+        if arg.startswith("--") and "=" in arg:
+            i += 1
+            continue
+
+        if arg.startswith("-"):
+            i += 1
+            continue
+
+        return arg
+
+    return None
+
+
+def _container_pin_state(image: str) -> str:
+    if "@sha256:" in image.lower():
+        return "digest"
+    last = image.rsplit("/", 1)[-1]
+    if ":" not in last or last.lower().endswith(":latest"):
+        return "unpinned"
+    return "tag"
 
 
 def _looks_unpinned_package(runner: str, arg: str) -> bool:
@@ -626,6 +666,33 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
                     "Pin an exact reviewed version for reproducible host configuration.",
                 )
             )
+
+    if runner in CONTAINER_RUNNERS:
+        image = _container_image_arg(reported_args)
+        if image:
+            pin_state = _container_pin_state(image)
+            if pin_state == "unpinned":
+                findings.append(
+                    Finding(
+                        "medium",
+                        "unpinned-container-image",
+                        "Container runner uses an image without an immutable digest: "
+                        + image
+                        + ".",
+                        "Prefer an exact reviewed image digest for reproducible first-connect configuration.",
+                    )
+                )
+            elif pin_state == "tag":
+                findings.append(
+                    Finding(
+                        "low",
+                        "mutable-container-tag",
+                        "Container image is version-tagged but the tag is mutable: "
+                        + image
+                        + ".",
+                        "Use an immutable sha256 digest when reproducibility/security requirements justify it.",
+                    )
+                )
 
     if not findings:
         findings.append(
