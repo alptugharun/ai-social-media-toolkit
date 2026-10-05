@@ -94,7 +94,16 @@ def load_config(path: Path) -> dict[str, Any]:
 
 
 def server_map(data: dict[str, Any]) -> dict[str, Any]:
-    for key in ("mcpServers", "servers", "context_servers"):
+    candidate_keys = ["mcpServers", "servers", "context_servers"]
+    candidate_keys.extend(
+        key
+        for key in data
+        if isinstance(key, str)
+        and key.endswith(".mcpServers")
+        and key not in candidate_keys
+    )
+
+    for key in candidate_keys:
         value = data.get(key)
         if isinstance(value, dict):
             if len(value) > MAX_SERVERS:
