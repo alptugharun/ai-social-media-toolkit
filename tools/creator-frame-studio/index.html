@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="styles.css">
 <body>
 <header class="head">
-<div class="brand"><div class="logo" data-icon="crop"></div><div><div class="brand-name">Creator Frame <span>Studio</span></div><div class="byline">ALPTUĞ HARUN / CREATOR TOOLS</div></div><span class="pill mint">v0.2 · BETA</span></div>
+<div class="brand"><div class="logo" data-icon="crop"></div><div><div class="brand-name">Creator Frame <span>Studio</span></div><div class="byline">ALPTUĞ HARUN / CREATOR TOOLS</div></div><span class="pill mint">v0.3 · BETA</span></div>
 <div class="head-actions">
 <button class="ghost iconbtn" id="helpBtn" data-title="help" data-icon="help"></button>
 <div class="locale" aria-label="Language"><button id="langTR" class="active" aria-pressed="true">TR</button><button id="langEN" aria-pressed="false">EN</button></div>
@@ -40,6 +40,8 @@
 <section id="panel-text" hidden>
 <div class="row between"><h2 data-t="textLayers">Metin katmanları</h2><span class="pill" id="layerCount"></span></div>
 <div class="text-actions"><button id="addText" class="full"><i data-icon="plus"></i><span data-t="addText">Metin ekle</span></button><button id="removeText" class="iconbtn danger" data-icon="trash" data-title="removeText"></button></div>
+<div class="section-label compact-label" data-t="quickTextStyles">HIZLI METİN STİLLERİ</div>
+<div class="quick-style-grid"><button id="styleHook" data-t="styleHook">Hook</button><button id="styleSub" data-t="styleSub">Alt başlık</button><button id="styleCTA" data-t="styleCTA">CTA</button></div>
 <div class="layerlist" id="layerList"></div>
 <div id="textControls">
 <div class="field"><label for="textValue" data-t="textValue">Metin · yeni satır desteklenir</label><textarea id="textValue" maxlength="600"></textarea></div>
@@ -54,6 +56,8 @@
 </section>
 <section id="panel-guide" hidden>
 <h2 data-t="guideTitle">Kontrol kılavuzları</h2>
+<div class="section-label compact-label" data-t="guidePresets">KILAVUZ PROFİLLERİ</div>
+<div class="guide-preset-grid"><button id="guideBalanced" data-t="guideBalanced">Dengeli</button><button id="guideHook" data-t="guideHook">Hook odaklı</button><button id="guideCTA" data-t="guideCTA">CTA odaklı</button></div>
 <label class="checkline"><input id="showGuide" type="checkbox" checked><span data-t="showGuide">İç alan kılavuzu</span></label>
 <label class="checkline"><input id="showThirds" type="checkbox"><span data-t="showThirds">Üçler kuralı çizgileri</span></label>
 <label class="checkline"><input id="showUI" type="checkbox"><span data-t="showUI">9:16 arayüz çakışma taslağı</span></label>
@@ -72,17 +76,19 @@
 <div class="filmstrip" id="filmstrip"></div>
 </section>
 <aside class="sidebar rightbar">
-<section><div class="row between audit-heading"><div class="section-label" style="margin:0" data-t="preflight">YAYIN ÖNCESİ KONTROL</div><i data-icon="checklist"></i></div><div id="auditList"></div><p class="tiny-info" data-t="auditScope">Bu kontrol tasarım kalitesini puanlamaz. Ölçü, büyütme ve eklenen metinlerin geometrisini denetler.</p><div class="badge-line"><i data-icon="lock"></i><span data-t="private">Görseller bu cihazda işlenir.</span></div></section>
+<section><div class="row between audit-heading"><div class="section-label" style="margin:0" data-t="preflight">YAYIN ÖNCESİ KONTROL</div><i data-icon="checklist"></i></div>
+<div id="readinessCard" class="readiness-card neutral"><span class="readiness-dot"></span><div><strong id="readinessTitle" data-t="readyReview">Kontrol gerekli</strong><span id="readinessDetail" data-t="readyReviewDetail">Geometrik uyarıları gözden geçir.</span></div></div>
+<div id="auditList"></div><p class="tiny-info" data-t="auditScope">Bu kontrol tasarım kalitesini puanlamaz. Ölçü, büyütme ve eklenen metinlerin geometrisini denetler.</p><div class="badge-line"><i data-icon="lock"></i><span data-t="private">Görseller bu cihazda işlenir.</span></div></section>
 <section class="export-card"><div class="row between"><h2 data-t="exportTitle">Dosyanı hazırla</h2><i data-icon="download"></i></div><div class="stat-pair"><span data-t="outputSize">Çıktı ölçüsü</span><strong id="outputSize" class="mono"></strong></div><div class="field"><label for="exportFormat" data-t="fileFormat">Dosya biçimi</label><select id="exportFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option></select></div><div class="field" id="qualityField" hidden><div class="row between"><label for="quality" data-t="compression">Kodlama kalitesi</label><span id="qualityLabel" class="muted">92%</span></div><input id="quality" type="range" min="40" max="100" value="92"></div><button id="exportOne" class="primary full"><i data-icon="download"></i><span data-t="exportOne">Bu görseli dışa aktar</span></button><button id="exportSeries" class="full" style="margin-top:8px"><i data-icon="stack"></i><span data-t="exportSeries">Seriyi ZIP olarak al</span></button><button id="openPack" class="full" style="margin-top:8px"><i data-icon="sizes"></i><span data-t="formatPack">Farklı ölçülerde paketle</span></button><p class="export-note" data-t="exportClean">Çıktıda kılavuz, filigran veya arayüz bulunmaz. Orijinal dosyanın üzerine yazılmaz.</p></section>
 <div class="sources-link"><div class="divider"></div><button id="demoBtn" class="full ghost small-btn"><i data-icon="play"></i><span data-t="sample">Örnek projeyi aç</span></button><button id="helpBtn2" class="full ghost small-btn"><i data-icon="info"></i><span data-t="limitsSources">Kapsam ve ölçü kaynakları</span></button><div class="row" style="margin-top:7px"><button id="mobileSave" class="full ghost small-btn" data-t="saveProject">Kaydet</button><button id="mobileOpen" class="full ghost small-btn" data-t="openProject">Proje aç</button></div></div>
 </aside>
 </main>
-<footer class="bottom-bar"><div class="row"><span class="pill-dot"></span><span data-t="footerLocal">Yerel editör · hesap veya API anahtarı istemez</span></div><span class="optional" data-t="footerBeta">Beta 0.2 · AI veya otomatik paylaşım özelliği değildir</span><span>© Alptuğ Harun</span></footer>
+<footer class="bottom-bar"><div class="row"><span class="pill-dot"></span><span data-t="footerLocal">Yerel editör · hesap veya API anahtarı istemez</span></div><span class="optional" data-t="footerBeta">Beta 0.3 · AI veya otomatik paylaşım özelliği değildir</span><span>© Alptuğ Harun</span></footer>
 <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><input id="projectInput" type="file" accept=".json,.frame.json,application/json" hidden>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="busy" class="busy-shield" hidden><div class="busy-box"><div class="spinner"></div><p id="busyText"></p><p class="muted" data-t="keepOpen">Bu pencereyi kapatma.</p></div></div>
 <dialog id="packDialog"><div class="modal-header"><div><h2 data-t="packTitle">Bir görsel, farklı tuvaller</h2><p class="muted" data-t="packSubtitle">Aynı kaynağın farklı oranlardaki kadrajlarını karşılaştır.</p></div><button class="iconbtn ghost" id="closePack" data-icon="close" data-title="close"></button></div><div class="modal-body"><div class="tip warn" data-t="packWarning">Bu bir yeniden kadrajlama işlemidir; AI ile kompozisyon yeniden kurulmaz. Her önizlemeyi ve metin uyarısını kontrol et.</div><div class="pack-grid" id="packGrid"></div></div><div class="modal-footer"><span class="muted" data-t="packFoot">Seçtiğin ölçüler ayrı dosyalar olarak aynı ZIP içinde.</span><button id="exportPack" class="primary"><i data-icon="download"></i><span data-t="packExport">Seçilenleri ZIP olarak al</span></button></div></dialog>
-<dialog id="helpDialog"><div class="modal-header"><h2 data-t="helpTitle">Ne yapar, ne yapmaz?</h2><button class="iconbtn ghost" id="closeHelp" data-icon="close" data-title="close"></button></div><div class="modal-body" id="helpBody"></div><div class="modal-footer"><span class="muted">Creator Frame Studio · 0.2.0 · 05.10.2026</span><button id="helpDone" class="primary" data-t="gotIt">Anladım</button></div></dialog>
+<dialog id="helpDialog"><div class="modal-header"><h2 data-t="helpTitle">Ne yapar, ne yapmaz?</h2><button class="iconbtn ghost" id="closeHelp" data-icon="close" data-title="close"></button></div><div class="modal-body" id="helpBody"></div><div class="modal-footer"><span class="muted">Creator Frame Studio · 0.3.0 · 05.10.2026</span><button id="helpDone" class="primary" data-t="gotIt">Anladım</button></div></dialog>
 <noscript>Bu editör JavaScript gerektirir. Dosyayı bilgisayarında Chrome veya Edge ile aç.</noscript>
 <script src="app.js"></script>
 </body></html>
