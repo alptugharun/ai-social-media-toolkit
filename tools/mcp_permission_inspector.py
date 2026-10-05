@@ -14,12 +14,13 @@ import sys
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Any
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 SECRET_RE = re.compile(r"(token|secret|password|passwd|api[_-]?key|credential|private[_-]?key|auth)", re.I)
 URL_RE = re.compile(r"https?://", re.I)
 ABS_PATH_RE = re.compile(r"^(?:[A-Za-z]:[\\/]|/)")
-SHELLS = {"bash", "sh", "zsh", "fish", "cmd", "cmd.exe", "powershell", "pwsh"}
-RUNNERS = {"npx", "uvx", "pipx", "bunx", "pnpx"}
+SHELLS = {"bash", "bash.exe", "sh", "sh.exe", "zsh", "zsh.exe", "fish", "fish.exe", "cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe"}
+RUNNERS = {"npx", "npx.cmd", "npx.exe", "uvx", "uvx.exe", "pipx", "pipx.exe", "bunx", "bunx.exe", "pnpx", "pnpx.cmd", "pnpx.exe"}
 SHELL_FLAGS = {"-c", "/c", "-command", "-encodedcommand"}
 BROAD_PATHS = {"/", "~", "/home", "/users", "c:\\", "c:/"}
 
@@ -77,6 +78,61 @@ def _string_list(value: Any) -> list[str]:
     return [str(x) for x in value]
 
 
+def _redact_url(value: str) -> str:
+    try:
+        parts = urlsplit(value)
+    except ValueError:
+        return value
+    if parts.scheme.lower() not in {"http", "https"}:
+        return value
+
+    netloc = parts.netloc
+    if "@" in netloc:
+        host = netloc.rsplit("@", 1)[1]
+        netloc = "<redacted-userinfo>@" + host
+
+    query = []
+    for key, val in parse_qsl(parts.query, keep_blank_values=True):
+        query.append((key, "<redacted>" if SECRET_RE.search(key) else val))
+    return urlunsplit((parts.scheme, netloc, parts.path, urlencode(query), parts.fragment))
+
+
+def _redact_args(args: list[str]) -> list[str]:
+    redacted: list[str] = []
+    redact_next = False
+    for arg in args:
+        if redact_next:
+            redacted.append("<redacted>")
+            redact_next = False
+            continue
+
+        if URL_RE.search(arg):
+            arg = _redact_url(arg)
+
+        if "=" in arg:
+            key, value = arg.split("=", 1)
+            if SECRET_RE.search(key):
+                redacted.append(key + "=<redacted>")
+                continue
+
+        if arg.startswith("-") and SECRET_RE.search(arg):
+            redacted.append(arg)
+            redact_next = True
+            continue
+
+        redacted.append(arg)
+    return redacted
+
+
+def _is_broad_path(value: str) -> bool:
+    normalized = value.strip().replace("\\", "/").rstrip("/").lower()
+    if normalized in {"", ".", ".."}:
+        return False
+    if normalized in {"/", "~", "/home", "/users"}:
+        return True
+    return bool(re.fullmatch(r"[a-z]:", normalized))
+
+
 def inspect_server(name: str, raw: Any) -> ServerReport:
     if not isinstance(raw, dict):
         raise InspectorError(f"Server '{name}' must be an object.")
@@ -94,6 +150,7 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
     findings: list[Finding] = []
     cmd_name = Path(command.replace("\\", "/")).name.lower()
     lowered = [a.lower() for a in args]
+    reported_args = _redact_args(args)
 
     if cmd_name in SHELLS:
         findings.append(Finding(
@@ -125,7 +182,7 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
         ))
 
     path_args = [a for a in args if ABS_PATH_RE.search(a)]
-    broad = [a for a in path_args if a.rstrip("\\/").lower() in {p.rstrip("\\/").lower() for p in BROAD_PATHS}]
+    broad = [a for a in path_args if _is_broad_path(a)]
     if broad:
         findings.append(Finding(
             "high", "broad-filesystem-path",
@@ -175,7 +232,7 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
         ))
 
     risk = max((f.severity for f in findings), key=lambda s: SEVERITY_SCORE[s])
-    return ServerReport(name=name, command=command, args=args, env_keys=env_keys, risk=risk, findings=findings)
+    return ServerReport(name=name, command=command, args=reported_args, env_keys=env_keys, risk=risk, findings=findings)
 
 
 def inspect_config(data: dict[str, Any]) -> list[ServerReport]:
