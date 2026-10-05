@@ -362,6 +362,19 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         reports = module.inspect_config({"mcpServers": {"z": {"command": "z"}, "a": {"command": "a"}}})
         self.assertEqual([r.name for r in reports], ["a", "z"])
 
+    def test_zed_context_servers_shape_is_supported(self):
+        reports = module.inspect_config({
+            "context_servers": {
+                "github": {
+                    "command": "github-mcp-server",
+                    "args": ["stdio"],
+                }
+            }
+        })
+        self.assertEqual(len(reports), 1)
+        self.assertEqual(reports[0].name, "github")
+        self.assertEqual(reports[0].transport, "stdio")
+
     def test_single_server_shape_is_supported(self):
         reports = module.inspect_config({"command": "demo", "args": []})
         self.assertEqual(reports[0].name, "server")
