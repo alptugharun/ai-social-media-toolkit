@@ -153,8 +153,8 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
     env_keys = sorted(str(k) for k in env)
     findings: list[Finding] = []
     cmd_name = Path(command.replace("\\", "/")).name.lower()
-    lowered = [a.lower() for a in args]
     reported_args = _redact_args(args)
+    lowered = [a.lower() for a in reported_args]
 
     if cmd_name in SHELLS:
         findings.append(Finding(
@@ -178,14 +178,14 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
             "Use the narrowest token scopes, prefer host secret stores/environment injection, and never commit secret values."
         ))
 
-    if any(URL_RE.search(a) for a in args):
+    if any(URL_RE.search(a) for a in reported_args):
         findings.append(Finding(
             "medium", "network-target",
             "Arguments contain an HTTP(S) target, so the configured server may depend on network access.",
             "Verify the destination, data boundary and authentication scope before enabling the server."
         ))
 
-    path_args = [a for a in args if ABS_PATH_RE.search(a)]
+    path_args = [a for a in reported_args if ABS_PATH_RE.search(a)]
     broad = [a for a in path_args if _is_broad_path(a)]
     if broad:
         findings.append(Finding(
@@ -214,8 +214,8 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
             ))
 
     unpinned = []
-    for a in args:
-        if a.startswith("-") or URL_RE.search(a):
+    for a in reported_args:
+        if a.startswith("-") or a == "<redacted>" or URL_RE.search(a):
             continue
         if cmd_name == "npx" and re.match(r"^(?:@[^/]+/)?[^@/]+$", a):
             unpinned.append(a)
