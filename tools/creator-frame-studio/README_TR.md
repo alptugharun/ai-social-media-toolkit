@@ -4,7 +4,7 @@
 
 [English README](README.md) · [Yol haritası](ROADMAP.md) · [Test notları](TESTING.md) · [İçerik paketi](CONTENT-PACK.md)
 
-> **Durum:** v0.2.1 beta. Araç kullanılabilir durumdadır; fakat resmî Instagram doğrulayıcısı veya “AI tasarım hakemi” olarak sunulmaz.
+> **Durum:** v0.3.0 beta. Araç kullanılabilir durumdadır; fakat resmî Instagram doğrulayıcısı veya “AI tasarım hakemi” olarak sunulmaz.
 
 ## Hangi sorunu çözüyor?
 
@@ -65,3 +65,7 @@ Sayfanın Content Security Policy ayarı ağ bağlantılarını engeller. Proje 
 - Çoklu format paketi kompozisyonu yeniden kadrajlar; her çıktı gözle kontrol edilmelidir.
 
 **Alptuğ Harun** tarafından geliştiriliyor.
+
+## v0.3 creator iş akışı geliştirmesi
+
+v0.3 sürümünde Hook / Alt başlık / CTA hızlı metin stilleri, Dengeli / Hook odaklı / CTA odaklı editöryal kılavuz profilleri ve deterministik yayın öncesi durum kartı eklendi. Bunlar estetik kalite, yüz, görsele gömülü metin veya algoritmik performans puanı üretmez.
