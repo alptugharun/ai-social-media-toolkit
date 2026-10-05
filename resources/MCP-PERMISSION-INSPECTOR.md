@@ -112,7 +112,7 @@ Exit codes:
 
 The inspector reports credential **key names**, not values.
 
-A literal credential value is treated more severely than a placeholder such as `${GITHUB_TOKEN}`.
+A literal credential value is treated more severely than a placeholder such as `${GITHUB_TOKEN}`. Header templates such as `Bearer ${env:TOKEN}` are treated as credential boundaries, not as hardcoded secrets.
 
 ## What it checks
 
@@ -121,6 +121,7 @@ A literal credential value is treated more severely than a placeholder such as `
 | shell launcher / shell evaluation flag | high | broad command-execution surface |
 | broad filesystem root | high | excessive local data exposure |
 | literal credential in env/header | high | secret is embedded in config |
+| execution-influencing env (`LD_PRELOAD`, `NODE_OPTIONS`, etc.) | high | process/module loading can change before server startup |
 | cleartext remote HTTP outside loopback | high | transport confidentiality risk |
 | sensitive env/header placeholder | medium | credential boundary exists |
 | remote HTTPS endpoint | medium | external trust/data boundary |
