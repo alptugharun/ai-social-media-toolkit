@@ -138,6 +138,63 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             {f.code for f in reports[0].findings},
         )
 
+    def test_unpinned_docker_image_is_medium(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "github": {
+                    "command": "docker",
+                    "args": [
+                        "run",
+                        "-i",
+                        "--rm",
+                        "-p",
+                        "127.0.0.1:8085:8085",
+                        "-e",
+                        "GITHUB_OAUTH_CALLBACK_PORT",
+                        "ghcr.io/github/github-mcp-server",
+                    ],
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "medium")
+        self.assertIn(
+            "unpinned-container-image",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_version_tagged_container_is_low(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "docker",
+                    "args": ["run", "--rm", "ghcr.io/example/server:1.2.3"],
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "low")
+        self.assertIn(
+            "mutable-container-tag",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_digest_pinned_container_does_not_get_pin_warning(self):
+        digest = "a" * 64
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "docker",
+                    "args": [
+                        "run",
+                        "--rm",
+                        "ghcr.io/example/server@sha256:" + digest,
+                    ],
+                }
+            }
+        })
+        codes = {f.code for f in reports[0].findings}
+        self.assertNotIn("unpinned-container-image", codes)
+        self.assertNotIn("mutable-container-tag", codes)
+
     def test_npx_cmd_on_windows_is_detected_as_runner(self):
         reports = module.inspect_config({"mcpServers": {"x": {"command": "npx.cmd", "args": ["-y", "server"]}}})
         codes = {f.code for f in reports[0].findings}
