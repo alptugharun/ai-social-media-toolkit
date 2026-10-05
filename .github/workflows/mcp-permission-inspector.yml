@@ -24,25 +24,53 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-24.04, windows-2025, macos-14]
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
     runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Set up Python
+      - name: Python 3.10
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.10"
 
-      - name: Compile
-        run: python -W error::SyntaxWarning -m compileall -q tools tests
+      - name: Test on Python 3.10
+        run: |
+          python -W error::SyntaxWarning -m compileall -q tools tests
+          python -m unittest tests.test_mcp_permission_inspector -v
 
-      - name: Targeted adversarial suite
-        run: python -m unittest tests.test_mcp_permission_inspector -v
+      - name: Python 3.11
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.11"
 
-      - name: Fixture gate
+      - name: Test on Python 3.11
+        run: |
+          python -W error::SyntaxWarning -m compileall -q tools tests
+          python -m unittest tests.test_mcp_permission_inspector -v
+
+      - name: Python 3.12
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+
+      - name: Test on Python 3.12
+        run: |
+          python -W error::SyntaxWarning -m compileall -q tools tests
+          python -m unittest tests.test_mcp_permission_inspector -v
+
+      - name: Python 3.13
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.13"
+
+      - name: Test on Python 3.13
+        run: |
+          python -W error::SyntaxWarning -m compileall -q tools tests
+          python -m unittest tests.test_mcp_permission_inspector -v
+
+      - name: Safe/vulnerable fixture gate
         shell: bash
         run: |
           set -euo pipefail
