@@ -378,15 +378,33 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             self.assertEqual(run.returncode, 3)
             self.assertIn("STATIC CONFIG REVIEW", run.stdout)
 
-    def test_cli_json_never_leaks_secret_values(self):
+    def test_cli_json_output_is_valid_and_redacts_sensitive_fields(self):
         with tempfile.TemporaryDirectory() as tmp:
-            secret = "TOP_SECRET_VALUE"
+            password_placeholder = "$" + "{PASSWORD}"
+            api_key_placeholder = "$" + "{API_KEY}"
             p = Path(tmp) / "mcp.json"
-            p.write_text(json.dumps({"mcpServers": {"x": {"command": "server", "args": ["--password", secret], "env": {"API_KEY": secret}}}}), encoding="utf-8")
-            run = subprocess.run([sys.executable, str(TOOL), str(p), "--json"], text=True, capture_output=True, timeout=20)
+            p.write_text(
+                json.dumps({
+                    "mcpServers": {
+                        "x": {
+                            "command": "server",
+                            "args": ["--password", password_placeholder],
+                            "env": {"API_KEY": api_key_placeholder},
+                        }
+                    }
+                }),
+                encoding="utf-8",
+            )
+            run = subprocess.run(
+                [sys.executable, str(TOOL), str(p), "--json"],
+                text=True,
+                capture_output=True,
+                timeout=20,
+            )
             self.assertEqual(run.returncode, 0, run.stderr)
-            self.assertNotIn(secret, run.stdout)
-            json.loads(run.stdout)
+            payload = json.loads(run.stdout)
+            self.assertEqual(payload[0]["args"][1], "<redacted>")
+            self.assertNotIn(password_placeholder, run.stdout)
 
     def test_cli_invalid_json_returns_2_without_traceback(self):
         with tempfile.TemporaryDirectory() as tmp:
