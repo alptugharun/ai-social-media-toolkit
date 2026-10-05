@@ -4,7 +4,7 @@
 
 [Türkçe README](README_TR.md) · [Roadmap](ROADMAP.md) · [Testing](TESTING.md) · [Content pack](CONTENT-PACK.md)
 
-> **Status:** v0.2.1 beta. The tool is useful today, but it is not presented as an official Instagram validator or an AI design judge.
+> **Status:** v0.3.0 beta. The tool is useful today, but it is not presented as an official Instagram validator or an AI design judge.
 
 ## What it solves
 
@@ -13,6 +13,9 @@ A design can look good in the editor and still lose important text, faces or cal
 - place and reframe source images without regenerating them,
 - preview multiple social-media canvases,
 - add editable text layers,
+- apply one-click Hook / Subtitle / CTA text styles,
+- switch between Balanced / Hook-focus / CTA-focus editorial guide profiles,
+- review a deterministic preflight readiness summary alongside detailed checks,
 - review conservative inner-area guides,
 - simulate common crop views,
 - export single images or a multi-format ZIP,
@@ -89,3 +92,7 @@ tools/creator-frame-studio/
 This repository is about practical, testable creator workflows. Creator Frame Studio is a concrete browser tool: it turns format and framing guidance into an inspectable workflow instead of another prompt card.
 
 Built by **Alptuğ Harun**.
+
+## v0.3 creator workflow upgrade
+
+The v0.3 iteration adds faster creator-side decisions without pretending to be an AI design judge. Quick text styles, editorial guide profiles and the readiness card are deterministic layout helpers. They do not inspect aesthetic quality, faces, embedded raster text or platform ranking potential.
