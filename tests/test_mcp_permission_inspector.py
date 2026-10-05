@@ -111,6 +111,33 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         self.assertNotIn("unpinned-package", codes)
         self.assertIn("filesystem-path", codes)
 
+    def test_npx_c_command_is_not_misreported_as_package(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "npx",
+                    "args": ["-c", "rm -rf /tmp/important"],
+                }
+            }
+        })
+        codes = {f.code for f in reports[0].findings}
+        self.assertIn("shell-command-flag", codes)
+        self.assertNotIn("unpinned-package", codes)
+
+    def test_shell_metacharacter_argument_gets_context_warning(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "npx",
+                    "args": ["my-tool", "&&", "other-command"],
+                }
+            }
+        })
+        self.assertIn(
+            "shell-metacharacter-argument",
+            {f.code for f in reports[0].findings},
+        )
+
     def test_npx_cmd_on_windows_is_detected_as_runner(self):
         reports = module.inspect_config({"mcpServers": {"x": {"command": "npx.cmd", "args": ["-y", "server"]}}})
         codes = {f.code for f in reports[0].findings}
@@ -223,6 +250,40 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         codes = {f.code for f in reports[0].findings}
         self.assertIn("sensitive-env-boundary", codes)
         self.assertNotIn("hardcoded-env-credential", codes)
+
+    def test_bearer_placeholder_header_is_not_hardcoded(self):
+        placeholder = "Bearer " + "$" + "{env:RENDER_TOKEN}"
+        reports = module.inspect_config({
+            "mcpServers": {
+                "remote": {
+                    "url": "https://mcp.render.com/mcp",
+                    "headers": {"Authorization": placeholder},
+                }
+            }
+        })
+        codes = {f.code for f in reports[0].findings}
+        self.assertNotIn("hardcoded-header-credential", codes)
+        self.assertIn("sensitive-header-boundary", codes)
+        self.assertEqual(reports[0].risk, "medium")
+
+    def test_execution_influencing_env_is_high(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "npx",
+                    "args": ["@example/tool@1.2.3"],
+                    "env": {
+                        "LD_PRELOAD": "/tmp/evil.so",
+                        "NODE_OPTIONS": "--require /tmp/inject.js",
+                    },
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "high")
+        self.assertIn(
+            "execution-env-injection",
+            {f.code for f in reports[0].findings},
+        )
 
     def test_hardcoded_authorization_header_is_high_and_redacted(self):
         secret = "Bearer TOP_SECRET"

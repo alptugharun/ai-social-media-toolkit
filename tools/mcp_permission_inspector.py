@@ -19,6 +19,12 @@ from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
 CREDENTIAL_KEY_RE = re.compile(r"(token|secret|password|passwd|api[_-]?key|credential|private[_-]?key|access[_-]?key|database[_-]?url|dsn|connection[_-]?string|cookie|authorization)", re.I)
 PLACEHOLDER_RE = re.compile(r"^(?:\$\{[^}]+\}|\$[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*%)$")
+HEADER_PLACEHOLDER_RE = re.compile(r"^(?:(?:Bearer|Basic|Token)\s+)?(?:\$\{[^}]+\}|\$[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*%)$", re.I)
+EXECUTION_ENV_KEYS = {
+    "LD_PRELOAD", "LD_LIBRARY_PATH", "DYLD_INSERT_LIBRARIES",
+    "DYLD_LIBRARY_PATH", "NODE_OPTIONS", "PYTHONPATH", "PYTHONSTARTUP",
+    "RUBYOPT", "PERL5OPT", "BASH_ENV", "ENV", "PROMPT_COMMAND",
+}
 MAX_CONFIG_BYTES = 5_000_000
 MAX_SERVERS = 10_000
 MAX_ARGS_PER_SERVER = 10_000
@@ -27,6 +33,7 @@ ABS_PATH_RE = re.compile(r"^(?:[A-Za-z]:[\\/]|/)")
 SHELLS = {"bash", "bash.exe", "sh", "sh.exe", "zsh", "zsh.exe", "fish", "fish.exe", "cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe"}
 RUNNERS = {"npx", "npx.cmd", "npx.exe", "uvx", "uvx.exe", "pipx", "pipx.exe", "bunx", "bunx.exe", "pnpx", "pnpx.cmd", "pnpx.exe"}
 SHELL_FLAGS = {"-c", "/c", "-command", "-encodedcommand"}
+SHELL_META_ARGS = {"&&", "||", ";", "|"}
 BROAD_PATHS = {"/", "~", "/home", "/users", "c:\\", "c:/"}
 
 SEVERITY_SCORE = {"info": 0, "low": 1, "medium": 2, "high": 3}
@@ -180,18 +187,35 @@ def _is_placeholder(value: Any) -> bool:
     )
 
 
+def _is_header_placeholder(value: Any) -> bool:
+    return isinstance(value, str) and bool(
+        HEADER_PLACEHOLDER_RE.fullmatch(value.strip())
+    )
+
+
 def _credential_keys(mapping: dict[str, Any]) -> list[str]:
     return sorted(
         str(key) for key in mapping if CREDENTIAL_KEY_RE.search(str(key))
     )
 
 
-def _hardcoded_credential_keys(mapping: dict[str, Any]) -> list[str]:
+def _hardcoded_credential_keys(
+    mapping: dict[str, Any],
+    *,
+    header_mode: bool = False,
+) -> list[str]:
     result: list[str] = []
     for key, value in mapping.items():
         if not CREDENTIAL_KEY_RE.search(str(key)):
             continue
-        if value in (None, "") or _is_placeholder(value):
+        if value in (None, ""):
+            continue
+        placeholder = (
+            _is_header_placeholder(value)
+            if header_mode
+            else _is_placeholder(value)
+        )
+        if placeholder:
             continue
         result.append(str(key))
     return sorted(result)
@@ -312,6 +336,32 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
             )
         )
 
+    meta_args = sorted({arg for arg in reported_args if arg in SHELL_META_ARGS})
+    if meta_args and cmd_name not in SHELLS:
+        findings.append(
+            Finding(
+                "medium",
+                "shell-metacharacter-argument",
+                "Arguments contain shell metacharacters: " + ", ".join(meta_args) + ".",
+                "They are normally literal argv values; verify the host/launcher never concatenates them into a shell command.",
+            )
+        )
+
+    dangerous_env_keys = sorted(
+        key for key in env_keys if key.upper() in EXECUTION_ENV_KEYS
+    )
+    if dangerous_env_keys:
+        findings.append(
+            Finding(
+                "high",
+                "execution-env-injection",
+                "Environment keys can alter process/module loading: "
+                + ", ".join(dangerous_env_keys)
+                + ". Values are never displayed.",
+                "Remove execution-influencing environment overrides unless they are explicitly required and reviewed.",
+            )
+        )
+
     env_credential_keys = _credential_keys(env)
     hardcoded_env = _hardcoded_credential_keys(env)
     if hardcoded_env:
@@ -338,7 +388,7 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
         )
 
     header_credential_keys = _credential_keys(headers)
-    hardcoded_headers = _hardcoded_credential_keys(headers)
+    hardcoded_headers = _hardcoded_credential_keys(headers, header_mode=True)
     if hardcoded_headers:
         findings.append(
             Finding(
@@ -465,17 +515,19 @@ def inspect_server(name: str, raw: Any) -> ServerReport:
                 )
             )
 
-        package_arg = next(
-            (
-                arg
-                for arg in reported_args
-                if arg
-                and not arg.startswith("-")
-                and arg != "<redacted>"
-                and not URL_RE.search(arg)
-            ),
-            None,
-        )
+        package_arg = None
+        if not any(flag in lowered for flag in SHELL_FLAGS):
+            package_arg = next(
+                (
+                    arg
+                    for arg in reported_args
+                    if arg
+                    and not arg.startswith("-")
+                    and arg != "<redacted>"
+                    and not URL_RE.search(arg)
+                ),
+                None,
+            )
         unpinned = (
             [package_arg]
             if package_arg is not None
