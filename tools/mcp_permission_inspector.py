@@ -125,10 +125,13 @@ def _redact_args(args: list[str]) -> list[str]:
 
 
 def _is_broad_path(value: str) -> bool:
-    normalized = value.strip().replace("\\", "/").rstrip("/").lower()
+    raw = value.strip().replace("\\", "/").lower()
+    if raw == "/":
+        return True
+    normalized = raw.rstrip("/")
     if normalized in {"", ".", ".."}:
         return False
-    if normalized in {"/", "~", "/home", "/users"}:
+    if normalized in {"~", "/home", "/users"}:
         return True
     return bool(re.fullmatch(r"[a-z]:", normalized))
 
