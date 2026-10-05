@@ -11,8 +11,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 TOOL = ROOT / "tools" / "mcp_permission_inspector.py"
 spec = importlib.util.spec_from_file_location("mcp_permission_inspector", TOOL)
-module = importlib.util.module_from_spec(spec)
 assert spec and spec.loader
+module = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = module
 spec.loader.exec_module(module)
 
 
