@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Static, local-first risk review for MCP stdio configuration.
+"""Static, local-first risk review for MCP client configuration.
 
 This tool does not launch servers, contact the network, or prove runtime safety.
 It inspects configuration shape and reports bounded heuristics.
