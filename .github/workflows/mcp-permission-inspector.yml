@@ -2,14 +2,6 @@ name: MCP Permission Inspector Heavy Tests
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - "tools/mcp_permission_inspector.py"
-      - "tests/test_mcp_permission_inspector.py"
-      - "tests/stress_mcp_permission_inspector.py"
-      - "tests/fixtures/mcp-permission-inspector-*.json"
-      - "resources/MCP-PERMISSION-INSPECTOR.md"
-      - ".github/workflows/mcp-permission-inspector.yml"
   pull_request:
     paths:
       - "tools/mcp_permission_inspector.py"
@@ -21,6 +13,10 @@ on:
 
 permissions:
   contents: read
+
+concurrency:
+  group: mcp-permission-inspector-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   compatibility:
