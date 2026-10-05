@@ -94,6 +94,23 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         reports = module.inspect_config({"mcpServers": {"x": {"command": "npx", "args": ["@scope/server@1.2.3"]}}})
         self.assertNotIn("unpinned-package", {f.code for f in reports[0].findings})
 
+    def test_pinned_npx_package_does_not_treat_later_path_as_package(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "filesystem": {
+                    "command": "npx",
+                    "args": [
+                        "@modelcontextprotocol/server-filesystem@1.2.0",
+                        "/home/user/projects/my-app",
+                        "--read-only",
+                    ],
+                }
+            }
+        })
+        codes = {f.code for f in reports[0].findings}
+        self.assertNotIn("unpinned-package", codes)
+        self.assertIn("filesystem-path", codes)
+
     def test_npx_cmd_on_windows_is_detected_as_runner(self):
         reports = module.inspect_config({"mcpServers": {"x": {"command": "npx.cmd", "args": ["-y", "server"]}}})
         codes = {f.code for f in reports[0].findings}
@@ -103,7 +120,182 @@ class MCPPermissionInspectorTests(unittest.TestCase):
     def test_network_target_is_medium(self):
         reports = module.inspect_config({"mcpServers": {"x": {"command": "server", "args": ["https://example.com"]}}})
         self.assertEqual(reports[0].risk, "medium")
-        self.assertIn("network-target", {f.code for f in reports[0].findings})
+        self.assertIn("network-target-argument", {f.code for f in reports[0].findings})
+
+    def test_remote_https_config_is_supported(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "remote": {
+                    "url": "https://mcp.example.com/v1",
+                    "transport": "sse",
+                }
+            }
+        })
+        self.assertEqual(reports[0].transport, "sse")
+        self.assertEqual(reports[0].risk, "medium")
+        self.assertIn(
+            "remote-network-boundary",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_remote_cleartext_non_loopback_is_high(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "remote": {
+                    "url": "http://example.com/mcp",
+                    "transport": "sse",
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "high")
+        self.assertIn(
+            "cleartext-remote",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_remote_loopback_http_is_low(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "local": {
+                    "url": "http://127.0.0.1:3000/mcp",
+                    "transport": "streamable-http",
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "low")
+        self.assertIn(
+            "loopback-http",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_mixed_stdio_and_remote_config_does_not_abort(self):
+        reports = module.inspect_config({
+            "mcpServers": {
+                "local": {
+                    "command": "npx",
+                    "args": ["@scope/server@1.2.3"],
+                },
+                "remote": {
+                    "url": "https://mcp.example.com/mcp",
+                    "transport": "sse",
+                },
+            }
+        })
+        self.assertEqual([r.name for r in reports], ["local", "remote"])
+        self.assertEqual(reports[1].transport, "sse")
+
+    def test_hardcoded_env_credential_is_high_and_value_never_leaks(self):
+        secret = "REAL_SECRET_VALUE"
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "server",
+                    "env": {
+                        "DATABASE_URL": secret,
+                        "API_KEY": secret,
+                    },
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "high")
+        rendered = module.render_text(reports)
+        payload = json.dumps([module.asdict(r) for r in reports])
+        self.assertNotIn(secret, rendered)
+        self.assertNotIn(secret, payload)
+        self.assertIn(
+            "hardcoded-env-credential",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_placeholder_env_credential_is_medium_not_high(self):
+        placeholder = "$" + "{GITHUB_TOKEN}"
+        reports = module.inspect_config({
+            "mcpServers": {
+                "x": {
+                    "command": "server",
+                    "env": {
+                        "GITHUB_TOKEN": placeholder,
+                    },
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "medium")
+        codes = {f.code for f in reports[0].findings}
+        self.assertIn("sensitive-env-boundary", codes)
+        self.assertNotIn("hardcoded-env-credential", codes)
+
+    def test_hardcoded_authorization_header_is_high_and_redacted(self):
+        secret = "Bearer TOP_SECRET"
+        reports = module.inspect_config({
+            "mcpServers": {
+                "remote": {
+                    "url": "https://mcp.example.com/mcp",
+                    "headers": {"Authorization": secret},
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "high")
+        rendered = module.render_text(reports)
+        payload = json.dumps([module.asdict(r) for r in reports])
+        self.assertNotIn(secret, rendered)
+        self.assertNotIn(secret, payload)
+        self.assertIn(
+            "hardcoded-header-credential",
+            {f.code for f in reports[0].findings},
+        )
+
+    def test_remote_url_credentials_never_leak(self):
+        secret = "url-secret"
+        reports = module.inspect_config({
+            "mcpServers": {
+                "remote": {
+                    "url": (
+                        "https://user:"
+                        + secret
+                        + "@example.com/mcp?token="
+                        + secret
+                    )
+                }
+            }
+        })
+        rendered = module.render_text(reports)
+        payload = json.dumps([module.asdict(r) for r in reports])
+        self.assertNotIn(secret, rendered)
+        self.assertNotIn(secret, payload)
+        self.assertIn("<redacted-userinfo>", reports[0].url or "")
+
+    def test_duplicate_json_keys_are_rejected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "duplicate.json"
+            p.write_text(
+                '{"mcpServers":{"x":{"command":"a","command":"b"}}}',
+                encoding="utf-8",
+            )
+            with self.assertRaises(module.InspectorError):
+                module.load_config(p)
+
+    def test_file_size_limit_is_enforced(self):
+        old_limit = module.MAX_CONFIG_BYTES
+        try:
+            module.MAX_CONFIG_BYTES = 20
+            with tempfile.TemporaryDirectory() as tmp:
+                p = Path(tmp) / "large.json"
+                p.write_text('{"mcpServers":{}}' + (" " * 30), encoding="utf-8")
+                with self.assertRaises(module.InspectorError):
+                    module.load_config(p)
+        finally:
+            module.MAX_CONFIG_BYTES = old_limit
+
+    def test_headers_shape_must_be_object(self):
+        with self.assertRaises(module.InspectorError):
+            module.inspect_config({
+                "mcpServers": {
+                    "x": {
+                        "url": "https://example.com/mcp",
+                        "headers": ["Authorization"],
+                    }
+                }
+            })
 
     def test_multiple_servers_are_sorted_for_stable_output(self):
         reports = module.inspect_config({"mcpServers": {"z": {"command": "z"}, "a": {"command": "a"}}})
@@ -143,6 +335,40 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             reports = module.inspect_config({"mcpServers": {"fuzz": {"command": "server", "args": values}}})
             rendered = module.render_text(reports)
             self.assertNotIn(secret, rendered)
+
+    def test_source_keeps_local_first_no_execution_boundary(self):
+        source = TOOL.read_text(encoding="utf-8")
+        forbidden = (
+            "import subprocess",
+            "from subprocess",
+            "import socket",
+            "from socket",
+            "urllib.request",
+            "http.client",
+            "requests.",
+            "httpx.",
+            "os.system(",
+            "Popen(",
+        )
+        for needle in forbidden:
+            with self.subTest(needle=needle):
+                self.assertNotIn(needle, source)
+
+    def test_repository_safe_fixture_stays_below_high(self):
+        fixture = ROOT / "tests" / "fixtures" / "mcp-permission-inspector-safe.json"
+        reports = module.inspect_config(module.load_config(fixture))
+        self.assertTrue(reports)
+        self.assertFalse(any(r.risk == "high" for r in reports))
+
+    def test_repository_vulnerable_fixture_contains_high_findings(self):
+        fixture = ROOT / "tests" / "fixtures" / "mcp-permission-inspector-vulnerable.json"
+        reports = module.inspect_config(module.load_config(fixture))
+        self.assertTrue(any(r.risk == "high" for r in reports))
+        codes = {f.code for r in reports for f in r.findings}
+        self.assertIn("shell-execution", codes)
+        self.assertIn("broad-filesystem-path", codes)
+        self.assertIn("cleartext-remote", codes)
+        self.assertIn("hardcoded-header-credential", codes)
 
     def test_cli_fail_on_medium(self):
         with tempfile.TemporaryDirectory() as tmp:

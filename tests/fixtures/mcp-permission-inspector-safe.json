@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-filesystem@1.2.0",
+        "/home/user/projects/my-app",
+        "--read-only"
+      ],
+      "env": {
+        "LOG_LEVEL": "info"
+      }
+    },
+    "github": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-github@1.0.0"
+      ],
+      "env": {
+        "GITHUB_TOKEN": "${GITHUB_TOKEN}"
+      }
+    },
+    "postgres": {
+      "command": "npx",
+      "args": [
+        "@modelcontextprotocol/server-postgres@1.0.0",
+        "--read-only"
+      ],
+      "env": {
+        "DATABASE_URL": "${DATABASE_URL}"
+      }
+    },
+    "remoteDocs": {
+      "url": "https://mcp.example.com/mcp",
+      "transport": "streamable-http",
+      "headers": {
+        "Authorization": "${MCP_AUTH_HEADER}"
+      }
+    }
+  }
+}

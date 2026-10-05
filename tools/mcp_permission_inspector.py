@@ -8,15 +8,20 @@ It inspects configuration shape and reports bounded heuristics.
 from __future__ import annotations
 
 import argparse
+import ipaddress
 import json
 import re
 import sys
-from dataclasses import dataclass, asdict
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 
-SECRET_RE = re.compile(r"(token|secret|password|passwd|api[_-]?key|credential|private[_-]?key|auth)", re.I)
+CREDENTIAL_KEY_RE = re.compile(r"(token|secret|password|passwd|api[_-]?key|credential|private[_-]?key|access[_-]?key|database[_-]?url|dsn|connection[_-]?string|cookie|authorization)", re.I)
+PLACEHOLDER_RE = re.compile(r"^(?:\$\{[^}]+\}|\$[A-Za-z_][A-Za-z0-9_]*|%[A-Za-z_][A-Za-z0-9_]*%)$")
+MAX_CONFIG_BYTES = 5_000_000
+MAX_SERVERS = 10_000
+MAX_ARGS_PER_SERVER = 10_000
 URL_RE = re.compile(r"https?://", re.I)
 ABS_PATH_RE = re.compile(r"^(?:[A-Za-z]:[\\/]|/)")
 SHELLS = {"bash", "bash.exe", "sh", "sh.exe", "zsh", "zsh.exe", "fish", "fish.exe", "cmd", "cmd.exe", "powershell", "powershell.exe", "pwsh", "pwsh.exe"}
@@ -42,16 +47,38 @@ class Finding:
 @dataclass(frozen=True)
 class ServerReport:
     name: str
-    command: str
+    transport: str
+    command: str | None
+    url: str | None
     args: list[str]
     env_keys: list[str]
+    header_keys: list[str]
     risk: str
     findings: list[Finding]
 
 
+def _no_duplicate_keys(pairs: list[tuple[str, Any]]) -> dict[str, Any]:
+    obj: dict[str, Any] = {}
+    for key, value in pairs:
+        if key in obj:
+            raise InspectorError(f"Duplicate JSON key is ambiguous: {key!r}.")
+        obj[key] = value
+    return obj
+
+
 def load_config(path: Path) -> dict[str, Any]:
     try:
-        data = json.loads(path.read_text(encoding="utf-8"))
+        size = path.stat().st_size
+        if size > MAX_CONFIG_BYTES:
+            raise InspectorError(
+                f"Config is too large ({size} bytes); limit is {MAX_CONFIG_BYTES} bytes."
+            )
+        data = json.loads(
+            path.read_text(encoding="utf-8"),
+            object_pairs_hook=_no_duplicate_keys,
+        )
+    except InspectorError:
+        raise
     except (OSError, UnicodeError, json.JSONDecodeError) as exc:
         raise InspectorError(f"Could not read valid UTF-8 JSON: {exc}") from exc
     if not isinstance(data, dict):
@@ -63,38 +90,60 @@ def server_map(data: dict[str, Any]) -> dict[str, Any]:
     for key in ("mcpServers", "servers"):
         value = data.get(key)
         if isinstance(value, dict):
+            if len(value) > MAX_SERVERS:
+                raise InspectorError(
+                    f"MCP server map has {len(value)} entries; limit is {MAX_SERVERS}."
+                )
             return value
-    # Accept a single server object for CI/tests and small snippets.
-    if "command" in data:
+    if "command" in data or "url" in data:
         return {"server": data}
-    raise InspectorError("No MCP server map found. Expected 'mcpServers', 'servers', or a single server object.")
+    raise InspectorError(
+        "No MCP server map found. Expected 'mcpServers', 'servers', "
+        "or a single server object with command/url."
+    )
 
 
 def _string_list(value: Any) -> list[str]:
     if value is None:
         return []
-    if not isinstance(value, list) or not all(isinstance(x, (str, int, float, bool)) for x in value):
+    if not isinstance(value, list) or not all(
+        isinstance(x, (str, int, float, bool)) for x in value
+    ):
         raise InspectorError("Server 'args' must be a list of scalar values.")
+    if len(value) > MAX_ARGS_PER_SERVER:
+        raise InspectorError(
+            f"Server args contain {len(value)} entries; limit is {MAX_ARGS_PER_SERVER}."
+        )
     return [str(x) for x in value]
+
+
+def _mapping(value: Any, label: str, name: str) -> dict[str, Any]:
+    if value is None:
+        return {}
+    if not isinstance(value, dict):
+        raise InspectorError(f"Server '{name}' {label} must be an object.")
+    return value
 
 
 def _redact_url(value: str) -> str:
     try:
         parts = urlsplit(value)
     except ValueError:
-        return value
+        return "<invalid-url>"
     if parts.scheme.lower() not in {"http", "https"}:
         return value
 
     netloc = parts.netloc
     if "@" in netloc:
-        host = netloc.rsplit("@", 1)[1]
-        netloc = "<redacted-userinfo>@" + host
+        netloc = "<redacted-userinfo>@" + netloc.rsplit("@", 1)[1]
 
-    query = []
-    for key, val in parse_qsl(parts.query, keep_blank_values=True):
-        query.append((key, "<redacted>" if SECRET_RE.search(key) else val))
-    return urlunsplit((parts.scheme, netloc, parts.path, urlencode(query), parts.fragment))
+    query = [
+        (key, "<redacted>" if CREDENTIAL_KEY_RE.search(key) else val)
+        for key, val in parse_qsl(parts.query, keep_blank_values=True)
+    ]
+    return urlunsplit(
+        (parts.scheme, netloc, parts.path, urlencode(query), parts.fragment)
+    )
 
 
 def _redact_args(args: list[str]) -> list[str]:
@@ -111,18 +160,41 @@ def _redact_args(args: list[str]) -> list[str]:
             continue
 
         if "=" in arg:
-            key, value = arg.split("=", 1)
-            if SECRET_RE.search(key):
+            key, _value = arg.split("=", 1)
+            if CREDENTIAL_KEY_RE.search(key):
                 redacted.append(key + "=<redacted>")
                 continue
 
-        if arg.startswith("-") and SECRET_RE.search(arg):
+        if arg.startswith("-") and CREDENTIAL_KEY_RE.search(arg):
             redacted.append(arg)
             redact_next = True
             continue
 
         redacted.append(arg)
     return redacted
+
+
+def _is_placeholder(value: Any) -> bool:
+    return isinstance(value, str) and bool(
+        PLACEHOLDER_RE.fullmatch(value.strip())
+    )
+
+
+def _credential_keys(mapping: dict[str, Any]) -> list[str]:
+    return sorted(
+        str(key) for key in mapping if CREDENTIAL_KEY_RE.search(str(key))
+    )
+
+
+def _hardcoded_credential_keys(mapping: dict[str, Any]) -> list[str]:
+    result: list[str] = []
+    for key, value in mapping.items():
+        if not CREDENTIAL_KEY_RE.search(str(key)):
+            continue
+        if value in (None, "") or _is_placeholder(value):
+            continue
+        result.append(str(key))
+    return sorted(result)
 
 
 def _is_broad_path(value: str) -> bool:
@@ -137,106 +209,316 @@ def _is_broad_path(value: str) -> bool:
     return bool(re.fullmatch(r"[a-z]:", normalized))
 
 
+def _runner_family(cmd_name: str) -> str:
+    for suffix in (".cmd", ".exe"):
+        if cmd_name.endswith(suffix):
+            return cmd_name[: -len(suffix)]
+    return cmd_name
+
+
+def _looks_unpinned_package(runner: str, arg: str) -> bool:
+    if not arg or arg.startswith("-") or arg == "<redacted>" or URL_RE.search(arg):
+        return False
+
+    if runner in {"npx", "bunx", "pnpx"}:
+        if arg.endswith("@latest"):
+            return True
+        if arg.startswith("@"):
+            return arg.count("@") == 1
+        return "@" not in arg
+
+    if runner in {"uvx", "pipx"}:
+        if arg.endswith("@latest"):
+            return True
+        if "==" in arg:
+            return False
+        if re.search(r"@[0-9][A-Za-z0-9_.+-]*$", arg):
+            return False
+        return bool(re.fullmatch(r"[A-Za-z0-9_.-]+", arg))
+
+    return False
+
+
+def _is_loopback_hostname(hostname: str | None) -> bool:
+    if not hostname:
+        return False
+    host = hostname.strip("[]").lower()
+    if host in {"localhost", "ip6-localhost"}:
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
+
+
 def inspect_server(name: str, raw: Any) -> ServerReport:
     if not isinstance(raw, dict):
         raise InspectorError(f"Server '{name}' must be an object.")
 
-    command = str(raw.get("command", "")).strip()
-    if not command:
-        raise InspectorError(f"Server '{name}' has no command.")
+    command = str(raw.get("command", "")).strip() or None
+    url = str(raw.get("url", "")).strip() or None
+    if not command and not url:
+        raise InspectorError(f"Server '{name}' has neither command nor url.")
 
     args = _string_list(raw.get("args"))
-    env = raw.get("env") or {}
-    if not isinstance(env, dict):
-        raise InspectorError(f"Server '{name}' env must be an object.")
-
+    env = _mapping(raw.get("env"), "env", name)
+    headers = _mapping(raw.get("headers"), "headers", name)
     env_keys = sorted(str(k) for k in env)
-    findings: list[Finding] = []
-    cmd_name = Path(command.replace("\\", "/")).name.lower()
+    header_keys = sorted(str(k) for k in headers)
     reported_args = _redact_args(args)
-    lowered = [a.lower() for a in reported_args]
+    findings: list[Finding] = []
+
+    transport_hint = str(
+        raw.get("transport") or raw.get("type") or ""
+    ).strip().lower()
+    if command and url:
+        transport = transport_hint or "mixed"
+        findings.append(
+            Finding(
+                "medium",
+                "mixed-transport-config",
+                "Configuration contains both a local command and a remote URL.",
+                "Confirm which transport the client uses and remove the unused launch path.",
+            )
+        )
+    elif url:
+        transport = transport_hint or "http"
+    else:
+        transport = transport_hint or "stdio"
+
+    cmd_name = (
+        Path(command.replace("\\", "/")).name.lower() if command else ""
+    )
+    runner = _runner_family(cmd_name)
+    lowered = [arg.lower() for arg in reported_args]
 
     if cmd_name in SHELLS:
-        findings.append(Finding(
-            "high", "shell-execution",
-            f"Server is launched through a general-purpose shell: {cmd_name}.",
-            "Prefer launching the MCP executable directly; remove shell indirection unless it is strictly required."
-        ))
+        findings.append(
+            Finding(
+                "high",
+                "shell-execution",
+                f"Server is launched through a general-purpose shell: {cmd_name}.",
+                "Prefer launching the MCP executable directly; remove shell indirection unless strictly required.",
+            )
+        )
 
-    if any(a in SHELL_FLAGS for a in lowered):
-        findings.append(Finding(
-            "high", "shell-command-flag",
-            "Arguments contain a shell command/evaluation flag.",
-            "Replace inline shell evaluation with a direct executable + explicit argument list."
-        ))
+    if any(arg in SHELL_FLAGS for arg in lowered):
+        findings.append(
+            Finding(
+                "high",
+                "shell-command-flag",
+                "Arguments contain a shell command/evaluation flag.",
+                "Replace inline shell evaluation with a direct executable and explicit argument list.",
+            )
+        )
 
-    secret_keys = [k for k in env_keys if SECRET_RE.search(k)]
-    if secret_keys:
-        findings.append(Finding(
-            "medium", "sensitive-env",
-            "Configuration references sensitive environment variable names: " + ", ".join(secret_keys) + ". Values are intentionally not displayed.",
-            "Use the narrowest token scopes, prefer host secret stores/environment injection, and never commit secret values."
-        ))
+    env_credential_keys = _credential_keys(env)
+    hardcoded_env = _hardcoded_credential_keys(env)
+    if hardcoded_env:
+        findings.append(
+            Finding(
+                "high",
+                "hardcoded-env-credential",
+                "Sensitive environment keys contain literal values: "
+                + ", ".join(hardcoded_env)
+                + ". Values are never displayed.",
+                "Replace literal credentials with placeholders/host secret storage and rotate real exposed credentials.",
+            )
+        )
+    elif env_credential_keys:
+        findings.append(
+            Finding(
+                "medium",
+                "sensitive-env-boundary",
+                "Configuration references sensitive environment keys: "
+                + ", ".join(env_credential_keys)
+                + ". Values are never displayed.",
+                "Use least-privilege, short-lived credentials and keep secret values outside committed config.",
+            )
+        )
 
-    if any(URL_RE.search(a) for a in reported_args):
-        findings.append(Finding(
-            "medium", "network-target",
-            "Arguments contain an HTTP(S) target, so the configured server may depend on network access.",
-            "Verify the destination, data boundary and authentication scope before enabling the server."
-        ))
+    header_credential_keys = _credential_keys(headers)
+    hardcoded_headers = _hardcoded_credential_keys(headers)
+    if hardcoded_headers:
+        findings.append(
+            Finding(
+                "high",
+                "hardcoded-header-credential",
+                "Sensitive HTTP header keys contain literal values: "
+                + ", ".join(hardcoded_headers)
+                + ". Values are never displayed.",
+                "Use placeholders/OAuth/host secret storage instead of literal credentials in configuration.",
+            )
+        )
+    elif header_credential_keys:
+        findings.append(
+            Finding(
+                "medium",
+                "sensitive-header-boundary",
+                "Configuration references sensitive HTTP header keys: "
+                + ", ".join(header_credential_keys)
+                + ". Values are never displayed.",
+                "Verify token audience/scope and prefer short-lived credentials.",
+            )
+        )
 
-    path_args = [a for a in reported_args if ABS_PATH_RE.search(a)]
-    broad = [a for a in path_args if _is_broad_path(a)]
+    reported_url: str | None = None
+    if url:
+        reported_url = _redact_url(url)
+        try:
+            parts = urlsplit(url)
+        except ValueError:
+            parts = None
+
+        if (
+            parts is None
+            or parts.scheme.lower() not in {"http", "https"}
+            or not parts.hostname
+        ):
+            findings.append(
+                Finding(
+                    "high",
+                    "invalid-remote-url",
+                    "Remote MCP URL is not a valid HTTP(S) endpoint.",
+                    "Use a valid HTTPS endpoint, or loopback HTTP only for local development.",
+                )
+            )
+        elif parts.scheme.lower() == "http" and not _is_loopback_hostname(
+            parts.hostname
+        ):
+            findings.append(
+                Finding(
+                    "high",
+                    "cleartext-remote",
+                    "Remote MCP endpoint uses cleartext HTTP outside loopback.",
+                    "Use HTTPS for non-loopback remote MCP endpoints.",
+                )
+            )
+        elif parts.scheme.lower() == "http":
+            findings.append(
+                Finding(
+                    "low",
+                    "loopback-http",
+                    "Remote MCP endpoint uses HTTP on loopback.",
+                    "Keep it loopback-only; use HTTPS when traffic leaves the local machine.",
+                )
+            )
+        else:
+            findings.append(
+                Finding(
+                    "medium",
+                    "remote-network-boundary",
+                    "Configuration connects to a remote HTTPS MCP endpoint.",
+                    "Verify endpoint ownership, authentication, requested scopes and data handling before connecting.",
+                )
+            )
+
+    if any(URL_RE.search(arg) for arg in reported_args):
+        findings.append(
+            Finding(
+                "medium",
+                "network-target-argument",
+                "Arguments contain an HTTP(S) target, so the local launcher may bridge to a network service.",
+                "Verify the destination, authentication boundary and data flow before enabling the server.",
+            )
+        )
+
+    path_args = [arg for arg in reported_args if ABS_PATH_RE.search(arg)]
+    broad = [arg for arg in path_args if _is_broad_path(arg)]
     if broad:
-        findings.append(Finding(
-            "high", "broad-filesystem-path",
-            "Arguments appear to expose a broad filesystem root: " + ", ".join(broad) + ".",
-            "Scope filesystem access to the smallest project/workspace directory required."
-        ))
+        findings.append(
+            Finding(
+                "high",
+                "broad-filesystem-path",
+                "Arguments appear to expose a broad filesystem root: "
+                + ", ".join(broad)
+                + ".",
+                "Scope filesystem access to the smallest project/workspace directory required.",
+            )
+        )
     elif path_args:
-        findings.append(Finding(
-            "low", "filesystem-path",
-            "Arguments contain absolute filesystem paths.",
-            "Confirm each path is required and avoid parent/home/root directories when a narrower workspace path works."
-        ))
+        findings.append(
+            Finding(
+                "low",
+                "filesystem-path",
+                "Arguments contain absolute filesystem paths.",
+                "Confirm each path is required and avoid parent/home/root directories when a narrower workspace works.",
+            )
+        )
 
-    if cmd_name in RUNNERS:
-        findings.append(Finding(
-            "low", "package-runner",
-            f"Server is launched through package runner '{cmd_name}'.",
-            "For repeatable installs, prefer an exact package version and record the expected executable/version."
-        ))
+    if runner in {"npx", "uvx", "pipx", "bunx", "pnpx"}:
+        findings.append(
+            Finding(
+                "low",
+                "package-runner",
+                f"Server is launched through package runner '{cmd_name}'.",
+                "For repeatable installs, prefer an exact reviewed package version.",
+            )
+        )
         if "-y" in lowered or "--yes" in lowered:
-            findings.append(Finding(
-                "medium", "auto-install",
-                "Package runner is allowed to auto-confirm installation.",
-                "Pin the package version and consider installing it explicitly before host startup."
-            ))
+            findings.append(
+                Finding(
+                    "medium",
+                    "auto-install",
+                    "Package runner is allowed to auto-confirm installation.",
+                    "Pin the package version and consider installing it explicitly before host startup.",
+                )
+            )
 
-    unpinned = []
-    for a in reported_args:
-        if a.startswith("-") or a == "<redacted>" or URL_RE.search(a):
-            continue
-        if cmd_name == "npx" and re.match(r"^(?:@[^/]+/)?[^@/]+$", a):
-            unpinned.append(a)
-        elif cmd_name in {"uvx", "pipx"} and re.match(r"^[A-Za-z0-9_.-]+$", a):
-            unpinned.append(a)
-    if unpinned:
-        findings.append(Finding(
-            "medium", "unpinned-package",
-            "Package runner appears to reference an unpinned package: " + ", ".join(unpinned[:3]) + ".",
-            "Pin an exact reviewed version for reproducible host configuration."
-        ))
+        package_arg = next(
+            (
+                arg
+                for arg in reported_args
+                if arg
+                and not arg.startswith("-")
+                and arg != "<redacted>"
+                and not URL_RE.search(arg)
+            ),
+            None,
+        )
+        unpinned = (
+            [package_arg]
+            if package_arg is not None
+            and _looks_unpinned_package(runner, package_arg)
+            else []
+        )
+        if unpinned:
+            findings.append(
+                Finding(
+                    "medium",
+                    "unpinned-package",
+                    "Package runner appears to reference an unpinned package: "
+                    + ", ".join(unpinned[:3])
+                    + ".",
+                    "Pin an exact reviewed version for reproducible host configuration.",
+                )
+            )
 
     if not findings:
-        findings.append(Finding(
-            "info", "no-obvious-static-risk",
-            "No obvious high-risk pattern was found in this configuration snippet.",
-            "Still verify the upstream package, runtime behavior, requested host permissions and first tool call."
-        ))
+        findings.append(
+            Finding(
+                "info",
+                "no-obvious-static-risk",
+                "No obvious high-risk pattern was found in this configuration snippet.",
+                "Still verify upstream source/version, runtime behavior, host permissions and the first tool call.",
+            )
+        )
 
-    risk = max((f.severity for f in findings), key=lambda s: SEVERITY_SCORE[s])
-    return ServerReport(name=name, command=command, args=reported_args, env_keys=env_keys, risk=risk, findings=findings)
+    risk = max(
+        (finding.severity for finding in findings),
+        key=lambda severity: SEVERITY_SCORE[severity],
+    )
+    return ServerReport(
+        name=name,
+        transport=transport,
+        command=command,
+        url=reported_url,
+        args=reported_args,
+        env_keys=env_keys,
+        header_keys=header_keys,
+        risk=risk,
+        findings=findings,
+    )
 
 
 def inspect_config(data: dict[str, Any]) -> list[ServerReport]:
@@ -249,16 +531,30 @@ def inspect_config(data: dict[str, Any]) -> list[ServerReport]:
 def render_text(reports: list[ServerReport]) -> str:
     lines = [
         "MCP Permission Inspector",
-        "STATIC CONFIG REVIEW — not a runtime safety guarantee",
+        "STATIC CONFIG REVIEW - not a runtime safety guarantee",
         "",
     ]
     for report in reports:
-        lines.append(f"[{report.risk.upper()}] {report.name}")
-        lines.append(f"  command: {report.command}")
-        lines.append(f"  args: {json.dumps(report.args, ensure_ascii=False)}")
-        lines.append(f"  env keys: {', '.join(report.env_keys) if report.env_keys else '(none)'}")
+        lines.append(f"[{report.risk.upper()}] {report.name} ({report.transport})")
+        if report.command:
+            lines.append(f"  command: {report.command}")
+        if report.url:
+            lines.append(f"  url: {report.url}")
+        if report.args:
+            lines.append(
+                f"  args: {json.dumps(report.args, ensure_ascii=False)}"
+            )
+        lines.append(
+            f"  env keys: {', '.join(report.env_keys) if report.env_keys else '(none)'}"
+        )
+        lines.append(
+            f"  header keys: {', '.join(report.header_keys) if report.header_keys else '(none)'}"
+        )
         for finding in report.findings:
-            lines.append(f"  - {finding.severity.upper()} {finding.code}: {finding.message}")
+            lines.append(
+                f"  - {finding.severity.upper()} {finding.code}: "
+                f"{finding.message}"
+            )
             lines.append(f"    fix: {finding.remediation}")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
