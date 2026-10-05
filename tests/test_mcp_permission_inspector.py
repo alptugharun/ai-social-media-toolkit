@@ -362,6 +362,18 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         reports = module.inspect_config({"mcpServers": {"z": {"command": "z"}, "a": {"command": "a"}}})
         self.assertEqual([r.name for r in reports], ["a", "z"])
 
+    def test_namespaced_mcpservers_shape_is_supported(self):
+        reports = module.inspect_config({
+            "amp.mcpServers": {
+                "playwright": {
+                    "command": "npx",
+                    "args": ["@playwright/mcp@1.0.0"],
+                }
+            }
+        })
+        self.assertEqual(len(reports), 1)
+        self.assertEqual(reports[0].name, "playwright")
+
     def test_zed_context_servers_shape_is_supported(self):
         reports = module.inspect_config({
             "context_servers": {
