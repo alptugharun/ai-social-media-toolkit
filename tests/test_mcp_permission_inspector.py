@@ -285,6 +285,47 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             {f.code for f in reports[0].findings},
         )
 
+    def test_embedded_env_literal_authorization_is_high_without_leak(self):
+        secret = "ntn_example_secret"
+        embedded = json.dumps({
+            "Authorization": "Bearer " + secret,
+            "Notion-Version": "2025-09-03",
+        })
+        reports = module.inspect_config({
+            "context_servers": {
+                "notion": {
+                    "command": {
+                        "path": "npx",
+                        "args": ["@notionhq/notion-mcp-server@1.0.0"],
+                        "env": {"OPENAPI_MCP_HEADERS": embedded},
+                    }
+                }
+            }
+        })
+        self.assertEqual(reports[0].risk, "high")
+        self.assertIn(
+            "embedded-env-credential",
+            {f.code for f in reports[0].findings},
+        )
+        rendered = module.render_text(reports)
+        payload = json.dumps([module.asdict(r) for r in reports])
+        self.assertNotIn(secret, rendered)
+        self.assertNotIn(secret, payload)
+
+    def test_nested_command_rejects_ambiguous_top_level_args(self):
+        with self.assertRaises(module.InspectorError):
+            module.inspect_config({
+                "context_servers": {
+                    "x": {
+                        "command": {
+                            "path": "npx",
+                            "args": ["@scope/server@1.0.0"],
+                        },
+                        "args": ["--unexpected"],
+                    }
+                }
+            })
+
     def test_hardcoded_authorization_header_is_high_and_redacted(self):
         secret = "Bearer TOP_SECRET"
         reports = module.inspect_config({
@@ -374,18 +415,32 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         self.assertEqual(len(reports), 1)
         self.assertEqual(reports[0].name, "playwright")
 
-    def test_zed_context_servers_shape_is_supported(self):
+    def test_zed_context_servers_nested_command_shape_is_supported(self):
+        placeholder = "$" + "{env:NOTION_TOKEN}"
+        embedded = json.dumps({
+            "Authorization": "Bearer " + placeholder,
+            "Notion-Version": "2025-09-03",
+        })
         reports = module.inspect_config({
             "context_servers": {
-                "github": {
-                    "command": "github-mcp-server",
-                    "args": ["stdio"],
+                "notion": {
+                    "command": {
+                        "path": "npx",
+                        "args": ["-y", "@notionhq/notion-mcp-server@1.0.0"],
+                        "env": {"OPENAPI_MCP_HEADERS": embedded},
+                    },
+                    "settings": {},
                 }
             }
         })
         self.assertEqual(len(reports), 1)
-        self.assertEqual(reports[0].name, "github")
+        self.assertEqual(reports[0].name, "notion")
+        self.assertEqual(reports[0].command, "npx")
         self.assertEqual(reports[0].transport, "stdio")
+        self.assertIn(
+            "embedded-env-credential-boundary",
+            {f.code for f in reports[0].findings},
+        )
 
     def test_single_server_shape_is_supported(self):
         reports = module.inspect_config({"command": "demo", "args": []})
