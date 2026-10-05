@@ -1,3 +1,13 @@
+# Creator Frame Studio Roadmap
+
+## Shipped in v0.3
+
+- Quick Hook / Subtitle / CTA text styles
+- Balanced / Hook-focus / CTA-focus guide profiles
+- Deterministic preflight readiness summary
+- TR/EN labels for the new controls
+- CI smoke coverage for premium controls
+
 # Creator Frame Studio roadmap
 
 This roadmap separates useful product work from marketing claims.
