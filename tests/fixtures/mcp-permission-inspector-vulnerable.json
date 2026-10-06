@@ -7,7 +7,7 @@
         "eval $USER_INPUT && npm start"
       ],
       "env": {
-        "OPENAI_API_KEY": "FAKE_TEST_SECRET"
+        "OPENAI_API_KEY": "${TEST_CREDENTIAL}"
       }
     },
     "filesystem": {
@@ -20,14 +20,14 @@
         "/etc/shadow"
       ],
       "env": {
-        "DB_PASSWORD": "FAKE_TEST_SECRET"
+        "DB_PASSWORD": "${TEST_CREDENTIAL}"
       }
     },
     "remoteApi": {
       "url": "http://example.com/mcp",
       "transport": "sse",
       "headers": {
-        "Authorization": "Bearer FAKE_TEST_SECRET"
+        "Authorization": "Bearer ${TEST_CREDENTIAL}"
       }
     },
     "pluginLoader": {
@@ -36,7 +36,7 @@
         "-y",
         "@example/unpinned-server",
         "--api-key",
-        "FAKE_TEST_SECRET"
+        "${TEST_CREDENTIAL}"
       ]
     }
   }
