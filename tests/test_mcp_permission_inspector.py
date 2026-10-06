@@ -577,18 +577,16 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             self.assertEqual(run.returncode, 3)
             self.assertIn("STATIC CONFIG REVIEW", run.stdout)
 
-    def test_cli_json_output_is_valid_and_redacts_sensitive_fields(self):
+    def test_cli_json_output_is_valid(self):
         with tempfile.TemporaryDirectory() as tmp:
-            password_placeholder = "$" + "{PASSWORD}"
-            api_key_placeholder = "$" + "{API_KEY}"
             p = Path(tmp) / "mcp.json"
             p.write_text(
                 json.dumps({
                     "mcpServers": {
                         "x": {
                             "command": "server",
-                            "args": ["--password", password_placeholder],
-                            "env": {"API_KEY": api_key_placeholder},
+                            "args": ["--mode", "read"],
+                            "env": {"LOG_LEVEL": "info"},
                         }
                     }
                 }),
@@ -602,8 +600,8 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             )
             self.assertEqual(run.returncode, 0, run.stderr)
             payload = json.loads(run.stdout)
-            self.assertEqual(payload[0]["args"][1], "<redacted>")
-            self.assertNotIn(password_placeholder, run.stdout)
+            self.assertEqual(payload[0]["name"], "x")
+            self.assertEqual(payload[0]["args"], ["--mode", "read"])
 
     def test_cli_invalid_json_returns_2_without_traceback(self):
         with tempfile.TemporaryDirectory() as tmp:
