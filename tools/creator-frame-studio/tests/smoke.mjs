@@ -26,3 +26,5 @@ console.log('Creator Frame Studio static smoke checks: PASS');
 
 for(const id of ['styleHook','styleSub','styleCTA','guideBalanced','guideHook','guideCTA','readinessCard']) assert.ok(html.includes(`id="${id}"`),`missing premium control: ${id}`);
 assert.ok(html.includes('v0.3 · BETA'),'version badge not updated');
+assert.ok(js.includes('Beta 0.3'),'localized footer version not updated');
+assert.ok(!js.includes('Beta 0.2'),'stale localized footer version remained');
