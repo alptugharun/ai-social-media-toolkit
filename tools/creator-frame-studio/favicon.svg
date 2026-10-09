@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="t d">
+<title id="t">Creator Frame Studio</title>
+<desc id="d">Neon crop-frame monogram icon.</desc>
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#70f7e9"/><stop offset="1" stop-color="#b58cff"/></linearGradient></defs>
+<rect width="64" height="64" rx="15" fill="#10161c"/>
+<path d="M17 9v31c0 5 3 8 8 8h30M9 17h31c5 0 8 3 8 8v30" fill="none" stroke="url(#g)" stroke-width="6" stroke-linecap="round"/>
+<path d="M27 24h17v7H34v5h9v7h-9v12h-7z" fill="#f2f5ff"/>
+</svg>
