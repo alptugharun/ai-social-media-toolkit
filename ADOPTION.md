@@ -15,6 +15,31 @@ It deliberately starts sparse.
 | External forks/contributions | record only when independently visible | do not infer use from internal activity |
 | Paid buyer signal | **not yet recorded** | premium productization remains gated |
 
+## GitHub traffic baseline — captured 2026-10-09
+
+GitHub's repository traffic API reported the following for the **14-day window 2026-09-25 through 2026-10-08**:
+
+| Signal | Value | Interpretation |
+| --- | ---: | --- |
+| Repository views | **90** | page-view events |
+| Unique visitors | **50** | GitHub's deduplicated visitor estimate for this repo/window |
+| Clone events | **5,039** | clone operations, including repeats and automation |
+| Unique cloners | **907** | deduplicated clone sources; **not equivalent to 907 people** |
+| Stars | **1** | lightweight public interest signal |
+| Forks | **0** | no public reuse fork recorded at capture time |
+| Subscribers/watchers | **0** | no repository subscriber recorded at capture time |
+
+The clone-to-view ratio is unusually high, so clone telemetry is treated as **automation-sensitive infrastructure data**, not user adoption. CI runners, bots, repeated environments and machine identities may contribute. Do not market 5,039 clone events or 907 unique cloners as users/installations.
+
+Useful page-path evidence in the same window:
+
+- repository overview: **40 views / 28 unique**;
+- `START-HERE.md`: **2 views / 2 unique**.
+
+This creates a measurable onboarding question: **can more overview visitors reach a real first-run or live-demo action?** The current growth experiments are the one-click Creator Frame Studio demo and [Real User Lab #178](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). Success should be measured by reproducible external reports, repeat use, useful issues/PRs and qualified implementation inquiries—not clone volume alone.
+
+Observed referrers included GitHub plus small samples from Instagram, Threads, Bluesky, Google, LinkedIn, M8ven and Reddit. These are discovery signals only; no conversion is inferred.
+
 ## Reported onboarding feedback — reviewed 2026-10-01
 
 `soyeladice-svg` reported a concrete own-data handoff problem in [#30](https://github.com/alptugharun/ai-social-media-toolkit/issues/30): the demo did not print the required CSV columns or direct input-contract links. This is public feedback, not proof of a complete runtime test, recurring use or traffic attribution. The comment states that only public demo/source and synthetic data were used; it supplies no full command/environment transcript.
