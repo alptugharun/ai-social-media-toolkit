@@ -6,7 +6,7 @@ Prepared copy only. This file does **not** publish to Instagram.
 
 **01 — Kapak**  
 Görselin güzel. Peki paylaşınca kadrajı hâlâ doğru mu?  
-Creator Frame Studio · beta
+Creator Frame Studio · v0.3 beta
 
 **02 — Sorun**  
 Aynı tasarım 4:5’te iyi görünürken 1:1 veya 9:16’da başlığını, yüzü ya da CTA’yı zayıflatabilir.
@@ -19,7 +19,7 @@ Aynı içeriğin farklı yüzeylerde farklı davranmasını kontrol etmek gereki
 Creator Frame Studio’yu bunun için geliştiriyorum: görseli yerleştir, kadrajla, metni düzenle, farklı tuvalleri kontrol et.
 
 **05 — İçeride ne var?**  
-Sürükle · yakınlaştır · fit/cover · metin katmanları · iç alan kılavuzları · kırpma önizlemeleri.
+Sürükle · yakınlaştır · fit/cover · Hook/Alt başlık/CTA hızlı stilleri · editöryal kılavuz profilleri · kırpma önizlemeleri.
 
 **06 — Tek tek dosya uğraşı yok**  
 Tek çıktı alabilir veya seçili formatları bir ZIP paketine dönüştürebilirsin.
@@ -38,7 +38,7 @@ Bir görseli hazırlamakla, farklı yüzeylerde düzgün çalışmasını hazır
 
 Bu yüzden Creator Frame Studio üzerinde çalışıyorum: post, carousel, Story, Reels kapağı, Pinterest ve YouTube tuvalleri için kadrajı tek yerde kontrol edip farklı çıktılar alabileceğim pratik bir creator tool.
 
-Şimdilik beta. İşe yarayan kısmı büyütüp, gösteriş için eklenmiş özellikleri dışarıda tutacağım.
+Şimdilik beta. v0.3 ile hızlı metin stilleri, kılavuz profilleri ve yayın öncesi durum kartı geldi. Gösteriş için sahte AI puanı eklemek yerine, gerçekten kontrol edebildiği şeyleri açık tutuyorum.
 
 Kod ve geliştirme notları GitHub’da. 🚀
 
@@ -51,7 +51,7 @@ Kod ve geliştirme notları GitHub’da. 🚀
 
 **01 — Cover**  
 Great design. But does the framing survive publishing?  
-Creator Frame Studio · beta
+Creator Frame Studio · v0.3 beta
 
 **02 — The problem**  
 A composition that works at 4:5 can lose a headline, face or CTA when reframed to 1:1 or 9:16.
@@ -88,3 +88,32 @@ It’s a beta, and I’d rather keep the limits explicit than inflate it with fa
 Source and build notes are on GitHub.
 
 #AI #SocialMedia #GitHub #CreatorTools #ContentCreation
+
+
+## Story — 3 frame launch sequence
+
+**Story 1**  
+Görsel güzel görünüyor diye paylaşmaya hazır sanıyordum.  
+Sonra farklı kadrajlarda başlıkların dağıldığını fark ettim. 👀
+
+**Story 2**  
+Creator Frame Studio v0.3  
+→ 1:1 / 4:5 / 3:4 / 9:16  
+→ Hook / Subtitle / CTA hızlı stilleri  
+→ Kılavuz profilleri  
+→ Yayın öncesi geometrik kontrol
+
+**Story 3**  
+Kod + geliştirme notları GitHub’da.  
+Link etiketi: **🚀 Creator Frame Studio**
+
+## Reels hook options
+
+- “Aynı tasarım neden Story’de dağılıyor?”
+- “4:5’te güzel, 9:16’da kötü görünmesinin sebebi bu.”
+- “Paylaşmadan önce bunu kontrol etmeye başladım.”
+- “Canva’dan çıktı almak yetmiyor; kadraj hâlâ yanlış olabilir.”
+
+## Launch rule
+
+Do not claim “official Instagram safe zones”, automatic face detection, OCR, AI quality scoring, virality prediction or auto-publishing. The v0.3 readiness card summarizes deterministic geometry checks only.
