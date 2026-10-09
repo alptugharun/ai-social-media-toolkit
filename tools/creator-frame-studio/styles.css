@@ -19,3 +19,28 @@
 .readiness-card.warn{border-color:#5b4930;background:#211d16}.readiness-card.warn .readiness-dot{background:var(--warn);box-shadow:0 0 0 4px #f6c77718}
 .readiness-card.bad{border-color:#633638;background:#251719}.readiness-card.bad .readiness-dot{background:var(--red);box-shadow:0 0 0 4px #ff9b9718}
 @media(max-width:670px){.quick-style-grid,.guide-preset-grid{grid-template-columns:1fr 1fr 1fr}}
+
+
+/* Mobile overflow hardening: keep navigation and crop controls inside narrow viewports. */
+@media(max-width:520px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .head{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;flex-wrap:nowrap;padding:9px 10px;gap:8px}
+  .brand{min-width:0;overflow:hidden}
+  .brand>div:nth-child(2){min-width:0}
+  .brand-name{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .brand-name span,.byline{display:none}
+  .head-actions{min-width:0;flex-shrink:0;gap:3px}
+  .locale{flex-shrink:0}
+  .locale button{min-width:28px;padding:2px 5px}
+  .head-actions #addImages{width:34px;min-width:34px;padding:6px}
+  .workspace-head{overflow:hidden;padding:7px 8px;gap:6px}
+  .workspace-head>.row{min-width:0;flex:1}
+  .workspace-head strong{display:block;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .viewtools{flex-shrink:0;gap:3px}
+  .viewtools button{min-width:31px;padding:3px 5px}
+  .viewtools #viewCircle{width:31px}
+}
+@media(max-width:380px){
+  .head-actions #helpBtn{display:none}
+  .workspace-head strong{max-width:94px}
+}
