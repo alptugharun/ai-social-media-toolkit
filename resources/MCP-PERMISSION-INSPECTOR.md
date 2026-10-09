@@ -146,7 +146,7 @@ If a regression causes a secret to reappear in any output channel, the build sho
 
 ## Parsing contract
 
-v1 accepts **strict UTF-8 JSON only**.
+v1 accepts **UTF-8 JSON**, including an optional UTF-8 BOM commonly produced by some Windows tooling.
 
 It rejects:
 
@@ -201,6 +201,25 @@ python -m unittest tests.test_mcp_permission_inspector -v
 python tests/stress_mcp_permission_inspector.py
 python -m unittest discover -s tests -p "test_*.py"
 ```
+
+
+## External config review evidence
+
+On **2026-10-09**, the preflight was run locally against two configuration examples copied from public upstream project documentation. The inspector did not execute either server or contact either MCP endpoint.
+
+1. **mnemox-ai/idea-reality-mcp** — Claude Desktop example using `uvx idea-reality-mcp`.
+   - Source snapshot: https://github.com/mnemox-ai/idea-reality-mcp/blob/83281b4cf7b66da8e80ad6e2527a154cefdaa480/llms.txt
+   - Result: **MEDIUM** — package runner detected and package is unpinned.
+   - Why that is useful: the finding points to reproducibility/supply-chain review without claiming the package is malicious.
+
+2. **dannote/figma-use** — MCP example using `http://localhost:38451/mcp`.
+   - Source snapshot: https://github.com/dannote/figma-use/blob/7bfa9ba3ea7c56c5c8ca6cd5085c6e56a0735027/MCP.md
+   - Result: **LOW** — loopback HTTP detected.
+   - Why that is useful: localhost HTTP is distinguished from cleartext traffic leaving the machine.
+
+The first Windows run also exposed a real parser usability bug: PowerShell-created UTF-8 JSON with a BOM was rejected. The parser now accepts UTF-8 with or without BOM and has a regression test for that behavior.
+
+These checks are **maintainer-run external examples**, not independent user adoption or proof that the upstream servers are safe.
 
 ## Product gate
 
