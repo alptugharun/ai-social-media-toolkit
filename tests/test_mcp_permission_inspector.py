@@ -434,6 +434,16 @@ class MCPPermissionInspectorTests(unittest.TestCase):
             with self.assertRaises(module.InspectorError):
                 module.load_config(p)
 
+    def test_utf8_bom_config_is_accepted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / "bom.json"
+            p.write_text(
+                '{"mcpServers":{"x":{"command":"server"}}}',
+                encoding="utf-8-sig",
+            )
+            data = module.load_config(p)
+            self.assertEqual(data["mcpServers"]["x"]["command"], "server")
+
     def test_file_size_limit_is_enforced(self):
         old_limit = module.MAX_CONFIG_BYTES
         try:
