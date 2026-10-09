@@ -37,6 +37,8 @@ A passing run verifies the local catalog, dry-run provider path, Agent Skill ins
 
 If the proof saved you setup time, a star helps other builders discover the repository. A reproducible failure report is even more useful than a generic “works for me.”
 
+**Help us test the real first-run:** [Real User Lab #1 — 10 independent reports wanted](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). PASS, FAIL and BLOCKED reports are all useful when the environment and first friction point are included.
+
 ## Pick one path
 
 | Goal | Fastest entry point |
