@@ -2,7 +2,7 @@
 
 **A browser-only framing, safe-area review and multi-format export workspace for creators.**
 
-[Türkçe README](README_TR.md) · [Roadmap](ROADMAP.md) · [Testing](TESTING.md) · [Content pack](CONTENT-PACK.md)
+[⚡ Open live demo](https://alptugharun.github.io/ai-social-media-toolkit/) · [Türkçe README](README_TR.md) · [Roadmap](ROADMAP.md) · [Testing](TESTING.md) · [Content pack](CONTENT-PACK.md)
 
 > **Status:** v0.3.0 beta. The tool is useful today, but it is not presented as an official Instagram validator or an AI design judge.
 
