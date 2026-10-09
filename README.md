@@ -11,6 +11,8 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 
 [Start Here](START-HERE.md) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
+> **New creator tool:** [Creator Frame Studio v0.3](tools/creator-frame-studio/README.md) adds multi-format framing, editable text, Hook / Subtitle / CTA quick styles, editorial guide profiles and a deterministic preflight status card — all browser-local, with no account or API key.
+
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)

@@ -15,7 +15,7 @@ for(const id of ['ig45','ig34','ig11','igland','igstory','igreel','igavatar','ig
   assert.ok(js.includes(`id:'${id}'`),`missing preset: ${id}`);
 }
 
-for(const feature of ['exportPack','saveProject','openProjectFile','fitAllText','window.FrameStudio']){
+for(const feature of ['exportPack','saveProject','openProjectFile','fitAllText','applyTextStyle','applyGuideProfile','readinessCard','window.FrameStudio']){
   assert.ok(js.includes(feature),`missing feature marker: ${feature}`);
 }
 
@@ -23,3 +23,8 @@ assert.ok(!js.includes("const DEMO_ONE='data:image"),'embedded personal demo ima
 assert.ok(!js.includes("const DEMO_TWO='data:image"),'embedded personal demo image remained');
 
 console.log('Creator Frame Studio static smoke checks: PASS');
+
+for(const id of ['styleHook','styleSub','styleCTA','guideBalanced','guideHook','guideCTA','readinessCard']) assert.ok(html.includes(`id="${id}"`),`missing premium control: ${id}`);
+assert.ok(html.includes('v0.3 · BETA'),'version badge not updated');
+assert.ok(js.includes('Beta 0.3'),'localized footer version not updated');
+assert.ok(!js.includes('Beta 0.2'),'stale localized footer version remained');
