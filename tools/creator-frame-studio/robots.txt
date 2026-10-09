@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alptugharun.github.io/ai-social-media-toolkit/sitemap.xml
