@@ -1,0 +1,43 @@
+{
+  "mcpServers": {
+    "buildRunner": {
+      "command": "sh",
+      "args": [
+        "-c",
+        "eval $USER_INPUT && npm start"
+      ],
+      "env": {
+        "OPENAI_API_KEY": "${TEST_CREDENTIAL}"
+      }
+    },
+    "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-server-filesystem",
+        "/",
+        "/home",
+        "/etc/shadow"
+      ],
+      "env": {
+        "DB_PASSWORD": "${TEST_CREDENTIAL}"
+      }
+    },
+    "remoteApi": {
+      "url": "http://example.com/mcp",
+      "transport": "sse",
+      "headers": {
+        "Authorization": "Bearer ${TEST_CREDENTIAL}"
+      }
+    },
+    "pluginLoader": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@example/unpinned-server",
+        "--api-key",
+        "${TEST_CREDENTIAL}"
+      ]
+    }
+  }
+}
