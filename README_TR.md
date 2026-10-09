@@ -180,6 +180,10 @@ Güncel teknik durum için:
 
 [Project State](docs/PROJECT-STATE.md) · [Roadmap](ROADMAP.md) · [Changelog](CHANGELOG.md)
 
+## Bunu kendi iş akışına kurdurmak mı istiyorsun?
+
+Public repo açık kaynak ve kanıt katmanı olarak kalır. **Kurulum, özelleştirme, özel AI iş akışı, creator operasyon sistemi veya uygulama desteği** istiyorsan [ücretli uygulama ve ticari destek](docs/PAID-IMPLEMENTATION.md) sayfasından ilerleyebilir veya [alptugharun.com](https://alptugharun.com) üzerinden özel talep gönderebilirsin. Gizli iş bilgilerini public issue'ya yazma.
+
 ## Lisans
 
 - `tools/` → MIT
