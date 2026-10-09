@@ -83,7 +83,7 @@ def load_config(path: Path) -> dict[str, Any]:
                 f"Config is too large ({size} bytes); limit is {MAX_CONFIG_BYTES} bytes."
             )
         data = json.loads(
-            path.read_text(encoding="utf-8"),
+            path.read_text(encoding="utf-8-sig"),
             object_pairs_hook=_no_duplicate_keys,
         )
     except InspectorError:
