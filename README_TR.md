@@ -13,7 +13,7 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
-[Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
@@ -46,6 +46,7 @@ Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarını
 | **Agent Skill kurmak** | [Agent Skills](skills/README.md) |
 | **Skills-only ChatGPT/Codex plugin paketini geliştirmek/test etmek** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Yerel, salt-okunur MCP çalıştırmak** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
+| **İlk bağlantıdan önce MCP config risklerini incelemek** | [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) |
 | **Canva / Pinterest / Reels creator akışlarını kullanmak** | [Creator Materials](downloads/README.md) |
 | **Güvenlik ve doğrulama durumuna bakmak** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
 
@@ -95,7 +96,7 @@ Bu MCP yüzeyi ağ erişimi, shell, dosya yazma, hesap erişimi veya model-provi
 
 [Standalone MCP repo](https://github.com/alptugharun/ai-workbench-mcp) · [Toolkit içindeki entegrasyon kopyası](packages/ai-workbench-mcp/README.md) · [Bağımsız host doğrulaması](https://github.com/alptugharun/ai-workbench-mcp/issues/5)
 
-`0.1.0a1` sürümü PyPI'da yayımlandı ve official MCP Registry kaydı `active`. Cursor 3.20.21 üzerinde maintainer-run testte üç public tool da gerçek host üzerinden çağrıldı. Paket yayını, registry kabulü, maintainer host testi ve bağımsız kullanıcı doğrulaması ayrı kanıt seviyeleridir.
+`0.1.0a2` sürümü PyPI'da yayımlandı ve official MCP Registry kaydı `active`. Cursor 3.20.21 üzerinde maintainer-run testte üç public tool da gerçek host üzerinden çağrıldı. Paket yayını, registry kabulü, maintainer host testi ve bağımsız kullanıcı doğrulaması ayrı kanıt seviyeleridir.
 
 ## Repo içinde neler var?
 
@@ -171,7 +172,7 @@ python tools/two_minute_demo.py
 - M8ven Verified / Live Monitoring
 - Standalone MCP artık ayrı public repoda; toolkit içindeki kopya entegrasyon testi için korunuyor
 - GitHub Repository Rules, Dependabot security updates ve private vulnerability reporting aktif
-- AI Workbench MCP `0.1.0a1` PyPI'da yayımlandı; official MCP Registry kaydı `active`; maintainer-run Cursor host doğrulaması kaydedildi; bağımsız kullanıcı doğrulaması hâlâ açık hedef
+- AI Workbench MCP `0.1.0a2` PyPI'da yayımlandı; official MCP Registry kaydı `active`; maintainer-run Cursor host doğrulaması kaydedildi; bağımsız kullanıcı doğrulaması hâlâ açık hedef
 
 Güncel teknik durum için:
 

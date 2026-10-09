@@ -12,6 +12,8 @@ Built by **Alptuğ Harun**, this repository combines reusable prompts, portable 
 [Start Here](START-HERE.md) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 > **New creator tool:** [Creator Frame Studio v0.3](tools/creator-frame-studio/README.md) adds multi-format framing, editable text, Hook / Subtitle / CTA quick styles, editorial guide profiles and a deterministic preflight status card — all browser-local, with no account or API key.
+>
+> **New trust tool:** [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) reviews MCP client config locally before first connection. It does not launch servers or claim runtime safety.
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -49,7 +51,9 @@ If the proof saved you setup time, a star helps other builders discover the repo
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
 | **Build/test the skills-only ChatGPT/Codex plugin** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
-| **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |\n| **Frame and export creator visuals across social formats** | [Creator Frame Studio](tools/creator-frame-studio/README.md) |
+| **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
+| **Frame and export creator visuals across social formats** | [Creator Frame Studio](tools/creator-frame-studio/README.md) |
+| **Review an MCP config before first connection** | [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) |
 | **Inspect security, trust and runtime evidence** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
 
 Want a curated ecosystem map after the first run? Use the **[AI Creator Stack](resources/AI-CREATOR-STACK.md)**.
