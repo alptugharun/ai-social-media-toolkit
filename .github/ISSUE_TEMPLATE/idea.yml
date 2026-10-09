@@ -1,0 +1,58 @@
+name: "✨ Product / workflow idea"
+description: Propose a feature by describing the real job and evidence first.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Strong ideas start with a **real user job**, not an AI buzzword. Requests are evidence for prioritization, not delivery promises.
+  - type: textarea
+    id: job
+    attributes:
+      label: What job are you trying to complete?
+      placeholder: "Example: turn my own post analytics into a repeatable content brief."
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: How do you solve it today?
+      description: Include the manual steps or current tool if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: pain
+    attributes:
+      label: What is the expensive / annoying part?
+      description: Time, errors, complexity, missing visibility, repeated work, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Smallest useful improvement
+      description: What is the narrowest version that would already help?
+    validations:
+      required: true
+  - type: dropdown
+    id: value
+    attributes:
+      label: If this worked well, how valuable would it be?
+      options:
+        - Nice to have
+        - Would save meaningful time
+        - Would become part of my recurring workflow
+        - I would consider paying for managed setup / support
+        - I need more evidence before I know
+    validations:
+      required: true
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Submission check
+      options:
+        - label: I searched for a similar issue/discussion before submitting.
+          required: true
+        - label: I did not include secrets, private data, scraped personal data or confidential client information.
+          required: true

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src data: blob: 'self'; connect-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Creator Frame Studio — Alptuğ Harun</title>
+<link rel="stylesheet" href="styles.css">
+<body>
+<header class="head">
+<div class="brand"><div class="logo" data-icon="crop"></div><div><div class="brand-name">Creator Frame <span>Studio</span></div><div class="byline">ALPTUĞ HARUN / CREATOR TOOLS</div></div><span class="pill mint">v0.2 · BETA</span></div>
+<div class="head-actions">
+<button class="ghost iconbtn" id="helpBtn" data-title="help" data-icon="help"></button>
+<div class="locale" aria-label="Language"><button id="langTR" class="active" aria-pressed="true">TR</button><button id="langEN" aria-pressed="false">EN</button></div>
+<button id="projectOpen"><i data-icon="folder"></i><span class="optional" data-t="openProject">Proje aç</span></button>
+<button id="projectSave"><i data-icon="save"></i><span class="optional" data-t="saveProject">Kaydet</span></button>
+<button class="primary" id="addImages"><i data-icon="plus"></i><span data-t="addImages">Görsel ekle</span></button>
+</div>
+</header>
+<div class="documentbar"><div class="breadcrumbs"><span data-t="workspace">Çalışma alanı</span><span>/</span><strong id="projectName"></strong><span class="pill" id="pagePill"></span></div><div class="row"><span class="muted" data-t="sessionOnly">Oturumda tutulur · dosya olarak kaydet</span><button class="ghost iconbtn small-btn" id="undo" data-icon="undo" data-title="undo"></button><button class="ghost iconbtn small-btn" id="redo" data-icon="redo" data-title="redo"></button></div></div>
+<div class="mobile-steps" data-t="mobileHint">Görsel ekle → aşağıdaki ayarları düzenle → dışa aktar</div>
+<main class="desk">
+<aside class="sidebar leftbar">
+<div class="tabs" role="tablist" aria-label="Editor panels"><button role="tab" aria-selected="true" class="active" data-tab="format" data-t="formatTab">Biçim</button><button role="tab" aria-selected="false" data-tab="text" data-t="textTab">Metin</button><button role="tab" aria-selected="false" data-tab="guide" data-t="guideTab">Kılavuz</button></div>
+<section id="panel-format">
+<div class="section-label" data-t="destination">HEDEF TUVAL</div>
+<div class="select-platform"><i data-icon="grid"></i><select id="platform" aria-label="Platform"><option value="instagram">Instagram</option><option value="pinterest">Pinterest</option><option value="youtube">YouTube</option><option value="custom" data-t="custom">Özel ölçü</option></select></div>
+<div class="preset-list" id="presetList"></div>
+<div id="customFields" hidden><div class="grid2"><div class="field"><label for="customW" data-t="width">Genişlik · px</label><input id="customW" type="number" min="64" max="4096" value="1080"></div><div class="field"><label for="customH" data-t="height">Yükseklik · px</label><input id="customH" type="number" min="64" max="4096" value="1350"></div></div><button id="applyCustom" class="full" data-t="applySize">Ölçüyü uygula</button><p class="tiny-info" data-t="customLimit">64–4096 px / kenar · en fazla 16 milyon piksel.</p></div>
+<div class="source-note" id="presetNote"></div>
+<div class="divider"></div>
+<div class="row between"><h2 data-t="cropTitle">Kadrajı düzenle</h2><button id="resetImage" class="iconbtn ghost small-btn" data-icon="reset" data-title="resetImage"></button></div>
+<div class="fit-buttons"><button id="fitCover" class="active"><i data-icon="expand"></i><span data-t="fill">Doldur</span></button><button id="fitContain"><i data-icon="minimize"></i><span data-t="fit">Sığdır</span></button></div>
+<div class="field"><div class="row between"><label for="zoom" data-t="imageZoom">Görsel yakınlığı</label><span id="zoomLabel" class="muted mono">100%</span></div><input id="zoom" type="range" min="100" max="300" value="100" step="1"></div>
+<div class="grid2"><div class="field"><label for="imageX" data-t="horizontal">Yatay konum</label><input id="imageX" type="range" min="-100" max="100" value="0"></div><div class="field"><label for="imageY" data-t="vertical">Dikey konum</label><input id="imageY" type="range" min="-100" max="100" value="0"></div></div>
+<div class="row"><button id="rotate" class="full" data-title="rotate"><i data-icon="rotate"></i><span data-t="rotate">90° döndür</span></button><button id="flip" class="iconbtn" data-icon="flip" data-title="flip"></button></div>
+<div class="field"><label for="background" data-t="background">Boşluk arka planı</label><div class="row"><select id="background"><option value="solid" data-t="solid">Düz renk</option><option value="blur" data-t="blur">Görselden bulanık dolgu</option></select><input id="bgColor" type="color" value="#101820" aria-label="Background color"></div></div>
+<div class="field"><div class="row between"><label for="shade" data-t="shade">Alt bölüm koyuluğu</label><span id="shadeLabel" class="muted mono"></span></div><input id="shade" type="range" min="0" max="100" value="0"></div>
+<p class="tiny-info" data-t="dragHint">Görseli önizlemede sürükleyerek konumlandır. Kaynak fotoğraf yeniden üretilmez.</p>
+</section>
+<section id="panel-text" hidden>
+<div class="row between"><h2 data-t="textLayers">Metin katmanları</h2><span class="pill" id="layerCount"></span></div>
+<div class="text-actions"><button id="addText" class="full"><i data-icon="plus"></i><span data-t="addText">Metin ekle</span></button><button id="removeText" class="iconbtn danger" data-icon="trash" data-title="removeText"></button></div>
+<div class="layerlist" id="layerList"></div>
+<div id="textControls">
+<div class="field"><label for="textValue" data-t="textValue">Metin · yeni satır desteklenir</label><textarea id="textValue" maxlength="600"></textarea></div>
+<div class="grid2"><div class="field"><label for="textSize" data-t="fontSize">Boyut · px</label><input id="textSize" type="number" min="12" max="240" value="90"></div><div class="field"><label for="textWeight" data-t="weight">Kalınlık</label><select id="textWeight"><option value="500" data-t="medium">Orta</option><option value="700" data-t="bold">Kalın</option><option value="900" data-t="heavy">Çok kalın</option></select></div></div>
+<div class="grid2"><div class="field"><label for="textX">X · %</label><input id="textX" type="number" step="0.1" min="0" max="100"></div><div class="field"><label for="textY">Y · %</label><input id="textY" type="number" step="0.1" min="0" max="100"></div></div>
+<div class="field"><label for="textWidth" data-t="textWidth">Metin kutusu genişliği · %</label><input id="textWidth" type="range" min="10" max="100" value="80"></div>
+<div class="align-group"><button id="alignLeft" data-icon="alignLeft" data-title="alignLeft"></button><button id="alignCenter" data-icon="alignCenter" data-title="alignCenter"></button><button id="alignRight" data-icon="alignRight" data-title="alignRight"></button></div>
+<div class="row between" style="margin-top:13px"><label class="checkline"><input id="textShadow" type="checkbox"><span data-t="textShadow">Metin gölgesi</span></label><input id="textColor" type="color" value="#ffffff" aria-label="Text color"></div>
+<button id="fitText" class="full" style="margin-top:8px"><i data-icon="safe"></i><span data-t="fitText">Seçili metni iç alana sığdır</span></button>
+</div>
+<p class="tip" style="margin-top:15px" data-t="rasterWarning">Burada eklediğin yazılar düzenlenebilir. Yüklediğin görselin içine gömülü yazılar otomatik algılanmaz veya ayrı ayrı taşınmaz.</p>
+</section>
+<section id="panel-guide" hidden>
+<h2 data-t="guideTitle">Kontrol kılavuzları</h2>
+<label class="checkline"><input id="showGuide" type="checkbox" checked><span data-t="showGuide">İç alan kılavuzu</span></label>
+<label class="checkline"><input id="showThirds" type="checkbox"><span data-t="showThirds">Üçler kuralı çizgileri</span></label>
+<label class="checkline"><input id="showUI" type="checkbox"><span data-t="showUI">9:16 arayüz çakışma taslağı</span></label>
+<div class="tip warn" data-t="notOfficial">Kılavuzlar editöryal öneridir; resmî veya her cihazda garantili güvenli alan değildir. Arayüz taslağı da temsildir.</div>
+<div class="grid2"><div class="field"><label for="marginL" data-t="left">Sol · px</label><input id="marginL" type="number" min="0"></div><div class="field"><label for="marginR" data-t="right">Sağ · px</label><input id="marginR" type="number" min="0"></div><div class="field"><label for="marginT" data-t="top">Üst · px</label><input id="marginT" type="number" min="0"></div><div class="field"><label for="marginB" data-t="bottom">Alt · px</label><input id="marginB" type="number" min="0"></div></div>
+<button id="applyMargins" class="full" data-t="applyMargins">Payları uygula</button>
+<div class="row" style="margin-top:8px"><button id="marginDefault" class="full small-btn" data-t="defaultMargins">Başlangıç payları</button><button id="fitAllText" class="full small-btn" data-t="fitAllText">Tüm metinleri sığdır</button></div>
+<div class="divider"></div><h3 data-t="cropViews">Kırpma önizlemesi</h3><p class="tiny-info" data-t="cropViewsNote">Üstteki 3:4, 1:1 ve daire seçenekleri merkezden kırpma simülasyonudur. Dosyanın ölçüsünü veya çıktısını değiştirmez.</p><p class="tiny-info" data-t="noHidden">Metin kontrolü yalnız editördeki metin katmanlarını ölçer; yüz algılama, OCR veya estetik puanı yoktur.</p>
+</section>
+</aside>
+<section class="workspace">
+<div class="workspace-head"><div class="row"><i data-icon="canvas"></i><strong id="canvasTitle"></strong></div><div class="viewtools" aria-label="Crop simulation"><button id="viewFull" class="active" data-t="fullView">Tam</button><button id="view34">3:4</button><button id="view11">1:1</button><button id="viewCircle" data-title="circle"><i data-icon="circle"></i></button></div></div>
+<div class="stage" id="stage"><div class="stage-label" data-t="livePreview">CANLI ÖNİZLEME</div><div class="stage-inner" id="stageInner"><canvas id="canvas" width="1080" height="1350" tabindex="0" aria-label="Görsel editörü"></canvas></div></div>
+<div class="canvas-helper"><span id="canvasHint"></span><span class="mono" id="canvasSize"></span></div>
+<div class="film-head"><h2><span data-t="pages">SAYFALAR</span> <span class="muted" id="pageCount"></span></h2><div class="film-actions"><button id="pagePrev" class="iconbtn ghost" data-icon="left" data-title="moveEarlier"></button><button id="pageNext" class="iconbtn ghost" data-icon="right" data-title="moveLater"></button><button id="duplicatePage" class="iconbtn ghost" data-icon="copy" data-title="duplicate"></button><button id="deletePage" class="iconbtn ghost danger" data-icon="trash" data-title="deletePage"></button></div></div>
+<div class="filmstrip" id="filmstrip"></div>
+</section>
+<aside class="sidebar rightbar">
+<section><div class="row between audit-heading"><div class="section-label" style="margin:0" data-t="preflight">YAYIN ÖNCESİ KONTROL</div><i data-icon="checklist"></i></div><div id="auditList"></div><p class="tiny-info" data-t="auditScope">Bu kontrol tasarım kalitesini puanlamaz. Ölçü, büyütme ve eklenen metinlerin geometrisini denetler.</p><div class="badge-line"><i data-icon="lock"></i><span data-t="private">Görseller bu cihazda işlenir.</span></div></section>
+<section class="export-card"><div class="row between"><h2 data-t="exportTitle">Dosyanı hazırla</h2><i data-icon="download"></i></div><div class="stat-pair"><span data-t="outputSize">Çıktı ölçüsü</span><strong id="outputSize" class="mono"></strong></div><div class="field"><label for="exportFormat" data-t="fileFormat">Dosya biçimi</label><select id="exportFormat"><option value="image/png">PNG</option><option value="image/jpeg">JPEG</option><option value="image/webp">WebP</option></select></div><div class="field" id="qualityField" hidden><div class="row between"><label for="quality" data-t="compression">Kodlama kalitesi</label><span id="qualityLabel" class="muted">92%</span></div><input id="quality" type="range" min="40" max="100" value="92"></div><button id="exportOne" class="primary full"><i data-icon="download"></i><span data-t="exportOne">Bu görseli dışa aktar</span></button><button id="exportSeries" class="full" style="margin-top:8px"><i data-icon="stack"></i><span data-t="exportSeries">Seriyi ZIP olarak al</span></button><button id="openPack" class="full" style="margin-top:8px"><i data-icon="sizes"></i><span data-t="formatPack">Farklı ölçülerde paketle</span></button><p class="export-note" data-t="exportClean">Çıktıda kılavuz, filigran veya arayüz bulunmaz. Orijinal dosyanın üzerine yazılmaz.</p></section>
+<div class="sources-link"><div class="divider"></div><button id="demoBtn" class="full ghost small-btn"><i data-icon="play"></i><span data-t="sample">Örnek projeyi aç</span></button><button id="helpBtn2" class="full ghost small-btn"><i data-icon="info"></i><span data-t="limitsSources">Kapsam ve ölçü kaynakları</span></button><div class="row" style="margin-top:7px"><button id="mobileSave" class="full ghost small-btn" data-t="saveProject">Kaydet</button><button id="mobileOpen" class="full ghost small-btn" data-t="openProject">Proje aç</button></div></div>
+</aside>
+</main>
+<footer class="bottom-bar"><div class="row"><span class="pill-dot"></span><span data-t="footerLocal">Yerel editör · hesap veya API anahtarı istemez</span></div><span class="optional" data-t="footerBeta">Beta 0.2 · AI veya otomatik paylaşım özelliği değildir</span><span>© Alptuğ Harun</span></footer>
+<input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><input id="projectInput" type="file" accept=".json,.frame.json,application/json" hidden>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div id="busy" class="busy-shield" hidden><div class="busy-box"><div class="spinner"></div><p id="busyText"></p><p class="muted" data-t="keepOpen">Bu pencereyi kapatma.</p></div></div>
+<dialog id="packDialog"><div class="modal-header"><div><h2 data-t="packTitle">Bir görsel, farklı tuvaller</h2><p class="muted" data-t="packSubtitle">Aynı kaynağın farklı oranlardaki kadrajlarını karşılaştır.</p></div><button class="iconbtn ghost" id="closePack" data-icon="close" data-title="close"></button></div><div class="modal-body"><div class="tip warn" data-t="packWarning">Bu bir yeniden kadrajlama işlemidir; AI ile kompozisyon yeniden kurulmaz. Her önizlemeyi ve metin uyarısını kontrol et.</div><div class="pack-grid" id="packGrid"></div></div><div class="modal-footer"><span class="muted" data-t="packFoot">Seçtiğin ölçüler ayrı dosyalar olarak aynı ZIP içinde.</span><button id="exportPack" class="primary"><i data-icon="download"></i><span data-t="packExport">Seçilenleri ZIP olarak al</span></button></div></dialog>
+<dialog id="helpDialog"><div class="modal-header"><h2 data-t="helpTitle">Ne yapar, ne yapmaz?</h2><button class="iconbtn ghost" id="closeHelp" data-icon="close" data-title="close"></button></div><div class="modal-body" id="helpBody"></div><div class="modal-footer"><span class="muted">Creator Frame Studio · 0.2.0 · 05.10.2026</span><button id="helpDone" class="primary" data-t="gotIt">Anladım</button></div></dialog>
+<noscript>Bu editör JavaScript gerektirir. Dosyayı bilgisayarında Chrome veya Edge ile aç.</noscript>
+<script src="app.js"></script>
+</body></html>

@@ -9,7 +9,7 @@
 
 Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
 
-[Start Here](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[Start Here](START-HERE.md) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 **Choose the smallest layer that solves the job:** prompt → assistant → Agent Skill → MCP/API → automation. Use the [60-second provider map](AI-ECOSYSTEM-HUB.md#pick-a-provider-in-60-seconds) when switching between ChatGPT, Claude, Gemini and Grok.
 
@@ -47,7 +47,7 @@ If the proof saved you setup time, a star helps other builders discover the repo
 | **Install reusable Agent Skills** | [Agent Skills](skills/README.md) |
 | **Build/test the skills-only ChatGPT/Codex plugin** | [Plugin Guide](PLUGIN-GUIDE.md) |
 | **Run a local read-only MCP server** | [AI Workbench MCP](https://github.com/alptugharun/ai-workbench-mcp) |
-| **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |
+| **Use creator workflows for Canva, Pinterest or Reels** | [Creator Materials](downloads/README.md) |\n| **Frame and export creator visuals across social formats** | [Creator Frame Studio](tools/creator-frame-studio/README.md) |
 | **Inspect security, trust and runtime evidence** | [Trust & Discovery Review](docs/TRUST-DISCOVERY-REVIEW.md) |
 
 Want a curated ecosystem map after the first run? Use the **[AI Creator Stack](resources/AI-CREATOR-STACK.md)**.

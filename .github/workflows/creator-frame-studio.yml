@@ -1,0 +1,28 @@
+name: Creator Frame Studio checks
+
+on:
+  pull_request:
+    paths:
+      - 'tools/creator-frame-studio/**'
+      - '.github/workflows/creator-frame-studio.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/creator-frame-studio/**'
+      - '.github/workflows/creator-frame-studio.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check JavaScript syntax
+        run: node --check tools/creator-frame-studio/app.js
+      - name: Run static smoke checks
+        run: node tools/creator-frame-studio/tests/smoke.mjs
