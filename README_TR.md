@@ -13,7 +13,7 @@ Ama amaç "çok dosya" göstermek değil. Amaç şu:
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
-[Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[⚡ Creator Frame Studio Canlı Demo](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)
@@ -34,6 +34,8 @@ Başarılı çalıştırma; yerel kataloğu, dry-run provider yolunu, Agent Skil
 **PASS?** Aşağıdan tek bir yol seç. **FAIL?** İlk hatayı sakla ve tahmin yürütmek yerine troubleshooting/evidence yolunu kullan.
 
 Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarının keşfetmesine yardım eder. Tekrarlanabilir bir hata raporu ise genel bir “çalışıyor” yorumundan daha değerlidir.
+
+**Gerçek ilk kurulumu birlikte test edelim:** [Real User Lab #1 — 10 bağımsız rapor aranıyor](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). PASS, FAIL ve BLOCKED sonuçlarının tamamı; ortam ve ilk takılma noktası yazıldığında değerlidir.
 
 ## En kısa yol hangisi?
 
