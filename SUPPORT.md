@@ -23,6 +23,8 @@ Use:
 - **Show and tell** for things you built, adapted or learned;
 - **General** for broader AI-workflow conversation.
 
+For structured product feedback, use the public [Community Idea Box](https://github.com/alptugharun/ai-social-media-toolkit/issues/169) or choose one of the repository's validated Issue Forms.
+
 Read [COMMUNITY.md](COMMUNITY.md) for category guidance.
 
 ## Something is broken
@@ -37,7 +39,6 @@ On Windows, use `py -3 -X utf8 tools/first_run_check.py`.
 
 If it fails, open a **Bug report** and include the **first FAIL/error point**, not only the final traceback. Also include:
 
-
 - the skill/tool/workflow;
 - runtime/platform and version;
 - reproduction steps;
@@ -50,7 +51,7 @@ Remove credentials, private account IDs and client data.
 
 Open **Workflow feedback**.
 
-The most useful report is the **first** point where you became confused, blocked or wanted a deeper version.
+The most useful report is the **first** point where you became confused, blocked or wanted a deeper version. Specific criticism is welcome; abuse, spam and fake engagement are not.
 
 ## I want to contribute
 
@@ -64,7 +65,7 @@ Start with:
 
 Read [SECURITY.md](SECURITY.md) before posting details publicly.
 
-Do not publish secrets, tokens, credentials or sensitive account information in an issue.
+Private vulnerability reporting is enabled. Do not publish secrets, exploit payloads, tokens, credentials or sensitive account information in a public issue.
 
 ## I want a new feature
 
@@ -80,6 +81,18 @@ Weak request:
 
 ## I want a paid / managed version
 
-Describe the deeper outcome you would pay to avoid implementing yourself. That evidence is used by the project's [growth and productization gates](references/GROWTH-PRODUCTIZATION-GATES.md).
+The public repository remains the proof and open-source layer. Paid work is for people who want implementation, customization, managed workflows or deeper support without building the whole system themselves.
 
-Commercial interest does not automatically move useful open-core functionality behind a paywall.
+See [Paid implementation and commercial support](docs/PAID-IMPLEMENTATION.md).
+
+Current service lanes include:
+
+- AI workflow implementation;
+- creator operations systems;
+- custom radar / intelligence workflows;
+- workflow, MCP and Agent Skill audits;
+- onboarding, documentation and hardening.
+
+Commercial interest does **not** automatically move useful open-core functionality behind a paywall.
+
+For private commercial inquiries, start at **https://alptugharun.com**. Do not post confidential business information in a public issue.

@@ -1,0 +1,62 @@
+name: "💬 Workflow feedback"
+description: Tell us what worked, where you got stuck, and what would make you return.
+title: "[Feedback] "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        We value **specific criticism** more than generic praise. Tell us the first point that created friction. No private analytics, credentials or client data.
+  - type: input
+    id: workflow
+    attributes:
+      label: Workflow / tool used
+      placeholder: "Creator Frame Studio, Pinterest workflow, Agent Skill, MCP..."
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: Real job you were trying to complete
+      placeholder: "What outcome did you need?"
+    validations:
+      required: true
+  - type: textarea
+    id: worked
+    attributes:
+      label: What actually helped?
+      description: Optional. Concrete examples beat compliments.
+  - type: textarea
+    id: friction
+    attributes:
+      label: First friction point
+      description: Where did you slow down, become confused, or leave the workflow?
+    validations:
+      required: true
+  - type: textarea
+    id: return
+    attributes:
+      label: What would make you use it again?
+      description: Prefer the smallest improvement that changes the outcome.
+    validations:
+      required: true
+  - type: dropdown
+    id: frequency
+    attributes:
+      label: How often would this job matter to you?
+      options:
+        - Once
+        - A few times a year
+        - Monthly
+        - Weekly
+        - Daily / near-daily
+        - Not sure yet
+    validations:
+      required: true
+  - type: checkboxes
+    id: culture
+    attributes:
+      label: Community check
+      options:
+        - label: This feedback is about the product/workflow, not a personal attack or promotional post.
+          required: true
