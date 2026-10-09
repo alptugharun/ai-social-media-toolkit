@@ -2,7 +2,7 @@
 
 **İçerik üreticileri için tarayıcıda çalışan kadraj, iç alan kontrolü ve çoklu format dışa aktarma çalışma alanı.**
 
-[English README](README.md) · [Yol haritası](ROADMAP.md) · [Test notları](TESTING.md) · [İçerik paketi](CONTENT-PACK.md)
+[⚡ Canlı demoyu aç](https://alptugharun.github.io/ai-social-media-toolkit/) · [English README](README.md) · [Yol haritası](ROADMAP.md) · [Test notları](TESTING.md) · [İçerik paketi](CONTENT-PACK.md)
 
 > **Durum:** v0.3.0 beta. Araç kullanılabilir durumdadır; fakat resmî Instagram doğrulayıcısı veya “AI tasarım hakemi” olarak sunulmaz.
 
