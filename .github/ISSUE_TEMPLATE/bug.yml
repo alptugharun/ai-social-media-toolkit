@@ -1,0 +1,78 @@
+name: "🐛 Reproducible bug"
+description: Report a problem we can reproduce and fix.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve the project. Please share the **first failing point** and remove secrets, tokens, private account IDs and client data.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Affected area
+      options:
+        - AI Workbench / prompts
+        - Agent Skills
+        - MCP
+        - Creator Frame Studio
+        - Creator / social workflow
+        - Automation / GitHub Actions
+        - Documentation / onboarding
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: job
+    attributes:
+      label: What were you trying to do?
+      description: One concrete user job is enough.
+      placeholder: "Example: run the two-minute local verification on Windows."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Minimal reproduction
+      description: Exact smallest set of steps that reproduces the issue.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior / first error
+      description: Paste the smallest useful sanitized log excerpt.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, Python/Node version, host/runtime version when relevant.
+      placeholder: "Windows 11 · Python 3.11 · Cursor 3.x"
+  - type: input
+    id: ref
+    attributes:
+      label: Repository ref
+      description: Commit SHA, tag or branch when known.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed credentials, tokens, private account data and confidential client information.
+          required: true
+        - label: I searched existing issues for the same failure.
+          required: true
+        - label: I can reproduce this problem, or I clearly marked what I could not reproduce.
+          required: true
