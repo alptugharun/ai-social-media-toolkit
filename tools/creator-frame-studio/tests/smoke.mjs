@@ -28,3 +28,11 @@ for(const id of ['styleHook','styleSub','styleCTA','guideBalanced','guideHook','
 assert.ok(html.includes('v0.3 · BETA'),'version badge not updated');
 assert.ok(js.includes('Beta 0.3'),'localized footer version not updated');
 assert.ok(!js.includes('Beta 0.2'),'stale localized footer version remained');
+
+
+const csp = html.match(/Content-Security-Policy" content="([^"]+)"/)?.[1] || '';
+assert.ok(csp.includes("script-src 'self'"),'CSP must keep scripts self-only');
+assert.ok(!csp.includes("script-src 'unsafe-inline'"),'CSP must not allow inline scripts');
+assert.ok(!csp.includes("'unsafe-eval'"),'CSP must not allow eval');
+assert.ok(csp.includes("style-src-attr 'unsafe-inline'"),'dynamic style attributes need explicit CSP allowance');
+assert.ok(csp.includes("connect-src 'none'"),'editor must remain network-disconnected by CSP');
