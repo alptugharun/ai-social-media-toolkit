@@ -169,6 +169,10 @@ Run one task and report the first point where you got confused or blocked. Repro
 
 [Community](COMMUNITY.md) · [Discussions](https://github.com/alptugharun/ai-social-media-toolkit/discussions) · [Support](SUPPORT.md) · [Contributing](CONTRIBUTING.md) · [Roadmap](ROADMAP.md) · [Adoption evidence](ADOPTION.md) · [Security](SECURITY.md) · [Trust & discovery review](docs/TRUST-DISCOVERY-REVIEW.md) · [Cite this project](CITATION.cff) · [Releases](https://github.com/alptugharun/ai-social-media-toolkit/releases)
 
+### Need this adapted to your workflow?
+
+The public repository stays the proof/open-source layer. If you want **managed setup, customization, private workflow design, creator-ops systems or implementation support**, use [Paid implementation & commercial support](docs/PAID-IMPLEMENTATION.md) or start a private inquiry at [alptugharun.com](https://alptugharun.com). No public issue is required for confidential business details.
+
 ## Verify before trusting a badge
 
 Run the offline public-readiness gate before release:
