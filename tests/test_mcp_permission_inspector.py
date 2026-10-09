@@ -577,7 +577,6 @@ class MCPPermissionInspectorTests(unittest.TestCase):
         self.assertIn("shell-execution", codes)
         self.assertIn("broad-filesystem-path", codes)
         self.assertIn("cleartext-remote", codes)
-        self.assertIn("cleartext-remote", codes)
 
     def test_cli_fail_on_medium(self):
         with tempfile.TemporaryDirectory() as tmp:
