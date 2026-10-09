@@ -35,6 +35,8 @@ Başarılı çalıştırma; yerel kataloğu, dry-run provider yolunu, Agent Skil
 
 Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarının keşfetmesine yardım eder. Tekrarlanabilir bir hata raporu ise genel bir “çalışıyor” yorumundan daha değerlidir.
 
+**Gerçek ilk kurulumu birlikte test edelim:** [Real User Lab #1 — 10 bağımsız rapor aranıyor](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). PASS, FAIL ve BLOCKED sonuçlarının tamamı; ortam ve ilk takılma noktası yazıldığında değerlidir.
+
 ## En kısa yol hangisi?
 
 | Ne yapmak istiyorsun? | Buradan başla |
