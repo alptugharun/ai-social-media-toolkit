@@ -2,8 +2,19 @@
 <html lang="tr">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Free local-first browser editor for framing, text layout, safe-area review and multi-format social media exports. No account, upload or API key required.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#10161c">
+<link rel="canonical" href="https://alptugharun.github.io/ai-social-media-toolkit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Creator Frame Studio — Local-first social media framing tool">
+<meta property="og:description" content="Frame and export creator visuals for Instagram, Pinterest and YouTube without uploading your images or creating an account.">
+<meta property="og:url" content="https://alptugharun.github.io/ai-social-media-toolkit/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Creator Frame Studio — Alptuğ Harun">
+<meta name="twitter:description" content="Local-first social media framing and export tool. No account, upload or API key required.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src data: blob: 'self'; connect-src 'none'; font-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Creator Frame Studio — Alptuğ Harun</title>
+<title>Creator Frame Studio — Free Local Social Media Framing Tool</title>
 <link rel="stylesheet" href="styles.css">
 <body>
 <header class="head">
@@ -83,7 +94,7 @@
 <div class="sources-link"><div class="divider"></div><button id="demoBtn" class="full ghost small-btn"><i data-icon="play"></i><span data-t="sample">Örnek projeyi aç</span></button><button id="helpBtn2" class="full ghost small-btn"><i data-icon="info"></i><span data-t="limitsSources">Kapsam ve ölçü kaynakları</span></button><div class="row" style="margin-top:7px"><button id="mobileSave" class="full ghost small-btn" data-t="saveProject">Kaydet</button><button id="mobileOpen" class="full ghost small-btn" data-t="openProject">Proje aç</button></div></div>
 </aside>
 </main>
-<footer class="bottom-bar"><div class="row"><span class="pill-dot"></span><span data-t="footerLocal">Yerel editör · hesap veya API anahtarı istemez</span></div><span class="optional" data-t="footerBeta">Beta 0.3 · AI veya otomatik paylaşım özelliği değildir</span><span>© Alptuğ Harun</span></footer>
+<footer class="bottom-bar"><div class="row"><span class="pill-dot"></span><span data-t="footerLocal">Yerel editör · hesap veya API anahtarı istemez</span></div><span class="optional" data-t="footerBeta">Beta 0.3 · AI veya otomatik paylaşım özelliği değildir</span><nav class="footer-links" aria-label="Project links"><a href="https://github.com/alptugharun/ai-social-media-toolkit/issues/169" target="_blank" rel="noopener">Feedback</a><a href="https://github.com/alptugharun/ai-social-media-toolkit/tree/main/tools/creator-frame-studio" target="_blank" rel="noopener">Source</a><span>© Alptuğ Harun</span></nav></footer>
 <input id="fileInput" type="file" accept="image/png,image/jpeg,image/webp" multiple hidden><input id="projectInput" type="file" accept=".json,.frame.json,application/json" hidden>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div id="busy" class="busy-shield" hidden><div class="busy-box"><div class="spinner"></div><p id="busyText"></p><p class="muted" data-t="keepOpen">Bu pencereyi kapatma.</p></div></div>
