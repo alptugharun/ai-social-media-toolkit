@@ -44,3 +44,16 @@
   .head-actions #helpBtn{display:none}
   .workspace-head strong{max-width:94px}
 }
+
+
+/* Narrow phones use stacked toolbars instead of squeezing desktop controls. */
+@media(max-width:520px){
+  .head{display:flex;flex-wrap:wrap;height:auto;padding:9px 10px}
+  .brand{flex:1 1 100%;width:100%;justify-content:flex-start}
+  .head-actions{width:100%;max-width:100%;justify-content:flex-end;overflow:visible}
+  .workspace-head{height:auto;min-height:76px;display:flex;flex-wrap:wrap;align-content:center;padding:7px 8px}
+  .workspace-head>.row{width:100%;flex:1 1 100%}
+  .workspace-head strong{max-width:calc(100vw - 64px)}
+  .viewtools{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+  .viewtools button,.viewtools #viewCircle{width:100%;min-width:0}
+}
