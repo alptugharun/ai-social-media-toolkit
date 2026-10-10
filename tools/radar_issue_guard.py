@@ -8,7 +8,7 @@ from typing import Any
 
 
 EXPECTED_TITLE = "GitHub Opportunity Radar — latest"
-EXPECTED_AUTHOR = "github-actions[bot]"
+EXPECTED_AUTHORS = {"github-actions[bot]", "app/github-actions"}
 EXPECTED_LABEL = "growth-radar"
 EXPECTED_ISSUE_NUMBER = 7
 
@@ -32,7 +32,7 @@ def validate_issue(issue: dict[str, Any], expected_number: int = EXPECTED_ISSUE_
         errors.append(f"unexpected title: {title!r}")
     if state != "open":
         errors.append(f"expected open issue, got {state or 'missing'}")
-    if author != EXPECTED_AUTHOR:
+    if author not in EXPECTED_AUTHORS:
         errors.append(f"unexpected author: {author!r}")
     if EXPECTED_LABEL not in labels:
         errors.append(f"missing required label: {EXPECTED_LABEL}")
