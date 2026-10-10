@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - "tools/github_growth_radar.py"
+      - "tools/radar_issue_guard.py"
+      - "tests/test_radar_issue_guard.py"
       - "skills/github-opportunity-radar/**"
       - "references/GITHUB-GROWTH-PLAYBOOK.md"
       - ".github/workflows/github-opportunity-radar.yml"
@@ -42,8 +44,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m py_compile tools/github_growth_radar.py
+          python -m py_compile tools/github_growth_radar.py tools/radar_issue_guard.py
           python -m unittest discover -s tests -p 'test_github_growth_radar.py' -v
+          python -m unittest discover -s tests -p 'test_radar_issue_guard.py' -v
 
       - name: Bootstrap pacing
         if: github.event_name == 'push'
@@ -67,25 +70,18 @@ jobs:
             --color "1D76DB" \
             --force
 
-          issue_number="$(
-            gh issue list \
-              --label growth-radar \
-              --state open \
-              --limit 1 \
-              --json number \
-              --jq '.[0].number // empty'
-          )"
+          issue_number="7"
 
-          if [ -n "$issue_number" ]; then
-            gh issue edit "$issue_number" \
-              --title "GitHub Opportunity Radar — latest" \
-              --body-file /tmp/github-opportunity-radar.md
-          else
-            gh issue create \
-              --title "GitHub Opportunity Radar — latest" \
-              --body-file /tmp/github-opportunity-radar.md \
-              --label growth-radar
-          fi
+          gh issue view "$issue_number" \
+            --json number,title,state,author,labels \
+            > /tmp/github-opportunity-radar-issue.json
+
+          python tools/radar_issue_guard.py \
+            /tmp/github-opportunity-radar-issue.json \
+            --issue-number "$issue_number"
+
+          gh issue edit "$issue_number" \
+            --body-file /tmp/github-opportunity-radar.md
 
       - name: Upload report artifact
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
