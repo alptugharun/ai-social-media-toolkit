@@ -17,6 +17,11 @@ class RadarIssueGuardTests(unittest.TestCase):
     def test_accepts_canonical_bot_owned_issue(self):
         self.assertEqual(validate_issue(valid_issue()), [])
 
+    def test_accepts_graphql_actions_app_identity(self):
+        issue = valid_issue()
+        issue["author"] = {"login": "app/github-actions"}
+        self.assertEqual(validate_issue(issue), [])
+
     def test_rejects_human_owned_issue(self):
         issue = valid_issue()
         issue["author"] = {"login": "alptugharun"}
