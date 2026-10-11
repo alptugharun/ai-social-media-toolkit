@@ -3,6 +3,25 @@
   "status": "contract fixtures only; not runtime model evaluation results",
   "cases": [
     {
+      "id": "creator-context-builder-provenance-before-personalization",
+      "skill": "creator-context-builder",
+      "prompt": "Build a reusable creator context from my approved facts, preferences and writing samples. Separate verified facts, user preferences, observed style patterns and hypotheses; do not store secrets or silently treat old metrics as current.",
+      "must_include": [
+        "VERIFIED",
+        "PREFERENCE",
+        "OBSERVED",
+        "HYPOTHESIS",
+        "privacy",
+        "stale"
+      ],
+      "must_not": [
+        "store API keys",
+        "infer sensitive traits",
+        "present stale metrics as current"
+      ],
+      "notes": "The foundation context must preserve provenance, freshness and privacy boundaries before downstream personalization."
+    },
+    {
       "id": "creator-ops-routes-before-writing",
       "skill": "creator-ops",
       "prompt": "I need a creator workflow for a new idea but I am not sure whether this is a Reels, Pinterest, research, or monetization task. Route the work before producing content.",
