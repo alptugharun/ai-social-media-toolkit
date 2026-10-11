@@ -9,7 +9,7 @@
 
 **README'ye güvenme. Testi çalıştır. Demoyu bozmayı dene. Sınırları kendin gör.**
 
-`2 dakikalık offline proof · güncel branch: 261 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
+`2 dakikalık offline proof · release adayı: 266 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
 
 Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, MCP'yi, API/bot başlangıçlarını, creator araçlarını ve otomasyonu tek bir **kanıt-öncelikli** akışta birleştirir.
 
