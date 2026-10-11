@@ -2,22 +2,34 @@
 
 All notable public changes to the **AI Social Media Toolkit** are recorded here.
 
-The project is currently in **alpha**. Until the first tagged release is published, this file tracks release-ready milestones without pretending that an unreleased commit is a versioned release.
+The project is currently in **alpha**. Tagged releases describe shipped public behavior; `Unreleased` is reserved for changes that are not yet part of a tagged release.
 
 ## Unreleased
 
+No release-ready changes queued after `v0.3.0-alpha.1` yet.
+
+## [v0.3.0-alpha.1] - 2026-10-11
+
 ### Added
 
-- Portable skills-only Agent Plugin release gate with a deterministic ZIP builder, 18-skill package validation, submission-preparation test cases and a public Plugin Guide.
+- `creator-context-builder`, a privacy-aware foundation Agent Skill that separates verified facts, user preferences, observed sample patterns and hypotheses before downstream personalization.
+- A filled synthetic Creator Context example plus provenance/freshness labels in the shared context template.
+- Deterministic GitHub release assets for the full Agent Skills bundle, Creator Context Builder, Creator Frame Studio offline use and the skills-only Agent Plugin bundle, with SHA256 checksums.
+- Creator Frame Studio as a live GitHub Pages beta with local-first image framing, editable text, guide profiles and preflight checks.
+- MCP Permission Inspector for local first-connect configuration review.
+- Portable skills-only Agent Plugin release gate with a deterministic ZIP builder, 19-skill package validation, submission-preparation test cases and a public Plugin Guide.
 - Standalone `ai-workbench-mcp` package boundary with dependency-free stdio server, bundled catalog and exact tool contracts.
 - CI wheel build/install/handshake verification on Ubuntu 24.04, Ubuntu 26.04 and Windows 2025.
 - Tokenless PyPI Trusted Publishing workflow with keyless Sigstore signing for MCP release artifacts.
 - Public release-readiness audit covering MCP annotations, schemas, tool-name test coverage, JSON manifests, immutable Action refs and workflow permission posture.
 - Offline Markdown navigation validation for broken relative links and duplicate consecutive headings.
 - M8ven Verified/Live integration and OpenSSF Scorecard visibility.
+- Public Adoption Ledger and Real User Lab paths that distinguish local proof, traffic telemetry and independent user evidence.
 
 ### Improved
 
+- README and profile onboarding now lead with verifiable proof, live demos and explicit limits instead of generic AI-tool positioning.
+- Creator Ops now routes missing personalized context through Creator Context Builder while allowing source-only research to proceed without personal profiling.
 - Every local and packaged MCP tool declares explicit `readOnlyHint`, `destructiveHint`, `idempotentHint` and `openWorldHint`.
 - Packaged MCP tests reference each public tool by name, closing the visible M8ven tool-test-coverage gap.
 - GitHub Actions write permissions were reduced from workflow-level grants to narrow job-level permissions where writes are required.
@@ -77,6 +89,7 @@ A tagged release should include:
 2. a reproducible quick start;
 3. release notes that describe real shipped behavior;
 4. no fabricated adoption claims;
-5. known limitations when relevant.
+5. known limitations when relevant;
+6. deterministic downloadable assets when the release advertises downloads.
 
 Do not backfill fake semantic-version history for earlier internal commits.

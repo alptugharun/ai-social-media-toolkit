@@ -1,0 +1,71 @@
+name: Publish v0.3.0 Alpha Release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "releases/v0.3.0-alpha.1.md"
+      - "tools/build_release_assets.py"
+      - ".github/workflows/publish-v0.3.0-alpha.1.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout release commit
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Verify release gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m compileall -q tools tests
+          python -m unittest discover -s tests -v
+          python tools/validate_docs.py
+          python tools/release_readiness.py
+          python tools/first_run_check.py
+          node tools/creator-frame-studio/tests/smoke.mjs
+
+      - name: Build deterministic release assets
+        shell: bash
+        run: |
+          set -euo pipefail
+          rm -rf dist/release-assets
+          python tools/build_release_assets.py \
+            --version v0.3.0-alpha.1 \
+            --output-dir dist/release-assets
+          cat dist/release-assets/SHA256SUMS.txt
+
+      - name: Create prerelease and upload assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v0.3.0-alpha.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" \
+              --target "$GITHUB_SHA" \
+              --title "AI Social Media Toolkit v0.3.0-alpha.1" \
+              --notes-file releases/v0.3.0-alpha.1.md \
+              --prerelease
+          fi
+          gh release upload "$TAG" dist/release-assets/* --clobber
+
+      - name: Verify public release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v0.3.0-alpha.1
+        shell: bash
+        run: |
+          set -euo pipefail
+          count="$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/$TAG" --jq '.assets | length')"
+          test "$count" -ge 5
+          echo "Release assets visible: $count"
