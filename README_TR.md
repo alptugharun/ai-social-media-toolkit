@@ -9,7 +9,7 @@
 
 **README'ye güvenme. Testi çalıştır. Demoyu bozmayı dene. Sınırları kendin gör.**
 
-`2 dakikalık offline proof · release adayı: 266 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
+`v0.3.0-alpha.1 · 266 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
 
 Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, MCP'yi, API/bot başlangıçlarını, creator araçlarını ve otomasyonu tek bir **kanıt-öncelikli** akışta birleştirir.
 
@@ -17,7 +17,7 @@ Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapıların
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
-[⚡ Creator Frame Studio Canlı Demo](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[⬇ v0.3 alpha indir](https://github.com/alptugharun/ai-social-media-toolkit/releases/tag/v0.3.0-alpha.1) · [⚡ Creator Frame Studio Canlı Demo](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README_TR.md) · [MCP Permission Inspector](resources/MCP-PERMISSION-INSPECTOR.md) · [Başlangıç](START-HERE.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Verified AI Team Stack](resources/AI-TEAM-STACK.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 [![Validate Agent Skills](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml/badge.svg)](https://github.com/alptugharun/ai-social-media-toolkit/actions/workflows/validate-skills.yml)
 [![M8ven Score](https://m8ven.ai/badge/mcp/alptugharun-ai-social-media-toolkit-adv58l?v=03bebb9d62df5457451770e8ba62ec55)](https://m8ven.ai/mcp/alptugharun-ai-social-media-toolkit-adv58l?s=readme)

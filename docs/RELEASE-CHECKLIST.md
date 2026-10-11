@@ -4,18 +4,18 @@ A release is a distribution event, not a version-number decoration.
 
 ## Required before tagging
 
-- [ ] Validate Agent Skills is green on the release commit.
+- [x] Validate Agent Skills is green on the release commit.
 - [x] `python tools/two_minute_demo.py` completes successfully in CI.
 - [x] README links to the runnable demo.
-- [ ] START-HERE gives a non-developer and an Agent Skills path.
-- [ ] HOW-TO-USE-EVERYTHING reflects the public surface.
+- [x] START-HERE gives a non-developer and an Agent Skills path.
+- [x] HOW-TO-USE-EVERYTHING reflects the public surface.
 - [x] Known limitations are explicit.
-- [ ] CHANGELOG moves shipped items from Unreleased into the release section.
+- [x] CHANGELOG moves shipped items from Unreleased into the release section.
 - [x] No fabricated install, user, revenue, trend or performance claims.
 - [x] No secrets or private client/account data.
 - [x] Release notes explain install, first result, major capabilities and limitations.
 - [x] Deterministic release assets build locally with SHA256 checksums.
-- [ ] Public GitHub release shows the expected downloadable assets after merge.
+- [x] Public GitHub release shows the expected downloadable assets after merge.
 
 ## Current release candidate
 
