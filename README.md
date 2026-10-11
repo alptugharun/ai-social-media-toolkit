@@ -9,7 +9,7 @@
 
 **Don't trust the README. Run the proof. Break the demo. Check the limits.**
 
-`2-minute offline proof · current branch: 261 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
+`2-minute offline proof · release candidate: 266 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
 
 Built by **Alptuğ Harun**, this repository connects reusable prompts, portable assistant blueprints, Agent Skills, MCP, API/bot starters, creator tools and automation into one verification-first path.
 
