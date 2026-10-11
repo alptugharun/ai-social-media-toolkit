@@ -136,7 +136,9 @@ A strong SECURITY.md should include:
 
 Release artifacts should carry cryptographic signing/provenance.
 
-The flagship v0.3 downloadable artifacts are being moved to Sigstore-signed assets.
+The flagship uses GitHub OIDC + Sigstore to produce public `.sigstore.json` bundles for user-facing ZIP/checksum assets. The original downloadable files remain unchanged; signatures are additive evidence.
+
+A signature proves artifact identity/integrity for the signed bytes and signing workflow identity. It does not prove the software is vulnerability-free.
 
 ### Branch protection / Code Review
 
