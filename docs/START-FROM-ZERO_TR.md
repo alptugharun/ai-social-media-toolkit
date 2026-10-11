@@ -87,6 +87,8 @@ FAIL olursa API key ekleyerek düzeltmeye çalışma.
 
 İlk hatayı, işletim sistemini, Python sürümünü ve komutu kaydet.
 
+Gerçek kullanıcı raporunda sonucu açıkça **PASS / FAIL / BLOCKED** olarak yaz. `BLOCKED`, kod hatasından önce kurulum, ortam, izin veya dokümantasyon nedeniyle ilerleyemediğin anlamına gelir.
+
 ## PASS neyi kanıtlamaz?
 
 - her MCP hostunun çalıştığını;
