@@ -16,29 +16,73 @@ For personalized creator work, the smallest useful stack is:
 
 Research-only tasks can skip creator context when personal or brand alignment is irrelevant.
 
-## Skills
+## How the skills work together
+
+```text
+creator-context-builder
+        │
+        ▼
+    creator-ops
+        │
+        ├── CREATE → reels-director · content-repurposer · brand-voice-humanizer
+        ├── DISCOVER → viral-content-radar · pinterest-opportunity-radar · github-opportunity-radar
+        ├── UNDERSTAND → comment-intelligence · influencer-fit-auditor · local-business-intelligence
+        ├── GROW → pinterest-growth-engine · signal-to-content
+        ├── PROTECT → agent-skill-safety-auditor · maps-policy-guard · plugin-mcp-architect
+        └── COMMERCIALIZE → commercial-opportunity-radar · monetization-architect
+```
+
+You do **not** need the whole stack. Install the smallest skill that matches the job.
+
+## Foundation & routing
 
 | Skill | Job |
 | --- | --- |
-| `creator-context-builder` | Builds a shared creator/brand context with evidence, preference, observation and hypothesis labels |
-| `creator-ops` | Orchestrates end-to-end creator workflows |
-| `viral-content-radar` | Finds and deconstructs trends and outliers |
+| `creator-context-builder` | Builds a shared creator/brand context with provenance, freshness and privacy boundaries |
+| `creator-ops` | Routes an end-to-end creator job to the minimum relevant workflow |
+| `brand-voice-humanizer` | Restores natural brand voice while preserving facts and intent |
+
+## Create & repurpose
+
+| Skill | Job |
+| --- | --- |
 | `reels-director` | Produces short-form vertical video plans |
-| `pinterest-growth-engine` | Builds Pinterest discovery and traffic systems |
-| `pinterest-opportunity-radar` | Finds evidence-backed Pinterest trends, seasonality and visual-search opportunities |
 | `content-repurposer` | Turns one source into platform-native assets |
-| `influencer-fit-auditor` | Evaluates creator / influencer partnerships |
-| `brand-voice-humanizer` | Restores natural brand voice |
-| `signal-to-content` | Converts trend evidence into original platform-native tests |
-| `comment-intelligence` | Mines comments for questions, objections, pain points, demand signals, and content opportunities |
-| `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
-| `github-opportunity-radar` | Finds GitHub demand signals, skill gaps and repository-growth opportunities |
-| `plugin-mcp-architect` | Designs and teaches testable prompt, Agent Skill, MCP and plugin architectures |
+| `signal-to-content` | Converts evidence into original, measurable content tests |
+
+## Research & audience intelligence
+
+| Skill | Job |
+| --- | --- |
+| `viral-content-radar` | Finds and deconstructs trends and outliers without treating one hit as a confirmed trend |
+| `pinterest-opportunity-radar` | Finds evidence-backed Pinterest trends, seasonality and visual-search opportunities |
+| `github-opportunity-radar` | Finds GitHub demand proxies, skill gaps and repository-growth opportunities |
 | `maps-opportunity-radar` | Finds Maps, local-intelligence and geospatial Agent Skill opportunities |
+| `comment-intelligence` | Mines comments for questions, objections, pain points and content opportunities |
+| `influencer-fit-auditor` | Evaluates creator / influencer partnerships with explicit evidence limits |
+| `local-business-intelligence` | Turns permitted local and owned business signals into market/content workflows |
+
+## Growth & distribution planning
+
+| Skill | Job |
+| --- | --- |
+| `pinterest-growth-engine` | Builds Pinterest discovery and traffic systems from validated evidence |
+
+## Trust, policy & architecture
+
+| Skill | Job |
+| --- | --- |
+| `agent-skill-safety-auditor` | Audits third-party skills before installation or reuse |
 | `maps-policy-guard` | Reviews Maps workflows for scraping, storage, attribution and authorization risks |
-| `local-business-intelligence` | Turns permitted local and owned business signals into market, content and creator workflows |
+| `plugin-mcp-architect` | Designs and teaches testable prompt, Agent Skill, MCP and plugin architectures |
+
+## Commercial validation
+
+| Skill | Job |
+| --- | --- |
 | `commercial-opportunity-radar` | Finds evidence-backed product, service and monetization opportunities |
 | `monetization-architect` | Turns validated open-source value into a staged commercial model |
+
 
 ## Compatibility
 
