@@ -23,11 +23,14 @@ class AgentSkillBeginnerDocsTests(unittest.TestCase):
             self.assertIn(f"## {name}", self.tr, name)
 
     def test_guides_explain_use_result_and_limit(self):
-        for text in (self.en, self.tr):
-            lower = text.lower()
-            self.assertIn("expected result" if text is self.en else "beklenen sonuç", lower)
-            self.assertIn("limit" if text is self.en else "sınır", lower)
-            self.assertIn("first request" if text is self.en else "ilk talep", lower)
+        en_lower = self.en.lower()
+        self.assertIn("expected result", en_lower)
+        self.assertIn("limit", en_lower)
+        self.assertIn("first request", en_lower)
+
+        self.assertIn("**Beklenen sonuç:**", self.tr)
+        self.assertIn("**Sınır:**", self.tr)
+        self.assertIn("**İlk talep:**", self.tr)
 
     def test_quick_map_contains_every_skill(self):
         en_tail = self.en.split("# Quick decision map", 1)[1]
