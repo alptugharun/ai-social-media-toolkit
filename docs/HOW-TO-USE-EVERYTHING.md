@@ -4,6 +4,8 @@
 
 This manual is for people who do **not** want to reverse-engineer a repository before they can use it.
 
+If the words **prompt / assistant / Agent Skill / MCP / automation** are still unfamiliar, use **[Start From Zero](START-FROM-ZERO.md)** first.
+
 It explains what each public part of the AI Social Media Toolkit is for, what you need before starting, exactly how to use it, what a useful result should look like, and where to go next.
 
 The toolkit has four public layers:
