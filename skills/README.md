@@ -2,6 +2,10 @@
 
 Installable creator and social-media skills for AI agents.
 
+## New to Agent Skills?
+
+Read **[Every Agent Skill — Start From Zero](../docs/AGENT-SKILLS-FROM-ZERO.md)** or the **[Turkish guide](../docs/AGENT-SKILLS-FROM-ZERO_TR.md)** before installing the whole pack. Every current skill has a plain-language job, first request, expected result and limitation.
+
 ## Human Usage Guide
 
 Not sure what to ask after installation? Open **[How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md)** for every skill's use case, first request to try, expected result and next step.
