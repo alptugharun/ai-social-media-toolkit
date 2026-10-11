@@ -60,5 +60,32 @@ class SelfHealTests(unittest.TestCase):
         self.assertFalse(d.retryable)
 
 
+    def test_successful_test_name_containing_fails_is_not_error_evidence(self):
+        d = classify(
+            "validate (windows-2025) Run installer tests 2026-10-11T21:03:01Z "
+            "test_missing_tool_fails (test_mcp_smoke_client.MCPSmokeClientTests.test_missing_tool_fails) ... ok\n"
+            "FAILED (failures=1)\n"
+            "FAIL: test_real_regression\n"
+            "AssertionError: expected true",
+            workflow="Validate Agent Skills",
+        )
+        self.assertEqual(d.classification, "test-regression")
+        self.assertTrue(all("test_missing_tool_fails" not in line for line in d.evidence))
+
+    def test_matrix_prefixes_produce_same_test_regression_fingerprint(self):
+        base = (
+            "test_missing_tool_fails (suite.TestCase.test_missing_tool_fails) ... ok\n"
+            "FAIL: test_real_regression\n"
+            "AssertionError: expected true\n"
+            "FAILED (failures=1)"
+        )
+        windows = "validate (windows-2025) Run installer tests 2026-10-11T21:03:01Z " + base
+        ubuntu = "validate (ubuntu-26.04) Run installer tests 2026-10-11T21:03:02Z " + base
+        a = classify(windows, workflow="Validate Agent Skills")
+        b = classify(ubuntu, workflow="Validate Agent Skills")
+        self.assertEqual(a.classification, "test-regression")
+        self.assertEqual(a.fingerprint, b.fingerprint)
+
+
 if __name__ == "__main__":
     unittest.main()
