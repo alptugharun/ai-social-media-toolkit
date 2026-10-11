@@ -15,6 +15,7 @@ A release is a distribution event, not a version-number decoration.
 - [x] No secrets or private client/account data.
 - [x] Release notes explain install, first result, major capabilities and limitations.
 - [x] Deterministic release assets build locally with SHA256 checksums.
+- [ ] Downloadable release assets have public Sigstore `.sigstore.json` bundles produced with GitHub OIDC.
 - [x] Public GitHub release shows the expected downloadable assets after merge.
 
 ## Current release candidate
