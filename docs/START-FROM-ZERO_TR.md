@@ -366,7 +366,7 @@ Prompt yeterliyse MCP kurma.
 
 ---
 
-# 11. Assistant Blueprint — aynı rol sürekli tekrarlanıyorsa
+# 11. Assistant Blueprints — aynı rol sürekli tekrarlanıyorsa
 
 Bir assistant blueprint:
 
@@ -412,7 +412,7 @@ npx skills add alptugharun/ai-social-media-toolkit
 
 ---
 
-# 13. Automation — önce manuel süreci kanıtla
+# 13. Automation Recipes and GitHub Automations — önce manuel süreci kanıtla
 
 Automation demek “AI kendi kafasına göre her şeyi yapsın” değildir.
 
