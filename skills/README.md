@@ -143,6 +143,14 @@ For better results, run `creator-context-builder` or copy and complete:
 
 `references/CREATOR-CONTEXT-TEMPLATE.md`
 
+See a filled synthetic example: [`examples/CREATOR-CONTEXT-EXAMPLE.md`](../examples/CREATOR-CONTEXT-EXAMPLE.md).
+
+Install only the foundation skill when that is all you need:
+
+```bash
+npx skills add alptugharun/ai-social-media-toolkit --skill creator-context-builder
+```
+
 The builder is preferred when the user has approved samples, stale metrics or multiple downstream skills that need the same context.
 
 Research-oriented skills should follow:
