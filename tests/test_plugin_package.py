@@ -17,7 +17,7 @@ CASES = ROOT / "evals" / "plugin-submission-cases.json"
 BUILDER = ROOT / "tools" / "build_plugin_bundle.py"
 
 EXPECTED_SCHEMA = "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json"
-EXPECTED_SKILL_COUNT = 18
+EXPECTED_SKILL_COUNT = 19
 EXTRA_RESOURCES = {
     "learning/AI-BUILDER-PATH.md",
     "integrations/README.md",
@@ -56,7 +56,7 @@ class PluginPackageTests(unittest.TestCase):
         self.assertTrue((ROOT / "packages" / "ai-workbench-mcp").is_dir())
         self.assertIn("skills-only plugin", (ROOT / "PLUGIN-GUIDE.md").read_text(encoding="utf-8"))
 
-    def test_all_18_skills_are_discoverable_and_self_identifying(self):
+    def test_all_19_skills_are_discoverable_and_self_identifying(self):
         self.assertEqual(EXPECTED_SKILL_COUNT, len(self.skill_dirs))
         for skill_dir in self.skill_dirs:
             text = (skill_dir / "SKILL.md").read_text(encoding="utf-8")
