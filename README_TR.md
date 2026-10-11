@@ -9,7 +9,7 @@
 
 **README'ye güvenme. Testi çalıştır. Demoyu bozmayı dene. Sınırları kendin gör.**
 
-`2 dakikalık offline proof · güncel main: 258 test PASS · 18 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
+`2 dakikalık offline proof · güncel branch: 261 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
 
 Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, MCP'yi, API/bot başlangıçlarını, creator araçlarını ve otomasyonu tek bir **kanıt-öncelikli** akışta birleştirir.
 
@@ -46,6 +46,7 @@ Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarını
 | Ne yapmak istiyorsun? | Buradan başla |
 | --- | --- |
 | **Repo gerçekten çalışıyor mu görmek** | [Start Here](START-HERE.md) |
+| **Her creator işinde aynı brief'i tekrar vermemek** | [Creator Context Builder](skills/creator-context-builder/SKILL.md) → [doldurulmuş örnek](examples/CREATOR-CONTEXT-EXAMPLE.md) |
 | **Hemen faydalı bir AI işi denemek** | [10 Quick Wins](QUICK-WINS.md) |
 | **ChatGPT / Claude / Gemini / Grok arasında aynı işi taşımak** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Prompt → asistan → skill → MCP → plugin geliştirmeyi öğrenmek** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |
