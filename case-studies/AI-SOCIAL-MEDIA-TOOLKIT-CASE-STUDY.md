@@ -59,10 +59,11 @@ The objective is to let a visitor use the system rather than only read about it.
 
 ### 3. Portable Agent Skills
 
-The toolkit now contains **18 Agent Skills** covering creator, research, visibility, commercial workflows and plugin/MCP architecture.
+The toolkit now contains **19 Agent Skills** covering creator, research, visibility, commercial workflows and plugin/MCP architecture.
 
 Current skills include:
 
+- Creator Context Builder
 - Creator Ops
 - Viral Content Radar
 - Reels Director
