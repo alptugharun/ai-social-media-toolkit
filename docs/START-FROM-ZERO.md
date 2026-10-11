@@ -512,6 +512,8 @@ It returns the configuration text/artifact.
 
 # 12. Agent Skills — when a procedure should be installable
 
+For all 19 skills one by one, use **[Every Agent Skill — Start From Zero](AGENT-SKILLS-FROM-ZERO.md)**.
+
 Agent Skills are reusable workflow instructions designed for compatible agent runtimes.
 
 ## List available skills
