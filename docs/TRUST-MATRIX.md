@@ -16,7 +16,7 @@ The objective is to make the software easier to inspect, safer to install, clear
 | --- | --- | --- | --- |
 | **M8ven — Toolkit** | 89/100, B, stale snapshot from 2026-10-03 | Verified Publisher, Sandbox Verified, Live Monitored, no concerning exfiltration finding | listing still sees old commit / old tool count; reputation/adoption caps grade |
 | **M8ven — AI Workbench MCP** | 74/100, C, old snapshot | clean static findings | listing unclaimed, Live Monitoring not connected, old 2-tool snapshot |
-| **OpenSSF — Toolkit** | 6.3/10 on 2026-10-11 | CI 10, SAST 10, pinned dependencies 10, token permissions 10, security policy 10, vulnerabilities 10 | Signed-Releases 0 before signing work; Branch Protection 4; Code Review/Contributors/Maintained are maturity-limited; Packaging not detected |
+| **OpenSSF — Toolkit** | 6.3/10 snapshot on 2026-10-11 | CI 10, SAST 10, pinned dependencies 10, token permissions 10, security policy 10, vulnerabilities 10 | Snapshot showed Signed-Releases 0; GitHub OIDC + Sigstore bundles were added afterward and need a fresh external rescan; Branch Protection 4; Code Review/Contributors/Maintained remain maturity-limited; Packaging not detected |
 | **OpenSSF — AI Workbench MCP** | 6.7/10 | Packaging 10, Signed-Releases 8, CI/SAST/token permissions/vulnerabilities 10 | security policy content scored 3; branch/review/maturity limits; one pinning finding |
 | **OpenSSF — Safety Auditor** | 6.4/10 | CI/SAST/token/dependency-update/vulnerabilities strong | security policy scored 3; no package/release; maturity/review limits |
 | **OpenSSF — Creator Signal Lab** | 6.5/10 | CI/SAST/pinning/token/vulnerabilities strong | security policy scored 3; no package/release; maturity/review limits |
@@ -139,6 +139,8 @@ Release artifacts should carry cryptographic signing/provenance.
 The flagship uses GitHub OIDC + Sigstore to produce public `.sigstore.json` bundles for user-facing ZIP/checksum assets. The original downloadable files remain unchanged; signatures are additive evidence.
 
 A signature proves artifact identity/integrity for the signed bytes and signing workflow identity. It does not prove the software is vulnerability-free.
+
+**Applied 2026-10-11:** workflow run `38173909007` successfully signed all five user-facing v0.3 assets and uploaded public `.sigstore.json` bundles. This is an applied remediation; OpenSSF should only be reported as improved after its external API rescans the signed release.
 
 ### Branch protection / Code Review
 
