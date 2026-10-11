@@ -8,12 +8,30 @@ It deliberately starts sparse.
 
 | Signal | Current evidence | What it means |
 | --- | --- | --- |
-| Public alpha release | `v0.2.0-alpha.1` published | the project has a current versioned public prerelease baseline |
+| Public alpha release | `v0.3.0-alpha.1` published with 5 public release assets | versioned prerelease + measurable per-asset download surface |
 | Runnable proof | two-minute demo is CI-gated | visitors can verify runnable tooling |
 | External runtime verification | **not yet recorded** | documented compatibility still needs independent host evidence |
 | External workflow examples | **not yet recorded** | first contributor examples are still open |
 | External forks/contributions | record only when independently visible | do not infer use from internal activity |
 | Paid buyer signal | **not yet recorded** | premium productization remains gated |
+
+## Release-asset baseline — captured 2026-10-11
+
+`v0.3.0-alpha.1` is the first Toolkit release with separate downloadable assets and integrity hashes.
+
+| Asset | Public count at first read | Interpretation |
+| --- | ---: | --- |
+| `agent-skills-v0.3.0-alpha.1.zip` | **0** | full 19-skill bundle |
+| `creator-context-builder-v0.3.0-alpha.1.zip` | **0** | focused foundation-skill bundle |
+| `creator-frame-studio-v0.3.0-alpha.1.zip` | **0** | offline static Creator Frame Studio bundle |
+| `ai-social-media-toolkit-plugin-0.6.0.zip` | **0** | deterministic skills-only Agent Plugin bundle |
+| `SHA256SUMS.txt` | **0** | integrity manifest |
+
+These were the public GitHub API counts **before maintainer verification downloads**. Immediately after that baseline, the maintainer downloaded `creator-context-builder-v0.3.0-alpha.1.zip` and `SHA256SUMS.txt` once to verify the public asset path and SHA256 integrity. Their later counters may therefore include at least one maintainer-generated download.
+
+A release-asset download is a stronger signal of intentional artifact retrieval than raw clone telemetry, but it is still **not a unique-user, successful-install, repeat-use or customer count**.
+
+The downloaded Creator Context Builder ZIP matched the hash published in `SHA256SUMS.txt`.
 
 ## GitHub traffic baseline — captured 2026-10-09
 
