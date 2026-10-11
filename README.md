@@ -5,9 +5,15 @@
 
 # AI Social Media Toolkit — AI Workbench, Agent Skills & MCP
 
-**Build practical, testable AI workflows for ChatGPT, Claude, Gemini, Grok and creator operations.**
+**Most AI repos give you more tools. This one gives you a way to prove what actually works.**
 
-Built by **Alptuğ Harun**, this repository combines reusable prompts, portable assistant blueprints, installable Agent Skills, a read-only MCP server, API/bot starters, automation patterns and creator workflows. The priority is a fast first result, explicit limits and reproducible verification — not a giant list of untested features.
+**Don't trust the README. Run the proof. Break the demo. Check the limits.**
+
+`2-minute offline proof · current main: 258 tests PASS · 18 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
+
+Built by **Alptuğ Harun**, this repository connects reusable prompts, portable assistant blueprints, Agent Skills, MCP, API/bot starters, creator tools and automation into one verification-first path.
+
+> **The part that usually gets buried:** a passing local test is not real-world adoption. This project publishes its [adoption evidence](ADOPTION.md), explicit limits and a [Real User Lab](https://github.com/alptugharun/ai-social-media-toolkit/issues/178) where PASS, FAIL and BLOCKED reports are all useful.
 
 [Start Here](START-HERE.md) · [⚡ Live Creator Frame Studio](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 

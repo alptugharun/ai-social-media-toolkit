@@ -5,11 +5,15 @@
 
 # AI Social Media Toolkit — AI Workbench, Agent Skills & MCP
 
-**ChatGPT, Claude, Gemini, Grok ve creator operasyonları için çalışan ve test edilebilir AI iş akışları.**
+**Çoğu AI reposu sana daha fazla araç verir. Bu repo neyin gerçekten çalıştığını kanıtlayabileceğin bir yol verir.**
 
-Bu repo; yeniden kullanılabilir prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, salt-okunur MCP server'ı, API/bot başlangıçlarını, otomasyon kalıplarını ve creator odaklı iş akışlarını tek yerde toplar.
+**README'ye güvenme. Testi çalıştır. Demoyu bozmayı dene. Sınırları kendin gör.**
 
-Ama amaç "çok dosya" göstermek değil. Amaç şu:
+`2 dakikalık offline proof · güncel main: 258 test PASS · 18 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
+
+Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, MCP'yi, API/bot başlangıçlarını, creator araçlarını ve otomasyonu tek bir **kanıt-öncelikli** akışta birleştirir.
+
+> **Genelde küçük yazılan kısım:** yerel testin geçmesi gerçek kullanıcı benimsemesi değildir. Bu yüzden proje [adoption kanıtını](ADOPTION.md), sınırlarını ve PASS / FAIL / BLOCKED geri bildirimlerinin eşit derecede değerli olduğu [Real User Lab](https://github.com/alptugharun/ai-social-media-toolkit/issues/178) alanını açıkça yayımlar.
 
 **ilk sonucu hızlı al → sınırları bil → testi çalıştır → hatayı gör → sonucu doğrula**
 
