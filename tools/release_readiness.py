@@ -188,8 +188,8 @@ def check_plugin_package() -> list[str]:
         for path in SKILLS_ROOT.glob("*/SKILL.md")
         if path.is_file()
     )
-    if len(skills) != 18:
-        fail(f"Expected 18 portable plugin skills, found {len(skills)}.")
+    if len(skills) != 19:
+        fail(f"Expected 19 portable plugin skills, found {len(skills)}.")
 
     for skill_name in skills:
         text = (SKILLS_ROOT / skill_name / "SKILL.md").read_text(encoding="utf-8")

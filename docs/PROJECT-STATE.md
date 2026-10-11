@@ -1,6 +1,6 @@
 # Project State — AI Social Media Toolkit
 
-Last updated: **2026-10-03**
+Last updated: **2026-10-11**
 
 This file is the continuity anchor for future ChatGPT / Claude / Codex / Cursor sessions working on this repository.
 
@@ -125,26 +125,27 @@ Candidate commercial lanes remain hypotheses until external use or buyer evidenc
 
 ## Agent Skills
 
-The repository currently contains **18 Agent Skills**:
+The repository currently contains **19 Agent Skills**:
 
-1. `creator-ops`
-2. `viral-content-radar`
-3. `reels-director`
-4. `pinterest-growth-engine`
-5. `content-repurposer`
-6. `influencer-fit-auditor`
-7. `brand-voice-humanizer`
-8. `signal-to-content`
-9. `comment-intelligence`
-10. `agent-skill-safety-auditor`
-11. `github-opportunity-radar`
-12. `maps-opportunity-radar`
-13. `maps-policy-guard`
-14. `local-business-intelligence`
-15. `commercial-opportunity-radar`
-16. `monetization-architect`
-17. `pinterest-opportunity-radar`
-18. `plugin-mcp-architect`
+1. `creator-context-builder`
+2. `creator-ops`
+3. `viral-content-radar`
+4. `reels-director`
+5. `pinterest-growth-engine`
+6. `content-repurposer`
+7. `influencer-fit-auditor`
+8. `brand-voice-humanizer`
+9. `signal-to-content`
+10. `comment-intelligence`
+11. `agent-skill-safety-auditor`
+12. `github-opportunity-radar`
+13. `maps-opportunity-radar`
+14. `maps-policy-guard`
+15. `local-business-intelligence`
+16. `commercial-opportunity-radar`
+17. `monetization-architect`
+18. `pinterest-opportunity-radar`
+19. `plugin-mcp-architect`
 
 ## Daily Automations
 

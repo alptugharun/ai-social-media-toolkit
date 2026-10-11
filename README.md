@@ -9,7 +9,7 @@
 
 **Don't trust the README. Run the proof. Break the demo. Check the limits.**
 
-`2-minute offline proof · current main: 258 tests PASS · 18 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
+`2-minute offline proof · current branch: 261 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
 
 Built by **Alptuğ Harun**, this repository connects reusable prompts, portable assistant blueprints, Agent Skills, MCP, API/bot starters, creator tools and automation into one verification-first path.
 
@@ -50,6 +50,7 @@ If the proof saved you setup time, a star helps other builders discover the repo
 | Goal | Fastest entry point |
 | --- | --- |
 | **Prove the repo works without an API key** | [Start Here](START-HERE.md) |
+| **Stop re-briefing every creator task** | [Creator Context Builder](skills/creator-context-builder/SKILL.md) → [filled example](examples/CREATOR-CONTEXT-EXAMPLE.md) |
 | **Try a useful AI job in minutes** | [10 Quick Wins](QUICK-WINS.md) |
 | **Build the same assistant job across providers** | [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) |
 | **Learn prompt → assistant → skill → MCP → plugin design** | [AI Builder Path](learning/AI-BUILDER-PATH.md) |

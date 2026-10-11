@@ -6,10 +6,21 @@ Installable creator and social-media skills for AI agents.
 
 Not sure what to ask after installation? Open **[How to Use Everything](../docs/HOW-TO-USE-EVERYTHING.md)** for every skill's use case, first request to try, expected result and next step.
 
+## Start with a foundation, not a prompt dump
+
+For personalized creator work, the smallest useful stack is:
+
+1. `creator-context-builder` — build one shared, privacy-aware source of truth;
+2. `creator-ops` — route the job to the minimum relevant workflow;
+3. `brand-voice-humanizer` — keep final copy aligned without changing facts.
+
+Research-only tasks can skip creator context when personal or brand alignment is irrelevant.
+
 ## Skills
 
 | Skill | Job |
 | --- | --- |
+| `creator-context-builder` | Builds a shared creator/brand context with evidence, preference, observation and hypothesis labels |
 | `creator-ops` | Orchestrates end-to-end creator workflows |
 | `viral-content-radar` | Finds and deconstructs trends and outliers |
 | `reels-director` | Produces short-form vertical video plans |
@@ -128,9 +139,19 @@ This complements the repository's own validation workflow. Treat the GitHub CLI 
 
 ## Shared Context
 
-For better results, copy and complete:
+For better results, run `creator-context-builder` or copy and complete:
 
 `references/CREATOR-CONTEXT-TEMPLATE.md`
+
+See a filled synthetic example: [`examples/CREATOR-CONTEXT-EXAMPLE.md`](../examples/CREATOR-CONTEXT-EXAMPLE.md).
+
+Install only the foundation skill when that is all you need:
+
+```bash
+npx skills add alptugharun/ai-social-media-toolkit --skill creator-context-builder
+```
+
+The builder is preferred when the user has approved samples, stale metrics or multiple downstream skills that need the same context.
 
 Research-oriented skills should follow:
 

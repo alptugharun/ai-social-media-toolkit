@@ -4,6 +4,19 @@ Use this file as the single source of truth for creator and brand context.
 
 Copy it to `.agents/creator-context.md`, `.claude/creator-context.md`, or keep it as a project reference.
 
+Prefer the `creator-context-builder` skill when you want the context assembled interactively from approved facts and samples.
+
+## Evidence Labels
+
+Use labels where they improve clarity:
+
+- **VERIFIED** — explicitly supplied or source-backed; date time-sensitive items;
+- **PREFERENCE** — user-approved style, workflow or approval choice;
+- **OBSERVED** — pattern found in approved samples;
+- **HYPOTHESIS** — useful interpretation that still needs confirmation.
+
+Never store passwords, API keys, session cookies or unnecessary private client data in this file.
+
 ## Identity
 
 **Creator / Brand Name:**  
@@ -29,8 +42,11 @@ Copy it to `.agents/creator-context.md`, `.claude/creator-context.md`, or keep i
 - [Topic]
 
 **Primary proof / credibility signals:**  
-- [Metric, result, case study, credential]
-- [Metric, result, case study, credential]
+- [VERIFIED — metric / result / credential — source — date/window]
+- [VERIFIED — metric / result / credential — source — date/window]
+
+**Stale / recheck list:**  
+- [Time-sensitive claim or metric that needs a fresh source]
 
 ## Audience
 
@@ -82,6 +98,19 @@ Copy it to `.agents/creator-context.md`, `.claude/creator-context.md`, or keep i
 **Avoid:**  
 - [Phrase / style / topic]
 
+## Approved Sample Signals
+
+**Approved writing/content samples:**  
+- [Sample / link / filename]
+
+**Observed style patterns:**  
+- [OBSERVED — vocabulary / rhythm / humor / emoji / CTA behavior]
+
+**Do not infer from samples:**  
+- sensitive personal traits
+- private facts
+- current metrics that were not explicitly supplied
+
 ## Visual System
 
 **Visual direction:**  
@@ -112,6 +141,14 @@ Copy it to `.agents/creator-context.md`, `.claude/creator-context.md`, or keep i
 
 **Automation tools:**  
 [Tools]
+
+## Approval / Risk Boundaries
+
+**Public actions that require approval:**  
+[Notes]
+
+**Private or confidential material:**  
+[What must never be stored in this context]
 
 ## Constraints
 
