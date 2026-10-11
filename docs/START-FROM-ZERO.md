@@ -540,7 +540,7 @@ Before installing an unknown third-party skill, inspect it.
 
 ---
 
-# 13. Automation — only after the manual workflow makes sense
+# 13. Automation Recipes and GitHub Automations — only after the manual workflow makes sense
 
 Automation is useful when a job repeats.
 
