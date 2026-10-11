@@ -1,0 +1,88 @@
+name: Sign Release Assets
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing GitHub release tag to sign
+        required: true
+        default: v0.3.0-alpha.1
+
+permissions:
+  contents: read
+
+jobs:
+  sign:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Resolve release tag
+        id: release
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "release" ]]; then
+            tag="$RELEASE_TAG"
+          else
+            tag="$INPUT_TAG"
+          fi
+          [[ -n "$tag" ]]
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Download user-facing release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist/signing
+          gh release download "$TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir dist/signing \
+            --pattern '*.zip' \
+            --pattern 'SHA256SUMS.txt'
+          count="$(find dist/signing -maxdepth 1 -type f | wc -l | tr -d ' ')"
+          test "$count" -ge 1
+          find dist/signing -maxdepth 1 -type f -printf '%f\n' | sort
+
+      - name: Sign release assets with Sigstore
+        uses: sigstore/gh-action-sigstore-python@790bc6befb9d733738f18d8f895854b453640ec9 # v3.5.0
+        with:
+          inputs: |
+            dist/signing/*.zip
+            dist/signing/SHA256SUMS.txt
+          upload-signing-artifacts: true
+          release-signing-artifacts: false
+
+      - name: Upload Sigstore bundles to the same release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mapfile -t bundles < <(find dist/signing -maxdepth 1 -type f -name '*.sigstore.json' | sort)
+          test "${#bundles[@]}" -ge 1
+          gh release upload "$TAG" "${bundles[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+
+      - name: Verify public signature assets exist
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.release.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          gh api "repos/${GITHUB_REPOSITORY}/releases/tags/$TAG" \
+            --jq '.assets[].name' > /tmp/assets.txt
+          grep -q '\.sigstore\.json$' /tmp/assets.txt
+          echo "Public Sigstore release bundles are present."
