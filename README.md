@@ -9,13 +9,13 @@
 
 **Don't trust the README. Run the proof. Break the demo. Check the limits.**
 
-`2-minute offline proof · release candidate: 266 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
+`v0.3.0-alpha.1 · 266 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
 
 Built by **Alptuğ Harun**, this repository connects reusable prompts, portable assistant blueprints, Agent Skills, MCP, API/bot starters, creator tools and automation into one verification-first path.
 
 > **The part that usually gets buried:** a passing local test is not real-world adoption. This project publishes its [adoption evidence](ADOPTION.md), explicit limits and a [Real User Lab](https://github.com/alptugharun/ai-social-media-toolkit/issues/178) where PASS, FAIL and BLOCKED reports are all useful.
 
-[Start Here](START-HERE.md) · [⚡ Live Creator Frame Studio](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
+[⬇ Download v0.3 alpha](https://github.com/alptugharun/ai-social-media-toolkit/releases/tag/v0.3.0-alpha.1) · [Start Here](START-HERE.md) · [⚡ Live Creator Frame Studio](https://alptugharun.github.io/ai-social-media-toolkit/) · [Creator Frame Studio](tools/creator-frame-studio/README.md) · [10 Quick Wins](QUICK-WINS.md) · [AI Builder Path](learning/AI-BUILDER-PATH.md) · [Hands-on Builder Lab](learning/AI-BUILDER-LAB.md) · [Practical AI Workflows](https://alptugharun.hashnode.dev) · [AI Ecosystem Hub](AI-ECOSYSTEM-HUB.md) · [Standalone MCP](https://github.com/alptugharun/ai-workbench-mcp) · [Agent Skills](skills/README.md) · [Security](SECURITY.md)
 
 > **New creator tool:** [Creator Frame Studio v0.3](tools/creator-frame-studio/README.md) adds multi-format framing, editable text, Hook / Subtitle / CTA quick styles, editorial guide profiles and a deterministic preflight status card — all browser-local, with no account or API key.
 >
