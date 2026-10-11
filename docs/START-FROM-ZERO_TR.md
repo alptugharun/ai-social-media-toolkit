@@ -388,6 +388,8 @@ Ama blueprint export etmek hesabında otomatik assistant oluşturmak değildir.
 
 # 12. Agent Skills — prosedürü AI ajanının içine taşı
 
+19 skill'in tamamını tek tek görmek için **[Tüm Agent Skill'ler — Sıfırdan Başla](AGENT-SKILLS-FROM-ZERO_TR.md)** rehberini kullan.
+
 Önce listele:
 
 ```bash
