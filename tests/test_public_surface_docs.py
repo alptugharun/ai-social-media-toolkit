@@ -46,7 +46,7 @@ class PublicSurfaceDocsTests(unittest.TestCase):
             self.assertIn("mcp", lower)
             self.assertIn("agent skill", lower)
             self.assertIn("automation", lower)
-            self.assertIn("security", lower if "security" in lower else "security")
+        self.assertIn("security", self.en.lower())
         self.assertIn("güvenlik", self.tr.lower())
 
     def test_trust_matrix_tracks_major_external_surfaces(self):
