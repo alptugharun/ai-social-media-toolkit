@@ -1,4 +1,4 @@
-# Release Gate — v0.1 Alpha
+# Release Gate — Current Alpha
 
 A release is a distribution event, not a version-number decoration.
 
@@ -14,10 +14,12 @@ A release is a distribution event, not a version-number decoration.
 - [x] No fabricated install, user, revenue, trend or performance claims.
 - [x] No secrets or private client/account data.
 - [x] Release notes explain install, first result, major capabilities and limitations.
+- [x] Deterministic release assets build locally with SHA256 checksums.
+- [ ] Public GitHub release shows the expected downloadable assets after merge.
 
-## Proposed first tag
+## Current release candidate
 
-`v0.1.0-alpha.1`
+`v0.3.0-alpha.1`
 
 Use a prerelease while the toolkit is still validating external installation and repeat use.
 
@@ -59,6 +61,6 @@ One sentence describing the creator-operations job.
 
 ## After release
 
-Measure external issues, forks/contributions, repeat questions and qualified referral traffic where available. Treat stars as a weak discovery signal.
+Measure per-asset download counts, external issues, forks/contributions, repeat questions and qualified referral traffic where available. Treat stars as a weak discovery signal and clone telemetry as automation-sensitive.
 
 The next release should respond to evidence, not an arbitrary calendar.
