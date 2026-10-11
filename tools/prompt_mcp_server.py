@@ -16,15 +16,15 @@ from ai_workbench import WorkbenchError, assistant_markdown, load_catalog, looku
 VERSIONS = ("2025-06-18", "2025-03-26")
 LINE_LIMIT = 128000
 TOOLS = [
-    {"name": "list_prompts", "description": "List the original local prompt and assistant catalog. No network access.",
+    {"name": "list_prompts", "description": "Use this first to discover valid prompt and assistant IDs in the original local catalog before calling render_prompt or get_assistant. Returns catalog metadata only; no network or provider call.",
      "inputSchema": {"type": "object", "properties": {}, "additionalProperties": False},
      "annotations": {"title": "List Prompt Catalog", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
-    {"name": "render_prompt", "description": "Fill a local prompt template with supplied string variables. Returns text only; does not run an AI model.",
+    {"name": "render_prompt", "description": "Use after list_prompts when you want one prompt template filled with the supplied string variables. Returns plain text only; use get_assistant instead for a reusable assistant blueprint. No AI model or provider is called.",
      "inputSchema": {"type": "object", "properties": {"id": {"type": "string"},
                      "variables": {"type": "object", "additionalProperties": {"type": "string"}}},
                      "required": ["id", "variables"], "additionalProperties": False},
      "annotations": {"title": "Render Prompt Template", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
-    {"name": "get_assistant", "description": "Read a local assistant instruction blueprint; no installation or account changes.",
+    {"name": "get_assistant", "description": "Use after list_prompts when you want one reusable assistant instruction blueprint. Use render_prompt instead for a single filled prompt. Returns local text only; no installation, publishing, provider call, or account change.",
      "inputSchema": {"type": "object", "properties": {"id": {"type": "string"}},
                      "required": ["id"], "additionalProperties": False},
      "annotations": {"title": "Get Assistant Blueprint", "readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False}},
@@ -79,7 +79,8 @@ class CatalogServer:
             version = requested if requested in VERSIONS else VERSIONS[0]
             self.initialized = True
             result = {"protocolVersion": version, "capabilities": {"tools": {"listChanged": False}},
-                      "serverInfo": {"name": "alptugharun-ai-workbench", "version": "0.1.0"}}
+                      "serverInfo": {"name": "alptugharun-ai-workbench", "version": "0.1.0"},
+                      "instructions": "Read-only local catalog. Call list_prompts first to discover valid IDs. Use render_prompt for one filled prompt and get_assistant for a reusable assistant blueprint. No network/provider call, file write, or account modification."}
         elif method == "ping":
             result = {}
         elif not self.ready:

@@ -30,6 +30,18 @@ class MCPDistributionPackageTests(unittest.TestCase):
         server.handle({"jsonrpc": "2.0", "method": "notifications/initialized"})
         return server
 
+    def test_tool_descriptions_route_between_sibling_tools(self):
+        descriptions = {tool["name"]: tool["description"] for tool in packaged.TOOLS}
+        self.assertIn("Use this first", descriptions["list_prompts"])
+        self.assertIn("get_assistant instead", descriptions["render_prompt"])
+        self.assertIn("render_prompt instead", descriptions["get_assistant"])
+
+    def test_initialize_includes_read_only_usage_instructions(self):
+        server = packaged.CatalogServer(packaged.load_catalog())
+        result = server.handle(req("initialize", {"protocolVersion": "2025-06-18"}))["result"]
+        self.assertIn("list_prompts first", result["instructions"])
+        self.assertIn("no network", result["instructions"].lower())
+
     def test_list_prompts_tool_by_name(self):
         server = self.initialized_server()
         result = server.handle(
