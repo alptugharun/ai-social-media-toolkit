@@ -25,10 +25,13 @@ Look for creator context in this order:
 
 If a completed context file exists, use it before asking repeated questions.
 
+If personalized creator/brand work needs context and no completed file exists, route to `creator-context-builder` first. Do not block source-only research that does not need personal context.
+
 ## Route by Intent
 
 | User intent | Route |
 | --- | --- |
+| Build or refresh the shared creator / brand context | `creator-context-builder` |
 | Find trends, outliers, winning formats | `viral-content-radar` |
 | Research GitHub trends, skill gaps and repository opportunities | `github-opportunity-radar` |
 | Research Google Maps / Places / geospatial product opportunities | `maps-opportunity-radar` |
@@ -41,7 +44,7 @@ If a completed context file exists, use it before asking repeated questions.
 | Plan Pinterest discovery and pin clusters | `pinterest-growth-engine` |
 | Turn one source into many platform assets | `content-repurposer` |
 | Evaluate a creator / influencer partnership | `influencer-fit-auditor` |
-| Remove generic AI tone and restore brand voice | `brand-voice-humanizer` |
+| Remove generic AI tone and restore brand voice | `brand-voice-humanizer` (use `creator-context-builder` first when no approved context exists) |
 | Audit public visibility / authority | Digital Visibility Checklist |
 
 ## Workflow
