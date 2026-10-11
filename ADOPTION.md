@@ -33,6 +33,25 @@ A release-asset download is a stronger signal of intentional artifact retrieval 
 
 The downloaded Creator Context Builder ZIP matched the hash published in `SHA256SUMS.txt`.
 
+### Known internal counter movement after Sigstore signing
+
+Workflow run `38173909007` signed the user-facing v0.3 assets with GitHub OIDC + Sigstore. To sign the exact published bytes, the workflow first downloaded each ZIP/checksum from the release. Those retrievals increment GitHub's public `download_count`.
+
+Immediately after signing, the public counters were:
+
+| Asset | Counter | Known internal explanation |
+| --- | ---: | --- |
+| `agent-skills-v0.3.0-alpha.1.zip` | **1** | Sigstore workflow retrieval |
+| `ai-social-media-toolkit-plugin-0.6.0.zip` | **1** | Sigstore workflow retrieval |
+| `creator-context-builder-v0.3.0-alpha.1.zip` | **2** | one maintainer integrity check + Sigstore workflow retrieval |
+| `creator-frame-studio-v0.3.0-alpha.1.zip` | **1** | Sigstore workflow retrieval |
+| `SHA256SUMS.txt` | **2** | one maintainer integrity check + Sigstore workflow retrieval |
+| each `.sigstore.json` bundle | **0** | no retrieval at capture |
+
+Treat these values as the **known internal baseline**. Future increases may indicate external retrieval, but even then a download counter is not a unique-user, successful-install, repeat-use or customer count.
+
+The signing workflow completed successfully and the release exposed five additive `.sigstore.json` bundles without replacing the original downloadable files.
+
 ## GitHub traffic baseline — captured 2026-10-09
 
 GitHub's repository traffic API reported the following for the **14-day window 2026-09-25 through 2026-10-08**:
