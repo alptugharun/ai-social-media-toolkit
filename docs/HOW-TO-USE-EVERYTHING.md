@@ -465,10 +465,13 @@ npx skills add alptugharun/ai-social-media-toolkit --skill reels-director
 
 After installation, speak naturally to your agent. The examples below are good first requests.
 
+For personalized work across several skills, start with `creator-context-builder` once instead of re-briefing every task. Research-only jobs can skip it.
+
 ## Skill-by-skill usage
 
 | Skill | Use it when… | First request to try | Expected result |
 | --- | --- | --- | --- |
+| **creator-context-builder** | repeated briefing or stale/inconsistent brand context is slowing work | “Build my shared creator context from these current facts and three approved writing samples. Label facts, preferences, observations and hypotheses separately.” | reusable context file + stale/recheck list + next-skill routing |
 | **creator-ops** | you want the full creator workflow routed for you | “Route this topic from evidence to a publish-ready Instagram asset, but stop before publishing.” | ordered workflow + correct sub-skill routing |
 | **viral-content-radar** | you have trend/outlier evidence to deconstruct | “Analyze these five posts and identify repeatable mechanics without copying them.” | patterns, evidence, original tests |
 | **reels-director** | you need a short-form production package | “Turn this evidence into a 32-second Reel with shot plan and QA.” | hook, script, shot plan, visual/edit direction |
