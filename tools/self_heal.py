@@ -139,9 +139,10 @@ def _signal_lines(log_text: str) -> list[str]:
         if not line or any(noise in line for noise in NOISE):
             continue
         if re.search(
-            r"error|fail|forbidden|unauthorized|rate limit|timeout|timed out|"
-            r"exception|traceback|fatal|assertion|not a git repository|"
-            r"permission|bad credentials|module.*not found|syntaxerror|http\s+[45]\d\d",
+            r"\berror\b|\bfail(?:ed|ure|ures)?\b|\bforbidden\b|\bunauthorized\b|"
+            r"rate limit|timeout|timed out|\bexception\b|\btraceback\b|\bfatal\b|"
+            r"\bassertion\b|not a git repository|\bpermission\b|bad credentials|"
+            r"module.*not found|syntaxerror|http\s+[45]\d\d",
             line,
             flags=re.I,
         ):
