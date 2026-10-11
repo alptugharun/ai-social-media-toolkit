@@ -46,6 +46,17 @@ class MCPTests(unittest.TestCase):
             self.assertFalse(annotations['destructiveHint'])
             self.assertTrue(annotations['idempotentHint'])
             self.assertFalse(annotations['openWorldHint'])
+    def test_tool_descriptions_route_between_sibling_tools(self):
+        descriptions = {tool['name']: tool['description'] for tool in mcp.TOOLS}
+        self.assertIn('Use this first', descriptions['list_prompts'])
+        self.assertIn('get_assistant instead', descriptions['render_prompt'])
+        self.assertIn('render_prompt instead', descriptions['get_assistant'])
+
+    def test_initialize_includes_read_only_usage_instructions(self):
+        answer = self.server.handle(req('initialize', {'protocolVersion': '2025-06-18'}))
+        self.assertIn('list_prompts first', answer['result']['instructions'])
+        self.assertIn('no network', answer['result']['instructions'].lower())
+
     def test_catalog_tool(self):
         self.initialize()
         result = self.server.handle(req('tools/call', {'name': 'list_prompts', 'arguments': {}}))['result']
