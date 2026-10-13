@@ -57,8 +57,11 @@ If you do not get that result, stop there and use [Troubleshooting](downloads/AI
 | **Install Agent Skills** | [Installation](docs/INSTALLATION.md) | a dry-run plan first, then an explicit install path |
 | **Connect local read-only tools with MCP** | [AI Workbench MCP](packages/ai-workbench-mcp/README.md) | a published read-only stdio server with three bounded public tools |
 | **Analyze creator/social signals** | [Two-Minute Demo](examples/TWO-MINUTE-DEMO.md) | synthetic scoring output you can compare with the documented result |
+| **Check a rewritten caption for changed numbers, links or protected phrases** | [Rewrite Fact Guard](skills/brand-voice-humanizer/README.md) · [Türkçe](skills/brand-voice-humanizer/README_TR.md) | a lexical review report with examples; not semantic fact checking |
 | **Use my own CSV/export** | [CSV input contract](docs/CSV-INPUTS.md) | exact required columns plus validation before scoring |
 | **Understand everything A–Z** | [Complete field manual](docs/HOW-TO-USE-EVERYTHING.md) | the full map of tools, skills, automations and limitations |
+
+**Rewrite Fact Guard availability:** the helper was added after `v0.3.0-alpha.1`. Use current repository source or a later release whose notes explicitly include it; the older ZIPs do not. The guide walks through synthetic inputs, expected output, exit codes and known blind spots.
 
 ## Before using real data or a paid API
 
