@@ -189,6 +189,18 @@ A successful install is **not** proof that every host/runtime behaves identicall
 
 **Limit:** it must not add unsupported claims or manufacture personality the user did not approve.
 
+### Optional local verification: Rewrite Fact Guard
+
+After a rewrite, use the bundled helper when you want a deterministic lexical check before publication:
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-good.txt --lock "garanti değildir"
+```
+
+Expected: `NO_TRACKED_CHANGE`, exit **0**. The deliberately changed example in the [helper guide](../skills/brand-voice-humanizer/README.md) returns `REVIEW_REQUIRED`, seven findings and exit **1**.
+
+This is not semantic fact checking. It compares tracked lexical tokens, literal URLs and exact protected phrases; it can miss changed associations or unprotected qualifiers.
+
 ---
 
 ## signal-to-content

@@ -189,6 +189,18 @@ Kurulmuş olması her host/runtime'da aynı davrandığını kanıtlamaz. Ajanı
 
 **Sınır:** unsupported claim veya uydurma kişilik eklemez.
 
+### İsteğe bağlı yerel doğrulama: Rewrite Fact Guard
+
+Rewrite sonrası, yayından önce deterministic lexical kontrol istiyorsan bundled helper'ı çalıştır:
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-good.txt --lock "garanti değildir"
+```
+
+Beklenen: `NO_TRACKED_CHANGE`, çıkış **0**. [Türkçe helper rehberindeki](../skills/brand-voice-humanizer/README_TR.md) bilerek değiştirilmiş örnek `REVIEW_REQUIRED`, yedi bulgu ve çıkış **1** verir.
+
+Bu anlamsal fact-check değildir. İzlenen lexical token'ları, literal URL'leri ve tam korumalı ifadeleri karşılaştırır; değişen bağlamı veya kilitlemediğin niteleyicileri kaçırabilir.
+
 ---
 
 ## signal-to-content
