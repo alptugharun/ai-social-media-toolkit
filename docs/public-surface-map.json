@@ -170,6 +170,19 @@
       "verify": "Check actual run history and output freshness; configured schedules are not proof a run succeeded.",
       "limitations": "Automation must not silently expand permissions, publish without authorization or turn weak signals into facts.",
       "help": "automation-recipes/README.md and docs/HOW-TO-USE-EVERYTHING.md"
+    },
+    {
+      "id": "rewrite-fact-guard",
+      "name": "Rewrite Fact Guard",
+      "kind": "local lexical review helper",
+      "what": "Compares an original and rewritten draft for changed number-like tokens, common units, literal URLs and exact protected phrases.",
+      "why": "Catches mechanical factual-token drift after rewriting without sending the drafts to an AI model or external API.",
+      "who": "Creators, editors and small teams who have both before/after text and want a local review aid before publication.",
+      "first_step": "Run python skills/brand-voice-humanizer/scripts/fact_guard.py with the bundled before.txt and after-good.txt examples plus --lock \"garanti değildir\".",
+      "expected_result": "The unchanged synthetic example returns NO_TRACKED_CHANGE with exit code 0; the changed synthetic example returns REVIEW_REQUIRED with exit code 1 and documented findings.",
+      "verify": "Run both bundled examples and compare the status, finding count and exit code with skills/brand-voice-humanizer/README.md.",
+      "limitations": "It is lexical drift detection, not semantic fact checking, AI-authorship detection, legal review or a publication guarantee. Unchanged tokens can still have changed associations and unprotected qualifiers can change undetected.",
+      "help": "skills/brand-voice-humanizer/README.md and skills/brand-voice-humanizer/README_TR.md"
     }
   ]
 }
