@@ -69,24 +69,28 @@ class ReleaseSigningPolicyTests(unittest.TestCase):
             log = uploads.read_text(encoding="utf-8") if uploads.exists() else ""
             return result, log
 
+    @unittest.skipIf(os.name == "nt", "release upload snippet is Bash-only and runs on Ubuntu in GitHub Actions")
     def test_initial_signing_uploads_once_without_replace(self):
         result, log = self.run_upload_step([])
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertEqual(len(log.splitlines()), 1)
         self.assertNotIn("--clobber", log)
 
+    @unittest.skipIf(os.name == "nt", "release upload snippet is Bash-only and runs on Ubuntu in GitHub Actions")
     def test_rerun_preserves_all_existing_bundles(self):
         result, log = self.run_upload_step(["a.zip.sigstore.json", "SHA256SUMS.txt.sigstore.json"])
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("keeping published provenance unchanged", result.stdout)
         self.assertEqual(log, "")
 
+    @unittest.skipIf(os.name == "nt", "release upload snippet is Bash-only and runs on Ubuntu in GitHub Actions")
     def test_partial_signatures_fail_closed_without_upload(self):
         result, log = self.run_upload_step(["a.zip.sigstore.json"])
         self.assertNotEqual(result.returncode, 0)
         self.assertIn("refusing a partial re-sign", result.stdout)
         self.assertEqual(log, "")
 
+    @unittest.skipIf(os.name == "nt", "release upload snippet is Bash-only and runs on Ubuntu in GitHub Actions")
     def test_no_generated_bundles_fails_closed(self):
         result, log = self.run_upload_step([], bundles=())
         self.assertNotEqual(result.returncode, 0)
