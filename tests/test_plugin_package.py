@@ -103,6 +103,8 @@ class PluginPackageTests(unittest.TestCase):
             for skill_dir in self.skill_dirs:
                 self.assertIn(f"skills/{skill_dir.name}/SKILL.md", names)
             self.assertTrue(EXTRA_RESOURCES.issubset(names))
+            for notice in ("skills/LICENSE", "LICENSE.md", "THIRD-PARTY-NOTICES.md"):
+                self.assertIn(notice, names)
             self.assertFalse(any(name.startswith(".git") for name in names))
             self.assertFalse(any(name.startswith(".github/") for name in names))
             self.assertFalse(any(name.startswith("tests/") for name in names))
