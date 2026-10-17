@@ -73,7 +73,22 @@ jobs:
           set -euo pipefail
           mapfile -t bundles < <(find dist/signing -maxdepth 1 -type f -name '*.sigstore.json' | sort)
           test "${#bundles[@]}" -ge 1
-          gh release upload "$TAG" "${bundles[@]}" --repo "$GITHUB_REPOSITORY" --clobber
+          existing_assets="$(gh release view "$TAG" --repo "$GITHUB_REPOSITORY" --json assets --jq '.assets[].name')"
+          existing_count=0
+          for bundle in "${bundles[@]}"; do
+            if grep -Fxq -- "$(basename "$bundle")" <<< "$existing_assets"; then
+              existing_count=$((existing_count + 1))
+            fi
+          done
+          if (( existing_count == ${#bundles[@]} )); then
+            echo "All signature bundles already exist; keeping published provenance unchanged."
+            exit 0
+          fi
+          if (( existing_count > 0 )); then
+            echo "::error::Only some signature bundles exist; refusing a partial re-sign. Inspect the release manually."
+            exit 1
+          fi
+          gh release upload "$TAG" "${bundles[@]}" --repo "$GITHUB_REPOSITORY"
 
       - name: Verify public signature assets exist
         env:
