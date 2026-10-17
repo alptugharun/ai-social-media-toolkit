@@ -62,9 +62,16 @@ def build_skills_bundle(root: Path, output: Path) -> None:
             entries.append((source, source.relative_to(root).as_posix()))
     extras = [
         root / "skills" / "README.md",
+        root / "skills" / "LICENSE",
+        root / "LICENSE.md",
+        root / "THIRD-PARTY-NOTICES.md",
         root / "references" / "CREATOR-CONTEXT-TEMPLATE.md",
         root / "references" / "EVIDENCE-POLICY.md",
         root / "docs" / "INSTALLATION.md",
+        root / "docs" / "AGENT-SKILLS-FROM-ZERO.md",
+        root / "docs" / "AGENT-SKILLS-FROM-ZERO_TR.md",
+        root / "docs" / "HOW-TO-USE-EVERYTHING.md",
+        root / "examples" / "CREATOR-CONTEXT-EXAMPLE.md",
     ]
     for source in extras:
         if not source.is_file():
@@ -79,6 +86,10 @@ def build_context_bundle(root: Path, output: Path) -> None:
         (source, source.relative_to(root / "skills").as_posix())
         for source in iter_files(skill)
     ]
+    license_file = root / "skills" / "LICENSE"
+    if not license_file.is_file():
+        raise FileNotFoundError(license_file)
+    entries.append((license_file, "LICENSE"))
     write_zip(output, entries)
 
 
@@ -88,6 +99,10 @@ def build_frame_studio_bundle(root: Path, output: Path) -> None:
         (source, source.relative_to(root / "tools").as_posix())
         for source in iter_files(app, exclude_parts={"tests"})
     ]
+    license_file = root / "tools" / "LICENSE"
+    if not license_file.is_file():
+        raise FileNotFoundError(license_file)
+    entries.append((license_file, "creator-frame-studio/LICENSE"))
     write_zip(output, entries)
 
 
