@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
-"""GitHub Copilot preToolUse guard for a small set of destructive shell actions.
+"""Narrow Copilot preToolUse guard for selected destructive shell actions.
 
-The hook is intentionally narrow. It does not try to parse arbitrary shell
-syntax or replace GitHub permissions, branch protection, review, or CI.
+This is a defense-in-depth check, not a general shell interpreter. Existing
+permissions, code review and CI remain mandatory.
 """
 
 from __future__ import annotations
 
 import json
 import re
+import shlex
 import sys
 from typing import Any
 
@@ -42,40 +43,82 @@ RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
         "powershell-download-exec",
         re.compile(r"\b(?:Invoke-WebRequest|iwr)\b[^\n|]*\|\s*(?:Invoke-Expression|iex)\b", re.IGNORECASE),
     ),
-    (
-        "recursive-root-delete",
-        re.compile(r"\brm\s+-[A-Za-z]*r[A-Za-z]*f[A-Za-z]*\s+(?:/|\.|\.\.)(?:\s|$)", re.IGNORECASE),
-    ),
 )
 
 
-def _strings(value: Any, *, depth: int = 0) -> list[str]:
-    if depth > 8:
-        return []
-    if isinstance(value, str):
-        return [value]
-    if isinstance(value, dict):
-        result: list[str] = []
-        for item in value.values():
-            result.extend(_strings(item, depth=depth + 1))
-        return result
-    if isinstance(value, list):
-        result = []
-        for item in value:
-            result.extend(_strings(item, depth=depth + 1))
-        return result
-    return []
+# Only known destructive root/current/parent targets are guarded. This check
+# deliberately does not claim to recognize every possible shell expression.
+PROTECTED_TARGETS = frozenset({"/", "//", ".", "./", "..", "../", "/.", "/.."})
+SHELL_SEPARATORS = frozenset({";", "&&", "||", "|", "&", "(", ")"})
+
+
+def _shell_args(payload: dict[str, Any]) -> str | None:
+    """Extract only the actual command, not descriptive tool metadata.
+
+    Copilot CLI documents toolArgs as a JSON-encoded string. Other hosts may
+    pass an already-decoded object, so both shapes are accepted.
+    """
+    args = payload.get("toolArgs")
+    if args is None:
+        args = payload.get("tool_input")
+    if isinstance(args, str):
+        try:
+            args = json.loads(args)
+        except (ValueError, TypeError):
+            return None
+    if not isinstance(args, dict):
+        return None
+    command = args.get("command")
+    if not isinstance(command, str) or not command.strip():
+        return None
+    return command
+
+
+def _recursive_root_delete(command: str) -> bool:
+    """Catch rm's short/long flags regardless of flag order or grouping.
+
+    This is a narrow lexical check; it does not evaluate shell substitutions,
+    script files, indirect aliases, or interpreter-specific escape syntax.
+    """
+    try:
+        lex = shlex.shlex(command, posix=True, punctuation_chars=";&|()")
+        lex.whitespace_split = True
+        tokens = list(lex)
+    except ValueError:
+        # Refuse uninterpretable input rather than silently assuming it is safe.
+        return True
+
+    for index, token in enumerate(tokens):
+        if token not in {"rm", "/bin/rm"}:
+            continue
+        recursive = False
+        force = False
+        options_ended = False
+        target = False
+        for arg in tokens[index + 1 :]:
+            if arg in SHELL_SEPARATORS:
+                break
+            if not options_ended and arg == "--":
+                options_ended = True
+                continue
+            if not options_ended and arg == "--recursive":
+                recursive = True
+                continue
+            if not options_ended and arg == "--force":
+                force = True
+                continue
+            if not options_ended and arg.startswith("-") and not arg.startswith("--"):
+                recursive = recursive or ("r" in arg[1:] or "R" in arg[1:])
+                force = force or "f" in arg[1:]
+                continue
+            target = target or arg in PROTECTED_TARGETS
+        if recursive and force and target:
+            return True
+    return False
 
 
 def _deny(reason: str) -> int:
-    print(
-        json.dumps(
-            {
-                "permissionDecision": "deny",
-                "permissionDecisionReason": reason,
-            }
-        )
-    )
+    print(json.dumps({"permissionDecision": "deny", "permissionDecisionReason": reason}))
     return 0
 
 
@@ -83,30 +126,26 @@ def main() -> int:
     try:
         payload = json.load(sys.stdin)
     except (json.JSONDecodeError, UnicodeDecodeError):
-        return _deny("Shell tool blocked because the preToolUse payload could not be inspected.")
+        return _deny("Shell tool blocked because the hook input is not valid JSON.")
 
     if not isinstance(payload, dict):
-        return _deny("Shell tool blocked because the preToolUse payload is not an object.")
+        return _deny("Shell tool blocked because the hook input is not an object.")
 
     tool_name = payload.get("toolName") or payload.get("tool_name")
     if tool_name not in {"bash", "powershell", "shell", "execute"}:
         print("{}")
         return 0
 
-    tool_args = payload.get("toolArgs")
-    if tool_args is None:
-        tool_args = payload.get("tool_input")
-
-    command = "\n".join(_strings(tool_args)).strip()
-    if not command:
+    command = _shell_args(payload)
+    if command is None:
         return _deny("Shell tool blocked because its command arguments could not be inspected.")
 
     for rule_name, pattern in RULES:
         if pattern.search(command):
-            return _deny(
-                f"Blocked by repository safety hook ({rule_name}). "
-                "Use a reversible alternative or obtain explicit human approval outside the agent."
-            )
+            return _deny(f"Blocked by repository safety hook ({rule_name}). Use a reversible alternative and human review.")
+
+    if _recursive_root_delete(command):
+        return _deny("Blocked by repository safety hook (recursive-root-delete or unparseable shell syntax).")
 
     print("{}")
     return 0
