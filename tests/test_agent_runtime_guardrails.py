@@ -37,9 +37,11 @@ class AgentRuntimeGuardrailTests(unittest.TestCase):
         text = AGENT.read_text(encoding="utf-8")
         self.assertIn("name: AI Runtime Auditor", text)
         self.assertIn("  - read", text)
-        self.assertIn("  - execute", text)
+        self.assertIn("  - search", text)
+        self.assertNotIn("  - execute", text)
         self.assertNotIn("  - edit", text)
         self.assertIn("Do not edit files", text)
+        self.assertIn("No shell or edit tools are available", text)
 
     def test_safety_skill_covers_modern_runtime_surfaces(self) -> None:
         text = SKILL.read_text(encoding="utf-8")
