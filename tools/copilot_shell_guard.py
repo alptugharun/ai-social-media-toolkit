@@ -14,14 +14,24 @@ import sys
 from typing import Any
 
 
+# Git accepts global options before the subcommand. Recognize common literal
+# forms without claiming to parse aliases, variables, or the entire shell.
+GIT_GLOBAL_FLAG = (
+    r"(?:-C(?:\s+\S+|\S+)|-c(?:\s+\S+|\S+)"
+    r"|--(?:git-dir|work-tree|namespace|config-env)(?:=\S+|\s+\S+)"
+    r"|--(?:no-pager|bare|no-replace-objects))"
+)
+GIT_COMMAND = r"\bgit(?:\s+" + GIT_GLOBAL_FLAG + r")*\s+"
+
+
 RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "force-push",
-        re.compile(r"\bgit\s+push\b[^\n]*(?:--force(?:-with-lease)?|-f)(?:\s|=|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"push\b[^\n]*(?:--force(?:-with-lease)?|-f)(?:\s|=|$)", re.IGNORECASE),
     ),
     (
         "hard-reset",
-        re.compile(r"\bgit\s+reset\s+--hard(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"reset\s+--hard(?:\s|$)", re.IGNORECASE),
     ),
     (
         "release-clobber",
@@ -29,11 +39,11 @@ RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "delete-protected-branch",
-        re.compile(r"\bgit\s+push\b[^\n]*--delete\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"push\b[^\n]*--delete\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
     ),
     (
         "delete-local-protected-branch",
-        re.compile(r"\bgit\s+branch\s+-D\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"branch\s+-D\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
     ),
     (
         "remote-script-pipe",
