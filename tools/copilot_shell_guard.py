@@ -31,7 +31,7 @@ RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "hard-reset",
-        re.compile(GIT_COMMAND + r"reset\s+--hard(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"reset\b[^\n;&|]*\s--hard(?=\s|[;&|)]|$)", re.IGNORECASE),
     ),
     (
         "release-clobber",

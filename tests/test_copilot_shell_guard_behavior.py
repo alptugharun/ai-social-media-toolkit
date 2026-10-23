@@ -61,6 +61,32 @@ class ShellGuardBehaviorTests(unittest.TestCase):
             with self.subTest(command=command):
                 self.assertEqual(self.check(command).get("permissionDecision"), "deny")
 
+    def test_hard_reset_flag_order_is_guarded(self):
+        # Git accepts --hard after a revision and after quiet flags.
+        cases = (
+            "git reset HEAD --hard",
+            "git reset -q --hard",
+            "git reset -q HEAD --hard",
+            "git reset --quiet --hard",
+            "git -C workspace reset HEAD --hard",
+            "git reset HEAD --hard; echo done",
+        )
+        for command in cases:
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn("hard-reset", decision.get("permissionDecisionReason", ""))
+
+        # A later shell command must not turn a harmless reset into a denial.
+        for command in (
+            "git reset --soft HEAD~1",
+            "git reset HEAD --mixed",
+            "git reset HEAD && echo --hard",
+            "git reset HEAD; echo --hard",
+        ):
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
     def test_non_shell_tools_are_unaffected(self):
         self.assertEqual(self.check("git push --force", tool_name="read"), {})
 
