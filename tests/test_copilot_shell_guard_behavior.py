@@ -79,5 +79,42 @@ class ShellGuardBehaviorTests(unittest.TestCase):
                 self.assertEqual(json.loads(proc.stdout).get("permissionDecision"), "deny")
 
 
+    def test_git_global_options_preserve_sensitive_command_detection(self):
+        # Git permits global flags before its subcommand; the guard must not
+        # mistake a guarded push/reset for a harmless operation.
+        cases = {
+            "git -C workspace push origin main --force": "force-push",
+            "git --git-dir=.git push -f origin main": "force-push",
+            "git -c core.quotePath=false push origin main --force-with-lease": "force-push",
+            "git --no-pager push origin main --force": "force-push",
+            "git -C workspace reset --hard HEAD": "hard-reset",
+        }
+        for command, expected_rule in cases.items():
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn(expected_rule, decision.get("permissionDecisionReason", ""))
+
+        # Non-destructive equivalents should continue to defer to host policy.
+        for command in ("git -C workspace status", "git --no-pager log -1"):
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
+    def test_snake_case_shell_payload_is_inspected(self):
+        event = {"tool_name": "bash", "tool_input": {"command": "git push -f origin main"}}
+        result = subprocess.run(
+            [sys.executable, str(SCRIPT)],
+            input=json.dumps(event),
+            text=True,
+            capture_output=True,
+            check=False,
+            timeout=5,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        decision = json.loads(result.stdout)
+        self.assertEqual(decision.get("permissionDecision"), "deny")
+        self.assertIn("force-push", decision.get("permissionDecisionReason", ""))
+
+
 if __name__ == "__main__":
     unittest.main()
