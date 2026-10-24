@@ -27,7 +27,7 @@ GIT_COMMAND = r"\bgit(?:\s+" + GIT_GLOBAL_FLAG + r")*\s+"
 RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     (
         "force-push",
-        re.compile(GIT_COMMAND + r"push\b[^\n]*(?:--force(?:-with-lease)?|-f)(?:\s|=|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"push\b[^\n;&|]*(?:--force(?:-with-lease)?|-f)(?=\s|=|[;&|)]|$)", re.IGNORECASE),
     ),
     (
         "hard-reset",
@@ -35,15 +35,15 @@ RULES: tuple[tuple[str, re.Pattern[str]], ...] = (
     ),
     (
         "release-clobber",
-        re.compile(r"\bgh\s+release\s+upload\b[^\n]*--clobber(?:\s|$)", re.IGNORECASE),
+        re.compile(r"\bgh\s+release\s+upload\b[^\n;&|]*--clobber(?=\s|[;&|)]|$)", re.IGNORECASE),
     ),
     (
         "delete-protected-branch",
-        re.compile(GIT_COMMAND + r"push\b[^\n]*--delete\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"push\b[^\n;&|]*--delete\s+(?:main|master)(?=\s|[;&|)]|$)", re.IGNORECASE),
     ),
     (
         "delete-local-protected-branch",
-        re.compile(GIT_COMMAND + r"branch\s+-D\s+(?:main|master)(?:\s|$)", re.IGNORECASE),
+        re.compile(GIT_COMMAND + r"branch\s+-D\s+(?:main|master)(?=\s|[;&|)]|$)", re.IGNORECASE),
     ),
     (
         "remote-script-pipe",

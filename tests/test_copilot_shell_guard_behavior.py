@@ -164,5 +164,35 @@ class ShellGuardBehaviorTests(unittest.TestCase):
         self.assertIn("force-push", decision.get("permissionDecisionReason", ""))
 
 
+    def test_shell_command_boundaries_do_not_hide_dangerous_flags(self):
+        # Valid shell separators must neither hide a dangerous option nor
+        # make an option belonging to a later command look like a Git flag.
+        blocked = {
+            "git push origin main -f; echo done": "force-push",
+            "git push --force&& echo done": "force-push",
+            "git push --force-with-lease=main": "force-push",
+            "gh release upload v1 asset.zip --clobber; echo done": "release-clobber",
+            "git push origin --delete main; echo done": "delete-protected-branch",
+            "git branch -D master && echo done": "delete-local-protected-branch",
+        }
+        for command, rule in blocked.items():
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn(rule, decision.get("permissionDecisionReason", ""))
+
+        safe = (
+            "git push origin topic && echo --force",
+            "git push origin topic; echo --force",
+            "gh release upload v1 asset.zip; echo --clobber",
+            "git push origin topic && echo --delete main",
+            "git branch -D feature && echo master",
+        )
+        for command in safe:
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
+
+
 if __name__ == "__main__":
     unittest.main()
