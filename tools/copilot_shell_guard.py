@@ -127,6 +127,36 @@ def _recursive_root_delete(command: str) -> bool:
     return False
 
 
+
+
+# Git accepts deletion flags before the remote name and empty-source refspecs.
+# A leading + on a push refspec is another force-push form without --force.
+PROTECTED_REMOTE_BRANCHES = frozenset({"main", "master", "refs/heads/main", "refs/heads/master"})
+
+
+def _destructive_push_refspec(command: str) -> str | None:
+    """Inspect literal Git push arguments without executing or expanding them.
+
+    Tokenizing one shell segment also detects quoted refspecs and prevents
+    flags in a subsequent shell command from affecting this decision.
+    """
+    for match in re.finditer(GIT_COMMAND + r"push\b", command, re.IGNORECASE):
+        tail = re.split(r"[\n;&|]", command[match.end():], maxsplit=1)[0]
+        try:
+            args = shlex.split(tail)
+        except ValueError:
+            return "unparseable-git-push"
+
+        if any(arg.startswith("+") and len(arg) > 1 for arg in args):
+            return "force-push"
+        if any(arg.startswith(":") and arg[1:] in PROTECTED_REMOTE_BRANCHES for arg in args):
+            return "delete-protected-branch"
+        if ("--delete" in args or "-d" in args) and any(
+            arg in PROTECTED_REMOTE_BRANCHES for arg in args
+        ):
+            return "delete-protected-branch"
+    return None
+
 def _deny(reason: str) -> int:
     print(json.dumps({"permissionDecision": "deny", "permissionDecisionReason": reason}))
     return 0
@@ -153,6 +183,10 @@ def main() -> int:
     for rule_name, pattern in RULES:
         if pattern.search(command):
             return _deny(f"Blocked by repository safety hook ({rule_name}). Use a reversible alternative and human review.")
+
+    push_rule = _destructive_push_refspec(command)
+    if push_rule is not None:
+        return _deny(f"Blocked by repository safety hook ({push_rule}). Use a reversible alternative and human review.")
 
     if _recursive_root_delete(command):
         return _deny("Blocked by repository safety hook (recursive-root-delete or unparseable shell syntax).")

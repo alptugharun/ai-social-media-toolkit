@@ -194,5 +194,42 @@ class ShellGuardBehaviorTests(unittest.TestCase):
 
 
 
+
+    def test_git_push_native_refspec_delete_and_force_modes(self):
+        # Git accepts --delete ahead of the remote, -d, and empty-source
+        # refspecs. Prefixing a refspec with + forces the update.
+        blocked = {
+            "git push --delete origin main": "delete-protected-branch",
+            "git push -d origin master": "delete-protected-branch",
+            "git push --delete origin refs/heads/master": "delete-protected-branch",
+            "git push --delete origin \"main\"": "delete-protected-branch",
+            "git -C workspace push --delete origin main": "delete-protected-branch",
+            "git push origin :main": "delete-protected-branch",
+            "git push origin \":refs/heads/master\"": "delete-protected-branch",
+            "git push origin +HEAD:main": "force-push",
+            "git push origin +topic": "force-push",
+            "git push origin +topic:feature": "force-push",
+        }
+        for command, expected in blocked.items():
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn(expected, decision.get("permissionDecisionReason", ""))
+
+        safe = (
+            "git push origin topic",
+            "git push --delete origin topic",
+            "git push origin :topic",
+            "git push origin main",
+            "git push origin main:topic",
+            "git push origin topic && echo --delete main",
+            "git push origin --delete topic && echo main",
+            "git push origin topic; echo +main",
+        )
+        for command in safe:
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
+
 if __name__ == "__main__":
     unittest.main()
