@@ -87,6 +87,28 @@ class ShellGuardBehaviorTests(unittest.TestCase):
             with self.subTest(command=command):
                 self.assertEqual(self.check(command), {})
 
+    def test_global_git_options_protect_branch_deletes_and_flag_combinations(self):
+        """Reject destructive Git actions with leading global flags."""
+        cases = (
+            "git -C /tmp/project push --force origin topic",
+            "git -C../project reset --hard",
+            "git -c core.quotePath=false push -f origin topic",
+            "git --git-dir=.git push --delete main",
+            "git --work-tree ../work branch -D master",
+            "git -C . -c core.quotePath=false push --force-with-lease origin topic",
+        )
+        for command in cases:
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command).get("permissionDecision"), "deny")
+
+        # Global flags alone must not turn a normal operation into a denial.
+        for command in (
+            "git -C . push origin feature/test",
+            "git --no-pager status",
+        ):
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
     def test_non_shell_tools_are_unaffected(self):
         self.assertEqual(self.check("git push --force", tool_name="read"), {})
 
