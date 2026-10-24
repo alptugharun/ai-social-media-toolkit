@@ -67,6 +67,8 @@ For every hook, record:
 
 Treat `preToolUse` and permission hooks as security-sensitive because an incorrect allow/deny decision can materially change what an agent may execute. Prefer narrow matchers and small inspectable scripts. Do not silently fail open for destructive actions unless the host contract requires it and the residual risk is documented.
 
+The repository's sample `copilot_shell_guard.py` is a **bounded lexical pre-tool check**. It recognizes common literal Git global-option forms (for example `git -C path push --force`), but does not expand variables, evaluate aliases/functions or wrapper scripts, or inspect every valid shell expression. Treat it as defense-in-depth, never as a replacement for branch protection, permissions, human review, or host-runtime verification.
+
 ### Custom agents and subagents
 
 Inspect each custom agent's tool list, MCP servers, instructions, and any eagerly loaded skills.
