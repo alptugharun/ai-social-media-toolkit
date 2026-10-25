@@ -147,6 +147,13 @@ def _destructive_push_refspec(command: str) -> str | None:
         except ValueError:
             return "unparseable-git-push"
 
+        # Both modes can remove remote refs; --mirror also forces updates.
+        # Check parsed tokens, not a cross-command regex, to avoid treating
+        # a subsequent shell echo as part of the git push argument list.
+        if "--mirror" in args:
+            return "mirror-push"
+        if "--prune" in args:
+            return "prune-push"
         if any(arg.startswith("+") and len(arg) > 1 for arg in args):
             return "force-push"
         if any(arg.startswith(":") and arg[1:] in PROTECTED_REMOTE_BRANCHES for arg in args):
