@@ -231,5 +231,30 @@ class ShellGuardBehaviorTests(unittest.TestCase):
                 self.assertEqual(self.check(command), {})
 
 
+    def test_git_push_bulk_ref_update_modes_are_denied(self):
+        # Per git-push docs, --mirror forces changed refs and deletes absent
+        # refs; --prune can delete remote branches missing locally.
+        blocked = {
+            "git push --mirror origin": "mirror-push",
+            "git push origin --mirror": "mirror-push",
+            "git -C workspace push --mirror origin": "mirror-push",
+            "git push --prune origin": "prune-push",
+            "git push origin --prune": "prune-push",
+        }
+        for command, rule in blocked.items():
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn(rule, decision.get("permissionDecisionReason", ""))
+
+        for command in (
+            "git push origin topic",
+            "git push origin main && echo --mirror",
+            "git push origin topic; echo --prune",
+        ):
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
+
 if __name__ == "__main__":
     unittest.main()
