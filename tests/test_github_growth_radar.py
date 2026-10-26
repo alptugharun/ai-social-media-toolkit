@@ -1,7 +1,10 @@
+import io
+import json
 import unittest
+import urllib.error
 from datetime import datetime, timezone
 
-from tools.github_growth_radar import LaneResult, md_escape, parse_trending, render_report, score_lanes, stars_per_day
+from tools.github_growth_radar import LaneResult, describe_github_http_error, md_escape, parse_trending, render_report, score_lanes, stars_per_day
 
 
 class GitHubGrowthRadarTests(unittest.TestCase):
@@ -72,6 +75,47 @@ class GitHubGrowthRadarTests(unittest.TestCase):
         self.assertIn("heuristic", report)
         self.assertIn("human review", report.lower())
 
+
+
+    def test_http_error_diagnostic_exposes_primary_limit_without_query(self):
+        error = urllib.error.HTTPError(
+            "https://api.github.com/search/repositories?q=private-secret&per_page=5",
+            403,
+            "Forbidden",
+            {"X-RateLimit-Remaining": "0", "X-RateLimit-Reset": "1790000000"},
+            io.BytesIO(json.dumps({"message": "API rate limit exceeded"}).encode()),
+        )
+        message = describe_github_http_error(error)
+        self.assertIn("GitHub API error: 403 Forbidden", message)
+        self.assertIn("endpoint=/search/repositories", message)
+        self.assertIn("category=primary-rate-limit", message)
+        self.assertIn("reset=1790000000", message)
+        self.assertNotIn("private-secret", message)
+
+    def test_http_error_diagnostic_identifies_secondary_limit(self):
+        error = urllib.error.HTTPError(
+            "https://api.github.com/search/repositories?q=test",
+            403,
+            "Forbidden",
+            {"X-RateLimit-Remaining": "24", "Retry-After": "60"},
+            io.BytesIO(json.dumps({"message": "You have exceeded a secondary rate limit."}).encode()),
+        )
+        message = describe_github_http_error(error)
+        self.assertIn("category=secondary-rate-limit", message)
+        self.assertIn("retry_after=60", message)
+
+    def test_http_error_diagnostic_does_not_mislabel_ambiguous_403(self):
+        error = urllib.error.HTTPError(
+            "https://api.github.com/search/repositories?q=another-secret",
+            403,
+            "Forbidden",
+            {"X-RateLimit-Remaining": "20"},
+            io.BytesIO(json.dumps({"message": "Resource not accessible by integration"}).encode()),
+        )
+        message = describe_github_http_error(error)
+        self.assertIn("category=unknown-403-or-429", message)
+        self.assertNotIn("another-secret", message)
+        self.assertNotIn("Resource not accessible", message)
 
 if __name__ == "__main__":
     unittest.main()
