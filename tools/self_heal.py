@@ -164,7 +164,11 @@ def _failed_test_ids(evidence: list[str]) -> list[str]:
     return sorted(names)
 
 
-def _fingerprint_basis(evidence: list[str], classification: str) -> str:
+def _fingerprint_basis(evidence: list[str], classification: str, run_id: str = "") -> str:
+    if classification == "github-api-403" and run_id:
+        # Retries of one Actions run share an incident despite varying log noise.
+        # Keep independent runs separate: a 403 can have different root causes.
+        return f"workflow-run:{run_id}"
     if classification == "test-regression":
         failed_tests = _failed_test_ids(evidence)
         if failed_tests:
@@ -189,7 +193,7 @@ def classify(log_text: str, workflow: str = "", run_id: str = "", run_attempt: i
             summary = message
             break
 
-    normalized = _fingerprint_basis(evidence, classification)
+    normalized = _fingerprint_basis(evidence, classification, str(run_id))
     digest_input = f"{workflow}\n{classification}\n{normalized}".encode("utf-8", errors="replace")
     fingerprint = hashlib.sha256(digest_input).hexdigest()[:12]
 

@@ -15,6 +15,30 @@ class SelfHealTests(unittest.TestCase):
         self.assertTrue(d.retryable)
         self.assertEqual(len(d.fingerprint), 12)
 
+    def test_github_403_retries_are_one_incident_per_workflow_run(self):
+        workflow = "GitHub Opportunity Radar"
+        run_id = "40313193969"
+        failures = [
+            "2026-10-26T11:12:08.4331080Z GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+            "2026-10-26T11:14:13.5494406Z radar Generate report "
+            "GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+            "2026-10-26T11:17:05.7108770Z radar Generate report "
+            "GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+        ]
+        incidents = [
+            classify(log, workflow=workflow, run_id=run_id, run_attempt=attempt)
+            for attempt, log in enumerate(failures, 1)
+        ]
+        self.assertTrue(all(d.classification == "github-api-403" for d in incidents))
+        self.assertEqual(len({d.fingerprint for d in incidents}), 1)
+        other_run = classify(failures[0], workflow=workflow, run_id="40313193970")
+        other_workflow = classify(failures[0], workflow="Different Workflow", run_id=run_id)
+        self.assertNotEqual(incidents[0].fingerprint, other_run.fingerprint)
+        self.assertNotEqual(incidents[0].fingerprint, other_workflow.fingerprint)
+
     def test_readiness_failure_is_not_blindly_retried(self):
         d = classify(
             "READINESS FAIL: Top-level workflow permissions must remain read-only.\n"
