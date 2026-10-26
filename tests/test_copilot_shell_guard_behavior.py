@@ -231,6 +231,37 @@ class ShellGuardBehaviorTests(unittest.TestCase):
                 self.assertEqual(self.check(command), {})
 
 
+
+    def test_local_protected_branch_deletion_variants(self):
+        # Git supports -d/--delete, -D, grouped flags, -- and global options.
+        blocked = (
+            "git branch -d main",
+            "git branch --delete master",
+            "git branch -D -- main",
+            "git branch -d -f main",
+            "git branch -fd master",
+            "git branch --delete --force main",
+            "git branch --force --delete master",
+            "git -C workspace branch -D -- master",
+            "git branch -D topic master",
+        )
+        for command in blocked:
+            with self.subTest(command=command):
+                decision = self.check(command)
+                self.assertEqual(decision.get("permissionDecision"), "deny")
+                self.assertIn("delete-local-protected-branch", decision.get("permissionDecisionReason", ""))
+
+        safe = (
+            "git branch --list main",
+            "git branch -D topic",
+            "git branch --delete --force topic",
+            "git branch -D topic && echo main",
+            "git branch -d topic; echo master",
+        )
+        for command in safe:
+            with self.subTest(command=command):
+                self.assertEqual(self.check(command), {})
+
     def test_git_push_bulk_ref_update_modes_are_denied(self):
         # Per git-push docs, --mirror forces changed refs and deletes absent
         # refs; --prune can delete remote branches missing locally.

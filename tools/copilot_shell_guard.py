@@ -164,6 +164,29 @@ def _destructive_push_refspec(command: str) -> str | None:
             return "delete-protected-branch"
     return None
 
+
+def _destructive_local_branch_delete(command: str) -> str | None:
+    """Guard literal deletion of protected local branches, including -d and -D.
+
+    Examine only the branch subcommand's own shell segment; text belonging to
+    a later command must not be interpreted as a target branch.
+    """
+    for match in re.finditer(GIT_COMMAND + r"branch\b", command, re.IGNORECASE):
+        tail = re.split(r"[\n;&|]", command[match.end():], maxsplit=1)[0]
+        try:
+            args = shlex.split(tail)
+        except ValueError:
+            return "unparseable-git-branch"
+
+        short_flags = set(
+            "".join(arg[1:] for arg in args if arg.startswith("-") and not arg.startswith("--"))
+        )
+        deleting = bool({"d", "D"} & short_flags) or "--delete" in args
+        if deleting and any(arg in {"main", "master"} for arg in args):
+            return "delete-local-protected-branch"
+    return None
+
+
 def _deny(reason: str) -> int:
     print(json.dumps({"permissionDecision": "deny", "permissionDecisionReason": reason}))
     return 0
@@ -194,6 +217,10 @@ def main() -> int:
     push_rule = _destructive_push_refspec(command)
     if push_rule is not None:
         return _deny(f"Blocked by repository safety hook ({push_rule}). Use a reversible alternative and human review.")
+
+    branch_rule = _destructive_local_branch_delete(command)
+    if branch_rule is not None:
+        return _deny(f"Blocked by repository safety hook ({branch_rule}). Use a reversible alternative and human review.")
 
     if _recursive_root_delete(command):
         return _deny("Blocked by repository safety hook (recursive-root-delete or unparseable shell syntax).")
