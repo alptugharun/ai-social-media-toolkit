@@ -24,17 +24,25 @@ class Diagnosis:
 
 PATTERNS: tuple[tuple[str, tuple[str, ...], bool, str, str], ...] = (
     (
+        "github-api-rate-limit",
+        (
+            r"category=(?:primary|secondary)-rate-limit\b",
+            r"\b(?:primary|secondary) rate limit\b",
+            r"\bAPI rate limit exceeded\b",
+        ),
+        False,
+        "high",
+        "GitHub API rate-limit kanıtı var; Retry-After veya reset süresi bilinmeden otomatik yeniden deneme yapılmayacak.",
+    ),
+    (
         "github-api-403",
         (
             r"GitHub API error:?\s*403\b",
             r"\b403 Forbidden\b",
-            r"secondary rate limit",
-            r"API rate limit exceeded",
-            r"rate limit exceeded",
         ),
-        True,
-        "high",
-        "GitHub API erişimi geçici olarak engellendi veya rate-limit uygulandı.",
+        False,
+        "medium",
+        "GitHub API HTTP 403 nedeni belirsiz; izin veya hız sınırı ayrımı yapılmadan otomatik yeniden deneme yapılmayacak.",
     ),
     (
         "transient-network-or-http",
@@ -165,7 +173,7 @@ def _failed_test_ids(evidence: list[str]) -> list[str]:
 
 
 def _fingerprint_basis(evidence: list[str], classification: str, run_id: str = "") -> str:
-    if classification == "github-api-403" and run_id:
+    if classification in {"github-api-403", "github-api-rate-limit"} and run_id:
         # Retries of one Actions run share an incident despite varying log noise.
         # Keep independent runs separate: a 403 can have different root causes.
         return f"workflow-run:{run_id}"

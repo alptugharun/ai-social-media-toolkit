@@ -4,7 +4,7 @@ from tools.self_heal import classify
 
 
 class SelfHealTests(unittest.TestCase):
-    def test_github_403_is_bounded_retry_candidate(self):
+    def test_ambiguous_github_403_is_not_blindly_retried(self):
         d = classify(
             "GitHub API error: 403 Forbidden\n##[error]Process completed with exit code 2.",
             workflow="GitHub Opportunity Radar",
@@ -12,8 +12,45 @@ class SelfHealTests(unittest.TestCase):
             run_attempt=1,
         )
         self.assertEqual(d.classification, "github-api-403")
-        self.assertTrue(d.retryable)
+        self.assertFalse(d.retryable)
+        self.assertFalse(d.probe_retry_safe)
+        self.assertEqual(d.confidence, "medium")
         self.assertEqual(len(d.fingerprint), 12)
+
+    def test_secondary_rate_limit_is_not_blindly_retried(self):
+        log = (
+            "GitHub API error: 403 Forbidden; endpoint=/search/repositories; "
+            "category=secondary-rate-limit; remaining=21"
+        )
+        first = classify(log, workflow="GitHub Opportunity Radar", run_id="40490105926")
+        second = classify(
+            log.replace("remaining=21", "remaining=19"),
+            workflow="GitHub Opportunity Radar",
+            run_id="40490105926",
+            run_attempt=2,
+        )
+        other_run = classify(log, workflow="GitHub Opportunity Radar", run_id="40490105927")
+        self.assertEqual(first.classification, "github-api-rate-limit")
+        self.assertEqual(first.confidence, "high")
+        self.assertFalse(first.retryable)
+        self.assertFalse(first.probe_retry_safe)
+        self.assertEqual(first.fingerprint, second.fingerprint)
+        self.assertNotEqual(first.fingerprint, other_run.fingerprint)
+
+    def test_primary_rate_limit_is_not_blindly_retried(self):
+        d = classify(
+            "GitHub API error: 403 Forbidden; endpoint=/search/repositories; "
+            "category=primary-rate-limit; remaining=0; reset=1790000000",
+            workflow="GitHub Opportunity Radar",
+            run_id="321",
+        )
+        self.assertEqual(d.classification, "github-api-rate-limit")
+        self.assertFalse(d.retryable)
+
+    def test_non_rate_limited_server_error_remains_retryable(self):
+        d = classify("HTTP 503 Service Unavailable", workflow="Maps & Local Intelligence Radar")
+        self.assertEqual(d.classification, "transient-network-or-http")
+        self.assertTrue(d.retryable)
 
     def test_github_403_retries_are_one_incident_per_workflow_run(self):
         workflow = "GitHub Opportunity Radar"
