@@ -1,9 +1,9 @@
 ---
 name: agent-skill-safety-auditor
-description: Audits third-party Agent Skills, MCP-adjacent skill packs, and installable AI-agent instructions before installation. Use when a user wants to install, recommend, fork, adapt, or trust a skill for Claude Code, Codex, Gemini CLI, Cursor, or another Agent Skills-compatible runtime.
+description: Audits third-party Agent Skills, custom agents, hooks, plugins, MCP-adjacent packs, and installable AI-agent instructions before installation or runtime use. Use when a user wants to install, recommend, fork, adapt, trust, or deploy agent customization for Claude Code, Codex, GitHub Copilot, Gemini CLI, Cursor, or another Agent Skills-compatible runtime.
 license: MIT
 metadata:
-  version: 0.1.0
+  version: 0.2.0
   author: Alptuğ Harun
 ---
 
@@ -35,6 +35,72 @@ When evidence is available, record:
 - generated or vendored files
 
 Do not treat stars, forks, author reputation, or inclusion in a curated list as a security guarantee.
+
+
+## 2026 Runtime Surfaces
+
+Modern agent customization is broader than a single `SKILL.md`. When present, audit the full installable surface together:
+
+- Agent Skills folders and supporting scripts/resources;
+- custom-agent profiles and their declared tools;
+- repository or plugin hooks that can intercept tool use or session lifecycle;
+- MCP server configuration and external endpoints;
+- plugin manifests, including bundled skills, agents, hooks, MCP and LSP configuration;
+- sandbox or capability-directory configuration;
+- CI or automation that installs, publishes, signs, or mutates these assets.
+
+Do not review each file in isolation when one component can grant capabilities to another.
+
+### Hooks
+
+Hooks are deterministic code execution surfaces, not documentation.
+
+For every hook, record:
+
+- lifecycle event and matcher;
+- command/HTTP target;
+- whether it can allow, deny, modify, or inject context;
+- environment variables made available to it;
+- filesystem/network access;
+- timeout and failure behavior;
+- whether the host loads it automatically from the repository.
+
+Treat `preToolUse` and permission hooks as security-sensitive because an incorrect allow/deny decision can materially change what an agent may execute. Prefer narrow matchers and small inspectable scripts. Do not silently fail open for destructive actions unless the host contract requires it and the residual risk is documented.
+
+The repository's sample `copilot_shell_guard.py` is a **bounded lexical pre-tool check**. It recognizes common literal Git global-option forms (for example `git -C path push --force`) and rejects literal `git push --mirror` and `git push --prune` arguments because they can force-update or delete remote refs. It does not expand variables, evaluate aliases/functions or wrapper scripts, inspect Git configuration that enables mirroring implicitly, or parse every valid shell expression. Treat it as defense-in-depth, never as a replacement for branch protection, permissions, human review, or host-runtime verification.
+
+### Custom agents and subagents
+
+Inspect each custom agent's tool list, MCP servers, instructions, and any eagerly loaded skills.
+
+Flag:
+
+- write-capable tools for a task that should be read-only;
+- subagents that inherit or receive broader permissions than the parent job needs;
+- instructions that claim successful validation without running checks;
+- agents that can merge, publish, delete, pay, or change permissions without an explicit approval boundary.
+
+### Agent plugins
+
+When a plugin manifest is present, treat the plugin as one capability bundle. Review its skills, custom agents, hooks, MCP configuration, LSP configuration, install scripts, and update path together.
+
+### Sandbox and long-running agents
+
+A sandbox reduces blast radius; it does not make untrusted instructions safe.
+
+Verify:
+
+- mounted files and writable paths;
+- network reachability;
+- secret exposure;
+- persistence/snapshot behavior;
+- approval gates for external writes;
+- bounded retries and idempotency;
+- cost/time limits where the runtime supports them;
+- recovery behavior after interruption or partial completion.
+
+For long-running agents, stale authorization is a separate risk. Revalidate authorization close to consequential writes instead of assuming that permission captured at session start remains valid forever.
+
 
 ## Audit Order
 
@@ -149,6 +215,20 @@ When installation is reasonable:
 4. test in an isolated project or disposable environment when executable code is involved
 5. review changes before granting write access to important repositories
 
+## Runtime Evidence Ladder
+
+Keep evidence levels separate:
+
+1. static format/schema validation;
+2. isolated unit tests for scripts/hooks;
+3. clean install or packaging test;
+4. host/runtime discovery;
+5. safe tool invocation;
+6. negative/adversarial input;
+7. write-path approval + read-back verification when writes are in scope.
+
+A passing static check is not proof that a host actually loaded the skill, agent, hook, plugin, or MCP server.
+
 ## Core Principle
 
-**Inspect first. Grant the minimum. Execute only what you understand.**
+**Inspect the whole capability bundle. Grant the minimum. Execute only what you understand. Verify the runtime, not just the files.**
