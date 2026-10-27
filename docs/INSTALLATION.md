@@ -24,6 +24,30 @@ Install an individual skill:
 npx skills add alptugharun/ai-social-media-toolkit --skill viral-content-radar
 ```
 
+## Downloaded release bundles
+
+Release ZIPs built from the current packaging code are designed to remain understandable after extraction, without requiring the Git checkout just to discover the next step.
+
+The all-skills bundle includes:
+
+- `skills/README.md`;
+- English and Turkish zero-to-first-result Agent Skills guides;
+- the full usage guide and installation guide;
+- the creator-context synthetic example and shared references;
+- the applicable `skills/LICENSE`, repository `LICENSE.md`, and `THIRD-PARTY-NOTICES.md`.
+
+The narrow `creator-context-builder` archive carries the skills MIT license as `LICENSE`. The Creator Frame Studio archive carries the tools MIT license beside the app as `creator-frame-studio/LICENSE`.
+
+A package containing a license file does **not** prove runtime compatibility, vulnerability status, or successful installation. It makes the applicable distribution terms and first-use route available inside the downloaded artifact.
+
+> Historical `v0.3.0-alpha.1` ZIPs were built before this packaging contract. Do not assume those already-published bytes contain the newer self-contained guide/license layout.
+
+Maintainers can verify the current-source packaging contract with:
+
+```bash
+python -m unittest tests.test_release_assets tests.test_plugin_package -v
+```
+
 ## Runtime paths
 
 The repository also ships a dependency-free installer for direct placement into native skill directories.
