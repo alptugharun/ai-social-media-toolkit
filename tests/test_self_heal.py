@@ -17,6 +17,20 @@ class SelfHealTests(unittest.TestCase):
         self.assertEqual(d.confidence, "medium")
         self.assertEqual(len(d.fingerprint), 12)
 
+    def test_github_api_429_does_not_trigger_immediate_rerun(self):
+        # GitHub documents 429 as a primary or secondary API rate-limit response.
+        for log in (
+            "GitHub API error: 429 Too Many Requests",
+            "GitHub API error 429: Too Many Requests",
+            "GitHub API HTTP 429; endpoint=/search/repositories",
+        ):
+            with self.subTest(log=log):
+                d = classify(log, workflow="GitHub Opportunity Radar", run_id="429-test")
+                self.assertEqual(d.classification, "github-api-rate-limit")
+                self.assertEqual(d.confidence, "high")
+                self.assertFalse(d.retryable)
+                self.assertFalse(d.probe_retry_safe)
+
     def test_secondary_rate_limit_is_not_blindly_retried(self):
         log = (
             "GitHub API error: 403 Forbidden; endpoint=/search/repositories; "

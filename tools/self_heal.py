@@ -29,6 +29,7 @@ PATTERNS: tuple[tuple[str, tuple[str, ...], bool, str, str], ...] = (
             r"category=(?:primary|secondary)-rate-limit\b",
             r"\b(?:primary|secondary) rate limit\b",
             r"\bAPI rate limit exceeded\b",
+            r"\bGitHub API(?: error:?| HTTP)?\s*429\b",
         ),
         False,
         "high",
