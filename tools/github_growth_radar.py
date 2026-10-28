@@ -412,6 +412,35 @@ def render_report(now: datetime, trending: list[dict], lanes: list[LaneResult], 
     return "\\n".join(lines) + "\\n"
 
 
+def describe_github_http_error(exc: urllib.error.HTTPError) -> str:
+    """Log safe rate-limit evidence without request query strings or credentials."""
+    headers = exc.headers or {}
+    remaining = str(headers.get("X-RateLimit-Remaining", ""))
+    diagnostic = "unknown-403-or-429" if exc.code in (403, 429) else "http-error"
+    try:
+        data = json.loads(exc.read(2048).decode("utf-8", errors="replace"))
+        message = str(data.get("message", "")).lower() if isinstance(data, dict) else ""
+    except (OSError, ValueError):
+        message = ""
+    if remaining == "0":
+        diagnostic = "primary-rate-limit"
+    elif "secondary rate limit" in message:
+        diagnostic = "secondary-rate-limit"
+
+    path = urllib.parse.urlsplit(exc.geturl()).path
+    details = [f"endpoint={path}", f"category={diagnostic}"]
+    for label, header in (
+        ("remaining", "X-RateLimit-Remaining"),
+        ("reset", "X-RateLimit-Reset"),
+        ("retry_after", "Retry-After"),
+    ):
+        value = str(headers.get(header, ""))
+        if re.fullmatch(r"[0-9]{1,13}", value):
+            details.append(f"{label}={value}")
+    status_label = "Forbidden" if exc.code == 403 else "Too Many Requests" if exc.code == 429 else "HTTP error"
+    return f"GitHub API error: {exc.code} {status_label}; " + "; ".join(details)
+
+
 def run(output: Path, token: str | None) -> int:
     now = datetime.now(timezone.utc)
     warnings: list[str] = []
@@ -428,7 +457,7 @@ def run(output: Path, token: str | None) -> int:
         lanes = research_lanes(token, now, trending_names)
         candidates = research_skill_candidates(token, lanes)
     except urllib.error.HTTPError as exc:
-        print(f"GitHub API error: {exc.code} {exc.reason}", file=sys.stderr)
+        print(describe_github_http_error(exc), file=sys.stderr)
         return 2
     except Exception as exc:
         print(f"Radar failed: {type(exc).__name__}: {exc}", file=sys.stderr)
