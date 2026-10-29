@@ -24,6 +24,11 @@ from typing import Iterable
 
 USER_AGENT = "ai-social-media-toolkit-maps-opportunity-radar/0.1"
 
+# This radar makes 23 Search API calls (14 lanes, 9 candidates) and shares
+# capacity with other scheduled jobs. Pacing lowers risk but cannot guarantee
+# that an unrelated 403 is caused by or cured by request spacing.
+SEARCH_REQUEST_INTERVAL_SECONDS = 6.2
+
 LANES = [
     ("google-maps-mcp", "google maps mcp"),
     ("google-maps-agent-skills", "google maps agent skills"),
@@ -169,7 +174,7 @@ def fetch_json(url: str, token: str | None = None) -> dict:
 
 
 def search_repositories(query: str, token: str | None, per_page: int = 5) -> dict:
-    time.sleep(2.1)  # keep GitHub Search API calls below per-minute limits
+    time.sleep(SEARCH_REQUEST_INTERVAL_SECONDS)  # leave headroom for shared Search API traffic
     params = urllib.parse.urlencode(
         {
             "q": query,
