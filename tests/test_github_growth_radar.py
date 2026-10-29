@@ -2,9 +2,11 @@ import io
 import json
 import unittest
 import urllib.error
+import urllib.parse
+from unittest.mock import patch
 from datetime import datetime, timezone
 
-from tools.github_growth_radar import LaneResult, describe_github_http_error, md_escape, parse_trending, render_report, score_lanes, stars_per_day
+from tools.github_growth_radar import (LaneResult, SEARCH_REQUEST_INTERVAL_SECONDS, describe_github_http_error, md_escape, parse_trending, render_report, score_lanes, search_repositories, stars_per_day)
 
 
 class GitHubGrowthRadarTests(unittest.TestCase):
@@ -76,6 +78,19 @@ class GitHubGrowthRadarTests(unittest.TestCase):
         self.assertIn("human review", report.lower())
 
 
+
+    @patch("tools.github_growth_radar.fetch_json")
+    @patch("tools.github_growth_radar.time.sleep")
+    def test_search_repositories_is_paced_with_headroom(self, mock_sleep, mock_fetch):
+        mock_fetch.return_value = {"items": [], "total_count": 0}
+        self.assertEqual(search_repositories("AI agents", "test-token", per_page=3)["total_count"], 0)
+        self.assertGreaterEqual(SEARCH_REQUEST_INTERVAL_SECONDS, 6.0)
+        mock_sleep.assert_called_once_with(SEARCH_REQUEST_INTERVAL_SECONDS)
+        url, token = mock_fetch.call_args.args
+        self.assertEqual(token, "test-token")
+        params = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        self.assertEqual(params["q"], ["AI agents"])
+        self.assertEqual(params["per_page"], ["3"])
 
     def test_http_error_diagnostic_exposes_primary_limit_without_query(self):
         error = urllib.error.HTTPError(

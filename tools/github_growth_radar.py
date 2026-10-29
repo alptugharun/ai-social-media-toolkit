@@ -27,6 +27,11 @@ from typing import Iterable
 
 USER_AGENT = "ai-social-media-toolkit-github-opportunity-radar/0.1"
 
+# This job makes 24 repository searches and shares GitHub API capacity with other
+# workflows. Use a conservative local cadence; it does not guarantee freedom
+# from secondary limits caused by other consumers.
+SEARCH_REQUEST_INTERVAL_SECONDS = 6.2
+
 LANES = [
     ("agent-skills", "agent skills"),
     ("ai-agents", "AI agents"),
@@ -201,7 +206,7 @@ def score_lanes(lanes: list[LaneResult]) -> None:
 
 
 def search_repositories(query: str, token: str | None, per_page: int = 5) -> dict:
-    time.sleep(2.1)  # keep GitHub Search API calls below per-minute limits
+    time.sleep(SEARCH_REQUEST_INTERVAL_SECONDS)  # leave headroom for shared search traffic
     params = urllib.parse.urlencode(
         {
             "q": query,

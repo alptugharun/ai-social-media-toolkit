@@ -1,7 +1,9 @@
 import unittest
+import urllib.parse
 from datetime import datetime, timezone
+from unittest.mock import patch
 
-from tools.commercial_opportunity_radar import Lane, render_report, scale
+from tools.commercial_opportunity_radar import Lane, SEARCH_REQUEST_INTERVAL_SECONDS, render_report, scale, search_repositories
 
 
 class CommercialOpportunityRadarTests(unittest.TestCase):
@@ -9,6 +11,19 @@ class CommercialOpportunityRadarTests(unittest.TestCase):
         values = scale([1, 10, 100], log=True)
         self.assertLess(values[0], values[1])
         self.assertLess(values[1], values[2])
+
+    @patch("tools.commercial_opportunity_radar.fetch_json")
+    @patch("tools.commercial_opportunity_radar.time.sleep")
+    def test_search_repositories_leaves_shared_api_headroom(self, mock_sleep, mock_fetch):
+        mock_fetch.return_value = {"items": [], "total_count": 0}
+        self.assertEqual(search_repositories("local seo ai", "test-token", per_page=3)["total_count"], 0)
+        self.assertGreaterEqual(SEARCH_REQUEST_INTERVAL_SECONDS, 6.0)
+        mock_sleep.assert_called_once_with(SEARCH_REQUEST_INTERVAL_SECONDS)
+        url, token = mock_fetch.call_args.args
+        self.assertEqual(token, "test-token")
+        params = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        self.assertEqual(params["q"], ["local seo ai"])
+        self.assertEqual(params["per_page"], ["3"])
 
     def test_report_is_not_revenue_forecast(self):
         lane = Lane(
