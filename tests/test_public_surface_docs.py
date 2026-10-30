@@ -49,6 +49,16 @@ class PublicSurfaceDocsTests(unittest.TestCase):
         self.assertIn("security", self.en.lower())
         self.assertIn("güvenlik", self.tr.lower())
 
+    def test_rewrite_fact_guard_has_bilingual_zero_start_contract(self):
+        surface = next(item for item in self.payload["surfaces"] if item["id"] == "rewrite-fact-guard")
+        self.assertEqual("Rewrite Fact Guard", surface["name"])
+        for text in (self.en, self.tr):
+            self.assertIn("skills/brand-voice-humanizer/scripts/fact_guard.py", text)
+            self.assertIn("NO_TRACKED_CHANGE", text)
+            self.assertIn("REVIEW_REQUIRED", text)
+        self.assertIn("semantic fact checking", self.en.lower())
+        self.assertIn("anlamsal", self.tr.lower())
+
     def test_trust_matrix_tracks_major_external_surfaces(self):
         for name in ("M8ven", "OpenSSF", "Official MCP Registry", "Glama", "skills.sh"):
             self.assertIn(name, self.trust)
