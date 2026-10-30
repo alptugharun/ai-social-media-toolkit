@@ -136,7 +136,7 @@ def _clean_line(line: str) -> str:
     line = re.sub(r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z\s*", "", line)
     line = re.sub(r"\x1b\[[0-9;]*m", "", line)
     line = re.sub(r"\b[0-9a-f]{40}\b", "<sha>", line, flags=re.I)
-    line = re.sub(r"\b[0-9a-f]{7,12}\b", "<short-sha>", line, flags=re.I)
+    line = re.sub(r"(?<!reset=)\b[0-9a-f]{7,12}\b", "<short-sha>", line, flags=re.I)
     line = re.sub(r"\b[0-9a-f]{8}-[0-9a-f-]{27,36}\b", "<uuid>", line, flags=re.I)
     return " ".join(line.strip().split())
 
