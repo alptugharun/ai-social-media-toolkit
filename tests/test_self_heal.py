@@ -61,6 +61,22 @@ class SelfHealTests(unittest.TestCase):
         self.assertEqual(d.classification, "github-api-rate-limit")
         self.assertFalse(d.retryable)
 
+    def test_rate_limit_reset_epoch_survives_evidence_masking(self):
+        # Synthetic epoch, numeric identifier and commit hash: preserve only
+        # the rate-limit reset needed for diagnosis.
+        d = classify(
+            "GitHub API error: 403 Forbidden; endpoint=/search/repositories; "
+            "category=secondary-rate-limit; remaining=25; reset=1790000000; "
+            "run=1790000000; commit=deadbeef123",
+            workflow="GitHub Opportunity Radar",
+            run_id="synthetic-reset",
+        )
+        self.assertEqual(d.classification, "github-api-rate-limit")
+        evidence = " ".join(d.evidence)
+        self.assertIn("reset=1790000000", evidence)
+        self.assertIn("run=<short-sha>", evidence)
+        self.assertIn("commit=<short-sha>", evidence)
+
     def test_non_rate_limited_server_error_remains_retryable(self):
         d = classify("HTTP 503 Service Unavailable", workflow="Maps & Local Intelligence Radar")
         self.assertEqual(d.classification, "transient-network-or-http")
