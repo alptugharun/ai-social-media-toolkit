@@ -71,6 +71,8 @@ def build_skills_bundle(root: Path, output: Path) -> None:
         root / "docs" / "AGENT-SKILLS-FROM-ZERO.md",
         root / "docs" / "AGENT-SKILLS-FROM-ZERO_TR.md",
         root / "docs" / "HOW-TO-USE-EVERYTHING.md",
+        root / "docs" / "START-FROM-ZERO.md",
+        root / "docs" / "START-FROM-ZERO_TR.md",
         root / "examples" / "CREATOR-CONTEXT-EXAMPLE.md",
     ]
     for source in extras:
