@@ -58,6 +58,8 @@ class ReleaseAssetTests(unittest.TestCase):
                 "docs/AGENT-SKILLS-FROM-ZERO.md",
                 "docs/AGENT-SKILLS-FROM-ZERO_TR.md",
                 "docs/HOW-TO-USE-EVERYTHING.md",
+                "docs/START-FROM-ZERO.md",
+                "docs/START-FROM-ZERO_TR.md",
                 "examples/CREATOR-CONTEXT-EXAMPLE.md",
             ):
                 self.assertIn(required, names)
@@ -98,6 +100,41 @@ class ReleaseAssetTests(unittest.TestCase):
                 normalized = posixpath.normpath(posixpath.join("skills", target))
                 self.assertFalse(normalized.startswith("../"), target)
                 self.assertIn(normalized, names, target)
+
+    def test_extracted_skills_zip_resolves_local_beginner_routes(self):
+        """Verify extracted bytes and first-use links, not actual agent-host execution."""
+        with tempfile.TemporaryDirectory() as temp:
+            parent = Path(temp)
+            out = self.build(parent)
+            extracted = parent / "extracted"
+            with zipfile.ZipFile(out / "agent-skills-v0.3.0-alpha.1.zip") as archive:
+                for name in archive.namelist():
+                    parts = posixpath.normpath(name).split("/")
+                    self.assertFalse(name.startswith("/") or ".." in parts, name)
+                archive.extractall(extracted)
+
+            readme = extracted / "skills" / "README.md"
+            manual = extracted / "docs" / "HOW-TO-USE-EVERYTHING.md"
+            start_en = extracted / "docs" / "START-FROM-ZERO.md"
+            start_tr = extracted / "docs" / "START-FROM-ZERO_TR.md"
+            for path in (readme, manual, start_en, start_tr):
+                self.assertTrue(path.is_file(), str(path))
+                markdown = path.read_text(encoding="utf-8")
+                links = re.findall(r"\]\(([^)#]+)(?:#[^)]+)?\)", markdown)
+                for target in links:
+                    if target.startswith(("https://", "http://", "mailto:")) or "://" in target:
+                        continue
+                    local = (path.parent / target).resolve()
+                    self.assertTrue(local.is_relative_to(extracted.resolve()), target)
+                    self.assertTrue(local.is_file(), f"{path.relative_to(extracted)} -> {target}")
+
+            for relative in (
+                "skills/creator-context-builder/SKILL.md",
+                "skills/LICENSE",
+                "LICENSE.md",
+                "THIRD-PARTY-NOTICES.md",
+            ):
+                self.assertEqual((ROOT / relative).read_bytes(), (extracted / relative).read_bytes())
 
     def test_zip_outputs_are_reproducible(self):
         with tempfile.TemporaryDirectory() as temp:
