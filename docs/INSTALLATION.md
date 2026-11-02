@@ -26,6 +26,9 @@ npx skills add alptugharun/ai-social-media-toolkit --skill viral-content-radar
 
 ## Downloaded release bundles
 
+If you have **only** an extracted `agent-skills-*.zip` (not a Git checkout), open `skills/README.md`, then `docs/HOW-TO-USE-EVERYTHING.md` and `docs/START-FROM-ZERO.md` or `docs/START-FROM-ZERO_TR.md`. Choose one skill, read its `SKILL.md` and try the guide's safe synthetic request in your agent host. Confirm that the host loaded the intended skill and inspect the result before using private material. No API key is needed to read these local guides. The `python tools/first_run_check.py` and `python tools/install_skills.py` commands elsewhere in this guide need the **full source checkout**; they are not shipped inside the skills ZIP. Archive extraction proves neither installation nor host runtime compatibility.
+
+
 Release ZIPs built from the current packaging code are designed to remain understandable after extraction, without requiring the Git checkout just to discover the next step.
 
 The all-skills bundle includes:
