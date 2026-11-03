@@ -132,9 +132,10 @@ class PluginPackageTests(unittest.TestCase):
                 self.assertTrue(guide.is_file(), name)
                 text = guide.read_text(encoding="utf-8")
                 self.assertIn(marker, text)
-                self.assertIn("No automatic publishing", text if name.endswith("START.md") else "No automatic publishing")
+                privacy_marker = "No automatic publishing" if name == "PLUGIN-QUICKSTART.md" else "Örnek otomatik yayın"
+                self.assertIn(privacy_marker, text)
                 self.assertIn("skills/brand-voice-humanizer/SKILL.md", text)
-                for target in re.findall(r"\\]\\(([^)#]+)(?:#[^)]+)?\\)", text):
+                for target in re.findall(r"\]\(([^)#]+)(?:#[^)]+)?\)", text):
                     if target.startswith(("https://", "http://", "mailto:")):
                         continue
                     self.assertNotIn("..", Path(target).parts)
