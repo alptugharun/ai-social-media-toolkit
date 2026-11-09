@@ -9,7 +9,7 @@
 
 **Don't trust the README. Run the proof. Break the demo. Check the limits.**
 
-`v0.3.0-alpha.1 · 266 tests PASS · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
+`v0.3.0-alpha.1 · CI status linked below · 19 Agent Skills · 3 read-only MCP tools · live Creator Frame Studio`
 
 Built by **Alptuğ Harun**, this repository connects reusable prompts, portable assistant blueprints, Agent Skills, MCP, API/bot starters, creator tools and automation into one verification-first path.
 
@@ -41,9 +41,7 @@ A passing run verifies the local catalog, dry-run provider path, Agent Skill ins
 
 **PASS?** Pick one path below. **FAIL?** Keep the first error and use the linked troubleshooting/evidence path instead of guessing.
 
-If the proof saved you setup time, a star helps other builders discover the repository. A reproducible failure report is even more useful than a generic “works for me.”
-
-**Help us test the real first-run:** [Real User Lab #1 — 10 independent reports wanted](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). PASS, FAIL and BLOCKED reports are all useful when the environment and first friction point are included.
+**Help improve the first-run path:** [Real User Lab #1](https://github.com/alptugharun/ai-social-media-toolkit/issues/178) collects independent PASS, FAIL and BLOCKED reports. Include your environment, the first confusing or broken step, and the expected versus actual result. Do not include credentials or private client data.
 
 ## Pick one path
 
