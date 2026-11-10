@@ -25,6 +25,10 @@ from typing import Iterable
 USER_AGENT = "ai-social-media-toolkit-commercial-radar/0.1"
 SELF_REPO = "alptugharun/ai-social-media-toolkit"
 
+# 19 Search API requests share capacity with other scheduled jobs. This is
+# risk reduction, not a guarantee against secondary rate limits.
+SEARCH_REQUEST_INTERVAL_SECONDS = 6.2
+
 LANES = [
     ("agentic-workflows", "github agentic workflows"),
     ("ai-marketing-skills", "ai marketing skills"),
@@ -186,7 +190,7 @@ def fetch_json(url: str, token: str | None = None):
 
 
 def search_repositories(query: str, token: str | None, per_page: int = 5) -> dict:
-    time.sleep(2.1)  # keep GitHub Search API calls below per-minute limits
+    time.sleep(SEARCH_REQUEST_INTERVAL_SECONDS)  # leave headroom for shared Search API traffic
     params = urllib.parse.urlencode(
         {
             "q": query,

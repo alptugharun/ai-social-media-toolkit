@@ -1,7 +1,9 @@
 import unittest
+import urllib.parse
 from datetime import datetime, timezone
+from unittest.mock import patch
 
-from tools.maps_opportunity_radar import Lane, render_report
+from tools.maps_opportunity_radar import Lane, SEARCH_REQUEST_INTERVAL_SECONDS, render_report, search_repositories
 from tools.places_market_scan import build_payload
 
 
@@ -48,6 +50,19 @@ class PlacesMarketScanTests(unittest.TestCase):
 
 
 class MapsOpportunityReportTests(unittest.TestCase):
+    @patch("tools.maps_opportunity_radar.fetch_json")
+    @patch("tools.maps_opportunity_radar.time.sleep")
+    def test_search_repositories_paces_shared_api_traffic(self, mock_sleep, mock_fetch):
+        mock_fetch.return_value = {"items": [], "total_count": 0}
+        self.assertEqual(search_repositories("local maps ai", "test-token", per_page=3)["total_count"], 0)
+        self.assertGreaterEqual(SEARCH_REQUEST_INTERVAL_SECONDS, 6.0)
+        mock_sleep.assert_called_once_with(SEARCH_REQUEST_INTERVAL_SECONDS)
+        url, token = mock_fetch.call_args.args
+        self.assertEqual(token, "test-token")
+        params = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query)
+        self.assertEqual(params["q"], ["local maps ai"])
+        self.assertEqual(params["per_page"], ["3"])
+
     def test_report_has_no_guarantee_and_human_gate(self):
         lane = Lane(
             slug="google-maps-mcp",
