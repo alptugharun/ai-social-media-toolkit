@@ -24,6 +24,33 @@ Install an individual skill:
 npx skills add alptugharun/ai-social-media-toolkit --skill viral-content-radar
 ```
 
+## Downloaded release bundles
+
+If you have **only** an extracted `agent-skills-*.zip` (not a Git checkout), open `skills/README.md`, then `docs/HOW-TO-USE-EVERYTHING.md` and `docs/START-FROM-ZERO.md` or `docs/START-FROM-ZERO_TR.md`. Choose one skill, read its `SKILL.md` and try the guide's safe synthetic request in your agent host. Confirm that the host loaded the intended skill and inspect the result before using private material. No API key is needed to read these local guides. The `python tools/first_run_check.py` and `python tools/install_skills.py` commands elsewhere in this guide need the **full source checkout**; they are not shipped inside the skills ZIP. Archive extraction proves neither installation nor host runtime compatibility.
+
+
+Release ZIPs built from the current packaging code are designed to remain understandable after extraction, without requiring the Git checkout just to discover the next step.
+
+The all-skills bundle includes:
+
+- `skills/README.md`;
+- English and Turkish zero-to-first-result Agent Skills guides;
+- the full usage guide and installation guide;
+- the creator-context synthetic example and shared references;
+- the applicable `skills/LICENSE`, repository `LICENSE.md`, and `THIRD-PARTY-NOTICES.md`.
+
+The narrow `creator-context-builder` archive carries the skills MIT license as `LICENSE`. The Creator Frame Studio archive carries the tools MIT license beside the app as `creator-frame-studio/LICENSE`.
+
+A package containing a license file does **not** prove runtime compatibility, vulnerability status, or successful installation. It makes the applicable distribution terms and first-use route available inside the downloaded artifact.
+
+> Historical `v0.3.0-alpha.1` ZIPs were built before this packaging contract. Do not assume those already-published bytes contain the newer self-contained guide/license layout.
+
+Maintainers can verify the current-source packaging contract with:
+
+```bash
+python -m unittest tests.test_release_assets tests.test_plugin_package -v
+```
+
 ## Runtime paths
 
 The repository also ships a dependency-free installer for direct placement into native skill directories.

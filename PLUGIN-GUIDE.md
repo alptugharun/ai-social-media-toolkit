@@ -8,11 +8,15 @@ Current shape: **skills-only plugin**
 
 It intentionally does **not** bundle the local AI Workbench MCP server.
 
+## Downloaded ZIP: first result
+
+The ZIP includes standalone [English](PLUGIN-QUICKSTART.md) and [Turkish](PLUGIN-QUICKSTART_TR.md) beginner instructions. Open either file after extraction, choose one safe synthetic example, and check the output in a compatible agent host. Reading the files is free; host access may have separate prerequisites or costs. A packaged guide is not proof that a host activated the skill.
+
 ## Why install this plugin?
 
 Install it when you want one reusable AI workflow package instead of manually copying prompts between chats.
 
-The plugin packages 18 focused Agent Skills for jobs such as:
+The plugin packages 19 focused Agent Skills for jobs such as:
 
 - turning research into platform-specific content;
 - directing short-form Reels;
@@ -25,7 +29,7 @@ The plugin packages 18 focused Agent Skills for jobs such as:
 - evidence-aware GitHub research;
 - designing prompts, Agent Skills, MCP servers and plugins.
 
-The value is not “18 prompts.” The value is a set of **triggered procedures with boundaries, output contracts and tests**.
+The value is not “19 prompts.” The value is a set of **triggered procedures with boundaries, output contracts and tests**.
 
 ## Who should not install it?
 
@@ -86,7 +90,7 @@ Expected result:
 ```text
 PLUGIN BUNDLE PASS
 Version: 0.6.0
-Skills: 18
+Skills: 19
 MCP: none (skills-only package)
 ```
 
@@ -102,7 +106,9 @@ The builder intentionally includes only:
 
 - `plugin.json`;
 - installable skill directories;
-- the three repository-level resources currently referenced by `plugin-mcp-architect`.
+- the three repository-level resources currently referenced by `plugin-mcp-architect`;
+- standalone English and Turkish first-result guides;
+- applicable license and third-party notice files.
 
 It does not package Git metadata, CI workflows, local caches or unrelated repository files.
 
@@ -177,7 +183,7 @@ Before calling this plugin package ready:
 - [x] Portable Agent Plugins schema URI in root `plugin.json`
 - [x] Stable kebab-case plugin name
 - [x] Explicit semantic version
-- [x] 18 discoverable `skills/*/SKILL.md` packages
+- [x] 19 discoverable `skills/*/SKILL.md` packages
 - [x] One evaluation contract per skill
 - [x] Skills-only boundary documented
 - [x] No root `mcp.json` pretending the local stdio server is public HTTPS
