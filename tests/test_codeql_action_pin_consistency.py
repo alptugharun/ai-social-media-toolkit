@@ -40,6 +40,10 @@ class CodeQLActionPinConsistencyTests(unittest.TestCase):
             r'        patterns:\n          - "github/codeql-action/\*"\s*$',
         )
 
+    def test_dependabot_config_edits_run_this_regression_in_ci(self):
+        workflow = (WORKFLOWS / "validate-skills.yml").read_text(encoding="utf-8")
+        self.assertEqual(2, workflow.count('      - ".github/dependabot.yml"'))
+
 
 if __name__ == "__main__":
     unittest.main()
