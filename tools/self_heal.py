@@ -36,6 +36,16 @@ PATTERNS: tuple[tuple[str, tuple[str, ...], bool, str, str], ...] = (
         "GitHub API rate-limit kanıtı var; Retry-After veya reset süresi bilinmeden otomatik yeniden deneme yapılmayacak.",
     ),
     (
+        "http-rate-limit",
+        (
+            r"\bHTTP(?: Error)?\s*:?\s*429\b",
+            r"\b429\s*:?\s*Too Many Requests\b",
+        ),
+        False,
+        "high",
+        "HTTP 429 hız sınırı kanıtı var; güvenli bekleme süresi belirlenmeden yeniden deneme yapılmayacak.",
+    ),
+    (
         "github-api-403",
         (
             r"GitHub API error:?\s*403\b",
@@ -48,8 +58,8 @@ PATTERNS: tuple[tuple[str, tuple[str, ...], bool, str, str], ...] = (
     (
         "transient-network-or-http",
         (
-            r"\bHTTP\s+(429|500|502|503|504)\b",
-            r"\b(429|500|502|503|504)\s+(Too Many Requests|Internal Server Error|Bad Gateway|Service Unavailable|Gateway Timeout)\b",
+            r"\bHTTP\s+(500|502|503|504)\b",
+            r"\b(500|502|503|504)\s+(Internal Server Error|Bad Gateway|Service Unavailable|Gateway Timeout)\b",
             r"connection reset",
             r"connection timed out",
             r"read timed out",
@@ -149,7 +159,7 @@ def _signal_lines(log_text: str) -> list[str]:
             continue
         if re.search(
             r"\berror\b|\bfail(?:ed|ure|ures)?\b|\bforbidden\b|\bunauthorized\b|"
-            r"rate limit|timeout|timed out|\bexception\b|\btraceback\b|\bfatal\b|"
+            r"rate limit|\b429\s*:?\s*Too Many Requests\b|timeout|timed out|\bexception\b|\btraceback\b|\bfatal\b|"
             r"\bassertion\b|not a git repository|\bpermission\b|bad credentials|"
             r"module.*not found|syntaxerror|http\s+[45]\d\d",
             line,
@@ -174,7 +184,7 @@ def _failed_test_ids(evidence: list[str]) -> list[str]:
 
 
 def _fingerprint_basis(evidence: list[str], classification: str, run_id: str = "") -> str:
-    if classification in {"github-api-403", "github-api-rate-limit"} and run_id:
+    if classification in {"github-api-403", "github-api-rate-limit", "http-rate-limit"} and run_id:
         # Retries of one Actions run share an incident despite varying log noise.
         # Keep independent runs separate: a 403 can have different root causes.
         return f"workflow-run:{run_id}"
