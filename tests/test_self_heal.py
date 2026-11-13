@@ -31,6 +31,33 @@ class SelfHealTests(unittest.TestCase):
                 self.assertFalse(d.retryable)
                 self.assertFalse(d.probe_retry_safe)
 
+    def test_generic_http_429_fails_closed_without_immediate_retry_or_probe(self):
+        # Realistic urllib and proxy error forms without a "GitHub API" prefix.
+        examples = (
+            "urllib.error.HTTPError: HTTP Error 429: Too Many Requests",
+            "Gateway returned HTTP 429",
+            "429 Too Many Requests",
+            "API response 429: Too Many Requests",
+        )
+        for log in examples:
+            with self.subTest(log=log):
+                d = classify(log, workflow="GitHub Opportunity Radar", run_id="synthetic-429")
+                self.assertEqual(d.classification, "http-rate-limit")
+                self.assertEqual(d.confidence, "high")
+                self.assertFalse(d.retryable)
+                self.assertFalse(d.probe_retry_safe)
+                self.assertEqual(len(d.fingerprint), 12)
+
+    def test_generic_http_429_incident_dedupes_within_one_run_only(self):
+        first = classify("HTTP Error 429: Too Many Requests",
+                         workflow="Commercial Opportunity Radar", run_id="run-a")
+        repeat = classify("429 Too Many Requests",
+                          workflow="Commercial Opportunity Radar", run_id="run-a", run_attempt=2)
+        next_run = classify("HTTP Error 429: Too Many Requests",
+                            workflow="Commercial Opportunity Radar", run_id="run-b")
+        self.assertEqual(first.fingerprint, repeat.fingerprint)
+        self.assertNotEqual(first.fingerprint, next_run.fingerprint)
+
     def test_secondary_rate_limit_is_not_blindly_retried(self):
         log = (
             "GitHub API error: 403 Forbidden; endpoint=/search/repositories; "
