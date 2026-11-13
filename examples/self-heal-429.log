@@ -1,0 +1,2 @@
+# Synthetic test log. Do not replace this with production tokens or private logs.
+urllib.error.HTTPError: HTTP Error 429: Too Many Requests
