@@ -225,6 +225,8 @@ Purpose:
 
 ### Event-driven — Self-Healing Automation Guardian
 
+Safe first run: [English](SELF-HEAL-FROM-ZERO.md) / [Türkçe](SELF-HEAL-FROM-ZERO_TR.md), with a synthetic HTTP 429 example, expected results, privacy limits and regression command.
+
 Workflow:
 
 `.github/workflows/self-heal.yml`
