@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import hashlib
+import posixpath
+import re
 import tempfile
 import unittest
 import zipfile
@@ -48,6 +50,19 @@ class ReleaseAssetTests(unittest.TestCase):
                 self.assertIn(f"skills/{name}/SKILL.md", names)
             self.assertIn("references/CREATOR-CONTEXT-TEMPLATE.md", names)
             self.assertIn("references/EVIDENCE-POLICY.md", names)
+            for required in (
+                "skills/LICENSE",
+                "LICENSE.md",
+                "THIRD-PARTY-NOTICES.md",
+                "docs/INSTALLATION.md",
+                "docs/AGENT-SKILLS-FROM-ZERO.md",
+                "docs/AGENT-SKILLS-FROM-ZERO_TR.md",
+                "docs/HOW-TO-USE-EVERYTHING.md",
+                "docs/START-FROM-ZERO.md",
+                "docs/START-FROM-ZERO_TR.md",
+                "examples/CREATOR-CONTEXT-EXAMPLE.md",
+            ):
+                self.assertIn(required, names)
 
     def test_context_builder_asset_is_narrow(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -55,6 +70,7 @@ class ReleaseAssetTests(unittest.TestCase):
             with zipfile.ZipFile(out / "creator-context-builder-v0.3.0-alpha.1.zip") as archive:
                 names = set(archive.namelist())
             self.assertIn("creator-context-builder/SKILL.md", names)
+            self.assertIn("LICENSE", names)
             self.assertFalse(any(name.startswith("creator-ops/") for name in names))
 
     def test_frame_studio_asset_is_offline_app_without_tests(self):
@@ -69,7 +85,56 @@ class ReleaseAssetTests(unittest.TestCase):
                 "creator-frame-studio/README.md",
             ):
                 self.assertIn(required, names)
+            self.assertIn("creator-frame-studio/LICENSE", names)
             self.assertFalse(any("/tests/" in name for name in names))
+
+    def test_skills_bundle_readme_local_links_resolve_inside_archive(self):
+        with tempfile.TemporaryDirectory() as temp:
+            out = self.build(Path(temp))
+            with zipfile.ZipFile(out / "agent-skills-v0.3.0-alpha.1.zip") as archive:
+                names = set(archive.namelist())
+                readme = archive.read("skills/README.md").decode("utf-8")
+            local_targets = re.findall(r"\]\((\.\./[^)#]+)(?:#[^)]+)?\)", readme)
+            self.assertTrue(local_targets)
+            for target in local_targets:
+                normalized = posixpath.normpath(posixpath.join("skills", target))
+                self.assertFalse(normalized.startswith("../"), target)
+                self.assertIn(normalized, names, target)
+
+    def test_extracted_skills_zip_resolves_local_beginner_routes(self):
+        """Verify extracted bytes and first-use links, not actual agent-host execution."""
+        with tempfile.TemporaryDirectory() as temp:
+            parent = Path(temp)
+            out = self.build(parent)
+            extracted = parent / "extracted"
+            with zipfile.ZipFile(out / "agent-skills-v0.3.0-alpha.1.zip") as archive:
+                for name in archive.namelist():
+                    parts = posixpath.normpath(name).split("/")
+                    self.assertFalse(name.startswith("/") or ".." in parts, name)
+                archive.extractall(extracted)
+
+            readme = extracted / "skills" / "README.md"
+            manual = extracted / "docs" / "HOW-TO-USE-EVERYTHING.md"
+            start_en = extracted / "docs" / "START-FROM-ZERO.md"
+            start_tr = extracted / "docs" / "START-FROM-ZERO_TR.md"
+            for path in (readme, manual, start_en, start_tr):
+                self.assertTrue(path.is_file(), str(path))
+                markdown = path.read_text(encoding="utf-8")
+                links = re.findall(r"\]\(([^)#]+)(?:#[^)]+)?\)", markdown)
+                for target in links:
+                    if target.startswith(("https://", "http://", "mailto:")) or "://" in target:
+                        continue
+                    local = (path.parent / target).resolve()
+                    self.assertTrue(local.is_relative_to(extracted.resolve()), target)
+                    self.assertTrue(local.is_file(), f"{path.relative_to(extracted)} -> {target}")
+
+            for relative in (
+                "skills/creator-context-builder/SKILL.md",
+                "skills/LICENSE",
+                "LICENSE.md",
+                "THIRD-PARTY-NOTICES.md",
+            ):
+                self.assertEqual((ROOT / relative).read_bytes(), (extracted / relative).read_bytes())
 
     def test_zip_outputs_are_reproducible(self):
         with tempfile.TemporaryDirectory() as temp:

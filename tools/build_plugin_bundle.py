@@ -21,6 +21,15 @@ EXTRA_FILES = (
     Path("prompts/assistants/plugin-mcp-architect.md"),
 )
 
+NOTICE_FILES = (
+    Path("skills/LICENSE"),
+    Path("LICENSE.md"),
+    Path("THIRD-PARTY-NOTICES.md"),
+)
+
+# Self-contained first actions for people downloading the plugin ZIP.
+QUICKSTART_FILES = (Path("PLUGIN-QUICKSTART.md"), Path("PLUGIN-QUICKSTART_TR.md"))
+
 SKIP_NAMES = {"__pycache__", ".DS_Store"}
 SKIP_SUFFIXES = {".pyc", ".pyo"}
 
@@ -75,7 +84,7 @@ def bundle_files(root: Path) -> list[Path]:
     files = [root / "plugin.json"]
     for skill_dir in discover_skill_dirs(root):
         files.extend(iter_tree_files(skill_dir))
-    for relative in EXTRA_FILES:
+    for relative in (*EXTRA_FILES, *NOTICE_FILES, *QUICKSTART_FILES):
         path = root / relative
         if not path.is_file():
             raise ValueError(f"required plugin resource missing: {relative.as_posix()}")
