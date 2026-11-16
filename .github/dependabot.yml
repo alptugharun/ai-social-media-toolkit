@@ -12,7 +12,6 @@ updates:
       prefix: "chore(actions)"
     labels:
       - dependencies
-      - ci
     groups:
       codeql-actions:
         patterns:
