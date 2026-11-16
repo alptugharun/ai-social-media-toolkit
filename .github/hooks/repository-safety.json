@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hooks": {
+    "preToolUse": [
+      {
+        "type": "command",
+        "matcher": "bash|powershell",
+        "bash": "python tools/copilot_shell_guard.py",
+        "powershell": "python tools/copilot_shell_guard.py",
+        "timeoutSec": 5
+      }
+    ]
+  }
+}
