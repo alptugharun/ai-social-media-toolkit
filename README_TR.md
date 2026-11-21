@@ -9,7 +9,7 @@
 
 **README'ye güvenme. Testi çalıştır. Demoyu bozmayı dene. Sınırları kendin gör.**
 
-`v0.3.0-alpha.1 · 266 test PASS · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
+`v0.3.0-alpha.1 · CI durumu aşağıda · 19 Agent Skill · 3 salt-okunur MCP aracı · canlı Creator Frame Studio`
 
 Bu repo; prompt sistemlerini, asistan blueprint'lerini, Agent Skills yapılarını, MCP'yi, API/bot başlangıçlarını, creator araçlarını ve otomasyonu tek bir **kanıt-öncelikli** akışta birleştirir.
 
@@ -37,9 +37,7 @@ Başarılı çalıştırma; yerel kataloğu, dry-run provider yolunu, Agent Skil
 
 **PASS?** Aşağıdan tek bir yol seç. **FAIL?** İlk hatayı sakla ve tahmin yürütmek yerine troubleshooting/evidence yolunu kullan.
 
-Bu proof sana kurulum süresi kazandırdıysa repo'ya star vermen başkalarının keşfetmesine yardım eder. Tekrarlanabilir bir hata raporu ise genel bir “çalışıyor” yorumundan daha değerlidir.
-
-**Gerçek ilk kurulumu birlikte test edelim:** [Real User Lab #1 — 10 bağımsız rapor aranıyor](https://github.com/alptugharun/ai-social-media-toolkit/issues/178). PASS, FAIL ve BLOCKED sonuçlarının tamamı; ortam ve ilk takılma noktası yazıldığında değerlidir.
+**İlk kurulum yolunu iyileştirmemize yardım et:** [Real User Lab #1](https://github.com/alptugharun/ai-social-media-toolkit/issues/178), bağımsız PASS, FAIL ve BLOCKED raporlarını topluyor. Ortamını, ilk anlaşılmayan veya çalışmayan adımı, beklenen ve gerçekleşen sonucu yaz. Kimlik bilgilerini ve özel müşteri verilerini paylaşma.
 
 ## En kısa yol hangisi?
 
