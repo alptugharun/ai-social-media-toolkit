@@ -24,8 +24,10 @@ class MCPPublishWorkflowTests(unittest.TestCase):
         self.assertIn("id-token: write", self.text)
 
     def test_publish_action_is_immutable_and_no_long_lived_pypi_secret_is_used(self):
+        # Upstream v1.14.3 addresses GHSA-5xjx-3w67-w9x9.
+        # Keep this exact reviewed SHA as a deliberate release-publisher gate.
         self.assertIn(
-            "pypa/gh-action-pypi-publish@dc37677b2e1c63e2034f94d8a5b11f265b73ba33",
+            "pypa/gh-action-pypi-publish@7245906fb61fa33a13554f9d5fb856fe61758086",
             self.text,
         )
         forbidden = (
