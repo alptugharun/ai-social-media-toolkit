@@ -74,6 +74,10 @@ class GitHubGrowthRadarTests(unittest.TestCase):
         self.assertIn("does **not** claim exact GitHub search volume", report)
         self.assertIn("heuristic", report)
         self.assertIn("human review", report.lower())
+        self.assertTrue(report.startswith("# GitHub Opportunity Radar\n\nGenerated:"))
+        self.assertIn("\n| --- | ---: |", report)
+        self.assertTrue(report.endswith("\n"))
+        self.assertNotIn("\\nGenerated:", report)
 
 
 

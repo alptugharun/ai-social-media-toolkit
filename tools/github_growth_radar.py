@@ -409,7 +409,7 @@ def render_report(now: datetime, trending: list[dict], lanes: list[LaneResult], 
     lines.append("- Opportunity and novelty scores are heuristics for prioritization, not predictions.")
     lines.append("")
     lines.append("Source playbook: `references/GITHUB-GROWTH-PLAYBOOK.md`")
-    return "\\n".join(lines) + "\\n"
+    return "\n".join(lines) + "\n"
 
 
 def describe_github_http_error(exc: urllib.error.HTTPError) -> str:
