@@ -103,11 +103,43 @@ class PluginPackageTests(unittest.TestCase):
             for skill_dir in self.skill_dirs:
                 self.assertIn(f"skills/{skill_dir.name}/SKILL.md", names)
             self.assertTrue(EXTRA_RESOURCES.issubset(names))
+            for notice in ("skills/LICENSE", "LICENSE.md", "THIRD-PARTY-NOTICES.md"):
+                self.assertIn(notice, names)
             self.assertFalse(any(name.startswith(".git") for name in names))
             self.assertFalse(any(name.startswith(".github/") for name in names))
             self.assertFalse(any(name.startswith("tests/") for name in names))
             self.assertFalse(any("__pycache__" in name for name in names))
             self.assertNotIn("mcp.json", names)
+
+    def test_extracted_plugin_quickstarts_have_local_first_action(self):
+        """Inspect future ZIP bytes, not host activation or plugin approval."""
+        with tempfile.TemporaryDirectory() as temp_dir:
+            out = Path(temp_dir) / "plugin.zip"
+            result = subprocess.run(
+                [sys.executable, str(BUILDER), "--output", str(out)],
+                cwd=ROOT, text=True, capture_output=True, timeout=30,
+            )
+            self.assertEqual(0, result.returncode, result.stderr)
+            extracted = Path(temp_dir) / "extracted"
+            with zipfile.ZipFile(out) as archive:
+                archive.extractall(extracted)
+
+            for name, marker in (
+                ("PLUGIN-QUICKSTART.md", "Safe synthetic first request"),
+                ("PLUGIN-QUICKSTART_TR.md", "Güvenli örnek ilk istek"),
+            ):
+                guide = extracted / name
+                self.assertTrue(guide.is_file(), name)
+                text = guide.read_text(encoding="utf-8")
+                self.assertIn(marker, text)
+                privacy_marker = "No automatic publishing" if name == "PLUGIN-QUICKSTART.md" else "Örnek otomatik yayın"
+                self.assertIn(privacy_marker, text)
+                self.assertIn("skills/brand-voice-humanizer/SKILL.md", text)
+                for target in re.findall(r"\]\(([^)#]+)(?:#[^)]+)?\)", text):
+                    if target.startswith(("https://", "http://", "mailto:")):
+                        continue
+                    self.assertNotIn("..", Path(target).parts)
+                    self.assertTrue((extracted / target).is_file(), f"{name} -> {target}")
 
     def test_plugin_architect_external_resources_are_in_bundle_allowlist(self):
         text = (SKILLS / "plugin-mcp-architect" / "SKILL.md").read_text(encoding="utf-8")
