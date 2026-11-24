@@ -587,6 +587,20 @@ Use the output as a prioritization aid, then apply human judgment.
 
 ---
 
+### Rewrite Fact Guard — local rewrite drift check
+
+**Job:** compare an original and rewritten draft for tracked lexical changes before publication.
+
+Run the safe bundled example:
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-good.txt --lock "garanti değildir"
+```
+
+Expected: `NO_TRACKED_CHANGE` and exit **0**. A `REVIEW_REQUIRED` result uses exit **1** so an agent/workflow can stop for human review instead of auto-approving the rewrite. Input/config errors use exit **2**.
+
+Use [the English helper guide](../skills/brand-voice-humanizer/README.md) or [Turkish guide](../skills/brand-voice-humanizer/README_TR.md) before real drafts. The helper is lexical, local and dependency-free; it is not semantic fact checking or a publication guarantee.
+
 ## 4. GitHub Opportunity Radar
 
 **Job:** create an evidence-aware report on Agent Skill / AI repository opportunity lanes.

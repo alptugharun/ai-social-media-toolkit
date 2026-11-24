@@ -15,6 +15,30 @@ class SelfHealTests(unittest.TestCase):
         self.assertTrue(d.retryable)
         self.assertEqual(len(d.fingerprint), 12)
 
+    def test_github_403_retries_are_one_incident_per_workflow_run(self):
+        workflow = "GitHub Opportunity Radar"
+        run_id = "40313193969"
+        failures = [
+            "2026-10-26T11:12:08.4331080Z GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+            "2026-10-26T11:14:13.5494406Z radar Generate report "
+            "GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+            "2026-10-26T11:17:05.7108770Z radar Generate report "
+            "GitHub API error: 403 Forbidden\n"
+            "##[error]Process completed with exit code 2.",
+        ]
+        incidents = [
+            classify(log, workflow=workflow, run_id=run_id, run_attempt=attempt)
+            for attempt, log in enumerate(failures, 1)
+        ]
+        self.assertTrue(all(d.classification == "github-api-403" for d in incidents))
+        self.assertEqual(len({d.fingerprint for d in incidents}), 1)
+        other_run = classify(failures[0], workflow=workflow, run_id="40313193970")
+        other_workflow = classify(failures[0], workflow="Different Workflow", run_id=run_id)
+        self.assertNotEqual(incidents[0].fingerprint, other_run.fingerprint)
+        self.assertNotEqual(incidents[0].fingerprint, other_workflow.fingerprint)
+
     def test_readiness_failure_is_not_blindly_retried(self):
         d = classify(
             "READINESS FAIL: Top-level workflow permissions must remain read-only.\n"
@@ -71,6 +95,45 @@ class SelfHealTests(unittest.TestCase):
         )
         self.assertEqual(d.classification, "test-regression")
         self.assertTrue(all("test_missing_tool_fails" not in line for line in d.evidence))
+
+    def test_same_failed_test_set_dedupes_across_changed_runner_noise(self):
+        first = classify(
+            "validate (windows-2025) Run installer tests 2026-10-17T11:13:00Z "
+            "test_initial_signing_uploads_once_without_replace (suite.Tests.test_initial_signing_uploads_once_without_replace) ... FAIL\n"
+            "FAIL: test_initial_signing_uploads_once_without_replace\n"
+            "AssertionError: 1 != 0\n"
+            "FAIL: test_partial_signatures_fail_closed_without_upload\n"
+            "AssertionError: expected message A\n"
+            "FAIL: test_rerun_preserves_all_existing_bundles\n"
+            "AssertionError: expected message B\n"
+            "FAILED (failures=3)",
+            workflow="Validate Agent Skills",
+        )
+        second = classify(
+            "validate (windows-2025) Run installer tests 2026-10-17T11:38:07Z "
+            "test_rerun_preserves_all_existing_bundles (suite.Tests.test_rerun_preserves_all_existing_bundles) ... FAIL\n"
+            "Traceback (most recent call last):\n"
+            "FAIL: test_rerun_preserves_all_existing_bundles\n"
+            "AssertionError: changed downstream text\n"
+            "FAIL: test_initial_signing_uploads_once_without_replace\n"
+            "AssertionError: different launcher text\n"
+            "FAIL: test_partial_signatures_fail_closed_without_upload\n"
+            "FAILED (failures=3)",
+            workflow="Validate Agent Skills",
+        )
+        self.assertEqual(first.classification, "test-regression")
+        self.assertEqual(first.fingerprint, second.fingerprint)
+
+    def test_different_failed_test_sets_get_different_fingerprints(self):
+        one = classify(
+            "FAIL: test_release_asset_license\nAssertionError: missing LICENSE\nFAILED (failures=1)",
+            workflow="Validate Agent Skills",
+        )
+        two = classify(
+            "FAIL: test_release_asset_checksum\nAssertionError: checksum mismatch\nFAILED (failures=1)",
+            workflow="Validate Agent Skills",
+        )
+        self.assertNotEqual(one.fingerprint, two.fingerprint)
 
     def test_matrix_prefixes_produce_same_test_regression_fingerprint(self):
         base = (

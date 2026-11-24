@@ -511,6 +511,38 @@ Kendi kendimize install spam'i yapıp puan kasmayız.
 
 ---
 
+## Rewrite Fact Guard — yerel önce/sonra kontrolü
+
+**Nedir:** Brand Voice Humanizer içindeki, özgün metin ile yeniden yazılmış metni karşılaştıran dependency-free Python helper'ı.
+
+**Ne zaman kullan:** iki sürüm de elindeyse ve sayısal ifadeler, yaygın birimler, literal URL'ler veya `--lock` ile koruduğun tam ifadeler değişmiş mi görmek istiyorsan.
+
+**Ne değildir:** anlamsal doğruluk kontrolü, AI tespiti, hukuki inceleme veya yayın garantisi değildir. Aynı token farklı bağlama taşınabilir; kilitlemediğin bir niteleyici değişebilir ve araç bunu kaçırabilir.
+
+**Başlamadan önce:** Python 3.10+ kullan ve önce yapay/hassas olmayan metinle dene. API anahtarı, ücretli model veya ağ bağlantısı gerekmez. Özel metinlerin log'a düşebileceği ortamlarda `--show-values` kullanma.
+
+**İlk güvenli komut:**
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-good.txt --lock "garanti değildir"
+```
+
+**Beklenen:** `NO_TRACKED_CHANGE`, sıfır değişiklik ve **0** çıkış kodu.
+
+Ardından bilerek değiştirilmiş yapay örneği çalıştır:
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-review.txt --lock "garanti değildir" --format json --show-values
+```
+
+**Beklenen:** `REVIEW_REQUIRED`, **7 bulgu**, **1** çıkış kodu. **2** çıkış kodu ise değişiklik bulgusu değil, girdi/ayar problemidir.
+
+**PASS neyi kanıtlar:** o örnekte izlenen lexical token/URL/korumalı ifadenin tutulduğunu. Metnin tamamının olgusal veya anlamsal olarak doğru olduğunu kanıtlamaz.
+
+**İlk sık hatalar:** yanlış dosya yolu, Python sürümünün düşük olması, `--lock` ifadesinin özgün metinde bulunmaması, UTF-8 problemi veya özel metinde `--show-values` kullanımı. Ayrıntı için [Türkçe rehberi](../skills/brand-voice-humanizer/README_TR.md) kullan.
+
+---
+
 # 16. Hangisini seçmeliyim?
 
 **Kod bilmiyorum, bir şey denemek istiyorum**  

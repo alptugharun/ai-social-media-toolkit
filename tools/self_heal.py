@@ -152,6 +152,30 @@ def _signal_lines(log_text: str) -> list[str]:
     return lines[-24:]
 
 
+def _failed_test_ids(evidence: list[str]) -> list[str]:
+    names: set[str] = set()
+    patterns = (
+        re.compile(r"\b(?:FAIL|ERROR):\s+(test_[A-Za-z0-9_]+)\b"),
+        re.compile(r"\b(test_[A-Za-z0-9_]+)\s+\([^)]*\)\s+\.\.\.\s+(?:FAIL|ERROR)\b"),
+    )
+    for line in evidence:
+        for pattern in patterns:
+            names.update(pattern.findall(line))
+    return sorted(names)
+
+
+def _fingerprint_basis(evidence: list[str], classification: str, run_id: str = "") -> str:
+    if classification == "github-api-403" and run_id:
+        # Retries of one Actions run share an incident despite varying log noise.
+        # Keep independent runs separate: a 403 can have different root causes.
+        return f"workflow-run:{run_id}"
+    if classification == "test-regression":
+        failed_tests = _failed_test_ids(evidence)
+        if failed_tests:
+            return "\n".join(f"failed-test:{name}" for name in failed_tests)
+    return "\n".join(evidence[:16]) or "<no-signal>"
+
+
 def classify(log_text: str, workflow: str = "", run_id: str = "", run_attempt: int = 1) -> Diagnosis:
     evidence = _signal_lines(log_text)
     searchable = "\n".join(evidence)
@@ -169,7 +193,7 @@ def classify(log_text: str, workflow: str = "", run_id: str = "", run_attempt: i
             summary = message
             break
 
-    normalized = "\n".join(evidence[:16]) or "<no-signal>"
+    normalized = _fingerprint_basis(evidence, classification, str(run_id))
     digest_input = f"{workflow}\n{classification}\n{normalized}".encode("utf-8", errors="replace")
     fingerprint = hashlib.sha256(digest_input).hexdigest()[:12]
 

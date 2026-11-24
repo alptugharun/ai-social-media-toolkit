@@ -107,6 +107,24 @@ class CreatorCsvTests(unittest.TestCase):
         self.assertEqual(OUTLIER.load_rows(self.path)[0]["post_id"], "001")
         self.assertIn(",001,", self.cli(OUTLIER).stdout)
 
+    def test_formula_like_text_is_neutralized_in_ranked_output(self):
+        dangerous = ("=1+1", "+1+1", "-1+1", "@SUM(1,1)", "\t=1+1", "  =1+1")
+        for value in dangerous:
+            with self.subTest(tool="signal2content_score", value=value):
+                self.make_csv(SIGNAL, [[value, 80, 80, 80, 80, 80, 20]])
+                result = self.cli(SIGNAL)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                row = next(csv.DictReader(io.StringIO(result.stdout)))
+                self.assertEqual(row["name"], "'" + value)
+
+            with self.subTest(tool="outlier_score", value=value):
+                self.make_csv(OUTLIER, [[value, value, 100, 10, 2, 3, 4]])
+                result = self.cli(OUTLIER)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                row = next(csv.DictReader(io.StringIO(result.stdout)))
+                self.assertEqual(row["platform"], "'" + value)
+                self.assertEqual(row["post_id"], "'" + value)
+
     def test_reordered_columns_and_named_extras(self):
         for module in TOOLS:
             self.make_csv(module)

@@ -14,6 +14,18 @@ Use plain numeric values such as `12000` or `82.5`, not `12K`, `12,000`, `82,5`,
 
 Neither tool requires dates. A named date column is ignored, not validated. No file basename or fixed folder is required: pass the file path as the first argument. Keep private exports outside the Git checkout.
 
+### Spreadsheet-safe ranked output
+
+The ranked CSV printed to stdout treats user-controlled text fields as untrusted spreadsheet cells. If a `name`, `platform` or `post_id` value begins with `=`, `+`, `-` or `@` after leading whitespace, the tool prefixes a single quote in the **output only**. For example, an input name of `=1+1` is emitted as `'=1+1`. This reduces the risk that common spreadsheet applications interpret imported text as a formula; the input file is never rewritten.
+
+Verify the guard with:
+
+```bash
+python -m unittest tests.test_creator_csv.CreatorCsvTests.test_formula_like_text_is_neutralized_in_ranked_output -v
+```
+
+A PASS proves that these three exported text fields receive the guard for the covered formula-like prefixes, including leading whitespace. It does **not** prove every spreadsheet application or every downstream CSV transformation is safe. If another system rewrites cells after export, apply that system's own import/security controls too.
+
 ## Content opportunities
 
 Tool: [`tools/signal2content_score.py`](../tools/signal2content_score.py)  

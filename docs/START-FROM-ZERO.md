@@ -637,6 +637,38 @@ skills.sh ranks skills partly from anonymous install telemetry from its CLI. Ins
 
 ---
 
+## Rewrite Fact Guard — local before/after check
+
+**What it is:** a dependency-free Python helper inside Brand Voice Humanizer that compares an original draft with a rewritten draft.
+
+**Use it when:** you already have both versions and want a local warning for changed number-like tokens, common units, literal URLs or exact phrases you marked with `--lock`.
+
+**Do not use it as:** semantic fact checking, an AI detector, legal review or a publication guarantee. Unchanged tokens can still have changed meaning/associations, and an unprotected qualifier can change without being detected.
+
+**Before starting:** use Python 3.10+ and synthetic/non-sensitive text first. No API key, model subscription or network request is required. Avoid `--show-values` for private drafts that may enter logs.
+
+**First safe command:**
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-good.txt --lock "garanti değildir"
+```
+
+**Expected:** `NO_TRACKED_CHANGE`, zero changed items and exit code **0**.
+
+Then run the deliberately changed synthetic example:
+
+```bash
+python skills/brand-voice-humanizer/scripts/fact_guard.py --before skills/brand-voice-humanizer/examples/before.txt --after skills/brand-voice-humanizer/examples/after-review.txt --lock "garanti değildir" --format json --show-values
+```
+
+**Expected:** `REVIEW_REQUIRED`, **7 findings**, exit code **1**. Exit code **2** means input/configuration error, not a detected rewrite change.
+
+**PASS proves:** the covered lexical tokens/URLs/protected phrase were retained in that example. It does **not** prove the whole rewrite is factually or semantically correct.
+
+**Common first failures:** wrong file path, Python below 3.10, a `--lock` phrase absent from the original, invalid UTF-8 or a private draft being logged with `--show-values`. Use [the full English guide](../skills/brand-voice-humanizer/README.md) for troubleshooting.
+
+---
+
 # 16. “Which one should I use?” decision tree
 
 ### I just want to try something useful without coding
