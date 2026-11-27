@@ -1,6 +1,6 @@
 import unittest
 
-from tools.self_heal import classify
+from tools.self_heal import classify, retry_allowed
 
 
 class SelfHealTests(unittest.TestCase):
@@ -242,6 +242,50 @@ class SelfHealTests(unittest.TestCase):
         b = classify(ubuntu, workflow="Validate Agent Skills")
         self.assertEqual(a.classification, "test-regression")
         self.assertEqual(a.fingerprint, b.fingerprint)
+
+    def test_learned_transient_cannot_override_known_nonretryable_diagnosis(self):
+        for log in (
+            "HTTP 429 Too Many Requests",
+            "GitHub API error: 403 Forbidden",
+            "GitHub API error: 403 Forbidden; category=secondary-rate-limit",
+            "GitHub API error: 429 Too Many Requests",
+            "Permission denied",
+            "AssertionError: synthetic failure",
+        ):
+            with self.subTest(log=log):
+                d = classify(log)
+                self.assertNotEqual(d.classification, "unknown")
+                self.assertFalse(d.retryable)
+                for attempt in (1, 2, 3):
+                    self.assertFalse(retry_allowed(
+                        d.classification, d.retryable, d.probe_retry_safe,
+                        True, attempt, 3, True,
+                    ))
+
+    def test_retry_decision_preserves_attempt_cap_and_unknown_policy(self):
+        transient = classify("HTTP 503 Service Unavailable")
+        unknown = classify("unrecognized synthetic failure")
+        for attempt in (1, 2, 3):
+            with self.subTest(attempt=attempt):
+                self.assertEqual(retry_allowed(
+                    transient.classification, transient.retryable,
+                    transient.probe_retry_safe, False, attempt, 3, True,
+                ), attempt < 3)
+                self.assertEqual(retry_allowed(
+                    unknown.classification, unknown.retryable,
+                    unknown.probe_retry_safe, False, attempt, 3, True,
+                ), attempt == 1)
+                self.assertEqual(retry_allowed(
+                    unknown.classification, unknown.retryable,
+                    unknown.probe_retry_safe, True, attempt, 3, False,
+                ), attempt < 3)
+                self.assertFalse(retry_allowed(
+                    "unknown", False, False, True, attempt, 3, True,
+                ))
+                self.assertFalse(retry_allowed(
+                    "unknown", False, True, False, attempt, 3, False,
+                ))
+        self.assertFalse(retry_allowed("unknown", False, True, True, 0, 3, True))
 
 
 if __name__ == "__main__":

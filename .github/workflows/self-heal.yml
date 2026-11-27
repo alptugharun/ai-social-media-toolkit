@@ -125,14 +125,9 @@ jobs:
           probe_unknown_once="$(jq -r '.probe_unknown_once' .github/self-heal-policy.json)"
           base_backoff="$(jq -r '.base_backoff_seconds' .github/self-heal-policy.json)"
 
-          should_retry=false
-          if [ "$RUN_ATTEMPT" -lt "$max_attempts" ]; then
-            if [ "$RETRYABLE" = "true" ] || [ "$learned_transient" = "true" ]; then
-              should_retry=true
-            elif [ "$CLASSIFICATION" = "unknown" ] && [ "$PROBE_RETRY_SAFE" = "true" ] && [ "$probe_unknown_once" = "true" ] && [ "$RUN_ATTEMPT" -eq 1 ]; then
-              should_retry=true
-            fi
-          fi
+          # A historical transient label must not override an explicit nonretryable diagnosis.
+          should_retry="$(python -c 'import sys; from tools.self_heal import retry_allowed; c, r, p, l, a, m, u = sys.argv[1:]; print(str(retry_allowed(c, r == "true", p == "true", l == "true", int(a), int(m), u == "true")).lower())' \
+            "$CLASSIFICATION" "$RETRYABLE" "$PROBE_RETRY_SAFE" "$learned_transient" "$RUN_ATTEMPT" "$max_attempts" "$probe_unknown_once")"
 
           {
             cat /tmp/self-heal.md

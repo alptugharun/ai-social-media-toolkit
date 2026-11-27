@@ -230,6 +230,18 @@ def classify(log_text: str, workflow: str = "", run_id: str = "", run_attempt: i
     )
 
 
+def retry_allowed(classification: str, retryable: bool, probe_retry_safe: bool,
+                  learned_transient: bool, run_attempt: int, max_attempts: int,
+                  probe_unknown_once: bool) -> bool:
+    if not 1 <= run_attempt < max_attempts:
+        return False
+    if retryable:
+        return True
+    if classification != "unknown" or not probe_retry_safe:
+        return False
+    return learned_transient or (probe_unknown_once and run_attempt == 1)
+
+
 def render_markdown(d: Diagnosis) -> str:
     evidence = "\n".join(f"- `{line[:400]}`" for line in d.evidence) or "- Log içinde ayıklanabilir hata satırı bulunamadı."
     return (
